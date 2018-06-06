@@ -1,0 +1,335 @@
+// avc scan t5
+
+#include <OSCMessage.h>
+#include <StepControl.h>
+#include <ADC.h>
+#include <QueueList.h>
+//#include <math.h>
+
+#define IR_DEBUG 0
+#define ADC_DEBUG 1     //TIMING
+#define OSC_DEBUG 1
+
+#define ledPin 13       // TIME_ZERO_PIN
+
+// I/O
+const int enWifi = 7;
+const int enScan = 6;   // SCN_ENABLE
+const int rstScan = 8;  // SCN_RESET
+const int M0 = 24;      // SCN_M0
+const int M1 = 25;      // SCN_M1
+const int M2 = 26;      // SCN_M2
+const int AtHome = 37;  // SCN_ZERO_PULSE
+const int t1 = 27;      // TIME_STEP_PIN
+const int t2 = 28;      // TIME_ADC_PIN
+const int Lr0 = A15;    // SCN_SENSOR_0
+const int Sr0 = A12;    // SCN_SENSOR_1
+const int Lr1 = A14;    // SCN_SENSOR_2
+const int Sr1 = A13;    // SCN_SENSOR_3
+
+// Memory variables
+volatile int startNow = 0;
+volatile long scount = 0;
+volatile int atHome;
+volatile int step_active;
+volatile int osc_Msg;
+
+uint16_t Lr0_Distance;
+uint16_t Sr0_Distance;
+uint16_t Lr1_Distance;
+uint16_t Sr1_Distance;
+
+
+
+QueueList<int> Lr0_raw;
+QueueList<int> Sr0_raw;
+QueueList<int> Lr1_raw;
+QueueList<int> Sr1_raw;
+QueueList<float> irDist;
+
+OSCMessage Rcv;
+
+char s1_Buffer[1000];
+int j;
+
+union TmData
+{
+  uint16_t Write[24];
+  uint8_t Read[48];
+};
+
+union TmData Telemetry;
+
+// motor object
+Stepper motor(2, 3);        //
+StepControl<>controller;    //
+
+// adc object
+ADC *adc = new ADC();       // adc object
+ADC::Sync_result result;    //
+ADC::Sync_result result1;   //
+
+// ******************** Start Setup ****************************
+void setup()
+{
+  // initialize the I/O pins
+  pinMode(enWifi, OUTPUT);
+  pinMode(ledPin, OUTPUT);
+  pinMode(enScan, OUTPUT);
+  pinMode(rstScan, OUTPUT);
+  pinMode(M0, OUTPUT);
+  pinMode(M1, OUTPUT);
+  pinMode(M2, OUTPUT);
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, INPUT_PULLUP);
+  pinMode(AtHome, INPUT);
+  pinMode(t1, OUTPUT);
+  pinMode(t2, OUTPUT);
+
+atHome = 0;
+step_active = 0;
+
+  /*
+     Set Step Resolution
+     M0 M1 M2            stepps/sec  1 rev
+     0  0  0  Full step  200
+     1  0  0  Half step  400
+     0  1  0  1/4 step   800
+     1  1  0  1/8 step   1600
+     0  0  1  1/16 step  3200
+     1  0  1  1/32 step  6400
+     0  1  1  1/32 step
+     1  1  1  1/32 step
+  */
+
+  digitalWrite(M0, 0);  //
+  digitalWrite(M1, 0);  //
+  digitalWrite(M2, 1);  //
+
+  // enable wifi
+  digitalWrite(enWifi, 1);
+  delay(5000);
+
+  attachInterrupt(4, step_isr, RISING);
+  attachInterrupt(AtHome, home_isr, FALLING);
+  // setup motor
+  motor.setMaxSpeed(1600);          //
+  motor.setAcceleration(800);       //
+  motor.setInverseRotation(true);   //
+  motor.setPullInSpeed(100);        //
+
+  // setup adc
+  adc->setReference(ADC_REFERENCE::REF_3V3, ADC_0); //
+  adc->setReference(ADC_REFERENCE::REF_3V3, ADC_1); //
+  adc->setResolution(12, ADC_0);                    //
+  adc->setResolution(12, ADC_1);                    //
+  adc->setAveraging(16, ADC_0);                     //
+  adc->setAveraging(16, ADC_1);                     //
+
+
+  Serial.begin(115200);
+  Serial1.begin(115200);
+
+  while (!Serial1);
+  Serial.println("Start");
+  Scan(); // start scanning
+  delay(1000);
+}
+// ************************** End Setup *******************************
+
+
+void loop()
+{
+  if (osc_Msg == 1)
+  {
+    Serial.print("Osc Message: ");
+    Serial.println(osc_Msg);
+    Cmd();
+  }
+  delay(25);
+}
+
+
+void Run()
+{
+  Serial.println("Run");
+
+  while (startNow) {
+    if (IR_DEBUG)
+    {
+      Serial.println("Step");
+      Serial.println(step_active);
+      Serial.println(scount);
+    }
+
+    if (step_active)
+    {
+      step_active = 0;
+      scount++;
+      ReadSensors();
+    }
+
+
+    if (irDist.count() >= 4)
+    {
+      if (OSC_DEBUG)
+      {
+        digitalWriteFast(t2, 1);
+      }
+
+      OSCMessage msg("/analog/0");
+//      for (int i = 0; i < 4; i++)
+//      {
+        msg.add((float)irDist.pop()).add((float)irDist.pop()).add((float)irDist.pop()).add((float)irDist.pop());
+//      }
+      msg.send(Serial1); // send the bytes to the Serial wifi stream
+      msg.empty(); // free space occupied by message
+    }
+    if (OSC_DEBUG)
+    {
+      digitalWriteFast(t2, 0);
+    }
+  }
+
+} //*********************** End Run *******************************
+
+void step_isr(void)
+{
+  step_active = 1;
+}
+
+void home_isr(void)
+{
+  atHome = 1;
+  scount = 0;
+  //digitalWriteFast(ledPin, !digitalReadFast(ledPin));
+}
+
+void Scan()
+{
+  digitalWrite(rstScan, 1);
+  digitalWrite(enScan, 0);
+  controller.rotateAsync(motor);
+}
+
+void ReadSensors()
+{
+  if (ADC_DEBUG)
+  {
+    digitalWriteFast(t1, 1);
+  }
+
+  if (adc->startSynchronizedSingleRead(Lr0, Sr0)) // reads sensors both front and right
+  {
+    while (adc->isConverting(ADC_0) || adc->isConverting(ADC_1))
+    {
+      // wait for conversions to complete
+    }
+    result = adc->readSynchronizedSingle();
+    irDist.push(result.result_adc0 * 3.3/4095);
+    irDist.push(result.result_adc1 * 3.3/4095);
+
+  } // end Lr0 & Sr0 sensors
+
+  if (adc->startSynchronizedSingleRead(Lr1, Sr1)) // reads Lr1 & Sr1 sensors
+  {
+    while (adc->isConverting(ADC_0) || adc->isConverting(ADC_1))
+    {
+      // wait for conversions to complete
+    }
+
+    result1 = adc->readSynchronizedSingle();
+    irDist.push(result1.result_adc0 * 3.3/4095);
+    irDist.push(result1.result_adc1 * 3.3/4095);
+
+    if (ADC_DEBUG)
+    {
+      digitalWriteFast(t1, 0);
+    }
+  }  // end Lr1 & Sr1 sensors
+
+  /* fail_flag contains all possible errors,
+    They are defined in  ADC_Module.h as
+
+    ADC_ERROR_OTHER
+    ADC_ERROR_CALIB
+    ADC_ERROR_WRONG_PIN
+    ADC_ERROR_ANALOG_READ
+    ADC_ERROR_COMPARISON
+    ADC_ERROR_ANALOG_DIFF_READ
+    ADC_ERROR_CONT
+    ADC_ERROR_CONT_DIFF
+    ADC_ERROR_WRONG_ADC
+    ADC_ERROR_SYNCH
+
+    You can compare the value of the flag with those masks to know what's the error.
+  */
+
+  if (adc->adc0->fail_flag) {
+    Serial.print("ADC0 error flags: 0x");
+    Serial.println(adc->adc0->fail_flag, HEX);
+
+  }
+#if ADC_NUM_ADCS>1
+  if (adc->adc1->fail_flag) {
+    Serial.print("ADC1 error flags: 0x");
+    Serial.println(adc->adc1->fail_flag, HEX);
+
+  }
+#endif
+} // *************** End Read Sensors ***********************
+
+// If you enable interrupts make sure to call readSingle() to clear the interrupt.
+void adc0_isr() {
+  adc->adc0->readSingle();
+}
+
+void serialEvent1()
+{
+
+  while (Serial1.available())
+  {
+    Rcv.fill(Serial1.read());
+  }
+  //  Serial.println("osc msg");
+  osc_Msg = 1;
+}
+
+void Cmd()
+{
+  Serial.println("Cmd");
+  osc_Msg = 0;
+  Rcv.dispatch("/Start/0", start0);
+  Rcv.dispatch("/Stop/0", stop0);
+  Rcv.dispatch("/1/fader1", throttle);
+  Rcv.dispatch("/1/fader2", steering);
+  Rcv.empty(); // free space occupied by message
+
+}
+
+void start0(OSCMessage &Rcv)
+{
+  Serial.println("start0");
+  startNow = 1;
+  Run();
+
+}
+
+void stop0(OSCMessage &Rcv)
+{
+  Serial.println("stop0");
+  //  startNow = 1;
+
+}
+
+void throttle(OSCMessage &Rcv)
+{
+  Serial.println("Throttle");
+}
+
+void steering(OSCMessage &Rcv)
+{
+  Serial.println("Steering");
+}
+

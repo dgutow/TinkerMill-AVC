@@ -1,0 +1,27 @@
+                                    self.iopTime,
+                                    self.iopMode,
+                                    self.iopAcceptCnt,
+                                    self.iopBistStatus,
+                                    self.iopSpeed,
+                                    self.iopSteerAngle,        
+                                    self.iopCumDistance,
+         
+                                    self.irLF_Range,
+                                    self.irLR_Range,        
+                                    self.irRF_Range,
+                                    self.irRR_Range,
+                                    
+                                    self.iopSwitchStatus,
+                                    
+                                    self.measScanAngle,
+                                    self.measScanSensor,
+                                    self.measScanDist,
+                            
+                                    self.iopBattVolt1,
+                                    self.iopBattVolt2,
+                                    self.iopAccelVert,
+                                    self.iopGyroHoriz,
+                                    self.iopCompAngle,
+                                    self.iopCameraAngle,        
+                                    self.iopSpare2,
+                                    self.iopSpare3)   
