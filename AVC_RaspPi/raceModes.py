@@ -50,6 +50,8 @@ class raceModes(object):
     ERROR           = 101   # An error occured
     ESTOP           = 102   # An estop occured
     
+    UNKNOWN         = 110   # huh?
+    
     ###########################################################################    
     # The values stored in this class
     
@@ -96,6 +98,9 @@ class raceModes(object):
         elif mode == self.WAIT_FOR_START:
             return "WAIT_FOR_START"    
             
+        elif mode == self.RACE_BEGIN:
+            return "RACE_BEGIN"
+            
         elif mode == self.RACE_STRAIGHT:
             return "RACE_STRAIGHT"               
         elif mode == self.RACE_CURVE:
@@ -133,10 +138,12 @@ class raceModes(object):
             
         elif mode == self.APPR_PED:
             return "APPR_PED"     
-        elif mode == self.NEGOT_PED:
-            return "NEGOT_PED"         
-        elif mode == self.RECOV_PED:
-            return "RECOV_PED"  
+        elif mode == self.APPR_XWALK:
+            return "APPR_XWALK"         
+        elif mode == self.STOP_XWALK:
+            return "STOP_XWALK" 
+        elif mode == self.XWALK_STARTUP:
+            return "XWALK_STARTUP"         
             
         elif mode == self.WAIT_FOR_END:
             return "WAIT_FOR_END"     
@@ -145,9 +152,13 @@ class raceModes(object):
         elif mode == self.TERMINATE:
             return "TERMINATE"   
         elif mode == self.ERROR:
-            return "ERROR"  
+            return "ERROR" 
+        elif mode == self.ESTOP:
+            return "ESTOP"
+        elif mode == self.UNKNOWN:
+            return "UNKNOWN"         
         else:           
-            return "UNKNOWN"    
+            return "truly unknown???"    
     # end toString
     
     ###########################################################################
@@ -157,3 +168,80 @@ class raceModes(object):
     # end printMode
     
 # end
+
+###############################################################################
+# TESTING
+###############################################################################
+if __name__ == "__main__":   
+    mode = raceModes()
+    mode.printMode ("starting up:  ")
+    
+    mode.setMode (raceModes.NONE           )     
+    mode.printMode ("NONE          ")
+    mode.setMode (raceModes.WAIT_FOR_BIST  )     
+    mode.printMode ("WAIT_FOR_BIST ")
+    mode.setMode (raceModes.WAIT_FOR_START )     
+    mode.printMode ("WAIT_FOR_START")
+
+    mode.setMode (raceModes.RACE_BEGIN     )     
+    mode.printMode ("RACE_BEGIN    ")
+    mode.setMode (raceModes.RACE_STRAIGHT  )     
+    mode.printMode ("RACE_STRAIGHT ")
+    mode.setMode (raceModes.RACE_CURVE     )     
+    mode.printMode ("RACE_CURVE    ")
+    mode.setMode (raceModes.NEGOT_CROSSING )     
+    mode.printMode ("NEGOT_CROSSING")
+
+    mode.setMode (raceModes.APPR_STOPSIGN  )     
+    mode.printMode ("APPR_STOPSIGN ")
+    mode.setMode (raceModes.NEGOT_STOPSIGN )     
+    mode.printMode ("NEGOT_STOPSIGN")
+    mode.setMode (raceModes.RECOV_STOPSIGN )     
+    mode.printMode ("RECOV_STOPSIGN")
+
+    mode.setMode (raceModes.APPR_HOOP      )     
+    mode.printMode ("APPR_HOOP     ")
+    mode.setMode (raceModes.NEGOT_HOOP     )     
+    mode.printMode ("NEGOT_HOOP    ")
+    mode.setMode (raceModes.RECOV_HOOP     )     
+    mode.printMode ("RECOV_HOOP    ")
+
+    mode.setMode (raceModes.APPR_BARRELS   )     
+    mode.printMode ("APPR_BARRELS  ")
+    mode.setMode (raceModes.NEGOT_BARRELS  )     
+    mode.printMode ("NEGOT_BARRELS ")
+    mode.setMode (raceModes.RECOV_BARRELS  )     
+    mode.printMode ("RECOV_BARRELS ")
+
+    mode.setMode    (raceModes.APPR_RAMP      )     
+    mode.printMode  ("APPR_RAMP     ")
+    mode.setMode    (raceModes.NEGOT_RAMP     )     
+    mode.printMode  ("NEGOT_RAMP    ")
+    mode.setMode    (raceModes.RECOV_RAMP     )     
+    mode.printMode  ("RECOV_RAMP    ")
+
+    mode.setMode (raceModes.APPR_PED       )     
+    mode.printMode ("APPR_PED      ")
+    mode.setMode (raceModes.APPR_XWALK     )     
+    mode.printMode ("APPR_XWALK    ")
+    mode.setMode (raceModes.STOP_XWALK     )     
+    mode.printMode ("STOP_XWALK    ")
+    mode.setMode (raceModes.XWALK_STARTUP  )     
+    mode.printMode ("XWALK_STARTUP ")
+
+    mode.setMode (raceModes.WAIT_FOR_END   )     
+    mode.printMode ("WAIT_FOR_END  ")
+    mode.setMode (raceModes.NEGOT_END      )     
+    mode.printMode ("NEGOT_END     ")
+
+    mode.setMode (raceModes.TERMINATE      )     
+    mode.printMode ("TERMINATE     ")
+    mode.setMode (raceModes.ERROR          )     
+    mode.printMode ("ERROR         ")
+    mode.setMode (raceModes.ESTOP          )     
+    mode.printMode ("ESTOP         ")
+
+    mode.setMode (raceModes.UNKNOWN        )
+    mode.printMode ("UNKNOWN       ")
+        
+# end    

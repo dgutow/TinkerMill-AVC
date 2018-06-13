@@ -22,12 +22,6 @@ from   Queue            import Queue
 from   vehicleState     import *
 from   rangeSensorPair  import rangeSensorPair
 
-# if WINDOWS:
-    # from serialClassSim  import serialClass
-# else:    
-    # from serialClass     import serialClass
-# end if WINDOWS    
-
 ############################################################################## 
 # class guiIfClass - 
 ##############################################################################
@@ -50,7 +44,7 @@ class guiIfClass (object):
         self.iopTlmAddr  = (hostIp, iopTlmPort)
         self.visTlmAddr  = (hostIp, visTlmPort)
         self.acceptCnt   = 0                    # cnt of accepted cmds from host
-        self.howOften    = 10      
+        #self.howOften    = 10      
         
         try:
             # Set up the two UDP ports
@@ -82,23 +76,21 @@ class guiIfClass (object):
     # get_cmd 
     ###########################################################################    
     def get_cmd (self):
-        received_cmd = False
+        cmd = ""
         try:
             cmd = self.guiQueue.get_nowait()
-            printOut ("GUIINTERFACE:GET_CMD - RECEIVED CMD\n") 
-            self.exec_cmd(cmd)
-            received_cmd = True 
+            printOut ("GUIINTERFACE:GET_CMD - RECEIVED CMD") 
         except:
-            #printOut ("GUIINTERFACE:GET_CMD - DID NOT RECEIVE CMD\n")         
+            #printOut ("GUIINTERFACE:GET_CMD - DID NOT RECEIVE CMD")         
             pass
         # end try
-        return (received_cmd)
+        return (cmd)
     # end get_cmd
     
     ###########################################################################
     # send_rpiTlm - sends a telemetry packet from the main processor. 
     ###########################################################################     
-    def send_rpiTlm (self, vehState, rangeLeftPair, rangeRightPair):   
+    def send_rpiTlm (self, guiAcceptCnt, vehState, rangeLeftPair, rangeRightPair):   
         try: 
         
             # '<' - little-endian (win), 'L' - ulong, 'h' - short, 'B' - uchar
@@ -106,7 +98,7 @@ class guiIfClass (object):
             data = struct.pack('<LLhhBBBB',  
                                 0x22222222,
                                 vehState.iopTime,
-                                self.acceptCnt,
+                                guiAcceptCnt,
                                 vehState.mode.currMode, 
                                 rangeLeftPair.frontValid,
                                 rangeLeftPair.rearValid,
@@ -145,146 +137,6 @@ class guiIfClass (object):
     def close (self):   
         self.guiTcpSock.close()
     # end close       
-
-    ###########################################################################
-    # exec_cmd  -  
-    ###########################################################################    
-    def exec_cmd (self, cmdMsg):
-        # print ("PARSE: Length of data is ", len(cmdMsg))
-        cmdArray  = struct.unpack('<hhhh', cmdMsg)
-        command   = chr(cmdArray[0])
-        param1    = cmdArray[1]
-        param2    = cmdArray[2]
-        param3    = cmdArray[3]     
-        print ("GUIINTERFACE:EXEC_CMD - Cmd %s, P1 %d, P2 %d, P3 %d" % 
-                  (command, param1, param2, param3) )  
-        
-        if   (command == 'A'):      # Set scanner angles  
-            serialPort.sendCommand (command, param1, param2, param3)
-            self.acceptCnt += 1
-            
-        elif (command == 'B'):      # Set brake on/off 
-            serialPort.sendCommand (command, param1, param2, param3)
-            self.acceptCnt += 1        
-            
-        elif (command == 'C'):      # Set scanner sensor   
-            serialPort.sendCommand (command, param1, param2, param3)
-            self.acceptCnt += 1
-            
-        elif (command == 'D'):      # Set IOP mode    
-            serialPort.sendCommand (command, param1, param2, param3)
-            self.acceptCnt += 1
-            
-        elif (command == 'E'):      # E-stop
-            serialPort.sendCommand (command, param1, param2, param3)
-            self.acceptCnt += 1
-            
-        elif (command == 'F'):      # Set accelerations
-            serialPort.sendCommand (command, param1, param2, param3)
-            self.acceptCnt += 1
-            
-        elif (command == 'G'):      # not defined        
-            self.bad_cmd (command, param1, param2, param3)   
-            
-        elif (command == 'H'):      # not defined 
-            self.bad_cmd (command, param1, param2, param3)  
-            
-        elif (command == 'I'):      # not defined 
-            self.bad_cmd (command, param1, param2, param3)  
-            
-        elif (command == 'J'):      # Send NOP to vision proc 
-            self.acceptCnt += 1
-            
-        elif (command == 'K'):      # not defined 
-            self.bad_cmd (command, param1, param2, param3)  
-            
-        elif (command == 'L'):      # Set lighting scene
-            serialPort.sendCommand (command, param1, param2, param3)
-            self.acceptCnt += 1      
-            
-        elif (command == 'M'):      # Move       
-            serialPort.sendCommand (command, param1, param2, param3)
-            self.acceptCnt += 1
-            
-        elif (command == 'N'):      # Send NOP to IOP
-            serialPort.sendCommand (command, param1, param2, param3)
-            self.acceptCnt += 1    
-            
-        elif (command == 'O'):      # NOP to the Rpi        
-            self.acceptCnt += 1         
-            
-        elif (command == 'P'):      # Set speed PIDS        
-            serialPort.sendCommand (command, param1, param2, param3)
-            self.acceptCnt += 1  
-            
-        elif (command == 'Q'):      # Set turn PIDS        
-            serialPort.sendCommand (command, param1, param2, param3)
-            self.acceptCnt += 1       
-            
-        elif (command == 'R'):      # Set Rpi mode
-            pass
-            
-        elif (command == 'S'):      # Set scanner speed            
-            serialPort.sendCommand (command, param1, param2, param3)
-            self.acceptCnt += 1   
-            
-        elif (command == 'T'):      # Turn            
-            serialPort.sendCommand (command, param1, param2, param3)
-            self.acceptCnt += 1      
-            
-        elif (command == 'U'):      # not defined              
-            self.bad_cmd (command, param1, param2, param3)  
-            
-        elif (command == 'V'):      # Set scanner angles             
-            serialPort.sendCommand (command, param1, param2, param3)
-            self.acceptCnt += 1        
-            
-        elif (command == 'W'):      # Write parameters to file 
-            self.bad_cmd (command, param1, param2, param3)    
-            
-        elif (command == 'X'):      # Set speed
-            self.bad_cmd (command, param1, param2, param3)  
-            
-        elif (command == 'Y'):      # Set vision mode
-            self.acceptCnt += 1   
-            
-        elif (command == 'Z'):      # Load parameters from file
-            pass       
-        elif (command == '1'):      # n/d    
-            self.bad_cmd (command, param1, param2, param3)
-            
-        elif (command == '2'):      # n/d
-            self.bad_cmd (command, param1, param2, param3) 
-            
-        elif (command == '3'):      # n/d 
-            self.bad_cmd (command, param1, param2, param3)
-            
-        elif (command == '4'):      # n/d        
-            self.bad_cmd (command, param1, param2, param3)
-            
-        elif (command == '5'):      # n/d        
-            self.bad_cmd (command, param1, param2, param3)
-            
-        elif (command == '6'):      # n/d        
-            self.bad_cmd (command, param1, param2, param3)
-            
-        elif (command == '7'):      # n/d        
-            self.bad_cmd (command, param1, param2, param3)  
-            
-        elif (command == '8'):      # n/d        
-            self.bad_cmd (command, param1, param2, param3) 
-            
-        elif (command == '9'):      # n/d        
-            self.bad_cmd (command, param1, param2, param3)            
-    # end exec_cmd
-
-    ###########################################################################
-    # bad_cmd  -  Output diagnostics in case of a unknown command
-    ###########################################################################     
-    def bad_cmd (self, cmd, p1, p2, p3):
-        printOut ("GUIINTERFACE:BAD_CMD - Cmd %s, P1 %d, P2 %d, P3 %d" % 
-                  (cmd, p1, p2, p3) )  
-    #end bad_cmd
     
 # end class   
 

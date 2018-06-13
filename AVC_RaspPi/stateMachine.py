@@ -11,7 +11,6 @@
 ###############################################################################
 
 from vehicleState   import *
-from vehicleState   import obstacle
 from raceModes      import raceModes   
 from constants      import *        # Vehicle and course constants
 
@@ -31,9 +30,10 @@ BistMaxCnt  = 30            # Max time IOP is in BIST before we signal a problem
 
 def stateMachine (vehState, serialPort):
     #################################################
+    raceModes.printMode("STATEMACHINE:")
     if vehState.mode.currMode == raceModes.NONE:
         if vehState.mode.newMode():
-            playSound (0)   
+            playSound (raceModes.NONE)   
             
         if (vehState.iopMode == IOP_MODE_NONE):    
             # We haven't received anything from IOP yet
@@ -48,7 +48,7 @@ def stateMachine (vehState, serialPort):
     #################################################         
     elif vehState.mode.currMode == raceModes.WAIT_FOR_BIST:
         if vehState.mode.newMode():   
-            playSound (1)     
+            playSound (raceModes.WAIT_FOR_BIST)     
          
         # Check if the IOP BIST is complete
         if (vehState.iopMode <> IOP_MODE_BIST):
@@ -62,7 +62,7 @@ def stateMachine (vehState, serialPort):
     #################################################        
     elif vehState.mode.currMode == raceModes.WAIT_FOR_START:
         if vehState.mode.newMode():   
-            playSound (2)   
+            playSound (raceModes.WAIT_FOR_START)   
             serialPort.sendCommand ('D', 0, 0, 0)
 
         # end
@@ -74,7 +74,7 @@ def stateMachine (vehState, serialPort):
     #################################################        
     elif vehState.mode.currMode == raceModes.RACE_BEGIN:
         if vehState.mode.newMode():   
-            playSound (2)   
+            playSound (raceModes.RACE_BEGIN)   
             serialPort.sendCommand ('D', 0, 0, 0)
 
         # end
@@ -88,7 +88,7 @@ def stateMachine (vehState, serialPort):
     ###########################################################################                
     elif vehState.mode.currMode == raceModes.RACE_STRAIGHT:
         if vehState.mode.newMode():   
-            playSound (3)   
+            playSound (raceModes.RACE_STRAIGHT)   
             visionSend(obstacleSequence[vehState.obstacleIndex])  
             vehState.obstacleIndex += 1
         # end
@@ -101,7 +101,7 @@ def stateMachine (vehState, serialPort):
     #################################################         
     elif vehState.mode.currMode == raceModes.RACE_CURVE:
         if vehState.mode.newMode():   
-            playSound (4)   
+            playSound (raceModes.RACE_CURVE)   
             
         if (vehState.mode.modeCount >= simMaxCnt):     
             vehState.mode.setMode(raceModes.NEGOT_CROSSING) 
@@ -109,7 +109,7 @@ def stateMachine (vehState, serialPort):
     #################################################         
     elif vehState.mode.currMode == raceModes.NEGOT_CROSSING:
         if vehState.mode.newMode():   
-            playSound (5)   
+            playSound (raceModes.NEGOT_CROSSING)   
             
         if (vehState.mode.modeCount >= simMaxCnt):     
             vehState.mode.setMode(raceModes.APPR_STOPSIGN)  
@@ -119,7 +119,7 @@ def stateMachine (vehState, serialPort):
     ###########################################################################                           
     elif vehState.mode.currMode == raceModes.APPR_STOPSIGN:
         if vehState.mode.newMode():   
-            playSound (6)   
+            playSound (raceModes.APPR_STOPSIGN)   
             
         if (vehState.mode.modeCount >= simMaxCnt):     
             vehState.mode.setMode(raceModes.NEGOT_STOPSIGN) 
@@ -127,7 +127,7 @@ def stateMachine (vehState, serialPort):
     #################################################         
     elif vehState.mode.currMode == raceModes.NEGOT_STOPSIGN:
         if vehState.mode.newMode():   
-            playSound (7)   
+            playSound (raceModes.NEGOT_STOPSIGN)   
             
         if (vehState.mode.modeCount >= simMaxCnt):     
             vehState.mode.setMode(raceModes.APPR_HOOP) 
@@ -135,14 +135,14 @@ def stateMachine (vehState, serialPort):
     #################################################             
     elif vehState.mode.currMode == raceModes.RECOV_STOPSIGN:
         if vehState.mode.newMode():   
-            playSound (7)    
+            playSound (raceModes.RECOV_STOPSIGN)    
 
     ########################################################################### 
     # HOOP MODES
     ###########################################################################                           
     elif vehState.mode.currMode == raceModes.APPR_HOOP:
         if vehState.mode.newMode():   
-            playSound (8)   
+            playSound (raceModes.APPR_HOOP)   
             
         if (vehState.mode.modeCount >= simMaxCnt):     
             vehState.mode.setMode(raceModes.NEGOT_HOOP)    
@@ -150,7 +150,7 @@ def stateMachine (vehState, serialPort):
     #################################################
     elif vehState.mode.currMode == raceModes.NEGOT_HOOP:
         if vehState.mode.newMode():   
-            playSound (9)   
+            playSound (raceModes.NEGOT_HOOP)   
             
         if (vehState.mode.modeCount >= simMaxCnt):     
             vehState.mode.setMode(raceModes.APPR_BARRELS)   
@@ -158,14 +158,14 @@ def stateMachine (vehState, serialPort):
     #################################################        
     elif vehState.mode.currMode == raceModes.RECOV_HOOP:
         if vehState.mode.newMode():   
-            playSound (8)
+            playSound (raceModes.RECOV_HOOP)
             
     ########################################################################### 
     # BARREL MODES
     ###########################################################################          
     elif vehState.mode.currMode == raceModes.APPR_BARRELS:
         if vehState.mode.newMode():   
-            playSound (10)   
+            playSound (raceModes.APPR_BARRELS)   
             
         if (vehState.mode.modeCount >= simMaxCnt):     
             vehState.mode.setMode(raceModes.NEGOT_BARRELS)  
@@ -173,7 +173,7 @@ def stateMachine (vehState, serialPort):
     #################################################    
     elif vehState.mode.currMode == raceModes.NEGOT_BARRELS:
         if vehState.mode.newMode():   
-            playSound (4)   
+            playSound (raceModes.NEGOT_BARRELS)   
             
         if (vehState.mode.modeCount >= simMaxCnt):     
             vehState.mode.setMode(raceModes.APPR_RAMP)    
@@ -181,14 +181,14 @@ def stateMachine (vehState, serialPort):
     #################################################    
     elif vehState.mode.currMode == raceModes.RECOV_BARRELS:
         if vehState.mode.newMode():   
-            playSound (10)  
+            playSound (raceModes.RECOV_BARRELS)  
             
     ########################################################################### 
     # RAMP MODES
     ###########################################################################     
     elif vehState.mode.currMode == raceModes.APPR_RAMP:
         if vehState.mode.newMode():   
-            playSound (11)   
+            playSound (raceModes.APPR_RAMP)   
             
         if (vehState.mode.modeCount >= simMaxCnt):     
             vehState.mode.setMode(raceModes.NEGOT_RAMP)  
@@ -196,7 +196,7 @@ def stateMachine (vehState, serialPort):
     #################################################    
     elif vehState.mode.currMode == raceModes.NEGOT_RAMP:
         if vehState.mode.newMode():   
-            playSound (12)   
+            playSound (raceModes.NEGOT_RAMP)   
             
         if (vehState.mode.modeCount >= simMaxCnt):     
             vehState.mode.setMode(raceModes.APPR_PED)   
@@ -204,14 +204,14 @@ def stateMachine (vehState, serialPort):
     #################################################    
     elif vehState.mode.currMode == raceModes.RECOV_RAMP:
         if vehState.mode.newMode():   
-            playSound (12)   
+            playSound (raceModes.RECOV_RAMP)   
             
     ########################################################################### 
     # PEDESTRIAN MODES
     ###########################################################################             
     elif vehState.mode.currMode == raceModes.APPR_PED:
         if vehState.mode.newMode():   
-            playSound (13)   
+            playSound (raceModes.APPR_PED)   
             
         if (vehState.mode.modeCount >= simMaxCnt):     
             vehState.mode.setMode(raceModes.NEGOT_PED)   
@@ -219,7 +219,7 @@ def stateMachine (vehState, serialPort):
     #################################################   
     elif vehState.mode.currMode == raceModes.NEGOT_PED:
         if vehState.mode.newMode():   
-            playSound (14)   
+            playSound (raceModes.NEGOT_PED)   
             
         if (vehState.mode.modeCount >= simMaxCnt):     
             vehState.mode.setMode(raceModes.TERMINATE)
@@ -227,7 +227,7 @@ def stateMachine (vehState, serialPort):
     ################################################# 
     elif vehState.mode.currMode == raceModes.RECOV_PED:
         if vehState.mode.newMode():   
-            playSound (13)
+            playSound (raceModes.RECOV_PED)
         
     ########################################################################### 
     # ERROR MODES
@@ -235,14 +235,14 @@ def stateMachine (vehState, serialPort):
     elif vehState.mode.currMode == raceModes.ERROR:   
         if vehState.mode.newMode():  
             print "STATECONTROL - in ERROR State: %s" % (vehState.errorString)
-            playSound (15)   
+            playSound (raceModes.ERROR)   
             
         if (vehState.mode.modeCount >= simMaxCnt):     
             vehState.mode.setMode(raceModes.ERROR)   
         
     #################################################
     else:
-        playSound (16)       
+        playSound (raceModes.UNKNOWN)       
         vehState.mode.errorString = "UNRECOGNIZED MODE"
         vehState.mode.setMode(raceModes.ERROR)    
     # endif
@@ -280,7 +280,7 @@ def obstacleTransition ():
 # playSound
 ###############################################################################    
 def playSound (n):  
-    print ("=================================================>>>> Playing Sound %d\n" % (n))
+    raceModes.printMode("STATEMACHINE - Transistioned to")     
 # end
 
 ###############################################################################

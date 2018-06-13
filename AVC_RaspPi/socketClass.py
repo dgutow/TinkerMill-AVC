@@ -86,8 +86,8 @@ class socketClass (object):
     # sendString (message)   
     ###########################################################################
     def sendString (self, message):
-        printOut ('SOCKETCLASS sendString: sending %s bytes to %s' % 
-                                                (len(message),self.retAddress))
+        #printOut ('SOCKETCLASS sendString: sending %s bytes to %s' % 
+        #                                        (len(message),self.retAddress))
         try:
             self.sock.sendto (message, self.retAddress ) 
             printOut ("SOCKETCLASS sendString: completed sending message")

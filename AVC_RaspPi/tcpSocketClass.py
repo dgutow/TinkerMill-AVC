@@ -134,14 +134,15 @@ class tcpSocketClass (object):
     def sendString (self, message):
         if (self.conn != None):
             try:
-                printOut ('SOCKETCLASS sendString: sending %s bytes to %s' % 
-                                                (len(message),self.retAddress))           
+                #printOut ('SOCKETCLASS sendString: sending %s bytes to %s' % 
+                #                                (len(message),self.retAddress))           
                 size = self.conn.send ( message ) 
                 if (size == 0):                 # We lost the connection
                     self.conn = None
                     printOut ("SOCKETCLASS sendString: lost connection")
                 else:
-                    printOut ("SOCKETCLASS sendString: message sent")
+                    #printOut ("SOCKETCLASS sendString: message sent")
+                    pass
             except:
                 printOut ("SOCKETCLASS sendString: exception sending message")       
 

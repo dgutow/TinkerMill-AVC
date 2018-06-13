@@ -5,7 +5,8 @@ Author: David Gutow
 Version: 9/2017
 """
 
-from math import *
+from math       import *
+from graphics   import *
 
 ###############################################################################
 # Class Grid
@@ -205,12 +206,81 @@ class Grid(object):
         print ""
     # end def
     
-# end
+    ###########################################################################
+    # graphGrid - 
+    #   nPix is the num of pixels to draw a single cell (nPixels per cell)
+    #   borders (T/F) is whether to draw a grid surrounding all the cells
+    #   circle (T/F) is whether to draw a circle or a line segment in each
+    #       occupied cell. Drawing a line is faster than drawing a circle.
+    def graphGrid (self, str, nPix, borders = False, circle = False):  
+        frame = nPix / 2         # Width of frame around map
+        xSize = self.nCols * nPix
+        ySize = self.nRows * nPix
+        
+        win = GraphWin( str, xSize + (2*frame), ySize + (2*frame) )
+        
+        if borders:
+            # Draw the vertical edges
+            for col in range (self.nCols+1):
+                Ptp = Point (frame + (col * nPix), frame)
+                Pbt = Point (frame + (col * nPix), frame + (self.nRows * nPix)) 
+                lin = Line (Ptp, Pbt)
+                lin.draw(win)            
+                
+            # Draw the horiz edges
+            for row in range (self.nRows+1):
+                Plt = Point (frame, frame + (row * nPix))
+                Prt = Point (frame + (self.nCols * nPix), frame + (row * nPix)) 
+                lin = Line (Plt, Prt)
+                lin.draw(win)  
+        # end if borders
+        
+        if (circle):
+            # Draw a circle in each occupied cell (slow):
+            for row in range (self.nRows):
+                for col in range (self.nCols):
+                    if (not self.isZero(row, col)):
+                        pt = Point((col+1) * nPix, (self.nRows - row) * nPix)
+                        cir = Circle(pt, frame/2)
+                        cir.setFill("red")
+                        cir.draw(win)                    
+                # end for col
+            # end for row       
+        else:
+            # Draw a vertical line in each occupied cell (faster):
+            for row in range (self.nRows):
+                for col in range (self.nCols):
+                    if (not self.isZero(row, col)):
+                        Ptp = Point((col+1) * nPix, (self.nRows - row) * nPix - frame)
+                        Pbt = Point((col+1) * nPix, (self.nRows - row) * nPix + frame)
+                        lin = Line(Ptp, Pbt)
+                        lin.setFill("red")
+                        lin.setWidth(frame)
+                        lin.draw(win)                    
+                # end for col
+            # end for row               
+        # end if circle
+ 
+        win.getMouse()
+        win.close
+    # end def
+# end 
     
 
 ###############################################################################
 # Test code
 ###############################################################################
+if __name__ == '__main__':
+    g = Grid(resolution=10, nCols=10, nRows=9, distance=0, angle=0)
+    g.enterRange (35, -10, 0,  10)  # Resulting point should be at (43.92, 34.47)
+    g.enterRange (00,  0, 35, -10)  # Resulting point should be at (43.92, 34.47)    
+    g.enterRange (35, -10, 20, 10)  # Resulting point should be at (43.92, 54.47)  
+    g.enterRange (25,  10, 20, 10)  # Resulting point should be at (61.18, 43.41) 
+    g.graphGrid ("AFTER POINTS ENTERED:", 4, False, False)
+
+
+
+"""         UNIT TEST CODE
 gridResolution  = 15    # 15 cm = ~6"/cell
 gridWidth       = 104   # 104 cells * 6"/cell = 52 feet wide
 gridHeight      = 32    # 32 cells * 6"/cell = 16 feet high
@@ -222,18 +292,26 @@ if __name__ == '__main__':
     g.enterRange (35, -10, 20, 10)  # Resulting point should be at (43.92, 54.47)  
     g.enterRange (25,  10, 20, 10)  # Resulting point should be at (61.18, 43.41)       
     g.printGrid("\nAFTER POINTS ENTERED:") 
+    g.graphGrid ("AFTER POINTS ENTERED:", 50)
     
     g.recenterGrid(10, 0)           # All points should shift down by -10
-    g.printGrid("\nAFTER RE-CENTERING (10,0):")   
+    g.printGrid("\nAFTER RE-CENTERING (10,0):")  
+    g.graphGrid ("AFTER RE-CENTERING (10,0):", 50)    
+    
     g.recenterGrid(20, 45)          # All points should shift by -7.1, -7.1
     g.printGrid("\nAFTER RE-CENTERING (10,45):")   
+    g.graphGrid ("AFTER RE-CENTERING  (10,45):", 50) 
     
     g.clear (distance=0, angle= 0)  # Start with a fresh slate
-    g.printGrid("\nAFTER CLEARING GRID:")       
+    g.printGrid("\nAFTER CLEARING GRID:")   
+    g.graphGrid ("AFTER CLEARING GRID:", 50)  
+    
     g.enterRange  (10, 0, 10, 0)    # Resulting point should be at (50.0, 20.0)   
     g.recenterGrid(20, 45)          # point should shift to (50-14.1), 20.0-14.1)
     
     g.printGrid("AFTER CLEARING AND RE-CENTERING (10,45):") 
+    g.graphGrid ("AFTER CLEARING AND RE-CENTERING (10,45):", 50)      
+"""
 ###############################################################################
 # Attic code
 ###############################################################################           

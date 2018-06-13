@@ -30,34 +30,39 @@ class serialClass (object):
     ###########################################################################
     # class simulated telemetry values
     ###########################################################################  
-    iopTime        = 0
+    iopTime        = 1000   # current time (milliseconds)
     iopMode        = 0
-    iopAcceptCnt   = 0
+    iopAcceptCnt   = 0      # number of accepted commands
     iopBistStatus  = 0
-    iopSpeed       = 0
-    iopSteerAngle  = 0         
-    iopCumDistance = 0
+    iopSpeed       = 0      # curr speed (cm/sec)
+    iopSteerAngle  = 0      # steering angle (0.1 degrees)       
+    iopCumDistance = 0      # distance traveled so far (cm)
     
     # Enter the side IR sensors into the two rangeSensorPairs
-    irLF_Range     = 0
+    irLF_Range     = 0      # sensor 0 distance (cm)
     irLR_Range     = 0        
     irRF_Range     = 0
     irRR_Range     = 0
     
-    iopSwitchStatus  = 0  
+    iopSwitchStatus= 0  
     
-    measScanAngle  = 0
-    measScanSensor = 0
-    measScanDist   = 0
+    measScanAngle  = 0      # curr angle of scanner (0.01 degrees)
+    measScanSensor = 0      # Spare
+    measScanDist   = 0      # spare
 
     iopBattVolt1   = 0
     iopBattVolt2   = 0
     iopAccelVert   = 0
     iopGyroHoriz   = 0
-    iopCompAngle   = 0
+    iopCompAngle   = 0      # curr compass angle (0.1 degrees)
     iopCameraAngle = 0        
     iopSpare2      = 0
-    iopSpare3      = 0        
+    iopSpare3      = 0     
+
+    moveDistance   = 0.0    # (float) distance left to move from last move 
+                            # command (cm)
+    totalDistance  = 0.0    # total distance traveled so far (float equiv to 
+                            # iopCumDistance) (cm)
 
     ########################################################################### 
     # __init__
@@ -84,15 +89,50 @@ class serialClass (object):
     def serialPortThread(self):
         printOut ("SERIALCLASS THREAD SIM: starting loop")
         self.serialThreadRunning = True
+        lastIopMode = self.iopMode          # So we know the mode just switched
+        timeInc     = 50                    # time increment each loop (msec)
+        counter     = 0
     
         while (self.serialThreadFlag):
-            time.sleep (0.4)          
+            time.sleep (0.4)        
+
+            # Do some simple vehicle simulations:
+            
+            # If we just switched to race mode wait a simulated second and 
+            # then flag the start button was pushed
+            if (lastIopMode == 0 and self.iopMode == 1):
+                counter += timeInc
+                if (counter >= 1000):       # Waited a simulated 1 second?
+                    self.iopSwitchStatus = 0xfff
+                    lastIopMode = self.iopMode
+                    printOut ("SERIALSIM - sending START SWITCH PUSHED")                      
+                # end
+            #end
+            
+            # if in race mode then simulate a move and turn 
+            if (self.iopMode == 1): 
+                try:
+                    # We're moving so do some maintenance
+                    if (self.moveDistance > 0.01):   
+                        deltaDistance = float(self.iopSpeed * timeInc)/1000.0
+                        self.moveDistance -= deltaDistance
+                        if (self.moveDistance < 0.01):
+                            self.moveDistance = 0.0
+                        self.totalDistance += deltaDistance
+                        self.iopCumDistance += int(self.totalDistance)
+                    # end if moveDistance
+                except:
+                    printOut ("SERIALCLASS THREAD: Unable to process iopMode==1")                    
+            # Stopped here dag - any other simulated stuff - the scanner?
+
+
+            
             #printOut ("SERIALCLASS THREAD: looping...")
-            self.iopTime += 1
-            #try:
-            self.send_telemetry ()
-            #except:
-                #printOut ("SERIALCLASS THREAD: Error trying to send telemetry.")
+            self.iopTime += timeInc
+            try:
+                self.send_telemetry ()
+            except:
+                printOut ("SERIALCLASS THREAD: Error trying to send telemetry.")
         # end while
         
         printOut ("SERIALCLASS THREAD: terminating")
@@ -138,7 +178,7 @@ class serialClass (object):
                                     self.irRF_Range,
                                     self.irRR_Range,
                                     
-                                    self.iopSwitchStatus,
+                                    int(self.iopSwitchStatus),
                                     
                                     self.measScanAngle,
                                     self.measScanSensor,
@@ -173,12 +213,14 @@ class serialClass (object):
             self.iopMode = p1
             if self.iopMode == 2:       # Commanded into estop?
                 self.iopBistStatus = 1
-            self.iopAcceptCnt += 1             
+            self.iopAcceptCnt += 1       
+            printOut ("SERIALSIM - received MODE command - %d" % (p1))             
 
         elif cmdChar == 'E':            # Estop
             self.iopMode = 2   
             self.iopBistStatus = 1      
             self.iopAcceptCnt += 1 
+            printOut ("SERIALSIM - received MODE command - %d" % (p1))             
             
         elif cmdChar == 'H':            # heartbeat
             pass                 
@@ -189,8 +231,12 @@ class serialClass (object):
         elif cmdChar == 'M':            # move command
             if self.iopMode == 1:       # Must be in normal mode
                 self.iopSpeed    = p1
+                self.moveDistance     = float(p2)
                 self.iopAcceptCnt += 1
-            # end             
+                printOut ("SERIALSIM - received MOVE command, speed %d" % (p1))                 
+            else:
+                printOut ("SERIALSIM - received MOVE command.  ERROR not in normal mode") 
+            # end if
             
         elif cmdChar == 'N':            # NOP
             self.iopAcceptCnt += 1              
@@ -208,7 +254,10 @@ class serialClass (object):
             if self.iopMode == 1:       # Must be in normal mode
                 self.iopSteerAngle =  p1
                 self.iopAcceptCnt += 1
-            # end             
+                printOut ("SERIALSIM - received TURN command")   
+            else:
+                printOut ("SERIALSIM - received TURN command.  ERROR not in normal mode")
+            # end if
             
         elif cmdChar == 'V':            # set camera angle
             self.iopCameraAngle = p1
@@ -217,6 +266,7 @@ class serialClass (object):
         elif cmdChar == 'Z':            # shutdown
             simulatorFlag = False       # Kill the Simulator Thread
             self.iopAcceptCnt += 1 
+            printOut ("SERIALSIM - received SHUTDOWN command")            
 
         else:                           # unrecognized command
             pass        

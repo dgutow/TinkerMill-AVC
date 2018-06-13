@@ -63,6 +63,9 @@ serialPort  = serialClass (IopTlmQueue)
 # Interface to the GUI host
 guiIf = guiIfClass (GUI_IPADDR, GUI_MAINPORT, GUI_IOPPORT, GUI_VISPORT)
 
+# Number of accepted commands from the GUI
+guiAcceptCnt = 0
+
 ############################################################################### 
 # Initialize the entire system
 ###############################################################################
@@ -89,7 +92,7 @@ def mainLoop():
     printOut ("MAIN_LOOP: starting loop")
     
     while (vehState.mode.currMode != raceModes.TERMINATE and loopCntr < 200):  
-        time.sleep (1)          # dag remove    
+        time.sleep (2.0)          # dag remove    
         
         loopCntr += 1         
         if loopCntr % 1 == 0:
@@ -97,32 +100,32 @@ def mainLoop():
     
         # Check if we received a command from the GUI host and
         # send a telemetry packet
-        guiIf.get_cmd ()         
-        guiIf.send_rpiTlm (vehState, rangeLeftPair, rangeRightPair)  
+        guiCmd = guiIf.get_cmd () 
+        exec_guiCmd (guiCmd)           
+        guiIf.send_rpiTlm (guiAcceptCnt, vehState, rangeLeftPair, rangeRightPair)  
         
-        # Get all the telemetry msgs and parse into state structure
+        # Get the iop temetry msgs and parse into state structure
         iopMsg = get_iopTlm ()
-        if (len(iopMsg) != 0):
-            print ("MAIN_LOOP - 4.5")               
+        if (len(iopMsg) != 0):              
             guiIf.send_iopTlm (iopMsg)
-        print ("MAIN_LOOP - 5")
+        #print ("MAIN_LOOP - 5")
 
-        
+        # Get the vision temetry msgs and parse into state structure        
         #visMsg = getVisionTelemetry()
         #if (length(visMsg) != 0):
         #    guiIf.send_visTlm (visMsg)  
             
         # Now do all the state specific actions
-        #stateMachine (vehState, serialPort)
+        #try:
+        stateMachine (vehState, serialPort)
+        #except:
+            #print ("MAIN_LOOP - ERROR in stateMachine")            
         
         # Let the iop know we're alive
         vehState.currHeartBeat += 1        
-        serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)
+        serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)     
         
-        if loopCntr % 3 == 0:
-            serialPort.sendCommand ('N', 0, 0, 0 )        
-        
-        print ("MAIN_LOOP - 6")        
+        #print ("MAIN_LOOP - 6")        
         
     # end while
     
@@ -145,8 +148,7 @@ def get_iopTlm():
     
     # Get the last message put onto the queue
     tlm_cnt = 0
-    # Keep looping until we get the last message put onto the queue  
-    #print ("MAINLOOP:GET_IOPTLM - 1")    
+    # Keep looping until we get the last message put onto the queue    
     while (not IopTlmQueue.empty()):
         msg = IopTlmQueue.get_nowait()
         #printOut("MAINLOOP:GET_IOPTLM - msg length (%d)" % ( len(msg)) )
@@ -154,16 +156,16 @@ def get_iopTlm():
         time = proc_iopTlm(msg)        
         tlm_cnt += 1
     # end while
-    #print ("MAINLOOP:GET_IOPTLM - 2")  
+
     
     if (tlm_cnt > 0):
-        print ("MAINLOOP:GET_IOPTLM - received %d new pkts , time = %d" % (tlm_cnt, time))
+        print "MAINLOOP:GET_IOPTLM - nPkts %d, Time %3d, Mode %1d, AccCnt %2d, Switch %2d/%2d" % (
+            tlm_cnt, vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
+            vehState.iopSwitchStatus, vehState.iopStartSwitch) 
     else:
-        #print ("MAINLOOP:GET_IOPTLM - no new telemetry ")
-        #print ("MAINLOOP:GET_IOPTLM - 3")          
+        #print ("MAINLOOP:GET_IOPTLM - no new telemetry ")         
         pass
-        
-    #print ("MAINLOOP:GET_IOPTLM - 4, end")      
+              
     return (msg)        # We'll return the last message on queue
 # end    
    
@@ -210,7 +212,7 @@ def proc_iopTlm (data):
         vehState.iopSpare2      = telemArray[22]
         vehState.iopSpare3      = telemArray[23]   
         
-        if  True:
+        if  False:
 			print "MAINLOOP:PROC_IOPTLM - Time %3d, Mode %1d, AccCnt %2d, Switch %2d/%2d" % (
              vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
              vehState.iopSwitchStatus, vehState.iopStartSwitch)   
@@ -298,8 +300,160 @@ def visionSend(obstacle):
        
 # end   
 
+###########################################################################
+# exec_guiCmd  -  
+###########################################################################    
+def exec_guiCmd (cmdMsg):
+    global guiAcceptCnt
+    
+    if (len(cmdMsg) == 0):      # Is there a real gui command here?
+        return
+    
+    try:
+        #print ("EXEC_GUICMD PARSE: Length of data is ", len(cmdMsg))
+        cmdArray  = struct.unpack('<hhhh', cmdMsg)
+        command   = chr(cmdArray[0])
+        param1    = cmdArray[1]
+        param2    = cmdArray[2]
+        param3    = cmdArray[3]     
+    except:
+        print ("EXEC_GUICMD: Parse Error - unable to parse command") 
+        return
+        
+    #print ("EXEC_GUICMD - Cmd %s, P1 %d, P2 %d, P3 %d" % 
+    #          (command, param1, param2, param3) )  
+    
+    if   (command == 'A'):      # Set scanner angles  
+        serialPort.sendCommand (command, param1, param2, param3)
+        guiAcceptCnt += 1
+        
+    elif (command == 'B'):      # Set brake on/off 
+        serialPort.sendCommand (command, param1, param2, param3)
+        guiAcceptCnt += 1        
+        
+    elif (command == 'C'):      # Set scanner sensor   
+        serialPort.sendCommand (command, param1, param2, param3)
+        guiAcceptCnt += 1
+        
+    elif (command == 'D'):      # Set IOP mode    
+        serialPort.sendCommand (command, param1, param2, param3)
+        guiAcceptCnt += 1
+        
+    elif (command == 'E'):      # E-stop
+        serialPort.sendCommand (command, param1, param2, param3)
+        guiAcceptCnt += 1
+        
+    elif (command == 'F'):      # Set accelerations
+        serialPort.sendCommand (command, param1, param2, param3)
+        guiAcceptCnt += 1
+        
+    elif (command == 'G'):      # not defined        
+        bad_cmd (command, param1, param2, param3)   
+        
+    elif (command == 'H'):      # not defined 
+        bad_cmd (command, param1, param2, param3)  
+        
+    elif (command == 'I'):      # not defined 
+        bad_cmd (command, param1, param2, param3)  
+        
+    elif (command == 'J'):      # Send NOP to vision proc 
+        guiAcceptCnt += 1
+        
+    elif (command == 'K'):      # not defined 
+        bad_cmd (command, param1, param2, param3)  
+        
+    elif (command == 'L'):      # Set lighting scene
+        serialPort.sendCommand (command, param1, param2, param3)
+        guiAcceptCnt += 1      
+        
+    elif (command == 'M'):      # Move       
+        serialPort.sendCommand (command, param1, param2, param3)
+        guiAcceptCnt += 1
+        
+    elif (command == 'N'):      # Send NOP to IOP
+        serialPort.sendCommand (command, param1, param2, param3)
+        guiAcceptCnt += 1    
+        
+    elif (command == 'O'):      # NOP to the Rpi        
+        guiAcceptCnt += 1         
+        
+    elif (command == 'P'):      # Set speed PIDS        
+        serialPort.sendCommand (command, param1, param2, param3)
+        guiAcceptCnt += 1  
+        
+    elif (command == 'Q'):      # Set turn PIDS        
+        serialPort.sendCommand (command, param1, param2, param3)
+        guiAcceptCnt += 1       
+        
+    elif (command == 'R'):      # Set Rpi mode
+        pass
+        
+    elif (command == 'S'):      # Set scanner speed            
+        serialPort.sendCommand (command, param1, param2, param3)
+        guiAcceptCnt += 1   
+        
+    elif (command == 'T'):      # Turn            
+        serialPort.sendCommand (command, param1, param2, param3)
+        guiAcceptCnt += 1      
+        
+    elif (command == 'U'):      # not defined              
+        bad_cmd (command, param1, param2, param3)  
+        
+    elif (command == 'V'):      # Set scanner angles             
+        serialPort.sendCommand (command, param1, param2, param3)
+        guiAcceptCnt += 1        
+        
+    elif (command == 'W'):      # Write parameters to file 
+        bad_cmd (command, param1, param2, param3)    
+        
+    elif (command == 'X'):      # Set speed
+        bad_cmd (command, param1, param2, param3)  
+        
+    elif (command == 'Y'):      # Set vision mode
+        guiAcceptCnt += 1   
+        
+    elif (command == 'Z'):      # Load parameters from file
+        pass       
+    elif (command == '1'):      # n/d    
+        bad_cmd (command, param1, param2, param3)
+        
+    elif (command == '2'):      # n/d
+        bad_cmd (command, param1, param2, param3) 
+        
+    elif (command == '3'):      # n/d 
+        bad_cmd (command, param1, param2, param3)
+        
+    elif (command == '4'):      # n/d        
+        bad_cmd (command, param1, param2, param3)
+        
+    elif (command == '5'):      # n/d        
+        bad_cmd (command, param1, param2, param3)
+        
+    elif (command == '6'):      # n/d        
+        bad_cmd (command, param1, param2, param3)
+        
+    elif (command == '7'):      # n/d        
+        bad_cmd (command, param1, param2, param3)  
+        
+    elif (command == '8'):      # n/d        
+        bad_cmd (command, param1, param2, param3) 
+        
+    elif (command == '9'):      # n/d        
+        bad_cmd (command, param1, param2, param3)
+        
+    print ("EXEC_GUICMD - guiAcceptCnt %d\n" % ( guiAcceptCnt))         
+# end exec_cmd
+
+###########################################################################
+# bad_cmd  -  Output diagnostics in case of a unknown command
+###########################################################################     
+def bad_cmd (cmd, p1, p2, p3):
+    printOut ("GUIINTERFACE:BAD_CMD - Cmd %s, P1 %d, P2 %d, P3 %d" % 
+              (cmd, p1, p2, p3) )  
+#end bad_cmd
+
 ###############################################################################
-# TESTING
+# MAIN-LOOP EXECUTION
 ###############################################################################
 if __name__ == "__main__":
     ##### TEST # 1 
