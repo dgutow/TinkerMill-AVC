@@ -94,7 +94,7 @@ class serialClass (object):
         counter     = 0
     
         while (self.serialThreadFlag):
-            time.sleep (0.4)        
+            time.sleep (2.4)        
 
             # Do some simple vehicle simulations:
             

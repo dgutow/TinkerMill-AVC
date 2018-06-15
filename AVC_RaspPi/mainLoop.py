@@ -116,10 +116,11 @@ def mainLoop():
         #    guiIf.send_visTlm (visMsg)  
             
         # Now do all the state specific actions
-        #try:
-        stateMachine (vehState, serialPort)
-        #except:
-            #print ("MAIN_LOOP - ERROR in stateMachine")            
+        try:
+            stateMachine (vehState, serialPort)
+        except:
+            print ("MAIN_LOOP - ERROR in stateMachine")
+            pass
         
         # Let the iop know we're alive
         vehState.currHeartBeat += 1        
