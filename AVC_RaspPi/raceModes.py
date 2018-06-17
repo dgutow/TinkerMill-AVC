@@ -12,7 +12,7 @@
 class raceModes(object):
 
     ###########################################################################
-    # The enumerations of each mode:
+    # The enumerations of each state:
     NONE            = 0     # Not defined
     WAIT_FOR_BIST   = 1     # robot being initialized
     WAIT_FOR_START  = 2     # waiting for the start signal
@@ -52,6 +52,67 @@ class raceModes(object):
     
     UNKNOWN         = 110   # huh?
     
+    # Strings for use in text messages
+    stringDict = {NONE           : "NONE"          ,
+                  WAIT_FOR_BIST  : "WAIT_FOR_BIST" ,
+                  WAIT_FOR_START : "WAIT_FOR_START",
+                  RACE_BEGIN     : "RACE_BEGIN"    ,
+                  RACE_STRAIGHT  : "RACE_STRAIGHT" ,
+                  RACE_CURVE     : "RACE_CURVE"    ,
+                  NEGOT_CROSSING : "NEGOT_CROSSING",
+                  APPR_STOPSIGN  : "APPR_STOPSIGN" ,
+                  NEGOT_STOPSIGN : "NEGOT_STOPSIGN",
+                  RECOV_STOPSIGN : "RECOV_STOPSIGN",
+                  APPR_HOOP      : "APPR_HOOP"     ,
+                  NEGOT_HOOP     : "NEGOT_HOOP"    ,
+                  RECOV_HOOP     : "RECOV_HOOP"    ,
+                  APPR_BARRELS   : "APPR_BARRELS"  ,
+                  NEGOT_BARRELS  : "NEGOT_BARRELS" ,
+                  RECOV_BARRELS  : "RECOV_BARRELS" ,
+                  APPR_RAMP      : "APPR_RAMP"     ,
+                  NEGOT_RAMP     : "NEGOT_RAMP"    ,
+                  RECOV_RAMP     : "RECOV_RAMP"    ,
+                  APPR_PED       : "APPR_PED"      ,
+                  APPR_XWALK     : "APPR_XWALK"    ,
+                  STOP_XWALK     : "STOP_XWALK"    ,
+                  XWALK_STARTUP  : "XWALK_STARTUP" ,
+                  WAIT_FOR_END   : "WAIT_FOR_END"  ,
+                  NEGOT_END      : "NEGOT_END"     ,
+                  TERMINATE      : "TERMINATE"     ,
+                  ERROR          : "ERROR"         ,
+                  ESTOP          : "ESTOP"         ,
+                  UNKNOWN        : "UNKNOWN"       }    
+    # Nominal speeds in each state
+    speedDict = {NONE           : 0,
+                 WAIT_FOR_BIST  : 0,
+                 WAIT_FOR_START : 0,
+                 RACE_BEGIN     : 0,
+                 RACE_STRAIGHT  : 50,
+                 RACE_CURVE     : 40,
+                 NEGOT_CROSSING : 50,
+                 APPR_STOPSIGN  : 30,
+                 NEGOT_STOPSIGN : 30,
+                 RECOV_STOPSIGN : 30,
+                 APPR_HOOP      : 30,
+                 NEGOT_HOOP     : 30,
+                 RECOV_HOOP     : 30,
+                 APPR_BARRELS   : 30,
+                 NEGOT_BARRELS  : 20,
+                 RECOV_BARRELS  : 30,
+                 APPR_RAMP      : 30,
+                 NEGOT_RAMP     : 30,
+                 RECOV_RAMP     : 30,
+                 APPR_PED       : 30,
+                 APPR_XWALK     : 10,
+                 STOP_XWALK     : 0,
+                 XWALK_STARTUP  : 30,
+                 WAIT_FOR_END   : 50,
+                 NEGOT_END      : 10,
+                 TERMINATE      : 0,
+                 ERROR          : 0,
+                 ESTOP          : 0,
+                 UNKNOWN        : 0 }                      
+ 
     ###########################################################################    
     # The values stored in this class
     
@@ -76,6 +137,13 @@ class raceModes(object):
     # end
     
     ###########################################################################
+    # getSpeed - Gets the speed for this state
+    #   
+    def getSpeed(self):
+        return (self.speedDict[self.currMode])
+    # end
+    
+    ###########################################################################
     # newMode - Returns true if we've just switched to a mode.  Also increments
     # the modeCount value each time it's called.
     #   
@@ -91,80 +159,13 @@ class raceModes(object):
     # toString - converts a mode to a string
     #     
     def toString(self, mode):
-        if mode == self.NONE:
-            return "NONE"
-        elif mode == self.WAIT_FOR_BIST:
-            return "WAIT_FOR_BIST"       
-        elif mode == self.WAIT_FOR_START:
-            return "WAIT_FOR_START"    
-            
-        elif mode == self.RACE_BEGIN:
-            return "RACE_BEGIN"
-            
-        elif mode == self.RACE_STRAIGHT:
-            return "RACE_STRAIGHT"               
-        elif mode == self.RACE_CURVE:
-            return "RACE_CURVE"  
-        elif mode == self.NEGOT_CROSSING:
-            return "NEGOT_CROSSING"     
-            
-        elif mode == self.APPR_STOPSIGN:
-            return "APPR_STOPSIGN"     
-        elif mode == self.NEGOT_STOPSIGN:
-            return "NEGOT_STOPSIGN"   
-        elif mode == self.RECOV_STOPSIGN:
-            return "RECOV_STOPSIGN"              
-            
-        elif mode == self.APPR_HOOP:
-            return "APPR_HOOP"      
-        elif mode == self.NEGOT_HOOP:
-            return "NEGOT_HOOP"          
-        elif mode == self.RECOV_HOOP:
-            return "RECOV_HOOP"  
-            
-        elif mode == self.APPR_BARRELS:
-            return "APPR_BARRELS"   
-        elif mode == self.NEGOT_BARRELS:
-            return "NEGOT_BARRELS"    
-        elif mode == self.RECOV_BARRELS:
-            return "RECOV_BARRELS"  
-            
-        elif mode == self.APPR_RAMP:
-            return "APPR_RAMP"    
-        elif mode == self.NEGOT_RAMP:
-            return "NEGOT_RAMP"     
-        elif mode == self.RECOV_RAMP:
-            return "RECOV_RAMP"  
-            
-        elif mode == self.APPR_PED:
-            return "APPR_PED"     
-        elif mode == self.APPR_XWALK:
-            return "APPR_XWALK"         
-        elif mode == self.STOP_XWALK:
-            return "STOP_XWALK" 
-        elif mode == self.XWALK_STARTUP:
-            return "XWALK_STARTUP"         
-            
-        elif mode == self.WAIT_FOR_END:
-            return "WAIT_FOR_END"     
-        elif mode == self.NEGOT_END:
-            return "NEGOT_END"                  
-        elif mode == self.TERMINATE:
-            return "TERMINATE"   
-        elif mode == self.ERROR:
-            return "ERROR" 
-        elif mode == self.ESTOP:
-            return "ESTOP"
-        elif mode == self.UNKNOWN:
-            return "UNKNOWN"         
-        else:           
-            return "truly unknown???"    
+        return (self.stringDict[mode])
     # end toString
     
     ###########################################################################
     def printMode(self, str):
-        print ("%s currMode = %2d - %s" % (
-                            str, self.currMode , self.toString(self.currMode)))
+        print ("%s %2d: %s" % (
+                str, self.currMode , self.toString(self.currMode)))
     # end printMode
     
 # end
@@ -178,6 +179,7 @@ if __name__ == "__main__":
     
     mode.setMode (raceModes.NONE           )     
     mode.printMode ("NONE          ")
+    print "speed", mode.getSpeed()
     mode.setMode (raceModes.WAIT_FOR_BIST  )     
     mode.printMode ("WAIT_FOR_BIST ")
     mode.setMode (raceModes.WAIT_FOR_START )     

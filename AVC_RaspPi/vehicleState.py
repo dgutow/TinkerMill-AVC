@@ -17,7 +17,8 @@ from rangeClass      import Range
 class obstacle (object):
     NONE         =  0
     PEDESTRIAN   =  80
-    STOPSIGN     =  83      
+    STOPSIGN     =  83 
+    CROSSWALK    =  67
     RAMP         =  82
     HOOP         =  72 
     BARRELS      =  66  

@@ -173,92 +173,91 @@ def get_iopTlm():
 ################################################################################
 # proc_iopTlm - process_telemetry
 ################################################################################
-
 def proc_iopTlm (data):        
-        try:
-            telemArray  = struct.unpack('<LLhhhhhhhhhhhhhhhhhhhhhh', data)
-        except:      
-            print ("MAINLOOP:PROC_IOPTLM - ERROR unable to parse telemetry")
-            print ("MAINLOOP:PROC_IOPTLM - Length of data is ", len(data) )             
-            return 0
-        
-        pktId                   = telemArray[0]
-        vehState.iopTime        = telemArray[1]
-        vehState.iopMode        = telemArray[2]
-        vehState.iopAcceptCnt   = telemArray[3]
-        vehState.iopBistStatus  = telemArray[4]
-        vehState.iopSpeed       = telemArray[5]
-        vehState.iopSteerAngle  = telemArray[6]         
-        vehState.iopCumDistance = telemArray[7]
-        
-        # Enter the side IR sensors into the two rangeSensorPairs
-        irLF_Range              = telemArray[8]
-        irLR_Range              = telemArray[9]        
-        irRF_Range              = telemArray[10]
-        irRR_Range              = telemArray[11]
-        
-        vehState.iopSwitchStatus= telemArray[12]  
-        vehState.iopStartSwitch = telemArray[12] & 0x01 
-        
-        measScanAngle           = telemArray[13]
-        measScanSensor          = telemArray[14]
-        measScanDist            = telemArray[15]
+    try:
+        telemArray  = struct.unpack('<LLhhhhhhhhhhhhhhhhhhhhhh', data)
+    except:      
+        print ("MAINLOOP:PROC_IOPTLM - ERROR unable to parse telemetry")
+        print ("MAINLOOP:PROC_IOPTLM - Length of data is ", len(data) )             
+        return 0
+    
+    pktId                   = telemArray[0]
+    vehState.iopTime        = telemArray[1]
+    vehState.iopMode        = telemArray[2]
+    vehState.iopAcceptCnt   = telemArray[3]
+    vehState.iopBistStatus  = telemArray[4]
+    vehState.iopSpeed       = telemArray[5]
+    vehState.iopSteerAngle  = telemArray[6]         
+    vehState.iopCumDistance = telemArray[7]
+    
+    # Enter the side IR sensors into the two rangeSensorPairs
+    irLF_Range              = telemArray[8]
+    irLR_Range              = telemArray[9]        
+    irRF_Range              = telemArray[10]
+    irRR_Range              = telemArray[11]
+    
+    vehState.iopSwitchStatus= telemArray[12]  
+    vehState.iopStartSwitch = telemArray[12] & 0x01 
+    
+    measScanAngle           = telemArray[13]
+    measScanSensor          = telemArray[14]
+    measScanDist            = telemArray[15]
 
-        vehState.iopBattVolt1   = telemArray[16]
-        vehState.iopBattVolt2   = telemArray[17]
-        vehState.iopAccelVert   = telemArray[18]
-        vehState.iopGyroHoriz   = telemArray[19]
-        vehState.iopCompAngle   = telemArray[20]
-        vehState.iopCameraAngle = telemArray[21]        
-        vehState.iopSpare2      = telemArray[22]
-        vehState.iopSpare3      = telemArray[23]   
-        
-        if  False:
-			print "MAINLOOP:PROC_IOPTLM - Time %3d, Mode %1d, AccCnt %2d, Switch %2d/%2d" % (
-             vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
-             vehState.iopSwitchStatus, vehState.iopStartSwitch)   
-			#print "PROCESS_TELEM - Bist %d, Speed %d, SteerAng %d, Distance  %d" % (
+    vehState.iopBattVolt1   = telemArray[16]
+    vehState.iopBattVolt2   = telemArray[17]
+    vehState.iopAccelVert   = telemArray[18]
+    vehState.iopGyroHoriz   = telemArray[19]
+    vehState.iopCompAngle   = telemArray[20]
+    vehState.iopCameraAngle = telemArray[21]        
+    vehState.iopSpare2      = telemArray[22]
+    vehState.iopSpare3      = telemArray[23]   
+    
+    if  False:
+        print "MAINLOOP:PROC_IOPTLM - Time %3d, Mode %1d, AccCnt %2d, Switch %2d/%2d" % (
+            vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
+            vehState.iopSwitchStatus, vehState.iopStartSwitch)   
+        print "PROCESS_TELEM - Bist %d, Speed %d, SteerAng %d, Distance  %d" % (
             # vehState.iopBistStatus, vehState.iopSpeed, vehState.iopSteerAngle, 
             # vehState.iopCumDistance)                  
-        #end
-        if False:
-            hexArr = [hex(ord(val)) for val in data]
-            print ("PROCESS_TELEM - %s,%s,%s,%s,%s,%s,%s" % 
-                (hexArr[0], hexArr[1], hexArr[2], hexArr[3], 
-                 hexArr[4], hexArr[5], hexArr[6]) )
-        #end
-        
-        #######################################################################
-        # Let's make sure we're always operating on compass angles which range
-        # -180 to +180, rather than 0 to 360 degrees.
-        if (vehState.iopCompAngle > 180):
-            vehState.iopCompAngle -= 360
-        #print ("MAINLOOP:PROC_IOPTLM - 1")
-        #######################################################################  
-        # Enter the scanner info into the iopRanges buffer
-        vehState.iopRanges.enterRange(time   = vehState.iopTime, 
-                                      angle  = measScanAngle, 
-                                      ranger = measScanSensor, 
-                                      range  = measScanDist) 
-        #print ("MAINLOOP:PROC_IOPTLM - 2")                                      
-        #######################################################################                                      
-        # Enter the scanner info into the occupGrid - DAG should we 
-        # enter the data if we are using the short range sensor?
-        occGrid.enterRange ( carCumDist   = vehState.iopCumDistance, 
-                             carCurrAngle = vehState.iopCompAngle, 
-                             scanDist     = measScanDist, 
-                             scanAngle    = measScanAngle)       
-        #print ("MAINLOOP:PROC_IOPTLM - 3")                             
-        #######################################################################        
-        # Enter the side IR sensor data into the two rangeSensorPairs
-        if not WINDOWS:
-			rangeLeftPair.newMeasurement (measFrontRange = irLF_Range, 
-                                      measRearRange  = irLR_Range)                                     
-			rangeRightPair.newMeasurement(measFrontRange = irRF_Range, 
-                                      measRearRange  = irRR_Range)   
-        # end WINDOWS     
-        # print ("MAINLOOP:PROC_IOPTLM - 4 end")        
-        return vehState.iopTime
+    #end
+    if False:
+        hexArr = [hex(ord(val)) for val in data]
+        print ("PROCESS_TELEM - %s,%s,%s,%s,%s,%s,%s" % 
+            (hexArr[0], hexArr[1], hexArr[2], hexArr[3], 
+             hexArr[4], hexArr[5], hexArr[6]) )
+    #end
+    
+    #######################################################################
+    # Let's make sure we're always operating on compass angles which range
+    # -180 to +180, rather than 0 to 360 degrees.
+    if (vehState.iopCompAngle > 180):
+        vehState.iopCompAngle -= 360
+    #print ("MAINLOOP:PROC_IOPTLM - 1")
+    #######################################################################  
+    # Enter the scanner info into the iopRanges buffer
+    vehState.iopRanges.enterRange(time   = vehState.iopTime, 
+                                  angle  = measScanAngle, 
+                                  ranger = measScanSensor, 
+                                  range  = measScanDist) 
+    #print ("MAINLOOP:PROC_IOPTLM - 2")                                      
+    #######################################################################                                      
+    # Enter the scanner info into the occupGrid - DAG should we 
+    # enter the data if we are using the short range sensor?
+    occGrid.enterRange ( carCumDist   = vehState.iopCumDistance, 
+                         carCurrAngle = vehState.iopCompAngle, 
+                         scanDist     = measScanDist, 
+                         scanAngle    = measScanAngle)       
+    #print ("MAINLOOP:PROC_IOPTLM - 3")                             
+    #######################################################################        
+    # Enter the side IR sensor data into the two rangeSensorPairs
+    if not WINDOWS:
+        rangeLeftPair.newMeasurement (measFrontRange = irLF_Range, 
+                                    measRearRange  = irLR_Range)                                     
+        rangeRightPair.newMeasurement(measFrontRange = irRF_Range, 
+                                    measRearRange  = irRR_Range)   
+    # end WINDOWS     
+    # print ("MAINLOOP:PROC_IOPTLM - 4 end")        
+    return vehState.iopTime
 # end
 
 ################################################################################

@@ -87,33 +87,34 @@ class serialClass (object):
     # SerialPortThread(state)
     ###########################################################################
     def serialPortThread(self):
-        printOut ("SERIALCLASS THREAD SIM: starting loop")
+        printOut ("SERIALSIM: starting loop")
         self.serialThreadRunning = True
-        lastIopMode = self.iopMode          # So we know the mode just switched
-        timeInc     = 50                    # time increment each loop (msec)
+        lastIopMode = self.iopMode      # So we know the mode just switched
+        timeInc     = 50                # time increment each loop (msec)
+        currTime    = 0
+        normTime    = 0                 # Time we switched to Normal mode
         counter     = 0
     
         while (self.serialThreadFlag):
-            time.sleep (2.4)        
-
             # Do some simple vehicle simulations:
+           
+            # If we just switched to normal mode record the time
+            if (self.iopMode == 1 and lastIopMode == 0):
+                normTime = currTime
+                lastIopMode = self.iopMode
+            # end
             
-            # If we just switched to race mode wait a simulated second and 
-            # then flag the start button was pushed
-            if (lastIopMode == 0 and self.iopMode == 1):
-                counter += timeInc
-                if (counter >= 1000):       # Waited a simulated 1 second?
-                    self.iopSwitchStatus = 0xfff
-                    lastIopMode = self.iopMode
-                    printOut ("SERIALSIM - sending START SWITCH PUSHED")                      
-                # end
+            # If we're in normal mode then after 2 second send button push
+            if (self.iopMode == 1 and currTime == normTime + 2000):
+                self.iopSwitchStatus = 0xfff
+                printOut ("SERIALSIM - sending START SWITCH PUSHED")                      
+            # end
             #end
             
-            # if in race mode then simulate a move and turn 
-            if (self.iopMode == 1): 
+            # if in normal mode and moving then do move maintenance 
+            if (self.iopMode == 1 and self.moveDistance > 0.01): 
                 try:
-                    # We're moving so do some maintenance
-                    if (self.moveDistance > 0.01):   
+                    if ():   
                         deltaDistance = float(self.iopSpeed * timeInc)/1000.0
                         self.moveDistance -= deltaDistance
                         if (self.moveDistance < 0.01):
@@ -124,15 +125,18 @@ class serialClass (object):
                 except:
                     printOut ("SERIALCLASS THREAD: Unable to process iopMode==1")                    
             # Stopped here dag - any other simulated stuff - the scanner?
-
-
             
-            #printOut ("SERIALCLASS THREAD: looping...")
-            self.iopTime += timeInc
-            try:
-                self.send_telemetry ()
-            except:
-                printOut ("SERIALCLASS THREAD: Error trying to send telemetry.")
+            # After 3 seconds start sending telemetry (we're in BIST mode)
+            self.iopTime = currTime            
+            if currTime > 3000:            
+                try:
+                    self.send_telemetry ()
+                except:
+                    printOut ("SERIALCLASS THREAD: Error trying to send telemetry.")
+            # end
+                
+            currTime += timeInc     # Each loop will simulate 50 msec
+            time.sleep (0.1)        # Each loop will actually be 1 sec
         # end while
         
         printOut ("SERIALCLASS THREAD: terminating")
@@ -220,7 +224,7 @@ class serialClass (object):
             self.iopMode = 2   
             self.iopBistStatus = 1      
             self.iopAcceptCnt += 1 
-            printOut ("SERIALSIM - received MODE command - %d" % (p1))             
+            printOut ("SERIALSIM - received ESTOP command - %d" % (p1))             
             
         elif cmdChar == 'H':            # heartbeat
             pass                 
@@ -233,7 +237,7 @@ class serialClass (object):
                 self.iopSpeed    = p1
                 self.moveDistance     = float(p2)
                 self.iopAcceptCnt += 1
-                printOut ("SERIALSIM - received MOVE command, speed %d" % (p1))                 
+                printOut ("SERIALSIM - received MOVE command, speed %d, dist %d" % (p1, p2))                 
             else:
                 printOut ("SERIALSIM - received MOVE command.  ERROR not in normal mode") 
             # end if
