@@ -19,11 +19,11 @@ from OccupGrid       import Grid
 from guiInterface    import guiIfClass
 from printOut        import *
 
-if WINDOWS:
+if SIM_TEENSY:
     from serialClassSim  import serialClass
 else:    
     from serialClass     import serialClass
-# end if WINDOWS    
+# end if SIM_TEENSY    
 
 ###############################################################################
 # Global variables 
@@ -217,15 +217,16 @@ def proc_iopTlm (data):
             vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
             vehState.iopSwitchStatus, vehState.iopStartSwitch)   
         print "PROCESS_TELEM - Bist %d, Speed %d, SteerAng %d, Distance  %d" % (
-            # vehState.iopBistStatus, vehState.iopSpeed, vehState.iopSteerAngle, 
-            # vehState.iopCumDistance)                  
-    #end
+            vehState.iopBistStatus, vehState.iopSpeed, vehState.iopSteerAngle, 
+            vehState.iopCumDistance)                  
+    # end
+    
     if False:
         hexArr = [hex(ord(val)) for val in data]
         print ("PROCESS_TELEM - %s,%s,%s,%s,%s,%s,%s" % 
             (hexArr[0], hexArr[1], hexArr[2], hexArr[3], 
              hexArr[4], hexArr[5], hexArr[6]) )
-    #end
+    # end
     
     #######################################################################
     # Let's make sure we're always operating on compass angles which range
@@ -250,12 +251,13 @@ def proc_iopTlm (data):
     #print ("MAINLOOP:PROC_IOPTLM - 3")                             
     #######################################################################        
     # Enter the side IR sensor data into the two rangeSensorPairs
-    if not WINDOWS:
+    if not SIM_TEENSY:
         rangeLeftPair.newMeasurement (measFrontRange = irLF_Range, 
                                     measRearRange  = irLR_Range)                                     
         rangeRightPair.newMeasurement(measFrontRange = irRF_Range, 
                                     measRearRange  = irRR_Range)   
-    # end WINDOWS     
+    # end SIM_TEENSY     
+    
     # print ("MAINLOOP:PROC_IOPTLM - 4 end")        
     return vehState.iopTime
 # end

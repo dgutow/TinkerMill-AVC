@@ -14,11 +14,11 @@ from vehicleState   import *
 from raceModes      import raceModes   
 from constants      import *        # Vehicle and course constants
 
-if WINDOWS:
+if SIM_TEENSY:
     from serialClassSim  import serialClass
 else:    
     from serialClass     import serialClass
-# end if WINDOWS 
+# end if SIM_TEENSY 
 
 apprCount   = 2    # Count of loops to stay in any of the appr states
 BistMaxCnt  = 30    # Max time for IOP to get to BIST
@@ -490,12 +490,12 @@ if __name__ == '__main__':
         # #print ("MAINLOOP:PROC_IOPTLM - 3")                             
         # #######################################################################        
         # # Enter the side IR sensor data into the two rangeSensorPairs
-        # if not WINDOWS:
+        # if not SIM_TEENSY:
             # rangeLeftPair.newMeasurement (measFrontRange = irLF_Range, 
                                     # measRearRange  = irLR_Range)                                     
             # rangeRightPair.newMeasurement(measFrontRange = irRF_Range, 
                                     # measRearRange  = irRR_Range)   
-        # # end WINDOWS     
+        # # end SIM_TEENSY     
         # # print ("MAINLOOP:PROC_IOPTLM - 4 end")        
         return vehState.iopTime
     # end
