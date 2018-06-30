@@ -20,9 +20,9 @@ else:
     from serialClass     import serialClass
 # end if WINDOWS 
 
-apprCount   = 2    # Count of loops to stay in any of the appr states
-BistMaxCnt  = 30    # Max time for IOP to get to BIST
-NormMaxCnt  = 10    # Max time for IOP to get to NORM mode after commanding 
+apprCount   = 2     # Count of loops to stay in any of the appr states
+BistMaxCnt  = 30    # 3 sec - max time for IOP to get to BIST
+NormMaxCnt  = 20    # 2 sec - max time for IOP to enter NORM mode after cmd 
 simMaxCnt   = 2     # For simulation only
 
 ############################################################################### 
@@ -69,7 +69,7 @@ def stateMachine (vehState, serialPort):
     elif vehState.mode.currMode == raceModes.WAIT_FOR_START:
         if vehState.mode.newMode():   
             playSound (vehState)  
-            serialPort.sendCommand ('D', 1, 0, 0)             
+            serialPort.sendCommand ('D', 1, 0, 0)   # Go to NORMAL mode              
         # end
 
         if (vehState.iopMode <> IOP_MODE_NORMAL):
@@ -81,7 +81,7 @@ def stateMachine (vehState, serialPort):
         else:
             # IOP is in NORMAL mode so set steering.  We'll send this
             # command every cycle but who cares?
-            serialPort.sendCommand ('T', 0, 0, 0)             
+            serialPort.sendCommand ('T', 0, 0, 0)   # Set steering to 0           
         
             # Did we get the start switch closure?
             if (vehState.iopStartSwitch):     # We're Off!

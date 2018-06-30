@@ -88,27 +88,27 @@ def initializations():
 ##############################################################################
 
 def mainLoop():
+    abort = False
     loopCntr    = 0
     printOut ("MAIN_LOOP: starting loop")
     
-    while (vehState.mode.currMode != raceModes.TERMINATE and loopCntr < 200):  
-        time.sleep (2.0)          # dag remove    
+    while (vehState.mode.currMode != raceModes.TERMINATE and not abort):  
+        time.sleep (0.1)          # dag remove    
         
         loopCntr += 1         
-        if loopCntr % 1 == 0:
+        if loopCntr % 100 == 0:
             printOut (("\nMAIN_LOOP: Loop #%2d" % (loopCntr)))       
     
         # Check if we received a command from the GUI host and
-        # send a telemetry packet
+        # send the GUI a telemetry packet
         guiCmd = guiIf.get_cmd () 
-        exec_guiCmd (guiCmd)           
+        abort = exec_guiCmd (guiCmd)           
         guiIf.send_rpiTlm (guiAcceptCnt, vehState, rangeLeftPair, rangeRightPair)  
         
         # Get the iop temetry msgs and parse into state structure
         iopMsg = get_iopTlm ()
         if (len(iopMsg) != 0):              
             guiIf.send_iopTlm (iopMsg)
-        #print ("MAIN_LOOP - 5")
 
         # Get the vision temetry msgs and parse into state structure        
         #visMsg = getVisionTelemetry()
@@ -124,9 +124,7 @@ def mainLoop():
         
         # Let the iop know we're alive
         vehState.currHeartBeat += 1        
-        serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)     
-        
-        #print ("MAIN_LOOP - 6")        
+        serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)            
         
     # end while
     
@@ -216,7 +214,7 @@ def proc_iopTlm (data):
         print "MAINLOOP:PROC_IOPTLM - Time %3d, Mode %1d, AccCnt %2d, Switch %2d/%2d" % (
             vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
             vehState.iopSwitchStatus, vehState.iopStartSwitch)   
-        print "PROCESS_TELEM - Bist %d, Speed %d, SteerAng %d, Distance  %d" % (
+        #print "PROCESS_TELEM - Bist %d, Speed %d, SteerAng %d, Distance  %d" % (
             # vehState.iopBistStatus, vehState.iopSpeed, vehState.iopSteerAngle, 
             # vehState.iopCumDistance)                  
     #end
@@ -305,6 +303,7 @@ def visionSend(obstacle):
 ###########################################################################    
 def exec_guiCmd (cmdMsg):
     global guiAcceptCnt
+    abort = False
     
     if (len(cmdMsg) == 0):      # Is there a real gui command here?
         return
@@ -319,9 +318,9 @@ def exec_guiCmd (cmdMsg):
     except:
         print ("EXEC_GUICMD: Parse Error - unable to parse command") 
         return
-        
-    #print ("EXEC_GUICMD - Cmd %s, P1 %d, P2 %d, P3 %d" % 
-    #          (command, param1, param2, param3) )  
+
+    printOut ("EXEC_GUICMD - Cmd %s, P1 %d, P2 %d, P3 %d" % 
+              (command, param1, param2, param3) )  
     
     if   (command == 'A'):      # Set scanner angles  
         serialPort.sendCommand (command, param1, param2, param3)
@@ -414,8 +413,8 @@ def exec_guiCmd (cmdMsg):
         
     elif (command == 'Z'):      # Load parameters from file
         pass       
-    elif (command == '1'):      # n/d    
-        bad_cmd (command, param1, param2, param3)
+    elif (command == '1'):      # n/d   
+        abort = True
         
     elif (command == '2'):      # n/d
         bad_cmd (command, param1, param2, param3) 
@@ -441,7 +440,8 @@ def exec_guiCmd (cmdMsg):
     elif (command == '9'):      # n/d        
         bad_cmd (command, param1, param2, param3)
         
-    print ("EXEC_GUICMD - guiAcceptCnt %d\n" % ( guiAcceptCnt))         
+    print ("EXEC_GUICMD - guiAcceptCnt %d\n" % ( guiAcceptCnt))  
+    return (abort)
 # end exec_cmd
 
 ###########################################################################
