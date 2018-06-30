@@ -7,9 +7,10 @@
 from vehicleState    import *       # Everything we know about the vehicle
 
 ###############################################################################
-# WINDOWS - Used when integrating on Windows (not Rpi)....
+# SIM_TEENSY - Used when integrating with no Teensy connected.
 ###############################################################################
-WINDOWS	= True
+SIM_TEENSY	= True              # When no Teensy
+#SIM_TEENSY	= False            # When there is a communicating Teensy
 
 ###############################################################################
 # TCP/UDP communication parameters to the GUI host
