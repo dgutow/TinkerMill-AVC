@@ -17,13 +17,14 @@ from simulator       import usbQueue
 from constants       import *           # Vehicle and course constants
   
 USB_Port =  '/dev/ttyACM0'
+#USB_Port =  '/dev/ttyACM1'
   
 ###############################################################################
 # class serialClass - serial port support
 ###############################################################################
 
 class serialClass (object):
-    serialPort      = serial.Serial(port=USB_Port)
+    serialPort      = serial.Serial(port=USB_Port, baudrate=115200) 
     serialPortFlag  = True      # Use to kill the serial port thread   
         
     ########################################################################### 
@@ -47,16 +48,19 @@ class serialClass (object):
     def serialPortThread(self):
         print "SERIAL PORT THREAD: starting loop"  
         runFlag = self.serialPortFlag
-        self.serialPort.reset_input_buffer()
+        #self.serialPort.reset_input_buffer()
+        self.serialPort.flushOutput()    
+        self.serialPort.flushInput()    
         cnt = 0
     
         while (runFlag):
             
-            data = self.serialPort.read(54)    # length of a telemetry message
+            data = self.serialPort.read(54)    # 54 length of a telemetry message
+            self.serialPort.flushInput()            
             self.telemQueue.put(data)
-            if (cnt %10 == 0):
-               print ("serialPortThread: Flag %d, Rcvd data, currCnt = %d" % 
-					(runFlag, cnt) )
+            if (cnt %4== 0):
+               #print ("serialPortThread: Flag %d, Rcvd data, currCnt = %d" % 	(runFlag, cnt) )
+               print ("serialPortThread MSG: [%s]\n" % 	(data) )              
             
             """
             # instead of getting data from serial port we'll get it from 

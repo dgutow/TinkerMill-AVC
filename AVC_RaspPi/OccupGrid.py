@@ -268,6 +268,7 @@ class Grid(object):
 ###############################################################################
 # Class Histogram
 ###############################################################################
+""" 
 class Histogram(object)
     
     minAngle = -45      # Minimum angle of the histogram
@@ -296,10 +297,7 @@ class Histogram(object)
             # end for col
         # end for row  
     # end init        
-
-
-
-
+""" 
 
 ###############################################################################
 # Test code

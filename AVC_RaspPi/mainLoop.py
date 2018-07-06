@@ -93,8 +93,9 @@ def mainLoop():
     printOut ("MAIN_LOOP: starting loop")
     
     while (vehState.mode.currMode != raceModes.TERMINATE and not abort):  
-        time.sleep (0.1)          # dag remove    
-        
+        #time.sleep (0.1)          # dag remove    
+        time.sleep (1.5)          # dag remove    
+                
         loopCntr += 1         
         if loopCntr % 100 == 0:
             printOut (("\nMAIN_LOOP: Loop #%2d" % (loopCntr)))       
@@ -171,9 +172,10 @@ def get_iopTlm():
 ################################################################################
 # proc_iopTlm - process_telemetry
 ################################################################################
-def proc_iopTlm (data):        
+def proc_iopTlm (data):      
+    global vehState  
     try:
-        telemArray  = struct.unpack('<LLhhhhhhhhhhhhhhhhhhhhhh', data)
+        telemArray  = struct.unpack('<LLhhhhhhhhhhhhhhhhhhhhhhh', data)
     except:      
         print ("MAINLOOP:PROC_IOPTLM - ERROR unable to parse telemetry")
         print ("MAINLOOP:PROC_IOPTLM - Length of data is ", len(data) )             
@@ -210,10 +212,10 @@ def proc_iopTlm (data):
     vehState.iopSpare2      = telemArray[22]
     vehState.iopSpare3      = telemArray[23]   
     
-    if  False:
-        print "MAINLOOP:PROC_IOPTLM - Time %3d, Mode %1d, AccCnt %2d, Switch %2d/%2d" % (
-            vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
-            vehState.iopSwitchStatus, vehState.iopStartSwitch)   
+    if  True:
+        print "MAINLOOP:PROC_IOPTLM - Pkid %d, Time %3d, Mode %1d, AccCnt %2d, Spd %3d, Switch %2d/%2d" % (
+            telemArray[0],  telemArray[1],  telemArray[2],   telemArray[3],  telemArray[5], 
+            telemArray[12] , telemArray[12] & 0x01)   
         #print "PROCESS_TELEM - Bist %d, Speed %d, SteerAng %d, Distance  %d" % (
             # vehState.iopBistStatus, vehState.iopSpeed, vehState.iopSteerAngle, 
             # vehState.iopCumDistance)                  
@@ -221,9 +223,11 @@ def proc_iopTlm (data):
 
     if False:
         hexArr = [hex(ord(val)) for val in data]
-        print ("PROCESS_TELEM - %s,%s,%s,%s,%s,%s,%s" % 
-            (hexArr[0], hexArr[1], hexArr[2], hexArr[3], 
-             hexArr[4], hexArr[5], hexArr[6]) )
+        print ("PROC_IOPTELEM -----> %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s" % 
+            (hexArr[0], hexArr[1],  hexArr[2],   hexArr[3], 
+             hexArr[4], hexArr[5],  hexArr[6],   hexArr[7], 
+             hexArr[8], hexArr[9] , hexArr[10], hexArr[11] ,
+             hexArr[12], hexArr[13] , hexArr[14], hexArr[15] ) )
     # end
     
     #######################################################################

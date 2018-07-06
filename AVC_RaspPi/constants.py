@@ -9,8 +9,8 @@ from vehicleState    import *       # Everything we know about the vehicle
 ###############################################################################
 # SIM_TEENSY - Used when integrating with no Teensy connected.
 ###############################################################################
-SIM_TEENSY	= True              # When no Teensy
-#SIM_TEENSY	= False            # When there is a communicating Teensy
+#SIM_TEENSY	= True              # When no Teensy
+SIM_TEENSY	= False            # When there is a communicating Teensy
 
 ###############################################################################
 # TCP/UDP communication parameters to the GUI host

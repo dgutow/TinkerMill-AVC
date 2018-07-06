@@ -65,7 +65,7 @@ void tlm_init ()
 ///////////////////////////////////////////////////////////////////////////////
 void tlm_sendToHost (uint32_t currTime)
 {
-  telem.pktId   = 0x11111111;
+  telem.pktId   = 0x44454144;
   telem.time    = currTime;
   RPIPORT.write ((byte*) &telem, sizeof(telem));
 

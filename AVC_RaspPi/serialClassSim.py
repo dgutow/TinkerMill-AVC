@@ -128,7 +128,7 @@ class serialClass (object):
             
             # After 3 seconds start sending telemetry (we're in BIST mode)
             self.iopTime = currTime            
-            if currTime > 3000:            
+            if currTime > 1000:            
                 try:
                     self.send_telemetry ()
                 except:

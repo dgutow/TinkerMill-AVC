@@ -24,15 +24,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 // The serial ports
 ///////////////////////////////////////////////////////////////////////////////
-//#define RPIPORT   Serial       // Serial port connected to the Raspberry Pi
-//#define ESPPORT   Serial1      // Serial port connected to the ESP8266
-//#define DBGPORT   Serial2      // Serial port for debugging
-
-// temporary for debugging
 #define RPIPORT   Serial         // Serial port connected to the Raspberry Pi 
 #define DBGPORT   Serial1        // Serial port for textual debugging
 #define ESPPORT   Serial2        // Serial port connected to the ESP8266
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // Pin assignments
