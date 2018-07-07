@@ -92,12 +92,13 @@ def mainLoop():
     loopCntr    = 0
     printOut ("MAIN_LOOP: starting loop")
     
-    while (vehState.mode.currMode != raceModes.TERMINATE and not abort):  
+    while (True): 
+            #vehState.mode.currMode != raceModes.TERMINATE and not abort):  
         #time.sleep (0.1)          # dag remove    
-        time.sleep (1.5)          # dag remove    
+        time.sleep (0.8)          # dag remove    
                 
         loopCntr += 1         
-        if loopCntr % 100 == 0:
+        if loopCntr % 20 == 0:
             printOut (("\nMAIN_LOOP: Loop #%2d" % (loopCntr)))       
     
         # Check if we received a command from the GUI host and
@@ -121,21 +122,17 @@ def mainLoop():
             stateMachine (vehState, serialPort)
         except:
             print ("MAIN_LOOP - ERROR in stateMachine")
-            pass
         
         # Let the iop know we're alive
         vehState.currHeartBeat += 1        
-        serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)            
-        
+        #serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)   dag turn on              
     # end while
-    
     printOut ("MAIN_LOOP: Terminating mainLoop, Killing serialPort")
     
     # Kill the simulator by sending an unknown command
     #serialPort.sendCommand ('Z', 0, 0, 0) 
     serialPort.killThread()       
     guiIf.close ()          # Close the gui interface TCP server thread
-    
 # end def 
     
 ################################################################################
@@ -212,7 +209,7 @@ def proc_iopTlm (data):
     vehState.iopSpare2      = telemArray[22]
     vehState.iopSpare3      = telemArray[23]   
     
-    if  True:
+    if  False:
         print "MAINLOOP:PROC_IOPTLM - Pkid %d, Time %3d, Mode %1d, AccCnt %2d, Spd %3d, Switch %2d/%2d" % (
             telemArray[0],  telemArray[1],  telemArray[2],   telemArray[3],  telemArray[5], 
             telemArray[12] , telemArray[12] & 0x01)   
@@ -254,10 +251,11 @@ def proc_iopTlm (data):
     #######################################################################        
     # Enter the side IR sensor data into the two rangeSensorPairs
     if not SIM_TEENSY:
-        rangeLeftPair.newMeasurement (measFrontRange = irLF_Range, 
-                                    measRearRange  = irLR_Range)                                     
-        rangeRightPair.newMeasurement(measFrontRange = irRF_Range, 
-                                    measRearRange  = irRR_Range)   
+        #rangeLeftPair.newMeasurement (measFrontRange = irLF_Range, 
+                                    #measRearRange  = irLR_Range)                                     
+        #rangeRightPair.newMeasurement(measFrontRange = irRF_Range, 
+                                    #measRearRange  = irRR_Range)   
+        pass
     # end SIM_TEENSY     
     
     # print ("MAINLOOP:PROC_IOPTLM - 4 end")        

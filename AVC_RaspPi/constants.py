@@ -16,8 +16,8 @@ SIM_TEENSY	= False            # When there is a communicating Teensy
 # TCP/UDP communication parameters to the GUI host
 ###############################################################################
 #GUI_IPADDR   = "127.0.0.1"
-GUI_IPADDR   = 'localhost'       
-#GUI_IPADDR   = ''     
+#GUI_IPADDR   = 'localhost'       
+GUI_IPADDR   = '10.2.124.96'
 GUI_MAINPORT = 61432    # The TCP port for cmds/tlm to/from the Rpi
 GUI_IOPPORT  = 61433    # The UDP port for tlm from IOP 
 GUI_VISPORT  = 61434    # Tje UDP port for tlm from VIS

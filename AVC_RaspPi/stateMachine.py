@@ -20,10 +20,10 @@ else:
     from serialClass     import serialClass
 # end if SIM_TEENSY 
 
-apprCount   = 2     # Count of loops to stay in any of the appr states
-BistMaxCnt  = 30    # 3 sec - max time for IOP to get to BIST
-NormMaxCnt  = 20    # 2 sec - max time for IOP to enter NORM mode after cmd 
-simMaxCnt   = 2     # For simulation only
+apprCount       = 2     # Count of loops to stay in any of the appr states
+BistMaxCnt    = 30    # 3 sec - max time for IOP to get to BIST
+NormMaxCnt  = 30    # 2 sec - max time for IOP to enter NORM mode after cmd 
+ErrorMaxCnt   = 200    # Number of iterations before repeating error msg
 
 ############################################################################### 
 # stateControl - choose what to do depending on our current state
@@ -81,7 +81,8 @@ def stateMachine (vehState, serialPort):
         else:
             # IOP is in NORMAL mode so set steering.  We'll send this
             # command every cycle but who cares?
-            serialPort.sendCommand ('T', 0, 0, 0)   # Set steering to 0           
+            #serialPort.sendCommand ('T', 0, 0, 0)   # Set steering to 0       dag    
+            pass
         
             # Did we get the start switch closure?
             if (vehState.iopStartSwitch):     # We're Off!
@@ -311,7 +312,7 @@ def stateMachine (vehState, serialPort):
     elif vehState.mode.currMode == raceModes.ERROR:   
         if vehState.mode.newMode(): 
             playSound (vehState)        
-            print "STATECONTROL - in ERROR State: %s" % (vehState.errorString)
+            printOut  ( "STATECONTROL - in ERROR State: %s" % (vehState.errorString))
      
         if (vehState.mode.modeCount >= simMaxCnt):     
             vehState.mode.setMode(raceModes.ERROR)   
