@@ -88,27 +88,29 @@ def initializations():
 ##############################################################################
 
 def mainLoop():
+    abort = False
     loopCntr    = 0
     printOut ("MAIN_LOOP: starting loop")
     
-    while (vehState.mode.currMode != raceModes.TERMINATE and loopCntr < 200):  
-        time.sleep (2.0)          # dag remove    
-        
+    while (True): 
+            #vehState.mode.currMode != raceModes.TERMINATE and not abort):  
+        #time.sleep (0.1)          # dag remove    
+        time.sleep (0.8)          # dag remove    
+                
         loopCntr += 1         
-        if loopCntr % 1 == 0:
+        if loopCntr % 20 == 0:
             printOut (("\nMAIN_LOOP: Loop #%2d" % (loopCntr)))       
     
         # Check if we received a command from the GUI host and
-        # send a telemetry packet
+        # send the GUI a telemetry packet
         guiCmd = guiIf.get_cmd () 
-        exec_guiCmd (guiCmd)           
+        abort = exec_guiCmd (guiCmd)           
         guiIf.send_rpiTlm (guiAcceptCnt, vehState, rangeLeftPair, rangeRightPair)  
         
         # Get the iop temetry msgs and parse into state structure
         iopMsg = get_iopTlm ()
         if (len(iopMsg) != 0):              
             guiIf.send_iopTlm (iopMsg)
-        #print ("MAIN_LOOP - 5")
 
         # Get the vision temetry msgs and parse into state structure        
         #visMsg = getVisionTelemetry()
@@ -120,23 +122,17 @@ def mainLoop():
             stateMachine (vehState, serialPort)
         except:
             print ("MAIN_LOOP - ERROR in stateMachine")
-            pass
         
         # Let the iop know we're alive
         vehState.currHeartBeat += 1        
-        serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)     
-        
-        #print ("MAIN_LOOP - 6")        
-        
+        #serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)   dag turn on              
     # end while
-    
     printOut ("MAIN_LOOP: Terminating mainLoop, Killing serialPort")
     
     # Kill the simulator by sending an unknown command
     #serialPort.sendCommand ('Z', 0, 0, 0) 
     serialPort.killThread()       
     guiIf.close ()          # Close the gui interface TCP server thread
-    
 # end def 
     
 ################################################################################
@@ -173,9 +169,10 @@ def get_iopTlm():
 ################################################################################
 # proc_iopTlm - process_telemetry
 ################################################################################
-def proc_iopTlm (data):        
+def proc_iopTlm (data):      
+    global vehState  
     try:
-        telemArray  = struct.unpack('<LLhhhhhhhhhhhhhhhhhhhhhh', data)
+        telemArray  = struct.unpack('<LLhhhhhhhhhhhhhhhhhhhhhhh', data)
     except:      
         print ("MAINLOOP:PROC_IOPTLM - ERROR unable to parse telemetry")
         print ("MAINLOOP:PROC_IOPTLM - Length of data is ", len(data) )             
@@ -213,19 +210,21 @@ def proc_iopTlm (data):
     vehState.iopSpare3      = telemArray[23]   
     
     if  False:
-        print "MAINLOOP:PROC_IOPTLM - Time %3d, Mode %1d, AccCnt %2d, Switch %2d/%2d" % (
-            vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
-            vehState.iopSwitchStatus, vehState.iopStartSwitch)   
-        print "PROCESS_TELEM - Bist %d, Speed %d, SteerAng %d, Distance  %d" % (
-            vehState.iopBistStatus, vehState.iopSpeed, vehState.iopSteerAngle, 
-            vehState.iopCumDistance)                  
-    # end
-    
+        print "MAINLOOP:PROC_IOPTLM - Pkid %d, Time %3d, Mode %1d, AccCnt %2d, Spd %3d, Switch %2d/%2d" % (
+            telemArray[0],  telemArray[1],  telemArray[2],   telemArray[3],  telemArray[5], 
+            telemArray[12] , telemArray[12] & 0x01)   
+        #print "PROCESS_TELEM - Bist %d, Speed %d, SteerAng %d, Distance  %d" % (
+            # vehState.iopBistStatus, vehState.iopSpeed, vehState.iopSteerAngle, 
+            # vehState.iopCumDistance)                  
+    #end
+
     if False:
         hexArr = [hex(ord(val)) for val in data]
-        print ("PROCESS_TELEM - %s,%s,%s,%s,%s,%s,%s" % 
-            (hexArr[0], hexArr[1], hexArr[2], hexArr[3], 
-             hexArr[4], hexArr[5], hexArr[6]) )
+        print ("PROC_IOPTELEM -----> %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s" % 
+            (hexArr[0], hexArr[1],  hexArr[2],   hexArr[3], 
+             hexArr[4], hexArr[5],  hexArr[6],   hexArr[7], 
+             hexArr[8], hexArr[9] , hexArr[10], hexArr[11] ,
+             hexArr[12], hexArr[13] , hexArr[14], hexArr[15] ) )
     # end
     
     #######################################################################
@@ -252,10 +251,11 @@ def proc_iopTlm (data):
     #######################################################################        
     # Enter the side IR sensor data into the two rangeSensorPairs
     if not SIM_TEENSY:
-        rangeLeftPair.newMeasurement (measFrontRange = irLF_Range, 
-                                    measRearRange  = irLR_Range)                                     
-        rangeRightPair.newMeasurement(measFrontRange = irRF_Range, 
-                                    measRearRange  = irRR_Range)   
+        #rangeLeftPair.newMeasurement (measFrontRange = irLF_Range, 
+                                    #measRearRange  = irLR_Range)                                     
+        #rangeRightPair.newMeasurement(measFrontRange = irRF_Range, 
+                                    #measRearRange  = irRR_Range)   
+        pass
     # end SIM_TEENSY     
     
     # print ("MAINLOOP:PROC_IOPTLM - 4 end")        
@@ -307,6 +307,7 @@ def visionSend(obstacle):
 ###########################################################################    
 def exec_guiCmd (cmdMsg):
     global guiAcceptCnt
+    abort = False
     
     if (len(cmdMsg) == 0):      # Is there a real gui command here?
         return
@@ -321,9 +322,9 @@ def exec_guiCmd (cmdMsg):
     except:
         print ("EXEC_GUICMD: Parse Error - unable to parse command") 
         return
-        
-    #print ("EXEC_GUICMD - Cmd %s, P1 %d, P2 %d, P3 %d" % 
-    #          (command, param1, param2, param3) )  
+
+    printOut ("EXEC_GUICMD - Cmd %s, P1 %d, P2 %d, P3 %d" % 
+              (command, param1, param2, param3) )  
     
     if   (command == 'A'):      # Set scanner angles  
         serialPort.sendCommand (command, param1, param2, param3)
@@ -415,9 +416,10 @@ def exec_guiCmd (cmdMsg):
         guiAcceptCnt += 1   
         
     elif (command == 'Z'):      # Load parameters from file
-        pass       
-    elif (command == '1'):      # n/d    
-        bad_cmd (command, param1, param2, param3)
+        pass  
+        
+    elif (command == '1'):      # n/d   
+        abort = True
         
     elif (command == '2'):      # n/d
         bad_cmd (command, param1, param2, param3) 
@@ -443,7 +445,8 @@ def exec_guiCmd (cmdMsg):
     elif (command == '9'):      # n/d        
         bad_cmd (command, param1, param2, param3)
         
-    print ("EXEC_GUICMD - guiAcceptCnt %d\n" % ( guiAcceptCnt))         
+    print ("EXEC_GUICMD - guiAcceptCnt %d\n" % ( guiAcceptCnt))  
+    return (abort)
 # end exec_cmd
 
 ###########################################################################

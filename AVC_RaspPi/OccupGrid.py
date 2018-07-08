@@ -52,8 +52,7 @@ class Grid(object):
     ###########################################################################
     # __init__   Note - the position of the car when this map was created or
     # updated is always in the center and at Y = 0.0
-    # 
-    
+    #  
     def __init__(self, resolution=10, nRows=50, nCols=50, distance=0, angle=0):
         """ 
         Construct an empty occupancy grid.              
@@ -266,6 +265,39 @@ class Grid(object):
     # end def
 # end 
     
+###############################################################################
+# Class Histogram
+###############################################################################
+""" 
+class Histogram(object)
+    
+    minAngle = -45      # Minimum angle of the histogram
+    maxAngle = 45       # Maximum angle of the histogram
+    angDelta = 5        # delta degrees between histogram cells
+    hist     = []       # the histogram
+    
+    ###########################################################################
+    # __init__  
+    ###########################################################################      
+    def __init__(self)
+        ncells = int((maxAngle - minAngle) / angDelta)
+        
+        for i in range (ncells)
+            hist[i] = 0
+    # end init
+    
+    ###########################################################################
+    # calcHist - an occupgrid is passed in
+    ###########################################################################         
+    def calcHist(self, grid)
+        for row in range (grid.nRows):
+            for col in range (grid.nCols):
+                if (not grid.isZero(row, col)):
+                    pass
+            # end for col
+        # end for row  
+    # end init        
+""" 
 
 ###############################################################################
 # Test code
