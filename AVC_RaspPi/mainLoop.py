@@ -90,11 +90,13 @@ def initializations():
 def mainLoop():
     abort = False
     loopCntr    = 0
+    printOut ("MAIN_LOOP: Dwelling for 10 seconds...")
+    time.sleep (10.0)
     printOut ("MAIN_LOOP: starting loop")
     
-    while (True): 
-            #vehState.mode.currMode != raceModes.TERMINATE and not abort):  
-        #time.sleep (0.1)          # dag remove    
+    while (not abort): 
+        #(vehState.mode.currMode != raceModes.TERMINATE and not abort):  
+        #time.sleep (0.1)          #   
         time.sleep (0.8)          # dag remove    
                 
         loopCntr += 1         
@@ -107,7 +109,7 @@ def mainLoop():
         abort = exec_guiCmd (guiCmd)           
         guiIf.send_rpiTlm (guiAcceptCnt, vehState, rangeLeftPair, rangeRightPair)  
         
-        # Get the iop temetry msgs and parse into state structure
+        # Get the iop telemetry msgs and parse into state structure
         iopMsg = get_iopTlm ()
         if (len(iopMsg) != 0):              
             guiIf.send_iopTlm (iopMsg)
@@ -418,7 +420,7 @@ def exec_guiCmd (cmdMsg):
     elif (command == 'Z'):      # Load parameters from file
         pass  
         
-    elif (command == '1'):      # n/d   
+    elif (command == '1'):      # Abort the Python Program!  
         abort = True
         
     elif (command == '2'):      # n/d
