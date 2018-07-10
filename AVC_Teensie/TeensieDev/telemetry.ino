@@ -33,7 +33,7 @@ void tlm_init ()
 #  endif   
    
    // initialize the structure
-   telem.pktId          = 0x11111111;
+   telem.pktId          = 0x44454144;
    telem.time           = millis();
    telem.currMode       = BIST;
    telem.acceptCntr     = 0;

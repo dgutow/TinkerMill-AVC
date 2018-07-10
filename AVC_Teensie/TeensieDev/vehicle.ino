@@ -38,6 +38,10 @@ extern Telemetry telem;                // The telemetry class
 #define ENC_LEFT_PIN          11    // dag!
 #define ENC_RIGHT_PIN         12
 
+// The switches
+#define VEH_START_SWITCH_PIN  22
+#define VEH_ESTOP_SWITCH_PIN  23
+
 #define ENC_STEPS_PER_REV    6.0    // 6 poles per revolution
 #define ENC_DEG_PER_STEP    60.0    // 6 poles per revolution
 #define VEH_WHEEL_DIAM     114.3    // mm.  Corresponds to 4.5 inches
@@ -88,7 +92,12 @@ void veh_init()
     
     // attach two interrupts
     attachInterrupt(digitalPinToInterrupt(ENC_LEFT_PIN),  veh_leftWheelInt,  RISING );
-    attachInterrupt(digitalPinToInterrupt(ENC_RIGHT_PIN), veh_rightWheelInt, RISING );    
+    attachInterrupt(digitalPinToInterrupt(ENC_RIGHT_PIN), veh_rightWheelInt, RISING );  
+
+    // Set switches
+    pinMode(VEH_START_SWITCH_PIN,INPUT);
+    pinMode(VEH_ESTOP_SWITCH_PIN,INPUT);    
+    telem.switches = 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -253,12 +262,17 @@ void veh_check (uint32 currTimeMsec)
 ///////////////////////////////////////////////////////////////////////////////
 void veh_getSwitches (uint32 currTimeMsec)
 {
-  // read all switches
-  // todo
-  // if estop pushed 
-  //    call veh_estop and fill in the reason for estop mode.
-  // todo
+  telem.switches  =  digitalRead(VEH_START_SWITCH_PIN);         // bit 0
   
+  bool estop = digitalRead(VEH_ESTOP_SWITCH_PIN);  
+  if (estop) 
+  {
+    // Estop button was pushed, stop the vehicle and go into estop mode
+    telem.switches |= 0x02;                                     // bit 1   
+    veh_estop ();
+    telem.currMode = ESTOP;
+    telem.bist = ESTOP_BUTTON;
+  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////

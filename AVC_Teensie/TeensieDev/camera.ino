@@ -17,7 +17,7 @@ extern Telemetry telem;                // The telemetry class
 ///////////////////////////////////////////////////////////////////////////////
 // Constants
 ///////////////////////////////////////////////////////////////////////////////
-#define CAM_PIN_NUMBER        39
+#define CAM_PIN_NUMBER        38
 #define CAM_CONVERSION       -15    // Convert from angle to microseconds
 #define CAM_MID_PULSEWIDTH  1500    // Servo neutral position
 #define CAM_MIN_PULSWIDTH   1000
