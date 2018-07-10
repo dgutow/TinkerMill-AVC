@@ -13,6 +13,7 @@ import serial
 import array
 from Queue           import Queue
 from constants       import *           # Vehicle and course constants
+from printOut        import *
   
 USB_Port =  '/dev/ttyACM0'
 #USB_Port =  '/dev/ttyACM1'
