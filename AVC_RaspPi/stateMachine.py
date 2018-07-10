@@ -13,6 +13,7 @@
 from vehicleState   import *
 from raceModes      import raceModes   
 from constants      import *        # Vehicle and course constants
+from printOut        import *
 
 if SIM_TEENSY:
     from serialClassSim  import serialClass
@@ -23,6 +24,7 @@ else:
 apprCount       = 2     # Count of loops to stay in any of the appr states
 BistMaxCnt    = 30    # 3 sec - max time for IOP to get to BIST
 NormMaxCnt  = 30    # 2 sec - max time for IOP to enter NORM mode after cmd 
+simMaxCnt = 100     # 
 ErrorMaxCnt   = 200    # Number of iterations before repeating error msg
 
 ############################################################################### 
@@ -46,20 +48,21 @@ def stateMachine (vehState, serialPort):
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.WAIT_FOR_BIST:
         if vehState.mode.newMode():   
+            serialPort.sendCommand ('D', 0, 0, 0)   # Go to BIST mode 
             playSound (vehState)     
          
         # Are we in BIST mode yet?
         if (vehState.iopMode <> IOP_MODE_BIST):       
             # Not yet - wait for up to BistMaxCnt for IOP BIST mode
             if (vehState.mode.modeCount > BistMaxCnt):
-              vehState.errorString = "IOP NOT COMMUNICATING"
+              vehState.errorString = ("IOP NOT COMMUNICATING")
               vehState.mode.setMode (raceModes.ERROR) 
             # end if       
         else:
             # Yep, we're in BIST mode, was there a BIST error
             if (vehState.iopBistStatus <> 0):
-                vehState.errorString = (
-                    "IOP BIST FAILURE, value %d" % (vehState.iopBistStatus))
+                vehState.errorString = ( "IOP BIST FAILURE")
+                    #"IOP BIST FAILURE, value %d" % (vehState.iopBistStatus))
                 vehState.mode.setMode (raceModes.ERROR)  
             else:
                 vehState.mode.setMode(raceModes.WAIT_FOR_START) 
@@ -68,8 +71,9 @@ def stateMachine (vehState, serialPort):
     #------------------------------------------------------        
     elif vehState.mode.currMode == raceModes.WAIT_FOR_START:
         if vehState.mode.newMode():   
+            serialPort.sendCommand ('D', 1, 0, 0)   # Go to NORMAL mode        
             playSound (vehState)  
-            serialPort.sendCommand ('D', 1, 0, 0)   # Go to NORMAL mode              
+            
         # end
 
         if (vehState.iopMode <> IOP_MODE_NORMAL):
@@ -314,7 +318,7 @@ def stateMachine (vehState, serialPort):
             playSound (vehState)        
             printOut  ( "STATECONTROL - in ERROR State: %s" % (vehState.errorString))
      
-        if (vehState.mode.modeCount >= simMaxCnt):     
+        if (vehState.mode.modeCount >= ErrorMaxCnt):     
             vehState.mode.setMode(raceModes.ERROR)   
         
     #------------------------------------------------------
