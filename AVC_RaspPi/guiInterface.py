@@ -33,16 +33,16 @@ class guiIfClass (object):
     ###########################################################################
     # __init__   
     ###########################################################################
-    def __init__(self, hostIp = '', mainPort = 61432, 
-                                               iopTlmPort  = 61433,
-                                               visTlmPort  = 61434):                                             
-        self.hostIp      = hostIp               # IP addr of host puter
-        self.mainPort    = mainPort             # Port number for main tlm/cmds
-        self.iopTlmPort  = iopTlmPort           # Port number for iop tlm
-        self.visTlmPort  = visTlmPort           # Port number for vision tlm
-        self.mainAddr    = (hostIp, mainPort)   # complete address of ports
-        self.iopTlmAddr  = (hostIp, iopTlmPort)
-        self.visTlmAddr  = (hostIp, visTlmPort)
+    def __init__(self, tcpIp = '', tcpPort = 61432, 
+                       udpIp = '', iopUdpPort  = 61433, visUdpPort  = 61434):                                             
+        self.hostIp      = tcpIp                # IP addr of host puter
+        self.mainPort    = tcpPort              # Port number for main tlm/cmds
+        self.udpIp       = udpIp                # IP Addr of UDP server
+        self.iopUdpPort  = iopUdpPort           # Port number for iop tlm
+        self.visUdpPort  = visUdpPort           # Port number for vision tlm
+        self.mainAddr    = (tcpIp, tcpPort)   # complete address of ports
+        self.iopUdpAddr  = (udpIp, iopUdpPort)
+        self.visUdpAddr  = (udpIp, visUdpPort)
         self.acceptCnt   = 0                    # cnt of accepted cmds from host
         #self.howOften    = 10      
         
@@ -115,7 +115,7 @@ class guiIfClass (object):
     ###########################################################################     
     def send_iopTlm (self, tlmMsg):      
         try:    
-            self.iopUdpSock.sendto(tlmMsg, (self.hostIp, self.iopTlmPort))
+            self.iopUdpSock.sendto(tlmMsg, (self.udpIp, self.iopUdpPort))
             #printOut("GUIINTERFACE:SEND_IOPTLM - sending msg len (%d)" % ( len(tlmMsg)) )           
         except:
             printOut("GUIINTERFACE:SEND_IOPTLM - ERROR Unable to send telemetry")        
@@ -126,7 +126,7 @@ class guiIfClass (object):
     ###########################################################################
     def send_visTlm (self, tlmMsg):   
         try:
-            self.visUdpSock.sendto(tlmMsg, (self.hostIp, self.visTlmPort))
+            self.visUdpSock.sendto(tlmMsg, (self.udpIp, self.visUdpPort))
         except:
             printOut("GUIINTERFACE:SEND_VISTLM - ERROR Unable to send telemetry")
     # end send_visTlm   

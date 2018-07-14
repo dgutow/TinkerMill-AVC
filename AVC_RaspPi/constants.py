@@ -15,12 +15,17 @@ SIM_TEENSY	= False            # When there is a communicating Teensy
 ###############################################################################
 # TCP/UDP communication parameters to the GUI host
 ###############################################################################
-#GUI_IPADDR   = "127.0.0.1"
+#RPI_IPADDR   = "127.0.0.1"
 #GUI_IPADDR   = 'localhost'       
-GUI_IPADDR   = '10.2.124.96'
-GUI_MAINPORT = 61432    # The TCP port for cmds/tlm to/from the Rpi
-GUI_IOPPORT  = 61433    # The UDP port for tlm from IOP 
-GUI_VISPORT  = 61434    # Tje UDP port for tlm from VIS
+#GUI_IPADDR   = '10.2.124.96'       # TM wifi
+#GUI_IPADDR   = '192.168.4.100'      # 8266 access point
+
+RPI_IPADDR   = '192.168.4.10'      # the Rpi
+UDP_IPADDR   = '192.168.4.99'      # 8266 access point - laptop
+
+RPI_TCPPORT  = 61432            # The TCP port for cmds/tlm to/from the Rpi
+UDP_IOPPORT  = 61433            # The UDP port for tlm from IOP 
+UDP_VISPORT  = 61434            # The UDP port for tlm from VIS
 
 ###############################################################################
 # Constants used throughout the code

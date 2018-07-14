@@ -6,7 +6,7 @@ Version: 9/2017
 """
 
 from math       import *
-from graphics   import *
+#from graphics   import *
 
 ###############################################################################
 # Class Grid

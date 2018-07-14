@@ -22,10 +22,10 @@ else:
 # end if SIM_TEENSY 
 
 apprCount       = 2     # Count of loops to stay in any of the appr states
-BistMaxCnt    = 30    # 3 sec - max time for IOP to get to BIST
-NormMaxCnt  = 30    # 2 sec - max time for IOP to enter NORM mode after cmd 
-simMaxCnt = 100     # 
-ErrorMaxCnt   = 200    # Number of iterations before repeating error msg
+BistMaxCnt      = 90    # 3 sec - max time for IOP to get to BIST
+NormMaxCnt      = 30    # 2 sec - max time for IOP to enter NORM mode after cmd 
+simMaxCnt       = 100     # 
+ErrorMaxCnt     = 200    # Number of iterations before repeating error msg
 
 ############################################################################### 
 # stateControl - choose what to do depending on our current state
