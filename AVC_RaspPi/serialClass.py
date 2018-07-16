@@ -72,14 +72,14 @@ class serialClass (object):
     ###########################################################################
     def sendCommand (self, commandChar, param1, param2, param3):
         # pack the command into a struct
-        packedArray  = struct.pack('<hhhh', ord(commandChar), param1, param2, param3)
+        packedArray  = struct.pack('<hhhhh', 0x5454, ord(commandChar), param1, param2, param3)
         arr_val = array.array('B', packedArray).tostring()
         # send it along
  
         print ("------------> serialPort:sendCommand - Sending %s, %d, %d, %d\n" % 
 								(commandChar, param1, param2, param3) )       
         nbytes = self.serialPort.write(packedArray)
-        if nbytes != 8:
+        if nbytes != 10:
         	printOut ("serialPort:sendCommand - ERROR nbytes = %d\n" % (nbytes) ) 
         # end       
     #end  
@@ -101,7 +101,7 @@ class serialClass (object):
 def parse_telemetry (data):            
         # print "PARSE: Length of data is ", len(data)
         telemArray  = struct.unpack('<Lhhhhhhhhhhhhhhhhhhhhhh', data)
-        
+          # OBE OBE
         iopTime        = telemArray[0]
         iopMode        = telemArray[1]
         iopAcceptCnt   = telemArray[2]
@@ -119,8 +119,12 @@ def parse_telemetry (data):
         iopSwitchStatus  = telemArray[11]  
         
         measScanAngle  = telemArray[12]
-        measScanSensor = telemArray[13]
-        measScanDist   = telemArray[14]
+        measRejCnt = telemArray[13]
+        measRejReason   = telemArray[14]
+        
+        measScanAngle           = telemArray[13]
+        measRejCnt              = telemArray[14]
+        measRejReason           = telemArray[15]        
 
         iopBattVolt1   = telemArray[15]
         iopBattVolt2   = telemArray[16]
@@ -137,7 +141,7 @@ def parse_telemetry (data):
             print ("PARSE_TELEM - cumDistance %3d, LF_Range  %3d, LR_Range %3d RF_Range %3d RR_Range %3d" % (
              iopCumDistance, irLF_Range, irLR_Range, irRF_Range, irRR_Range ))
             print ("PARSE_TELEM - switches %3d, scan angle  %3d, scan sensor %3d scan dist %3d" % (
-             iopSwitchStatus, measScanAngle, measScanSensor, measScanDist ))  
+             iopSwitchStatus, measScanAngle, measRejCnt, measRejReason ))  
             print ("PARSE_TELEM - Batt volt1 %3d, Batt volt2  %3d, accel %3d Gyro %3d" % (
              iopBattVolt1, iopBattVolt2, iopAccelVert, iopGyroHoriz ))  
             print ("PARSE_TELEM - Compass %3d, CameraAngle  %3d, spare 2 %3d spare 3 %3d\n" % (

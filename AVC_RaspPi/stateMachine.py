@@ -445,8 +445,8 @@ if __name__ == '__main__':
         vehState.iopStartSwitch = telemArray[12] & 0x01 
         
         measScanAngle           = telemArray[13]
-        measScanSensor          = telemArray[14]
-        measScanDist            = telemArray[15]
+        measRejCnt          = telemArray[14]
+        measRejReason            = telemArray[15]
     
         vehState.iopBattVolt1   = telemArray[16]
         vehState.iopBattVolt2   = telemArray[17]

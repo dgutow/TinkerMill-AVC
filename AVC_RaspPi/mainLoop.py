@@ -199,8 +199,8 @@ def proc_iopTlm (data):
     vehState.iopStartSwitch = telemArray[12] & 0x01 
     
     measScanAngle           = telemArray[13]
-    measScanSensor          = telemArray[14]
-    measScanDist            = telemArray[15]
+    measRejCnt              = telemArray[14]
+    measRejReason           = telemArray[15]
 
     vehState.iopBattVolt1   = telemArray[16]
     vehState.iopBattVolt2   = telemArray[17]
@@ -239,16 +239,16 @@ def proc_iopTlm (data):
     # Enter the scanner info into the iopRanges buffer
     vehState.iopRanges.enterRange(time   = vehState.iopTime, 
                                   angle  = measScanAngle, 
-                                  ranger = measScanSensor, 
-                                  range  = measScanDist) 
+                                  ranger = 1, 
+                                  range  = 1) 
     #print ("MAINLOOP:PROC_IOPTLM - 2")                                      
     #######################################################################                                      
     # Enter the scanner info into the occupGrid - DAG should we 
     # enter the data if we are using the short range sensor?
     occGrid.enterRange ( carCumDist   = vehState.iopCumDistance, 
                          carCurrAngle = vehState.iopCompAngle, 
-                         scanDist     = measScanDist, 
-                         scanAngle    = measScanAngle)       
+                         scanDist     = 1, 
+                         scanAngle    = 1)       
     #print ("MAINLOOP:PROC_IOPTLM - 3")                             
     #######################################################################        
     # Enter the side IR sensor data into the two rangeSensorPairs
