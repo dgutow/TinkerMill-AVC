@@ -1,0 +1,6 @@
+2017/12/28 19:58:39.731  cmd("AVC ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE 0")
+2017/12/28 19:58:39.743  Error sending AVC ACCELS due to Target not mapped to an interface: AVC
+2017/12/28 19:59:18.602  cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2017/12/28 19:59:18.610  Error sending AVC NOP due to Target not mapped to an interface: AVC
+2017/12/28 20:00:13.638  cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2017/12/28 20:00:13.649  Error sending AVC NOP due to Target not mapped to an interface: AVC

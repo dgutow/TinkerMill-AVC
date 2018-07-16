@@ -1,0 +1,2 @@
+2017/11/05 13:54:37.208  cmd("AVC MODE with CMD_ID 68, MODE NORMAL, SPARE1 0, SPARE2 0")
+2017/11/05 13:54:37.224  Error sending AVC MODE due to Target not mapped to an interface: AVC

@@ -1,0 +1,108 @@
+COMMAND IOP Move 	BIG_ENDIAN "Move vehicle"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 77  77  77     	"M Command ID"
+  APPEND_PARAMETER    SPEED  	16 INT 00 999  999    	"speed cm/sec"
+  APPEND_PARAMETER    DISTANCE	16 INT 00 9999 9999 	"distance cm"
+  APPEND_PARAMETER    SPARE     16 INT 00 00   00     	"not used"
+
+COMMAND IOP Turn  	BIG_ENDIAN "Turn vehicle"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 84  84  84     	"T Command ID"
+  APPEND_PARAMETER    ANGLE		16 INT -45 45  00     	"turn angle (deg)"
+  APPEND_PARAMETER    SPARE1    16 INT 00  00  00     	"not used"
+  APPEND_PARAMETER    SPARE2    16 INT 00 00   00     	"not used"
+
+COMMAND IOP Estop	BIG_ENDIAN "Emergency stop"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 69  69  69     	"E Command ID"
+  APPEND_PARAMETER    SPARE1	16 INT 00  00  00    	"not used"
+  APPEND_PARAMETER    SPARE2    16 INT 00  00  00    	"not used"
+  APPEND_PARAMETER    SPARE3    16 INT 00  00  00     	"not used"
+
+COMMAND IOP Heartbeat	BIG_ENDIAN "Heartbeat"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 72  72  72     	"H Command ID"
+  APPEND_PARAMETER    NUMBER  	16 UINT 00 65535 00    	"Heartbeat number"
+  APPEND_PARAMETER    SPARE1    16 INT 00  00  00     	"not used"
+  APPEND_PARAMETER    SPARE2    16 INT 00  00  00     	"not used"
+
+COMMAND IOP LightScheme	BIG_ENDIAN "Light Scheme"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 76  76  76     	"L Command ID"
+  APPEND_PARAMETER    SCHEME  	16 INT 00 999  00    	"Scheme number"
+  APPEND_PARAMETER    SPARE1    16 INT 00  00  00     	"not used"
+  APPEND_PARAMETER    SPARE2    16 INT 00  00  00     	"not used"
+
+COMMAND IOP SpeedPids	BIG_ENDIAN "Speed Control PIDs"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 80  80  80  		"P Command ID"
+  APPEND_PARAMETER    PROP		16 INT -32767 32766 00  "Prop constant"
+  APPEND_PARAMETER    INTEG     16 INT -32767 32766 00 	"Integral constant"
+  APPEND_PARAMETER    DERIV     16 INT -32767 32766 00  "Deriv constant"
+
+COMMAND IOP SteerPids	BIG_ENDIAN "Steering Control PIDs"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 81  81  81     	"Q Command ID"
+  APPEND_PARAMETER    PROP		16 INT -32767 32766 00  "Prop constant"
+  APPEND_PARAMETER    INTEG     16 INT -32767 32766 00 	"Integral constant"
+  APPEND_PARAMETER    DERIV     16 INT -32767 32766 00  "Deriv constant"
+
+COMMAND IOP Accels		BIG_ENDIAN "Set accelerations"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 70  70  70     	"F Command ID"
+  APPEND_PARAMETER    NORM_ACC	16 INT 00 999 999     	"accel (cm/sec/sec)"
+  APPEND_PARAMETER    EMER_ACC	16 INT 00 999 999 		"accel (cm/sec/sec)"
+  APPEND_PARAMETER    SPARE     16 INT 00 00   00     	"not used"
+
+COMMAND IOP Mode		BIG_ENDIAN "Set mode"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 68  68  68     	"D Command ID"
+  APPEND_PARAMETER    MODE  	16 INT 00  03  00     	"0-Bist,2-Norm,3-Estop"
+	STATE BIST		0
+	STATE NORMAL 	1
+	STATE ESTOP		2
+  APPEND_PARAMETER    SPARE1    16 INT 00  00  00     	"not used"
+  APPEND_PARAMETER    SPARE2    16 INT 00 00   00     	"not used"
+
+COMMAND IOP Nop			BIG_ENDIAN "No operations"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 78  78  78     	"N Command ID"
+  APPEND_PARAMETER    SPARE1    16 INT 00  00  00     	"not used"
+  APPEND_PARAMETER    SPARE2    16 INT 00 00   00     	"not used"
+  APPEND_PARAMETER    SPARE3    16 INT 00 00   00     	"not used"
+
+COMMAND IOP ScanSpeed	BIG_ENDIAN "Set scan speed"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 83  83  83     	"S Command ID"
+  APPEND_PARAMETER    SPEED  	16 INT 00 999 999     	"speed (cm/sec)"
+  APPEND_PARAMETER    SPARE1    16 INT 00  00  00     	"not used"
+  APPEND_PARAMETER    SPARE2    16 INT 00 00   00     	"not used"
+
+COMMAND IOP ScanMinMax	BIG_ENDIAN "Set scan min/max angle"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 65  65  65     	"A Command ID"
+  APPEND_PARAMETER    MIN  		16 INT -45 45  00     	"Min angle (deg)"
+  APPEND_PARAMETER    MAX		16 INT -45 45  00 		"Max angle (deg)"
+  APPEND_PARAMETER    SPARE     16 INT 00 00   00     	"not used"
+
+COMMAND IOP CameraAngle	BIG_ENDIAN "Set camera angle"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 86  86  86     	"V Command ID"
+  APPEND_PARAMETER    Angle		16 INT -90 00  00		"degrees"
+  APPEND_PARAMETER    SPARE1    16 INT 00  00  00     	"not used"
+  APPEND_PARAMETER    SPARE2    16 INT 00 00   00     	"not used"
+
+COMMAND IOP ScanSensor	BIG_ENDIAN "Set scan sensor to use"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 67  67  67     	"C Command ID"
+  APPEND_PARAMETER    SENSOR	16 INT 01  02  01     	"1-short,2-long"
+	STATE 20_150MM	1
+	STATE 100_550MM	2
+  APPEND_PARAMETER    SPARE1    16 INT 00  00  00     	"not used"
+  APPEND_PARAMETER    SPARE2    16 INT 00  00  00     	"not used"
+
+COMMAND IOP BrakeOnOff	BIG_ENDIAN "Set brake on/off"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 66  66  66     	"B Command ID"
+  APPEND_PARAMETER    ON_OFF	16 INT 00  01  00     	"0-0ff, 1-on"
+	STATE	OFF	0
+	STATE	ON  1
+  APPEND_PARAMETER    SPARE1    16 INT 00  00  00     	"not used"
+  APPEND_PARAMETER    SPARE2    16 INT 00  00  00     	"not used"
+
+COMMAND IOP Spare1		BIG_ENDIAN "Spare 1"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 49  49  49    	"1 Command ID"
+  APPEND_PARAMETER    SPARE1	16 INT 00  00  00    	"not used"
+  APPEND_PARAMETER    SPARE2    16 INT 00  00  00    	"not used"
+  APPEND_PARAMETER    SPARE3    16 INT 00  00  00     	"not used"
+
+COMMAND IOP Spare2		BIG_ENDIAN "Spare 2"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 50  50  50     	"2 Command ID"
+  APPEND_PARAMETER    SPARE1	16 INT 00  00  00     	"not used"
+  APPEND_PARAMETER    SPARE2    16 INT 00  00  00     	"not used"
+  APPEND_PARAMETER    SPARE3    16 INT 00  00  00     	"not used"

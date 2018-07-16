@@ -1,0 +1,74 @@
+2018/06/01 21:26:43.240  INFO: COSMOS Version: 4.1.1
+2018/06/01 21:26:43.249  INFO: Processing target definition in file 'C:/COSMOS/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/06/01 21:26:43.252  INFO: Processing target definition in file 'C:/COSMOS/RPI_CAT/config/targets/IOP_UDP/target.txt'
+2018/06/01 21:26:43.278  INFO: Processing target definition in file 'C:/COSMOS/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/06/01 21:26:43.283  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/06/01 21:26:43.284  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/06/01 21:26:43.286  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/RPI_CAT/config/targets/IOP_UDP/cmd_tlm_server.txt
+2018/06/01 21:26:43.299  INFO: Marshal load success: C:/COSMOS/RPI_CAT/outputs/tmp/marshal_34c8b60d09c9cd0069b8ef13b74ff486.bin
+2018/06/01 21:26:43.401  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/06/01 21:26:43.402  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/06/01 21:26:43.403  INFO: Creating thread for interface RPI_CAT_INT
+2018/06/01 21:26:43.404  INFO: Creating thread for interface IOP_UDP_INT
+2018/06/01 21:26:43.405  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/06/01 21:26:43.405  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/06/01 21:26:43.406  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/06/01 21:26:43.406  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/06/01 21:26:43.406  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/06/01 21:26:43.407  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/06/01 21:26:43.407  INFO: Starting packet reading for RPI_CAT_INT
+2018/06/01 21:26:43.408  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:26:43.410  INFO: Creating thread for interface SYSTEM_INT
+2018/06/01 21:26:43.424  INFO: Starting packet reading for IOP_UDP_INT
+2018/06/01 21:26:43.424  INFO: Connecting to IOP_UDP_INT...
+2018/06/01 21:26:43.425  INFO: Starting packet reading for SYSTEM_INT
+2018/06/01 21:26:43.425  INFO: Connecting to SYSTEM_INT...
+2018/06/01 21:26:43.425  INFO: SYSTEM_INT Connection Success
+2018/06/01 21:26:43.426  INFO: IOP_UDP_INT Connection Success
+2018/06/01 21:26:48.447  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:26:49.904  INFO: Log File Opened : C:/COSMOS/RPI_CAT/outputs/logs/2018_06_01_21_26_49_tlm.bin
+2018/06/01 21:26:53.457  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:26:53.458  INFO: RPI_CAT_INT Connection Success
+2018/06/01 21:26:53.515  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/06/01 21:26:53.515  INFO: Connection Lost for RPI_CAT_INT
+2018/06/01 21:26:58.526  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:26:58.527  INFO: RPI_CAT_INT Connection Success
+2018/06/01 21:26:58.605  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/06/01 21:26:58.605  INFO: Connection Lost for RPI_CAT_INT
+2018/06/01 21:27:03.616  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:27:08.627  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:27:13.638  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:27:13.639  INFO: RPI_CAT_INT Connection Success
+2018/06/01 21:27:39.675  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/06/01 21:27:39.676  INFO: Log File Opened : C:/COSMOS/RPI_CAT/outputs/logs/2018_06_01_21_27_39_cmd.bin
+2018/06/01 21:27:43.677  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/06/01 21:27:47.495  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/06/01 21:28:52.866  INFO: cmd("RPI_CAT NOP-RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/06/01 21:28:56.186  INFO: cmd("RPI_CAT NOP-RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/06/01 21:29:01.691  INFO: cmd("RPI_CAT NOP-RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/06/01 21:29:06.835  INFO: cmd("RPI_CAT NOP-RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/06/01 21:29:33.539  INFO: Log File Closed : C:/COSMOS/RPI_CAT/outputs/logs/2018_06_01_21_27_39_cmd.bin
+2018/06/01 21:29:33.542  INFO: Log File Closed : C:/COSMOS/RPI_CAT/outputs/logs/2018_06_01_21_26_49_tlm.bin
+2018/06/01 21:29:33.542  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/06/01 21:29:33.542  INFO: Connection Lost for SYSTEM_INT
+2018/06/01 21:29:33.642  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/06/01 21:29:33.642  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/06/01 21:29:33.642  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/06/01 21:29:33.728  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/06/01 21:29:33.728  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/06/01 21:29:33.728  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/06/01 21:29:33.736  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/06/01 21:29:33.813  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/06/01 21:29:33.823  INFO: Killing thread for interface RPI_CAT_INT
+2018/06/01 21:29:33.827  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/06/01 21:29:33.827  INFO: Connection Lost for RPI_CAT_INT
+2018/06/01 21:29:33.827  INFO: Stopped packet reading for RPI_CAT_INT
+2018/06/01 21:29:33.834  INFO: Disconnected from interface RPI_CAT_INT
+2018/06/01 21:29:33.834  INFO: Killing thread for interface IOP_UDP_INT
+2018/06/01 21:29:33.844  ERROR: Error reading from interface : IOP_UDP_INT
+2018/06/01 21:29:33.844  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/06/01 21:29:33.844  INFO: Stopped packet reading for IOP_UDP_INT
+2018/06/01 21:29:33.844  INFO: Disconnected from interface IOP_UDP_INT
+2018/06/01 21:29:33.844  INFO: Killing thread for interface SYSTEM_INT
+2018/06/01 21:29:33.853  INFO: Stopped packet reading for SYSTEM_INT
+2018/06/01 21:29:33.855  INFO: Disconnected from interface SYSTEM_INT

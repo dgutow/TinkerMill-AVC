@@ -1,0 +1,32 @@
+SCREEN AUTO AUTO 1.0
+
+  VERTICALBOX
+    LABELVALUE AVC STATUS RECEIVED_TIMESECONDS # COSMOS Received Time (UTC, Floating point, Unix epoch)
+    LABELVALUE AVC STATUS RECEIVED_TIMEFORMATTED # COSMOS Received Time (Local time zone, Formatted string)
+    LABELVALUE AVC STATUS RECEIVED_COUNT # COSMOS packet received count
+    
+    LABELVALUE AVC STATUS TIME          # AVC time value (millisec)
+    LABELVALUE AVC STATUS MODE          # AVC Mode
+    LABELVALUE AVC STATUS ACCEPT_CNT    # Number of accepted commands
+    LABELVALUE AVC STATUS BIST          # BIST results or Estop reason
+    LABELVALUE AVC STATUS SPEED         # Current vehicle speed
+    LABELVALUE AVC STATUS STEER_ANG     # Current vehicle speed
+    LABELVALUE AVC STATUS TOT_DIST      # Cumulative distance since start
+    LABELVALUE AVC STATUS RANGE_1       # Left front IR sensor range
+    LABELVALUE AVC STATUS RANGE_2       # Left rear  IR sensor range
+    LABELVALUE AVC STATUS RANGE_3       # Right front IR sensor range
+    LABELVALUE AVC STATUS RANGE_4       # Right Rear IR sensor range
+    LABELVALUE AVC STATUS SWITCHES      # Switch statuses 
+    LABELVALUE AVC STATUS SCAN_ANG      # Scanner angle
+    LABELVALUE AVC STATUS SCAN_SNSR     # Scanner sensor in use
+    LABELVALUE AVC STATUS SCAN_RANGE    # Scanner range
+    LABELVALUE AVC STATUS BATT_1        # Battery 2 voltage
+    LABELVALUE AVC STATUS BATT_2        # Battery 1 voltage
+    LABELVALUE AVC STATUS ACC_VERT      # Vertical acceleration
+    LABELVALUE AVC STATUS GYRO_HORIZ    # Horizontal rotation rate
+    LABELVALUE AVC STATUS COMP_ANG      # Compass angle
+    LABELVALUE AVC STATUS CAM_ANG       # Front camera vertical angle
+    LABELVALUE AVC STATUS SPARE_1       # Not used
+    LABELVALUE AVC STATUS SPARE_2       # Not used
+  END
+

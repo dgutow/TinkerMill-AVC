@@ -1,0 +1,43 @@
+2018/02/16 17:24:07.673  INFO: COSMOS Version: 4.1.1
+2018/02/16 17:24:07.692  INFO: Processing target definition in file 'C:/COSMOS/AVC/config/targets/AVC/target.txt'
+2018/02/16 17:24:07.695  INFO: Processing target definition in file 'C:/COSMOS/AVC/config/targets/SYSTEM/target.txt'
+2018/02/16 17:24:07.724  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/AVC/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/02/16 17:24:07.725  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/AVC/config/targets/AVC/cmd_tlm_server.txt
+2018/02/16 17:24:07.730  INFO: Marshal file does not exist: C:/COSMOS/AVC/outputs/tmp/marshal_38917280633aee81dc173028d6466bf9.bin
+2018/02/16 17:24:09.213  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/02/16 17:24:09.214  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/02/16 17:24:09.215  INFO: Creating thread for interface AVC_INT
+2018/02/16 17:24:09.216  INFO: Creating thread for interface SYSTEM_INT
+2018/02/16 17:24:09.217  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/02/16 17:24:09.218  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/02/16 17:24:09.218  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/02/16 17:24:09.219  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/02/16 17:24:09.219  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/02/16 17:24:09.235  INFO: Starting packet reading for AVC_INT
+2018/02/16 17:24:09.235  INFO: Connecting to AVC_INT...
+2018/02/16 17:24:09.235  INFO: Starting packet reading for SYSTEM_INT
+2018/02/16 17:24:09.235  INFO: Connecting to SYSTEM_INT...
+2018/02/16 17:24:09.236  INFO: SYSTEM_INT Connection Success
+2018/02/16 17:24:09.238  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/02/16 17:24:09.283  INFO: AVC_INT Connection Success
+2018/02/16 17:24:09.302  ERROR: AVC STATUS received with actual packet length of 96 but defined length of 48
+2018/02/16 17:24:09.319  INFO: Log File Opened : C:/COSMOS/AVC/outputs/logs/2018_02_16_17_24_09_tlm.bin
+2018/02/16 17:24:56.067  INFO: Log File Closed : C:/COSMOS/AVC/outputs/logs/2018_02_16_17_24_09_tlm.bin
+2018/02/16 17:24:56.067  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/02/16 17:24:56.067  INFO: Connection Lost for SYSTEM_INT
+2018/02/16 17:24:56.168  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/02/16 17:24:56.169  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/02/16 17:24:56.169  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/02/16 17:24:56.262  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/02/16 17:24:56.264  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/02/16 17:24:56.264  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/02/16 17:24:56.265  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/02/16 17:24:56.368  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/02/16 17:24:56.379  INFO: Killing thread for interface AVC_INT
+2018/02/16 17:24:56.389  INFO: Clean disconnect from AVC_INT (returned nil)
+2018/02/16 17:24:56.389  INFO: Connection Lost for AVC_INT
+2018/02/16 17:24:56.389  INFO: Stopped packet reading for AVC_INT
+2018/02/16 17:24:56.390  INFO: Disconnected from interface AVC_INT
+2018/02/16 17:24:56.390  INFO: Killing thread for interface SYSTEM_INT
+2018/02/16 17:24:56.395  INFO: Stopped packet reading for SYSTEM_INT
+2018/02/16 17:24:56.401  INFO: Disconnected from interface SYSTEM_INT

@@ -1,0 +1,14 @@
+# When connected to 8266 access point
+INTERFACE RPI_CAT_INT tcpip_client_interface.rb 192.168.4.10 61432 61432 5.0 nil BURST 0 nil false
+    TARGET RPI_CAT
+
+# when connected to TM network
+#INTERFACE RPI_CAT_INT tcpip_client_interface.rb 10.2.124.96 61432 61432 5.0 nil BURST 0 nil false
+#    TARGET RPI_CAT    
+    
+    
+#INTERFACE RPI_CAT_INT tcpip_client_interface.rb 127.0.0.1 61432 61432 5.0 nil BURST 0 nil false
+#    TARGET RPI_CAT
+
+#INTERFACE AVC_INT serial_interface.rb COM3 COM3  115200 NONE 1 10.0 nil BURST 0 nil false    
+#    TARGET AVC

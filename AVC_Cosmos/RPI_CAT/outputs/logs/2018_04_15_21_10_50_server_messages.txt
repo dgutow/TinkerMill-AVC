@@ -1,0 +1,51 @@
+2018/04/15 21:10:47.940  INFO: COSMOS Version: 4.1.1
+2018/04/15 21:10:47.963  INFO: Processing target definition in file 'C:/COSMOS/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/04/15 21:10:47.978  INFO: Processing target definition in file 'C:/COSMOS/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/04/15 21:10:47.997  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/04/15 21:10:47.998  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/04/15 21:10:48.029  INFO: Marshal load success: C:/COSMOS/RPI_CAT/outputs/tmp/marshal_7772706d361f12aa8ab86d8ee7b2c94a.bin
+2018/04/15 21:10:50.425  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/04/15 21:10:50.426  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/04/15 21:10:50.427  INFO: Creating thread for interface RPI_CAT_INT
+2018/04/15 21:10:50.428  INFO: Creating thread for interface SYSTEM_INT
+2018/04/15 21:10:50.430  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/04/15 21:10:50.430  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/04/15 21:10:50.437  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/04/15 21:10:50.438  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/04/15 21:10:50.438  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/04/15 21:10:50.439  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/04/15 21:10:50.439  INFO: Starting packet reading for RPI_CAT_INT
+2018/04/15 21:10:50.439  INFO: Connecting to RPI_CAT_INT...
+2018/04/15 21:10:50.442  INFO: Starting packet reading for SYSTEM_INT
+2018/04/15 21:10:50.443  INFO: Connecting to SYSTEM_INT...
+2018/04/15 21:10:50.443  INFO: SYSTEM_INT Connection Success
+2018/04/15 21:10:50.447  INFO: RPI_CAT_INT Connection Success
+2018/04/15 21:10:50.447  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/04/15 21:10:50.447  INFO: Connection Lost for RPI_CAT_INT
+2018/04/15 21:10:55.516  INFO: Connecting to RPI_CAT_INT...
+2018/04/15 21:10:55.519  INFO: RPI_CAT_INT Connection Success
+2018/04/15 21:11:15.211  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/04/15 21:11:15.214  INFO: Log File Opened : C:/COSMOS/RPI_CAT/outputs/logs/2018_04_15_21_11_15_cmd.bin
+2018/04/15 21:11:20.010  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/04/15 21:11:22.098  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/04/15 21:11:24.222  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/04/15 21:11:24.222  INFO: Connection Lost for RPI_CAT_INT
+2018/04/15 21:11:29.232  INFO: Connecting to RPI_CAT_INT...
+2018/04/15 21:11:34.244  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/15 21:11:38.965  INFO: Log File Closed : C:/COSMOS/RPI_CAT/outputs/logs/2018_04_15_21_11_15_cmd.bin
+2018/04/15 21:11:38.965  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/04/15 21:11:38.965  INFO: Connection Lost for SYSTEM_INT
+2018/04/15 21:11:39.066  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/04/15 21:11:39.066  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/04/15 21:11:39.066  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/04/15 21:11:39.106  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/04/15 21:11:39.106  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/04/15 21:11:39.106  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/04/15 21:11:39.114  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/04/15 21:11:39.207  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/04/15 21:11:39.217  INFO: Killing thread for interface RPI_CAT_INT
+2018/04/15 21:11:39.228  INFO: Stopped packet reading for RPI_CAT_INT
+2018/04/15 21:11:39.237  INFO: Disconnected from interface RPI_CAT_INT
+2018/04/15 21:11:39.237  INFO: Killing thread for interface SYSTEM_INT
+2018/04/15 21:11:39.248  INFO: Stopped packet reading for SYSTEM_INT
+2018/04/15 21:11:39.257  INFO: Disconnected from interface SYSTEM_INT

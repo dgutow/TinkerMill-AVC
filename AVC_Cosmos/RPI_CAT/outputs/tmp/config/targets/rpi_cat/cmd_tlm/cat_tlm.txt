@@ -1,0 +1,21 @@
+TELEMETRY CAT	    STATUS	    LITTLE_ENDIAN	"RPI Main telemetry packet"
+    APPEND_ID_ITEM  PKT_ID          32  UINT    0x22222222  "Packet Identifier"
+	APPEND_ITEM     CURR_TIME		32  UINT	"Current Time (millisec)"
+	APPEND_ITEM     ACCEPT_COUNT	16  UINT	"Number of accepted commands"	
+	APPEND_ITEM     CURR_MODE		16  UINT	"RPI Main Mode"
+		STATE BIST		0
+		STATE NORMAL	1
+		STATE ESTOP		2    
+	APPEND_ITEM     LF_IR_STATUS	8  UINT	    "Left Front Sensor Valid"	
+        STATE  INVALID  0
+        STATE  VALID    1
+	APPEND_ITEM     LR_IR_STATUS	8  UINT	    "Left Rear Sensor Valid"	
+        STATE  INVALID  0
+        STATE  VALID    1  
+	APPEND_ITEM     RF_IR_STATUS	8  UINT	    "Right Front Sensor Valid"	
+        STATE  INVALID  0
+        STATE  VALID    1
+	APPEND_ITEM     RR_IR_STATUS	8  UINT	    "Right Rear Sensor Valid"	
+        STATE  INVALID  0
+        STATE  VALID    1        
+    

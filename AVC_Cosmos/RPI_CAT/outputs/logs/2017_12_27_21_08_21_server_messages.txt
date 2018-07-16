@@ -1,0 +1,45 @@
+2017/12/27 21:08:20.793  INFO: Processing target definition in file 'C:/COSMOS/AVC/config/targets/AVC/target.txt'
+2017/12/27 21:08:20.854  INFO: COSMOS Version: 4.0.3
+2017/12/27 21:08:20.855  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/AVC/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2017/12/27 21:08:20.863  INFO: Marshal file does not exist: C:/COSMOS/AVC/outputs/tmp/marshal_ebfba4c1e1d4d35414b28403b74898ad.bin
+2017/12/27 21:08:20.993  ERROR: SYSTEM META not defined correctly due to Telemetry target 'SYSTEM' does not exist - defaulting
+2017/12/27 21:08:21.026  INFO: Creating thread for interface AVC_INT
+2017/12/27 21:08:21.026  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2017/12/27 21:08:21.026  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2017/12/27 21:08:21.027  INFO: Starting packet reading for AVC_INT
+2017/12/27 21:08:21.027  INFO: Connecting to AVC_INT...
+2017/12/27 21:08:21.028  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2017/12/27 21:08:21.028  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2017/12/27 21:08:21.029  INFO: PREIDENTIFIED_ROUTER Connection Success
+2017/12/27 21:08:21.029  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2017/12/27 21:08:21.029  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2017/12/27 21:08:21.029  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2017/12/27 21:08:26.029  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2017/12/27 21:08:31.045  INFO: Connecting to AVC_INT...
+2017/12/27 21:08:36.047  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2017/12/27 21:08:41.049  INFO: Connecting to AVC_INT...
+2017/12/27 21:08:46.054  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2017/12/27 21:08:51.055  INFO: Connecting to AVC_INT...
+2017/12/27 21:08:51.309  INFO: User disconnecting interface AVC_INT
+2017/12/27 21:08:51.309  INFO: Killing thread for interface AVC_INT
+2017/12/27 21:08:56.059  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2017/12/27 21:08:56.060  INFO: Stopped packet reading for AVC_INT
+2017/12/27 21:08:56.060  INFO: Disconnected from interface AVC_INT
+2017/12/27 21:08:56.471  INFO: User connecting interface AVC_INT
+2017/12/27 21:08:56.471  INFO: Creating thread for interface AVC_INT
+2017/12/27 21:08:56.472  INFO: Starting packet reading for AVC_INT
+2017/12/27 21:08:56.472  INFO: Connecting to AVC_INT...
+2017/12/27 21:08:57.974  INFO: User disconnecting interface AVC_INT
+2017/12/27 21:08:57.974  INFO: Killing thread for interface AVC_INT
+2017/12/27 21:09:01.475  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2017/12/27 21:09:01.475  INFO: Stopped packet reading for AVC_INT
+2017/12/27 21:09:01.475  INFO: Disconnected from interface AVC_INT
+2017/12/27 21:09:02.897  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2017/12/27 21:09:02.897  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2017/12/27 21:09:02.897  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2017/12/27 21:09:02.918  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2017/12/27 21:09:02.918  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2017/12/27 21:09:02.918  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2017/12/27 21:09:02.927  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2017/12/27 21:09:03.021  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2017/12/27 21:09:03.021  INFO: Disconnected from interface AVC_INT

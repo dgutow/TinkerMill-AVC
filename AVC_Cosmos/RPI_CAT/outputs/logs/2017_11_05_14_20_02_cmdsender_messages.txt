@@ -1,0 +1,2 @@
+2017/11/05 14:20:02.767  cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2017/11/05 14:20:02.776  Error sending AVC NOP due to Target not mapped to an interface: AVC
