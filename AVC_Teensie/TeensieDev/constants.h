@@ -56,6 +56,7 @@ const int shortFront      = A1;    // Analog input - scanner short range sensor
     const int TEENSIE_LED     = 6;     // LED on the board. teensie 2++ - led 6
 #endif
 
+const int ENABLE_WIFI = 7;               // Enables the WIFI on the 8266
 const int lrsr_Sel = 8;
 const int Run = 6;
 const int l_Wheel = 11;

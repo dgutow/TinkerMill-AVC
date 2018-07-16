@@ -105,6 +105,7 @@ void commandDecode(cmdData* command)
 
         case 'V':                   // Set Camera angle
             DBGPORT.println ("commandDecode: Camera angle Command");
+            cam_setAngle  (param1);
             incAccpt = true;
             break;
 

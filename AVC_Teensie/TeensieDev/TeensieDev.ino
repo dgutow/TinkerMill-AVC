@@ -129,6 +129,10 @@ void setup()
    
    pinMode(TEENSIE_LED, OUTPUT);
    digitalWrite(TEENSIE_LED, 1);
+   
+   pinMode (ENABLE_WIFI, OUTPUT);
+   digitalWrite(ENABLE_WIFI, 1);       // enable wifi on the 8266
+   delay(5000);                        // Original was 5000
 }
 
 ///////////////////////////////////////////////////////////////////////////////
