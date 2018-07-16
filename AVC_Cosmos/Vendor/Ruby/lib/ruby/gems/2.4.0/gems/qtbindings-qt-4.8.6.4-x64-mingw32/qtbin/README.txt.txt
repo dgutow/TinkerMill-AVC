@@ -1,1 +1,0 @@
-Directory for Qt dlls for binary gem.
