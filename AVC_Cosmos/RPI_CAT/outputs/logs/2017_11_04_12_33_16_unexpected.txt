@@ -1,0 +1,24 @@
+Unexpected Output:
+
+Qt: Untested Windows version 10.0 detected!
+2017/11/04 12:33:14.898  FATAL: Fatal Exception! Exiting...
+2017/11/04 12:33:14.898  FATAL: NoMethodError : undefined method `ignored_items' for nil:NilClass
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.0.3/lib/cosmos/packets/telemetry.rb:420:in `block in all_item_strings'
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.0.3/lib/cosmos/packets/telemetry.rb:414:in `each'
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.0.3/lib/cosmos/packets/telemetry.rb:414:in `each_with_index'
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.0.3/lib/cosmos/packets/telemetry.rb:414:in `all_item_strings'
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.0.3/lib/cosmos/tools/packet_viewer/packet_viewer.rb:64:in `block (2 levels) in initialize'
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/qtbindings-4.8.6.4-x64-mingw32/lib/Qt4.rb:104:in `block in execute_in_main_thread'
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/qtbindings-4.8.6.4-x64-mingw32/lib/Qt4.rb:57:in `callback_timeout'
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/qtbindings-4.8.6.4-x64-mingw32/lib/Qt/qtruby4.rb:479:in `qt_metacall'
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/qtbindings-4.8.6.4-x64-mingw32/lib/Qt/qtruby4.rb:479:in `method_missing'
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/qtbindings-4.8.6.4-x64-mingw32/lib/Qt/qtruby4.rb:479:in `exec'
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.0.3/lib/cosmos/gui/qt_tool.rb:297:in `block in run'
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.0.3/lib/cosmos/top_level.rb:713:in `set_working_dir'
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.0.3/lib/cosmos/gui/qt_tool.rb:278:in `run'
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.0.3/lib/cosmos/tools/packet_viewer/packet_viewer.rb:602:in `block in run'
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.0.3/lib/cosmos/top_level.rb:528:in `catch_fatal_exception'
+C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.0.3/lib/cosmos/tools/packet_viewer/packet_viewer.rb:580:in `run'
+tools/PacketViewer:15:in `block in <main>'
+C:/COSMOS/AVC/tools/tool_launch.rb:16:in `tool_launch'
+tools/PacketViewer:13:in `<main>'

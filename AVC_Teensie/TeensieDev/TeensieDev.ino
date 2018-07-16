@@ -127,8 +127,14 @@ void setup()
    digitalWrite(IN1,LOW); 
    digitalWrite(IN2,HIGH);//setting motorA's directon
    
+   // Enable the LED for blinking
    pinMode(TEENSIE_LED, OUTPUT);
    digitalWrite(TEENSIE_LED, 1);
+   
+   // Enable the wifi access pt on the 8266
+   pinMode (ENABLE_WIFI, OUTPUT);
+   digitalWrite(ENABLE_WIFI, 1); 
+   delay(5000);                        // Original was 5000
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -153,59 +159,7 @@ unsigned int uint_swap(unsigned int val)
 ///////////////////////////////////////////////////////////////////////////////
 // 
 ///////////////////////////////////////////////////////////////////////////////
-#if 0
 
-void checkForCmds    (uint32_t currTimeMsec)
-{
-  DBGPORT.println("checkForCmds\n");
-}
-
-void getSwitchStatus (uint32_t currTimeMsec)
-{
-  DBGPORT.println("getSwitchStatus");
-} 
-
-void getWheelPos     (uint32_t currTimeMsec)
-{
-  DBGPORT.println("getWheelPos");
-} 
-
-void getSideRanges   (uint32_t currTimeMsec)
-{
-  DBGPORT.println("getSideRanges");
-}
-
-void getFrontScan    (uint32_t currTimeMsec)
-{
-  DBGPORT.println("getFrontScan");
-}
-
-void getRange        (uint32_t currTimeMsec)
-{
-  DBGPORT.println("getRange");
-}
-
-void motorControl    (uint32_t currTimeMsec)
-{
-  DBGPORT.println("motorControl");
-}
-
-void checkForEstop   (uint32_t currTimeMsec)
-{
-  DBGPORT.println("checkForEstop");
-}
-
-void sendTelemToEsp  (uint32_t currTimeMsec)
-{
-  DBGPORT.println("sendTelemToEsp");
-}   
-
-void sendTelemToHost (uint32_t currTimeMsec)
-{
-  DBGPORT.println("sendTelemToHost");
-}
-
-#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 // blinkLed - blink the onboard TEENSIE_LED

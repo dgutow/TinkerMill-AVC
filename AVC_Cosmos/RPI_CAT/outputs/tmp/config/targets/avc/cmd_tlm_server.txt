@@ -1,0 +1,8 @@
+#INTERFACE AVC_TCP tcpip_client_interface.rb 127.0.0.1 34563 34563 5.0 nil BURST 0 nil false
+#    TARGET AVC
+
+#INTERFACE AVC_INT serial_interface.rb COM3 COM3 115200 NONE 1.0 nil BURST 0 nil false
+#    TARGET AVC    
+
+INTERFACE AVC_INT serial_interface.rb COM3 COM3  115200 NONE 1 10.0 nil BURST 0 nil false    
+    TARGET AVC

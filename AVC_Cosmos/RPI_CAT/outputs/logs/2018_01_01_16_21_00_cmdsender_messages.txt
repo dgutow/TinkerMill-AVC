@@ -1,0 +1,5 @@
+2018/01/01 16:21:00.030  cmd("AVC ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE 0")
+2018/01/01 16:21:08.776  cmd("AVC ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE 0")
+2018/01/01 16:21:08.783  Error sending AVC ACCELS due to Interface not connected for write: AVC_INT
+2018/01/01 16:21:27.456  cmd("AVC ESTOP with CMD_ID 69, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/01/01 16:21:27.464  Error sending AVC ESTOP due to Interface not connected for write: AVC_INT

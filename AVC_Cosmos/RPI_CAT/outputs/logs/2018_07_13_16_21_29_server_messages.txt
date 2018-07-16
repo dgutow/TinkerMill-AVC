@@ -1,0 +1,74 @@
+2018/07/13 16:21:28.150  INFO: COSMOS Version: 4.1.1
+2018/07/13 16:21:28.194  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/07/13 16:21:28.271  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/target.txt'
+2018/07/13 16:21:28.288  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/07/13 16:21:28.402  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/07/13 16:21:28.421  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/07/13 16:21:28.440  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/cmd_tlm_server.txt
+2018/07/13 16:21:28.465  INFO: Marshal load success: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/tmp/marshal_97d076b8c2a536051f8ca802aaf84112.bin
+2018/07/13 16:21:28.814  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/07/13 16:21:28.815  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/07/13 16:21:28.816  INFO: Creating thread for interface RPI_CAT_INT
+2018/07/13 16:21:28.816  INFO: Creating thread for interface IOP_UDP_INT
+2018/07/13 16:21:28.816  INFO: Creating thread for interface SYSTEM_INT
+2018/07/13 16:21:28.817  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/07/13 16:21:28.817  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/07/13 16:21:28.818  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/07/13 16:21:28.818  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/07/13 16:21:28.818  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/07/13 16:21:28.821  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/07/13 16:21:28.821  INFO: Starting packet reading for RPI_CAT_INT
+2018/07/13 16:21:28.821  INFO: Connecting to RPI_CAT_INT...
+2018/07/13 16:21:28.824  INFO: Starting packet reading for IOP_UDP_INT
+2018/07/13 16:21:28.824  INFO: Connecting to IOP_UDP_INT...
+2018/07/13 16:21:28.825  INFO: Starting packet reading for SYSTEM_INT
+2018/07/13 16:21:28.825  INFO: Connecting to SYSTEM_INT...
+2018/07/13 16:21:28.825  INFO: SYSTEM_INT Connection Success
+2018/07/13 16:21:28.826  INFO: IOP_UDP_INT Connection Success
+2018/07/13 16:21:33.925  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/13 16:21:38.936  INFO: Connecting to RPI_CAT_INT...
+2018/07/13 16:21:43.950  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/13 16:21:45.702  INFO: User disconnecting interface RPI_CAT_INT
+2018/07/13 16:21:45.702  INFO: Killing thread for interface RPI_CAT_INT
+2018/07/13 16:21:45.705  INFO: Stopped packet reading for RPI_CAT_INT
+2018/07/13 16:21:45.712  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/13 16:21:47.511  INFO: User connecting interface RPI_CAT_INT
+2018/07/13 16:21:47.511  INFO: Creating thread for interface RPI_CAT_INT
+2018/07/13 16:21:47.512  INFO: Starting packet reading for RPI_CAT_INT
+2018/07/13 16:21:47.512  INFO: Connecting to RPI_CAT_INT...
+2018/07/13 16:21:52.524  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/13 16:21:57.535  INFO: Connecting to RPI_CAT_INT...
+2018/07/13 16:22:02.547  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/13 16:22:07.555  INFO: Connecting to RPI_CAT_INT...
+2018/07/13 16:22:12.567  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/13 16:22:17.576  INFO: Connecting to RPI_CAT_INT...
+2018/07/13 16:22:22.588  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/13 16:22:27.598  INFO: Connecting to RPI_CAT_INT...
+2018/07/13 16:22:32.608  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/13 16:22:37.619  INFO: Connecting to RPI_CAT_INT...
+2018/07/13 16:22:42.632  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/13 16:22:47.642  INFO: Connecting to RPI_CAT_INT...
+2018/07/13 16:22:52.654  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/13 16:22:57.664  INFO: Connecting to RPI_CAT_INT...
+2018/07/13 16:22:58.834  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/07/13 16:22:58.834  INFO: Connection Lost for SYSTEM_INT
+2018/07/13 16:22:58.935  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/07/13 16:22:58.935  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/07/13 16:22:58.935  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/07/13 16:22:59.033  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/07/13 16:22:59.044  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/07/13 16:22:59.044  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/07/13 16:22:59.051  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/07/13 16:22:59.143  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/07/13 16:22:59.154  INFO: Killing thread for interface RPI_CAT_INT
+2018/07/13 16:23:02.676  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/13 16:23:02.676  INFO: Stopped packet reading for RPI_CAT_INT
+2018/07/13 16:23:02.677  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/13 16:23:02.677  INFO: Killing thread for interface IOP_UDP_INT
+2018/07/13 16:23:02.687  ERROR: Error reading from interface : IOP_UDP_INT
+2018/07/13 16:23:02.687  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/07/13 16:23:02.687  INFO: Stopped packet reading for IOP_UDP_INT
+2018/07/13 16:23:02.687  INFO: Disconnected from interface IOP_UDP_INT
+2018/07/13 16:23:02.687  INFO: Killing thread for interface SYSTEM_INT
+2018/07/13 16:23:02.693  INFO: Stopped packet reading for SYSTEM_INT
+2018/07/13 16:23:02.698  INFO: Disconnected from interface SYSTEM_INT

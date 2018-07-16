@@ -1,0 +1,42 @@
+2017/12/28 20:27:27.831  INFO: Processing target definition in file 'C:/COSMOS/AVC/config/targets/AVC/target.txt'
+2017/12/28 20:27:27.848  INFO: Processing target definition in file 'C:/COSMOS/AVC/config/targets/SYSTEM/target.txt'
+2017/12/28 20:27:27.866  INFO: COSMOS Version: 4.0.3
+2017/12/28 20:27:27.866  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/AVC/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2017/12/28 20:27:27.869  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/AVC/config/targets/AVC/cmd_tlm_server.txt
+2017/12/28 20:27:27.900  INFO: Marshal load success: C:/COSMOS/AVC/outputs/tmp/marshal_4d2af51472c9fe4236e27a46be28defc.bin
+2017/12/28 20:27:34.725  INFO: Creating thread for interface AVC_INT
+2017/12/28 20:27:34.726  INFO: Creating thread for interface SYSTEM_INT
+2017/12/28 20:27:34.726  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2017/12/28 20:27:34.729  INFO: Starting packet reading for AVC_INT
+2017/12/28 20:27:34.729  INFO: Connecting to AVC_INT...
+2017/12/28 20:27:34.730  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2017/12/28 20:27:34.731  INFO: Starting packet reading for SYSTEM_INT
+2017/12/28 20:27:34.731  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2017/12/28 20:27:34.731  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2017/12/28 20:27:34.737  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2017/12/28 20:27:34.752  INFO: Connecting to SYSTEM_INT...
+2017/12/28 20:27:34.761  INFO: PREIDENTIFIED_ROUTER Connection Success
+2017/12/28 20:27:34.767  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2017/12/28 20:27:34.770  INFO: SYSTEM_INT Connection Success
+2017/12/28 20:27:34.771  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2017/12/28 20:27:39.731  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2017/12/28 20:27:44.733  INFO: Connecting to AVC_INT...
+2017/12/28 20:27:44.737  INFO: AVC_INT Connection Success
+2017/12/28 20:29:51.963  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2017/12/28 20:29:51.963  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2017/12/28 20:29:51.963  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2017/12/28 20:29:52.057  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2017/12/28 20:29:52.057  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2017/12/28 20:29:52.058  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2017/12/28 20:29:52.064  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2017/12/28 20:29:52.151  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2017/12/28 20:29:52.151  INFO: Killing thread for interface AVC_INT
+2017/12/28 20:29:52.158  INFO: Clean disconnect from AVC_INT (returned nil)
+2017/12/28 20:29:52.158  INFO: Connection Lost for AVC_INT
+2017/12/28 20:29:52.158  INFO: Stopped packet reading for AVC_INT
+2017/12/28 20:29:52.162  INFO: Disconnected from interface AVC_INT
+2017/12/28 20:29:52.163  INFO: Killing thread for interface SYSTEM_INT
+2017/12/28 20:29:52.164  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2017/12/28 20:29:52.164  INFO: Connection Lost for SYSTEM_INT
+2017/12/28 20:29:52.164  INFO: Stopped packet reading for SYSTEM_INT
+2017/12/28 20:29:52.174  INFO: Disconnected from interface SYSTEM_INT

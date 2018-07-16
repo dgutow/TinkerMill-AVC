@@ -35,8 +35,8 @@ extern Telemetry telem;                // The telemetry class
 #define DIR_MAX_PULSEWIDTH  2000
 
 // Wheel encoder definitions
-#define ENC_LEFT_PIN          11    // dag!
-#define ENC_RIGHT_PIN         12
+#define ENC_LEFT_PIN          27    // Joe 7/9/2018
+#define ENC_RIGHT_PIN         28
 
 // The switches
 #define VEH_START_SWITCH_PIN  22
@@ -51,15 +51,15 @@ extern Telemetry telem;                // The telemetry class
 ///////////////////////////////////////////////////////////////////////////////
 // Global variables
 ///////////////////////////////////////////////////////////////////////////////
-uint32  lt_nSteps         = 0;     // left wheel - total number of steps 
-uint32  lt_StepTimes[3]   = {0,0,0};    // left wheel - time last 3 steps occurred 
+volatile uint32  lt_nSteps         = 0;     // left wheel - total number of steps 
+volatile uint32  lt_StepTimes[3]   = {0,0,0};    // left wheel - time last 3 steps occurred 
                                    // [0]-last step,[1]-step before that, etc.
 float   lt_linearSpeed    = 0;     // left wheel - linear speed (cm/sec) 
 float   lt_rotateSpeed    = 0;     // left wheel - rotational speed deg/sec
 float   lt_totalDist      = 0;     // left wheel - total distance covered
 
-uint32  rt_nSteps         = 0;     // right wheel - total number of steps 
-uint32  rt_StepTimes[3]   = {0,0,0};    // right wheel - time last 3 steps occurred
+volatile uint32  rt_nSteps         = 0;     // right wheel - total number of steps 
+volatile uint32  rt_StepTimes[3]   = {0,0,0};    // right wheel - time last 3 steps occurred
                                    // [0]-last step,[1]-step before that, etc.  
 float   rt_linearSpeed    = 0;     // right wheel - linear speed (cm/sec) 
 float   rt_rotateSpeed    = 0;     // right wheel - rotational speed deg/sec
@@ -91,10 +91,12 @@ void veh_init()
     dirServo.attach (DIR_PIN_NUMBER, DIR_MIN_PULSEWIDTH, DIR_MAX_PULSEWIDTH);
     
     // attach two interrupts
+    pinMode(ENC_LEFT_PIN, INPUT);
+    pinMode(ENC_RIGHT_PIN, INPUT);
     attachInterrupt(digitalPinToInterrupt(ENC_LEFT_PIN),  veh_leftWheelInt,  RISING );
     attachInterrupt(digitalPinToInterrupt(ENC_RIGHT_PIN), veh_rightWheelInt, RISING );  
 
-    // Set switches
+    // Set switchesENC_RIGHT_PIN
     pinMode(VEH_START_SWITCH_PIN,INPUT);
     pinMode(VEH_ESTOP_SWITCH_PIN,INPUT);    
     telem.switches = 0;
@@ -186,8 +188,11 @@ void veh_getTelem (uint32 currTimeMsec)
     uint32 r_nSteps;
     uint32 l_StepTimes[3];
     uint32 r_StepTimes[3]; 
+    
+    // Get the switch status
+    veh_getSwitches (currTimeMsec);
 
-    // Get the last step times, but they may be changed by the ISR so 
+    // Get the left last step times, but they may be changed by the ISR so 
     // get them if lt_nSteps changed    
     l_nSteps       = lt_nSteps;
     l_StepTimes[0] = lt_StepTimes[0];
@@ -201,7 +206,7 @@ void veh_getTelem (uint32 currTimeMsec)
         l_StepTimes[2] = lt_StepTimes[2];  
     }   
 
-    // Get the last step times, but they may be changed by the ISR so 
+    // Get the right last step times, but they may be changed by the ISR so 
     // get them if rt_nSteps changed 
     r_nSteps       = rt_nSteps;    
     r_StepTimes[0] = rt_StepTimes[0];

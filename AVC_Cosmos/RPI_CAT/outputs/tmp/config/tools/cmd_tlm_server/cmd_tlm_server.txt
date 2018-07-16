@@ -1,0 +1,29 @@
+TITLE 'Tinkermill Command and Telemetry Server'
+
+# PACKET_LOG_WRITER Parameter Notes
+# nil:use default log names
+# true: logging enabled
+# nil: Don't cycle logs based on time
+# 2000000000: Create new log after 2 Billion bytes
+# nil: Use the default log directory
+# false: Log synchronously - more efficient
+# config/data/meta_init.txt: Initialize SYSTEM META data from this file
+PACKET_LOG_WRITER DEFAULT packet_log_writer.rb nil true nil 2000000000 nil false
+# PACKET_LOG_WRITER SYSTEMLOG packet_log_writer.rb system
+
+# AUTO_INTERFACE_TARGETS # Use cmd_tlm_server.txt from all targets declared in system.txt
+
+INTERFACE_TARGET RPI_CAT cmd_tlm_server.txt # Use cmd_tlm_server.txt in target package
+INTERFACE_TARGET IOP_UDP cmd_tlm_server.txt # Use cmd_tlm_server.txt in target package
+
+INTERFACE SYSTEM_INT cmd_tlm_server_interface.rb
+  TARGET SYSTEM
+  DISABLE_DISCONNECT
+  # LOG SYSTEMLOG
+  # DONT_LOG
+  # DONT_CONNECT
+  # DONT_RECONNECT
+  # RECONNECT_DELAY 15.0
+  # LOG_RAW
+
+#COLLECT_METADATA

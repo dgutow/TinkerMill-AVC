@@ -1,0 +1,64 @@
+2018/02/16 21:37:16.895  INFO: COSMOS Version: 4.1.1
+2018/02/16 21:37:16.907  INFO: Processing target definition in file 'C:/COSMOS/AVC/config/targets/AVC/target.txt'
+2018/02/16 21:37:16.910  INFO: Processing target definition in file 'C:/COSMOS/AVC/config/targets/SYSTEM/target.txt'
+2018/02/16 21:37:16.936  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/AVC/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/02/16 21:37:16.937  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/AVC/config/targets/AVC/cmd_tlm_server.txt
+2018/02/16 21:37:16.941  INFO: Marshal file does not exist: C:/COSMOS/AVC/outputs/tmp/marshal_36941519d6ff06ad66b70a92cf3a613e.bin
+2018/02/16 21:37:19.306  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/02/16 21:37:19.306  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/02/16 21:37:19.307  INFO: Creating thread for interface AVC_INT
+2018/02/16 21:37:19.307  INFO: Creating thread for interface SYSTEM_INT
+2018/02/16 21:37:19.317  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/02/16 21:37:19.317  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/02/16 21:37:19.317  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/02/16 21:37:19.317  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/02/16 21:37:19.317  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/02/16 21:37:19.319  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/02/16 21:37:19.319  INFO: Starting packet reading for AVC_INT
+2018/02/16 21:37:19.319  INFO: Connecting to AVC_INT...
+2018/02/16 21:37:19.319  INFO: Starting packet reading for SYSTEM_INT
+2018/02/16 21:37:19.319  INFO: Connecting to SYSTEM_INT...
+2018/02/16 21:37:19.319  INFO: SYSTEM_INT Connection Success
+2018/02/16 21:37:19.357  INFO: AVC_INT Connection Success
+2018/02/16 21:37:19.375  ERROR: AVC STATUS received with actual packet length of 96 but defined length of 48
+2018/02/16 21:37:19.377  INFO: Log File Opened : C:/COSMOS/AVC/outputs/logs/2018_02_16_21_37_19_tlm.bin
+2018/02/16 21:37:59.805  INFO: cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/02/16 21:37:59.806  INFO: Log File Opened : C:/COSMOS/AVC/outputs/logs/2018_02_16_21_37_59_cmd.bin
+2018/02/16 21:38:01.926  INFO: cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/02/16 21:38:20.198  INFO: cmd("AVC MOVE with CMD_ID 77, SPEED 66, DISTANCE 55, SPARE 0")
+2018/02/16 21:38:36.606  INFO: cmd("AVC MOVE with CMD_ID 77, SPEED -5, DISTANCE 55, SPARE 0")
+2018/02/16 21:38:52.337  INFO: cmd("AVC MOVE with CMD_ID 77, SPEED -5, DISTANCE -25, SPARE 0")
+2018/02/16 21:39:14.519  INFO: cmd("AVC TURN with CMD_ID 84, ANGLE -5, SPARE1 0, SPARE2 0")
+2018/02/16 21:39:25.965  INFO: cmd("AVC TURN with CMD_ID 84, ANGLE 6, SPARE1 0, SPARE2 0")
+2018/02/16 21:43:30.391  INFO: Tcpip server accepted connection from (127.0.0.1):50221
+2018/02/16 21:44:38.152  INFO: cmd("AVC MOVE with CMD_ID 77, SPEED 5, DISTANCE 0, SPARE 0")
+2018/02/16 21:44:43.512  INFO: cmd("AVC MOVE with CMD_ID 77, SPEED 6, DISTANCE 0, SPARE 0")
+2018/02/16 21:44:46.745  INFO: cmd("AVC MOVE with CMD_ID 77, SPEED 7, DISTANCE 0, SPARE 0")
+2018/02/16 21:44:51.970  INFO: cmd("AVC MOVE with CMD_ID 77, SPEED 8, DISTANCE 0, SPARE 0")
+2018/02/16 21:44:57.411  INFO: cmd("AVC MOVE with CMD_ID 77, SPEED 13, DISTANCE 0, SPARE 0")
+2018/02/16 21:45:01.174  INFO: cmd("AVC MOVE with CMD_ID 77, SPEED 3, DISTANCE 0, SPARE 0")
+2018/02/16 21:45:25.564  INFO: cmd("AVC MOVE with CMD_ID 77, SPEED 7, DISTANCE 0, SPARE 0")
+2018/02/16 21:45:41.271  INFO: cmd("AVC MOVE with CMD_ID 77, SPEED 88, DISTANCE 0, SPARE 0")
+2018/02/16 21:45:47.171  INFO: cmd("AVC MOVE with CMD_ID 77, SPEED 9, DISTANCE 0, SPARE 0")
+2018/02/16 21:46:03.017  INFO: Tcpip server lost read connection to (127.0.0.1):50221
+2018/02/16 21:46:03.051  INFO: Tcpip server lost write connection to (127.0.0.1):50221
+2018/02/16 21:46:32.377  INFO: Log File Closed : C:/COSMOS/AVC/outputs/logs/2018_02_16_21_37_59_cmd.bin
+2018/02/16 21:46:32.380  INFO: Log File Closed : C:/COSMOS/AVC/outputs/logs/2018_02_16_21_37_19_tlm.bin
+2018/02/16 21:46:32.380  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/02/16 21:46:32.380  INFO: Connection Lost for SYSTEM_INT
+2018/02/16 21:46:32.480  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/02/16 21:46:32.481  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/02/16 21:46:32.481  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/02/16 21:46:32.563  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/02/16 21:46:32.563  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/02/16 21:46:32.563  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/02/16 21:46:32.565  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/02/16 21:46:32.669  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/02/16 21:46:32.679  INFO: Killing thread for interface AVC_INT
+2018/02/16 21:46:32.688  INFO: Clean disconnect from AVC_INT (returned nil)
+2018/02/16 21:46:32.688  INFO: Connection Lost for AVC_INT
+2018/02/16 21:46:32.688  INFO: Stopped packet reading for AVC_INT
+2018/02/16 21:46:32.690  INFO: Disconnected from interface AVC_INT
+2018/02/16 21:46:32.690  INFO: Killing thread for interface SYSTEM_INT
+2018/02/16 21:46:32.698  INFO: Stopped packet reading for SYSTEM_INT
+2018/02/16 21:46:32.700  INFO: Disconnected from interface SYSTEM_INT

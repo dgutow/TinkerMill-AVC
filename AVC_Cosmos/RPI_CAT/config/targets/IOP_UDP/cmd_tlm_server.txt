@@ -1,0 +1,8 @@
+# connected to 8266 wifi
+INTERFACE IOP_UDP_INT udp_interface.rb 192.168.4.99 61433 61433  
+    TARGET IOP_UDP
+    
+# Connected to TM wifi
+#INTERFACE IOP_UDP_INT udp_interface.rb 10.2.124.96 61433 61433  
+#    TARGET IOP_UDP
+

@@ -1,0 +1,99 @@
+= opengl
+
+source :: https://github.com/larskanis/opengl
+docs   :: http://larskanis.github.com/opengl
+bugs   :: https://github.com/larskanis/opengl/issues
+email  :: mailto:ruby-opengl-devel@rubyforge.org
+
+{<img src="https://travis-ci.org/larskanis/opengl.png?branch=master" alt="Build Status" />}[https://travis-ci.org/larskanis/opengl]
+
+== Description
+
+An OpenGL wrapper for Ruby. opengl contains bindings for OpenGL.
+
+Be sure to check out
+{GLU}[https://github.com/larskanis/glu] and
+{GLUT}[https://github.com/larskanis/glut]
+gems.
+
+== Features and Problems
+
+* available for Windows, Linux and OS X
+
+== Synopsis
+
+  require 'opengl'
+  FIX (code sample of usage)
+
+== Requirements
+
+* Ruby 1.9.2+
+* OpenGL runtime libraries installed
+
+== Install
+
+  gem install opengl
+
+== Developers
+
+After checking out the source, run:
+
+  bundle install
+
+This will install missing dependencies.
+
+== Tests
+
+Run the tests with:
+
+  rake test
+
+Note that the tests have the adverse effect of testing the underlying OpenGL implementation, so depending on your GL provider, drivers or OS, the tests may fail, crash, or not run at all, without affecting your ability to use the bindings.
+
+Tests require both glut and glu gem.
+
+With our test suite, we were able to uncover and help fix upstream mesa bugs:
+
+* {#61026}[https://bugs.freedesktop.org/show_bug.cgi?id=61026] glBitmap segfault
+* {#61003}[https://bugs.freedesktop.org/show_bug.cgi?id=61003] gluSurface with Nurbs spits out debug code
+* {#61395}[https://bugs.freedesktop.org/show_bug.cgi?id=61395] glEdgeFlag can't be set to false
+
+Whenever a test or example fails, it should be quickly ported into a simple C test program, so we can determine whether it's a bug in the bindings or the OpenGL implementation.
+
+== Cross compiling for Windows
+
+A cross compiled opengl gem can be build per {rake-compiler-dock}[https://github.com/rake-compiler/rake-compiler-dock] for the Windows platform.
+There are no runtime dependencies to any but the standard Windows DLLs.
+Run <tt>rake gem:windows</tt> and find the gem files in the +pkg+ directory.
+
+== License
+
+(The MIT License)
+
+Copyright (c) Lars Kanis    (current maintainer)
+Copyright (c) Blaž Hrastnik (contributor)
+Copyright (c) Eric Hodel    (previous maintainer)
+Copyright (c) Alain Hoang   (previous maintainer)
+Copyright (c) Jan Dvorak    (contributor)
+Copyright (c) Minh Thu Vo   (contributor)
+Copyright (c) James Adam    (contributor)
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
