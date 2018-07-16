@@ -53,8 +53,8 @@ public:
     uint16_t irRR;
     uint16_t switches;
     uint16_t sensorAng;
-    uint16_t sensor;
-    uint16_t sensorDist;
+    uint16_t rejectCntr;
+    uint16_t rejectReason;
     uint16_t volt1;
     uint16_t volt2;
     int16_t  accel;

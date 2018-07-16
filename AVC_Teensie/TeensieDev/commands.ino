@@ -37,12 +37,23 @@ uint16_t setMode (int16_t mode);
 ///////////////////////////////////////////////////////////////////////////////
 void commandDecode(cmdData* command)
 {
-    char cmd = (char) command->words[0];
-    uint16_t param1 = command->words[1];
-    uint16_t param2 = command->words[2]; 
-    // uint16_t param3 = command->words[3]; never used
+    uint16_t header = command->words[0];
+    char cmd = (char) command->words[1];
+    uint16_t param1 = command->words[2];
+    uint16_t param2 = command->words[3]; 
+    // uint16_t param3 = command->words[4]; never used
     
-    uint32_t incAccpt = false;      // increment the command accept counter?
+    telem.rejectReason = 5;         // Initialize to unknown in case of bug 
+                                    // This should get overwritten!  
+    uint32_t incAccpt = false;      // increment command accept counter or not
+    
+    if (header != 0x5454)
+    {
+        // Incorrect header on command message
+        telem.rejectCntr++;
+        telem.rejectReason = 1;
+        return;
+    }      
   
     switch (cmd)
     {
@@ -120,17 +131,22 @@ void commandDecode(cmdData* command)
             break;      
 
         default:
-            // do nothing
-            DBGPORT.println("commandDecode: Unrecognized command");           
-            incAccpt = false;
-            break;
+            // Unrecognized command
+            telem.rejectCntr++;
+            telem.rejectReason = 2;
+            return;
     }   //end switch
 
     if (incAccpt)
     {
        telem.acceptCntr++;
+       telem.rejectReason = 0;      
     }
-  
+    else
+    {
+       telem.rejectCntr++; 
+    }
+    
 } // end cmdDecode
 
 ///////////////////////////////////////////////////////////////////////////////

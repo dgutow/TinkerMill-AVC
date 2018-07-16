@@ -47,8 +47,8 @@ void tlm_init ()
    telem.irRR           = 0;
    telem.switches       = 0;
    telem.sensorAng      = 0;
-   telem.sensor         = 0;
-   telem.sensorDist     = 0;
+   telem.rejectCntr     = 0;
+   telem.rejectReason   = 0;
    telem.volt1          = 0;
    telem.volt2          = 0;
    telem.accel          = 0;
