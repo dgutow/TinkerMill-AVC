@@ -63,14 +63,14 @@ class tcpSocketClass (object):
         #end if            
         
         if (self.server):               # Setup this instance as a server
-            #printOut ("SOCKETCLASS: Setting up as server - binding to %s" % ((self.address)) )
-            print "SOCKETCLASS: Setting up as server - binding to ", self.address
+            #printOut ("TCPSOCKETCLASS: Setting up as server - binding to %s" % ((self.address)) )
+            print "TCPSOCKETCLASS: Setting up as server - binding to ", self.address
             self.sock.bind ( self.address )  
-            printOut ("SOCKETCLASS: Setting up as server - listening")             
+            printOut ("TCPSOCKETCLASS: Setting up as server - listening")             
             self.sock.listen (1)
-            printOut ("SOCKETCLASS: Setting up as server - complete")
+            printOut ("TCPSOCKETCLASS: Setting up as server - complete")
         else:
-            printOut ("SOCKETCLASS: Setting up as client\n")           
+            printOut ("TCPSOCKETCLASS: Setting up as client\n")           
             self.sock.connect ( (self.ipAddr, self.portNo) )
         # endif
         
@@ -82,7 +82,7 @@ class tcpSocketClass (object):
             while ( not self.threadExec):
                 time.sleep (0.1)            
         # end if
-        printOut ("SOCKETCLASS: Completed setting up thread\n") 
+        printOut ("TCPSOCKETCLASS: Completed setting up thread\n") 
         
     # end __init__
     
@@ -90,18 +90,18 @@ class tcpSocketClass (object):
     # receiveThread(state)
     ###########################################################################
     def receiveThread(self):
-        printOut ("SOCKETCLASS: starting receive thread, waiting for accept")     
+        printOut ("TCPSOCKETCLASS: starting receive thread, waiting for accept")     
         
         # Keep waiting for a connection as long as we're told not to abort
         while (self.threadFlag):
             self.conn = None          
-            printOut ("SOCKETCLASS: waiting to accept connection")   
+            printOut ("TCPSOCKETCLASS: waiting to accept connection")   
             self.threadExec = True              # Yep, the thread is executing  
             try:
                 #conn, addr = self.sock.accept(0)
                 conn, addr = self.sock.accept()               
                 self.conn = conn
-                printOut ("SOCKETCLASS: accepted connection" )     
+                printOut ("TCPSOCKETCLASS: accepted connection" )     
             except:
                 time.sleep(1.0)
                        
@@ -114,18 +114,18 @@ class tcpSocketClass (object):
                 self.cmdQueue.put(data)
                 
                 if (True):
-                    printOut ('SOCKETCLASS: Received %s bytes from address %s' 
+                    printOut ('TCPSOCKETCLASS: Received %s bytes from address %s' 
                                             % (len(data), self.retAddress))   
                     
                 if (len(data) == 0):            # We lost the connection
-                    printOut ('SOCKETCLASS: connection lost')
+                    printOut ('TCPSOCKETCLASS: connection lost')
                     self.conn = None
             # end while
         # end while
         
         self.sock.close()
         self.threadExec = False                 # Thread now terminated 
-        printOut ("SOCKETCLASS: terminating receive thread" )
+        printOut ("TCPSOCKETCLASS: receive thread terminated" )
     #end def    
     
     ###########################################################################
@@ -134,17 +134,17 @@ class tcpSocketClass (object):
     def sendString (self, message):
         if (self.conn != None):
             try:
-                #printOut ('SOCKETCLASS sendString: sending %s bytes to %s' % 
+                #printOut ('TCPSOCKETCLASS sendString: sending %s bytes to %s' % 
                 #                                (len(message),self.retAddress))           
                 size = self.conn.send ( message ) 
                 if (size == 0):                 # We lost the connection
                     self.conn = None
-                    printOut ("SOCKETCLASS sendString: lost connection")
+                    printOut ("TCPSOCKETCLASS sendString: lost connection")
                 else:
-                    #printOut ("SOCKETCLASS sendString: message sent")
+                    #printOut ("TCPSOCKETCLASS sendString: message sent")
                     pass
             except:
-                printOut ("SOCKETCLASS sendString: exception sending message")       
+                printOut ("TCPSOCKETCLASS sendString: exception sending message")       
 
     #end  
     
@@ -152,10 +152,11 @@ class tcpSocketClass (object):
     # close - closes the TCP port and stops the port thread  
     ########################################################################### 
     def close (self):
-        printOut ("SOCKETCLASS close: Waiting for thread to terminate")    
+        printOut ("TCPSOCKETCLASS close: Waiting for thread to terminate")    
         self.threadFlag = False   
         while (self.threadExec):
             time.sleep (0.1)
+        printOut ("TCPSOCKETCLASS close: Tthread terminated")              
     # end
     
 # End class    

@@ -64,7 +64,7 @@ class serialClass (object):
             cnt += 1
             runFlag = self.serialPortFlag	# For some reason this works?
         # end while
-        printOut ("SERIAL PORT THREAD: terminating") 
+        printOut ("SERIAL PORT THREAD: terminated") 
     #end def    
     
     ###########################################################################

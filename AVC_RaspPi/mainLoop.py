@@ -129,12 +129,15 @@ def mainLoop():
         vehState.currHeartBeat += 1        
         #serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)   dag turn on              
     # end while
-    printOut ("MAIN_LOOP: Terminating mainLoop, Killing serialPort")
-    
+    printOut ("MAIN_LOOP: Terminating mainLoop, killing serialPort")
+    serialPort.killThread()     
+      
     # Kill the simulator by sending an unknown command
     #serialPort.sendCommand ('Z', 0, 0, 0) 
-    serialPort.killThread()       
+
+    printOut ("MAIN_LOOP: serialPort killed, killing guiIf")   
     guiIf.close ()          # Close the gui interface TCP server thread
+    printOut ("MAIN_LOOP: guiIf killed, returning...")       
 # end def 
     
 ################################################################################
