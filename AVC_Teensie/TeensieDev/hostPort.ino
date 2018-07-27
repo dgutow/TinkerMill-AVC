@@ -33,6 +33,7 @@ void initHostPort ()
 
 void checkForCmds (uint32_t currTimeMsec)
 {
+  /* original code
   if (serialin)
   {
       if (hostPortEvent() == 10) // A valid command consists of 8 (bytes)
@@ -40,12 +41,13 @@ void checkForCmds (uint32_t currTimeMsec)
           commandDecode(&command);
       }
   }
- /*
-    if ( RPIPORT.available() >= sizeof(cmdData) ) 
+  */ 
+
+    if ( (uint) RPIPORT.available() >= sizeof(cmdData) ) 
     {
         // There is at least one commands worth of bytes available to read
         // So read one commands worth right now
-        for (int i = 0; i < sizeof(cmdData); i++)
+        for (uint i = 0; i < sizeof(cmdData); i++)
         {
             command.bytes[i] = RPIPORT.read();           
         }
@@ -60,18 +62,17 @@ void checkForCmds (uint32_t currTimeMsec)
         {
             // Incorrect header on command message - resync by waiting for 
             // a short while to ensure all the bytes come in and then throwing
-            // all the bytes away.  The next message should be in sync.
+            // all the bytes away.  The message after that should be in sync.
+            telem.rejectCntr++;
+            telem.rejectReason = 1;              
+            
             delay(2); 
             while ( RPIPORT.available() )
             {
                 RPIPORT.read();
             }
-            telem.rejectCntr++;
-            telem.rejectReason = 1;            
         }   
     }
-
-*/
 }
 
 

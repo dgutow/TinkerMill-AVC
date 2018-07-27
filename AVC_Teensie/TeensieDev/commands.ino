@@ -10,6 +10,7 @@
 #include "commands.h"
 #include "heartbeat.h"
 #include "vehicle.h"
+#include "camera.h"
 
 #ifdef TEENSIE_35
 //	#include "scanner.h"
@@ -52,6 +53,8 @@ void commandDecode(cmdData* command)
         // Incorrect header on command message
         telem.rejectCntr++;
         telem.rejectReason = 1;
+        telem.spare1 = header;
+        telem.spare2 = cmd;        
         return;
     }      
   
@@ -158,17 +161,20 @@ uint16_t setMode (int16_t mode)
     {
     case BIST:
         telem.currMode = BIST;
+        telem.bist     = 0;        
         //todo - perform the bist in initialization mode maybe just reset the system?
         return (true);     
         
     case NORMAL:
-        telem.currMode = NORMAL;  
+        telem.currMode    = NORMAL;  
+        telem.cumDistance = 0;
+        telem.bist        = 0;            
         return (true);
         
     case ESTOP:
         veh_estop ();
         telem.currMode = ESTOP;   
-        telem.bist = COMMANDED;
+        telem.bist     = COMMANDED;
         return (true);
         
     default:

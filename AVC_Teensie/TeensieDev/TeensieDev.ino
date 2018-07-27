@@ -12,6 +12,7 @@
 #include "heartbeat.h"
 #include "status.h"
 #include "vehicle.h"
+#include "camera.h"
 
 #ifdef TEENSIE_35
 
@@ -71,11 +72,13 @@ void adc_init();              // initialize the ADC system
 // - The fourth value (nextExecTime) is for internal use and should be set to
 //   0.  (It is overwritten in the initExecuteTasks function)
 ///////////////////////////////////////////////////////////////////////////////
-task taskList[] = { {checkForCmds,        10,     0,      0}, // did we get a new command?
-                    //{hb_check,          10,     1,      0}, // check if heartbeat failure   
-                    {sid_getValues,       25,     0,      0}, // get the side sensor values                   
-                    {veh_getTelem,       500,     0,      0},                                                  
-                    {tlm_sendToHost,     500,     1,      0},
+task taskList[] = { {checkForCmds,        20,     0,      0}, // did we get a new command?
+                    {veh_check,           50,     0,      0}, // continual servicing of vehicle systems
+                    {sid_getValues,       25,     0,      0},   
+                    //{hb_check,          10,     1,      0}, // check// get the side sensor values  
+                    {cam_getTelem,       200,     0,      0},                     
+                    {veh_getTelem,       200,     0,      0},                                                  
+                    {tlm_sendToHost,     200,     1,      0},
                     //{tlm_sendToEsp,     1000,   0,      0},
                     {blinkLed,           500,     1,      0},                    
                     }; 
@@ -87,8 +90,7 @@ task taskList[] = { {checkForCmds,      10,     0,      0}, // did we get a new 
                     {sid_getValues,     25,     0,      0}, // get the side sensor values
                     {scn_getValues,     25,     0,      0}, // get the scanner values
                     {nin_getValues,     25,     0,      0}, // get the nine DOF values
-                    {sts_getValues,     25,     0,      0}, // get the battery status's                    
-                    {veh_getSwitches,   25,     0,      0}, // get status of all switches (estop!)                   
+                    {sts_getValues,     25,     0,      0}, // get the battery status's                                      
                     {tlm_sendToHost,    25,     0,      0},
                     {tlm_sendToEsp,     1000,   0,      0},
                     {blinkLed,          2000,   1,      0},                    
@@ -108,14 +110,14 @@ void setup()
    
    tlm_init ();              // Initialize the serial ports - must be done first!
    veh_init();
+   cam_init ();
+   
    sid_init();   
    //adc_init ();            // initialize the ADC system   
    //scn_init ();            // Initialize the scanner
    //sts_init ();            // initialize the battery status's   
    //nin_init ();            // initialize the  nine DOF
    
-
-
    initExecuteTasks ();
     
    // Original setup code - Connect all the devices to their respective pins
@@ -132,8 +134,11 @@ void setup()
    digitalWrite(TEENSIE_LED, 1);
    
    // Enable the wifi access pt on the 8266
-   pinMode (ENABLE_WIFI, OUTPUT);
-   digitalWrite(ENABLE_WIFI, 1); 
+   // pinMode (ENABLE_WIFI, OUTPUT);
+   // digitalWrite(ENABLE_WIFI, 1); 
+   
+   // Perform any BIST tests
+   
    delay(5000);                        // Original was 5000
 }
 

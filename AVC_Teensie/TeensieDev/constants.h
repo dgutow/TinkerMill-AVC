@@ -40,13 +40,6 @@ const int IN2       = 8;     //connected to Arduino's port 11
 //const int ENC_PIN   = 2;        // Interrupt - scanner encoder
 //const int OPTO_PIN  = 3;        // Interrupt - scanner zero sensor
 
-#ifdef TEENSIE_35
-    const int distanceRF    = A15;  // Analog input - right front range sensor
-    const int distanceRR    = A12;  // Analog input - right rear range sensor
-    const int distanceLF    = A14;  // Analog input - left front range sensor
-    const int distanceLR    = A13;  // Analog input - left rear range sensor
-#endif
-
 const int longFront       = A0;    // Analog input - scanner long range sensor
 const int shortFront      = A1;    // Analog input - scanner short range sensor
 

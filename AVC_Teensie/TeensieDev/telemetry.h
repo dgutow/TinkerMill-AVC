@@ -47,10 +47,10 @@ public:
     int16_t  currSpeed;
     int16_t  currSteerAng;
     uint16_t cumDistance;
-    uint16_t irLF;
-    uint16_t irLR;
-    uint16_t irRF;
-    uint16_t irRR;
+    uint16_t scnDist1;
+    uint16_t scnDist2;
+    uint16_t scnDist3;
+    uint16_t scnDist4;
     uint16_t switches;
     uint16_t sensorAng;
     uint16_t rejectCntr;
