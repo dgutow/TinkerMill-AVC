@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 """
  mainLoop.py - The main loop of the racing vehicle.
  
@@ -61,7 +63,7 @@ visionCmdQueue  = Queue(10)
 serialPort  = serialClass (IopTlmQueue)  
 
 # Interface to the GUI host
-guiIf = guiIfClass (GUI_IPADDR, GUI_MAINPORT, GUI_IOPPORT, GUI_VISPORT)
+guiIf = guiIfClass (RPI_IPADDR, RPI_TCPPORT, UDP_IPADDR, UDP_IOPPORT, UDP_VISPORT)
 
 # Number of accepted commands from the GUI
 guiAcceptCnt = 0
@@ -346,6 +348,7 @@ def exec_guiCmd (cmdMsg):
         
     elif (command == 'E'):      # E-stop
         serialPort.sendCommand (command, param1, param2, param3)
+        serialPort.sendCommand (command, param1, param2, param3)        
         guiAcceptCnt += 1
         
     elif (command == 'F'):      # Set accelerations
