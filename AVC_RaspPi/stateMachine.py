@@ -22,10 +22,10 @@ else:
 # end if SIM_TEENSY 
 
 apprCount       = 2     # Count of loops to stay in any of the appr states
-BistMaxCnt    = 30    # 3 sec - max time for IOP to get to BIST
-NormMaxCnt  = 30    # 2 sec - max time for IOP to enter NORM mode after cmd 
-simMaxCnt = 100     # 
-ErrorMaxCnt   = 200    # Number of iterations before repeating error msg
+BistMaxCnt      = 90    # 3 sec - max time for IOP to get to BIST
+NormMaxCnt      = 30    # 2 sec - max time for IOP to enter NORM mode after cmd 
+simMaxCnt       = 100     # 
+ErrorMaxCnt     = 200    # Number of iterations before repeating error msg
 
 ############################################################################### 
 # stateControl - choose what to do depending on our current state
@@ -445,8 +445,8 @@ if __name__ == '__main__':
         vehState.iopStartSwitch = telemArray[12] & 0x01 
         
         measScanAngle           = telemArray[13]
-        measScanSensor          = telemArray[14]
-        measScanDist            = telemArray[15]
+        measRejCnt          = telemArray[14]
+        measRejReason            = telemArray[15]
     
         vehState.iopBattVolt1   = telemArray[16]
         vehState.iopBattVolt2   = telemArray[17]
