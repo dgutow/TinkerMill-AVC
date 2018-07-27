@@ -1,0 +1,271 @@
+2018/01/29 18:27:22.894  INFO: Processing target definition in file 'C:/COSMOS/AVC/config/targets/AVC/target.txt'
+2018/01/29 18:27:22.955  INFO: Processing target definition in file 'C:/COSMOS/AVC/config/targets/SYSTEM/target.txt'
+2018/01/29 18:27:22.982  INFO: COSMOS Version: 4.0.3
+2018/01/29 18:27:22.982  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/AVC/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/01/29 18:27:22.985  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/AVC/config/targets/AVC/cmd_tlm_server.txt
+2018/01/29 18:27:23.010  INFO: Marshal load success: C:/COSMOS/AVC/outputs/tmp/marshal_4d2af51472c9fe4236e27a46be28defc.bin
+2018/01/29 18:27:24.843  INFO: Creating thread for interface AVC_INT
+2018/01/29 18:27:24.843  INFO: Creating thread for interface SYSTEM_INT
+2018/01/29 18:27:24.843  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/01/29 18:27:24.844  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/01/29 18:27:24.845  INFO: Starting packet reading for AVC_INT
+2018/01/29 18:27:24.845  INFO: Connecting to AVC_INT...
+2018/01/29 18:27:24.846  INFO: Starting packet reading for SYSTEM_INT
+2018/01/29 18:27:24.846  INFO: Connecting to SYSTEM_INT...
+2018/01/29 18:27:24.846  INFO: SYSTEM_INT Connection Success
+2018/01/29 18:27:24.846  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/01/29 18:27:24.846  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/01/29 18:27:24.847  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/01/29 18:27:24.847  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/01/29 18:27:24.847  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/01/29 18:27:24.850  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/01/29 18:27:24.850  INFO: AVC_INT Connection Success
+2018/01/29 18:27:51.300  INFO: User disconnecting interface AVC_INT
+2018/01/29 18:27:51.300  INFO: Killing thread for interface AVC_INT
+2018/01/29 18:27:51.308  INFO: Clean disconnect from AVC_INT (returned nil)
+2018/01/29 18:27:51.308  INFO: Connection Lost for AVC_INT
+2018/01/29 18:27:51.308  INFO: Stopped packet reading for AVC_INT
+2018/01/29 18:27:51.310  INFO: Disconnected from interface AVC_INT
+2018/01/29 18:28:18.399  INFO: User connecting interface AVC_INT
+2018/01/29 18:28:18.399  INFO: Creating thread for interface AVC_INT
+2018/01/29 18:28:18.400  INFO: Starting packet reading for AVC_INT
+2018/01/29 18:28:18.400  INFO: Connecting to AVC_INT...
+2018/01/29 18:28:18.401  INFO: AVC_INT Connection Success
+2018/01/29 18:28:26.326  INFO: cmd("AVC ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE 0")
+2018/01/29 18:28:26.330  INFO: Log File Opened : C:/COSMOS/AVC/outputs/logs/2018_01_29_18_28_26_cmd.bin
+2018/01/29 18:28:29.328  INFO: cmd("AVC ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE 0")
+2018/01/29 18:28:32.348  INFO: cmd("AVC ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE 0")
+2018/01/29 18:28:56.057  INFO: cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/01/29 18:28:58.229  INFO: cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/01/29 18:29:20.211  INFO: User disconnecting interface AVC_INT
+2018/01/29 18:29:20.211  INFO: Killing thread for interface AVC_INT
+2018/01/29 18:29:20.221  INFO: Clean disconnect from AVC_INT (returned nil)
+2018/01/29 18:29:20.221  INFO: Connection Lost for AVC_INT
+2018/01/29 18:29:20.221  INFO: Stopped packet reading for AVC_INT
+2018/01/29 18:29:20.222  INFO: Disconnected from interface AVC_INT
+2018/01/29 18:29:24.575  INFO: User connecting interface AVC_INT
+2018/01/29 18:29:24.575  INFO: Creating thread for interface AVC_INT
+2018/01/29 18:29:24.576  INFO: Starting packet reading for AVC_INT
+2018/01/29 18:29:24.576  INFO: Connecting to AVC_INT...
+2018/01/29 18:29:29.579  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:29:34.579  INFO: Connecting to AVC_INT...
+2018/01/29 18:29:39.581  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:29:44.582  INFO: Connecting to AVC_INT...
+2018/01/29 18:29:49.584  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:29:54.585  INFO: Connecting to AVC_INT...
+2018/01/29 18:29:59.588  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:30:04.590  INFO: Connecting to AVC_INT...
+2018/01/29 18:30:09.593  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:30:14.594  INFO: Connecting to AVC_INT...
+2018/01/29 18:30:19.598  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:30:24.599  INFO: Connecting to AVC_INT...
+2018/01/29 18:30:29.600  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:30:34.601  INFO: Connecting to AVC_INT...
+2018/01/29 18:30:39.604  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:30:44.605  INFO: Connecting to AVC_INT...
+2018/01/29 18:30:49.607  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:30:54.609  INFO: Connecting to AVC_INT...
+2018/01/29 18:30:59.611  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:31:04.613  INFO: Connecting to AVC_INT...
+2018/01/29 18:31:09.615  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:31:14.616  INFO: Connecting to AVC_INT...
+2018/01/29 18:31:19.618  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:31:24.619  INFO: Connecting to AVC_INT...
+2018/01/29 18:31:29.622  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:31:34.624  INFO: Connecting to AVC_INT...
+2018/01/29 18:31:39.626  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:31:44.627  INFO: Connecting to AVC_INT...
+2018/01/29 18:31:49.631  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:31:54.632  INFO: Connecting to AVC_INT...
+2018/01/29 18:31:59.635  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:32:04.637  INFO: Connecting to AVC_INT...
+2018/01/29 18:32:09.639  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:32:14.640  INFO: Connecting to AVC_INT...
+2018/01/29 18:32:19.643  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:32:24.644  INFO: Connecting to AVC_INT...
+2018/01/29 18:32:29.647  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:32:34.648  INFO: Connecting to AVC_INT...
+2018/01/29 18:32:39.651  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:32:44.653  INFO: Connecting to AVC_INT...
+2018/01/29 18:32:49.655  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:32:54.657  INFO: Connecting to AVC_INT...
+2018/01/29 18:32:59.659  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:33:04.661  INFO: Connecting to AVC_INT...
+2018/01/29 18:33:09.663  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:33:14.665  INFO: Connecting to AVC_INT...
+2018/01/29 18:33:19.666  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:33:24.667  INFO: Connecting to AVC_INT...
+2018/01/29 18:33:29.670  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:33:34.672  INFO: Connecting to AVC_INT...
+2018/01/29 18:33:39.675  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:33:44.677  INFO: Connecting to AVC_INT...
+2018/01/29 18:33:49.680  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:33:54.681  INFO: Connecting to AVC_INT...
+2018/01/29 18:33:59.683  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:34:04.684  INFO: Connecting to AVC_INT...
+2018/01/29 18:34:09.686  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:34:14.687  INFO: Connecting to AVC_INT...
+2018/01/29 18:34:19.690  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:34:24.692  INFO: Connecting to AVC_INT...
+2018/01/29 18:34:29.695  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:34:34.696  INFO: Connecting to AVC_INT...
+2018/01/29 18:34:39.698  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:34:44.699  INFO: Connecting to AVC_INT...
+2018/01/29 18:34:49.702  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:34:54.704  INFO: Connecting to AVC_INT...
+2018/01/29 18:34:59.707  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:35:04.708  INFO: Connecting to AVC_INT...
+2018/01/29 18:35:09.711  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:35:14.711  INFO: Connecting to AVC_INT...
+2018/01/29 18:35:19.714  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:35:24.715  INFO: Connecting to AVC_INT...
+2018/01/29 18:35:29.717  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:35:34.719  INFO: Connecting to AVC_INT...
+2018/01/29 18:35:39.723  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:35:44.723  INFO: Connecting to AVC_INT...
+2018/01/29 18:35:49.727  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:35:54.727  INFO: Connecting to AVC_INT...
+2018/01/29 18:35:59.731  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:36:04.733  INFO: Connecting to AVC_INT...
+2018/01/29 18:36:09.735  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:36:14.736  INFO: Connecting to AVC_INT...
+2018/01/29 18:36:19.740  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:36:24.741  INFO: Connecting to AVC_INT...
+2018/01/29 18:36:29.745  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:36:34.746  INFO: Connecting to AVC_INT...
+2018/01/29 18:36:39.750  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:36:44.750  INFO: Connecting to AVC_INT...
+2018/01/29 18:36:49.754  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:36:54.755  INFO: Connecting to AVC_INT...
+2018/01/29 18:36:59.758  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:37:04.759  INFO: Connecting to AVC_INT...
+2018/01/29 18:37:09.763  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:37:14.764  INFO: Connecting to AVC_INT...
+2018/01/29 18:37:19.767  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:37:24.767  INFO: Connecting to AVC_INT...
+2018/01/29 18:37:29.771  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:37:34.771  INFO: Connecting to AVC_INT...
+2018/01/29 18:37:39.774  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:37:44.774  INFO: Connecting to AVC_INT...
+2018/01/29 18:37:49.778  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:37:54.780  INFO: Connecting to AVC_INT...
+2018/01/29 18:37:59.784  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:38:04.786  INFO: Connecting to AVC_INT...
+2018/01/29 18:38:09.788  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:38:14.789  INFO: Connecting to AVC_INT...
+2018/01/29 18:38:19.791  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:38:24.793  INFO: Connecting to AVC_INT...
+2018/01/29 18:38:29.795  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:38:34.796  INFO: Connecting to AVC_INT...
+2018/01/29 18:38:39.799  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:38:44.800  INFO: Connecting to AVC_INT...
+2018/01/29 18:38:45.896  INFO: User disconnecting interface AVC_INT
+2018/01/29 18:38:45.896  INFO: Killing thread for interface AVC_INT
+2018/01/29 18:38:49.803  ERROR: AVC_INT Connection Failed: RuntimeError : Connect timeout
+2018/01/29 18:38:49.803  INFO: Stopped packet reading for AVC_INT
+2018/01/29 18:38:49.804  INFO: Disconnected from interface AVC_INT
+2018/01/29 18:58:09.981  INFO: User connecting interface AVC_INT
+2018/01/29 18:58:09.981  INFO: Creating thread for interface AVC_INT
+2018/01/29 18:58:09.983  INFO: Starting packet reading for AVC_INT
+2018/01/29 18:58:09.983  INFO: Connecting to AVC_INT...
+2018/01/29 18:58:09.984  INFO: AVC_INT Connection Success
+2018/01/29 18:58:14.914  INFO: User disconnecting interface AVC_INT
+2018/01/29 18:58:14.914  INFO: Killing thread for interface AVC_INT
+2018/01/29 18:58:14.919  INFO: Clean disconnect from AVC_INT (returned nil)
+2018/01/29 18:58:14.919  INFO: Connection Lost for AVC_INT
+2018/01/29 18:58:14.919  INFO: Stopped packet reading for AVC_INT
+2018/01/29 18:58:14.925  INFO: Disconnected from interface AVC_INT
+2018/01/29 18:58:17.866  INFO: User connecting interface AVC_INT
+2018/01/29 18:58:17.867  INFO: Creating thread for interface AVC_INT
+2018/01/29 18:58:17.868  INFO: Starting packet reading for AVC_INT
+2018/01/29 18:58:17.868  INFO: Connecting to AVC_INT...
+2018/01/29 18:58:17.869  INFO: AVC_INT Connection Success
+2018/01/29 18:58:21.887  INFO: User disconnecting interface AVC_INT
+2018/01/29 18:58:21.887  INFO: Killing thread for interface AVC_INT
+2018/01/29 18:58:21.890  INFO: Clean disconnect from AVC_INT (returned nil)
+2018/01/29 18:58:21.890  INFO: Connection Lost for AVC_INT
+2018/01/29 18:58:21.890  INFO: Stopped packet reading for AVC_INT
+2018/01/29 18:58:21.897  INFO: Disconnected from interface AVC_INT
+2018/01/29 18:58:23.873  INFO: User connecting interface AVC_INT
+2018/01/29 18:58:23.873  INFO: Creating thread for interface AVC_INT
+2018/01/29 18:58:23.874  INFO: Starting packet reading for AVC_INT
+2018/01/29 18:58:23.874  INFO: Connecting to AVC_INT...
+2018/01/29 18:58:23.875  INFO: AVC_INT Connection Success
+2018/01/29 18:58:41.838  INFO: cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/01/29 18:58:45.872  INFO: cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/01/29 18:58:53.983  INFO: User disconnecting interface AVC_INT
+2018/01/29 18:58:53.983  INFO: Killing thread for interface AVC_INT
+2018/01/29 18:58:53.993  INFO: Clean disconnect from AVC_INT (returned nil)
+2018/01/29 18:58:53.993  INFO: Connection Lost for AVC_INT
+2018/01/29 18:58:53.993  INFO: Stopped packet reading for AVC_INT
+2018/01/29 18:58:53.994  INFO: Disconnected from interface AVC_INT
+2018/01/29 18:58:56.793  INFO: User connecting interface AVC_INT
+2018/01/29 18:58:56.793  INFO: Creating thread for interface AVC_INT
+2018/01/29 18:58:56.794  INFO: Starting packet reading for AVC_INT
+2018/01/29 18:58:56.794  INFO: Connecting to AVC_INT...
+2018/01/29 18:58:56.795  INFO: AVC_INT Connection Success
+2018/01/29 18:59:32.126  INFO: User disconnecting interface AVC_INT
+2018/01/29 18:59:32.126  INFO: Killing thread for interface AVC_INT
+2018/01/29 18:59:32.131  INFO: Clean disconnect from AVC_INT (returned nil)
+2018/01/29 18:59:32.131  INFO: Connection Lost for AVC_INT
+2018/01/29 18:59:32.131  INFO: Stopped packet reading for AVC_INT
+2018/01/29 18:59:32.137  INFO: Disconnected from interface AVC_INT
+2018/01/29 19:00:01.357  INFO: User connecting interface AVC_INT
+2018/01/29 19:00:01.357  INFO: Creating thread for interface AVC_INT
+2018/01/29 19:00:01.358  INFO: Starting packet reading for AVC_INT
+2018/01/29 19:00:01.358  INFO: Connecting to AVC_INT...
+2018/01/29 19:00:01.359  INFO: AVC_INT Connection Success
+2018/01/29 19:00:04.990  INFO: User disconnecting interface AVC_INT
+2018/01/29 19:00:04.990  INFO: Killing thread for interface AVC_INT
+2018/01/29 19:00:04.993  INFO: Clean disconnect from AVC_INT (returned nil)
+2018/01/29 19:00:04.993  INFO: Connection Lost for AVC_INT
+2018/01/29 19:00:04.993  INFO: Stopped packet reading for AVC_INT
+2018/01/29 19:00:05.000  INFO: Disconnected from interface AVC_INT
+2018/01/29 20:13:49.756  INFO: User connecting interface AVC_INT
+2018/01/29 20:13:49.757  INFO: Creating thread for interface AVC_INT
+2018/01/29 20:13:49.759  INFO: Starting packet reading for AVC_INT
+2018/01/29 20:13:49.760  INFO: Connecting to AVC_INT...
+2018/01/29 20:13:49.764  INFO: AVC_INT Connection Success
+2018/01/29 20:18:41.836  INFO: cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/01/29 20:18:51.378  INFO: cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/01/29 20:19:12.263  INFO: User disconnecting interface AVC_INT
+2018/01/29 20:19:12.263  INFO: Killing thread for interface AVC_INT
+2018/01/29 20:19:12.269  INFO: Clean disconnect from AVC_INT (returned nil)
+2018/01/29 20:19:12.269  INFO: Connection Lost for AVC_INT
+2018/01/29 20:19:12.269  INFO: Stopped packet reading for AVC_INT
+2018/01/29 20:19:12.274  INFO: Disconnected from interface AVC_INT
+2018/01/29 20:19:16.756  INFO: User connecting interface AVC_INT
+2018/01/29 20:19:16.756  INFO: Creating thread for interface AVC_INT
+2018/01/29 20:19:16.757  INFO: Starting packet reading for AVC_INT
+2018/01/29 20:19:16.757  INFO: Connecting to AVC_INT...
+2018/01/29 20:19:16.758  INFO: AVC_INT Connection Success
+2018/01/29 20:19:22.111  INFO: User disconnecting interface AVC_INT
+2018/01/29 20:19:22.111  INFO: Killing thread for interface AVC_INT
+2018/01/29 20:19:22.115  INFO: Clean disconnect from AVC_INT (returned nil)
+2018/01/29 20:19:22.115  INFO: Connection Lost for AVC_INT
+2018/01/29 20:19:22.115  INFO: Stopped packet reading for AVC_INT
+2018/01/29 20:19:22.121  INFO: Disconnected from interface AVC_INT
+2018/01/29 20:19:23.729  INFO: User connecting interface AVC_INT
+2018/01/29 20:19:23.729  INFO: Creating thread for interface AVC_INT
+2018/01/29 20:19:23.730  INFO: Starting packet reading for AVC_INT
+2018/01/29 20:19:23.730  INFO: Connecting to AVC_INT...
+2018/01/29 20:19:23.731  INFO: AVC_INT Connection Success
+2018/01/29 20:20:18.393  INFO: Log File Closed : C:/COSMOS/AVC/outputs/logs/2018_01_29_18_28_26_cmd.bin
+2018/01/29 20:20:18.425  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/01/29 20:20:18.425  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/01/29 20:20:18.425  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/01/29 20:20:18.436  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/01/29 20:20:18.436  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/01/29 20:20:18.436  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/01/29 20:20:18.438  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/01/29 20:20:18.538  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/01/29 20:20:18.538  INFO: Killing thread for interface AVC_INT
+2018/01/29 20:20:18.540  INFO: Clean disconnect from AVC_INT (returned nil)
+2018/01/29 20:20:18.540  INFO: Connection Lost for AVC_INT
+2018/01/29 20:20:18.540  INFO: Stopped packet reading for AVC_INT
+2018/01/29 20:20:18.548  INFO: Disconnected from interface AVC_INT
+2018/01/29 20:20:18.548  INFO: Killing thread for interface SYSTEM_INT
+2018/01/29 20:20:18.549  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/01/29 20:20:18.549  INFO: Connection Lost for SYSTEM_INT
+2018/01/29 20:20:18.549  INFO: Stopped packet reading for SYSTEM_INT
+2018/01/29 20:20:18.558  INFO: Disconnected from interface SYSTEM_INT

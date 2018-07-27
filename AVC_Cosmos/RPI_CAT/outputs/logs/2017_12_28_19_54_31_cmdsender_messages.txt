@@ -1,0 +1,2 @@
+2017/12/28 19:54:31.165  cmd("AVC ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE 0")
+2017/12/28 19:54:31.188  Error sending AVC ACCELS due to Target not mapped to an interface: AVC

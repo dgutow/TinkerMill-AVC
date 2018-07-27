@@ -29,14 +29,16 @@ extern Telemetry telem;                // The telemetry class
 
 // Servo definitions for turning servo
 #define DIR_PIN_NUMBER        30
-#define DIR_CONVERSION       -15    // Convert from cm/second to microseconds
+#define DIR_CONVERSION        -5    // Convert from cm/second to microseconds
 #define DIR_MID_PULSEWIDTH  1500    // Servo neutral position
 #define DIR_MIN_PULSEWIDTH  1000
 #define DIR_MAX_PULSEWIDTH  2000
 
+#define VEH_BRAKE_PIN         35    // Output Pin for brake
+
 // Wheel encoder definitions
-#define ENC_LEFT_PIN          11    // dag!
-#define ENC_RIGHT_PIN         12
+#define ENC_LEFT_PIN          27    // Joe 7/9/2018
+#define ENC_RIGHT_PIN         28
 
 // The switches
 #define VEH_START_SWITCH_PIN  22
@@ -44,36 +46,42 @@ extern Telemetry telem;                // The telemetry class
 
 #define ENC_STEPS_PER_REV    6.0    // 6 poles per revolution
 #define ENC_DEG_PER_STEP    60.0    // 6 poles per revolution
-#define VEH_WHEEL_DIAM     114.3    // mm.  Corresponds to 4.5 inches
-#define VEH_WHEEL_CIRCUM   (VEH_WHEEL_DIAM * 3.14159)
-#define VEH_WHEEL_SPACING   25.4    // spacing between two front wheels 10" (cm) 
+#define VEH_WHEEL_DIAM     11.43    // 11.43 cm = 4.5"  7/20/2018
+#define VEH_WHEEL_CIRCUM   (VEH_WHEEL_DIAM * 3.14159)   // cm
+#define VEH_WHEEL_SPACING  25.24    // 25.24 cm = 9.938" spacing between 
+                                    // front wheels 7/20/2018
+// Estimation of max wheel encoder interrupts per second
+// max speed  30 mph = 13.4 m/s = 13,400 mm/s
+// Wheel circumference = 359.1 mm 
+// 13,400/359.1 = 37.31 rps
+// 6 pulses / rev -> 224 pps
 
 ///////////////////////////////////////////////////////////////////////////////
 // Global variables
 ///////////////////////////////////////////////////////////////////////////////
-uint32  lt_nSteps         = 0;     // left wheel - total number of steps 
-uint32  lt_StepTimes[3]   = {0,0,0};    // left wheel - time last 3 steps occurred 
-                                   // [0]-last step,[1]-step before that, etc.
-float   lt_linearSpeed    = 0;     // left wheel - linear speed (cm/sec) 
-float   lt_rotateSpeed    = 0;     // left wheel - rotational speed deg/sec
-float   lt_totalDist      = 0;     // left wheel - total distance covered
+// Globals for the left wheel
+volatile uint32  lt_nSteps  = 0;    // total number of wheel encoder steps 
+volatile uint32  lt_StepTimes[3] = {0,0,0};    // time of last 3 encoder steps 
+float   lt_linearSpeed      = 0;    // linear speed (cm/sec) 
+float   lt_rotateSpeed      = 0;    // degrees/second 
+float   lt_totalDist        = 0;    // linear speed (cm/sec)
 
-uint32  rt_nSteps         = 0;     // right wheel - total number of steps 
-uint32  rt_StepTimes[3]   = {0,0,0};    // right wheel - time last 3 steps occurred
-                                   // [0]-last step,[1]-step before that, etc.  
-float   rt_linearSpeed    = 0;     // right wheel - linear speed (cm/sec) 
-float   rt_rotateSpeed    = 0;     // right wheel - rotational speed deg/sec
-float   rt_totalDist      = 0;     // right wheel - total distance covered 
+// Globals for the right wheel
+volatile uint32  rt_nSteps  = 0;   // total number of wheel encoder steps  
+volatile uint32  rt_StepTimes[3] = {0,0,0};    // time of last 3 encoder steps
+float   rt_linearSpeed      = 0;    // linear speed (cm/sec) 
+float   rt_rotateSpeed      = 0;    // degrees/second 
+float   rt_totalDist        = 0;    // linear speed (cm/sec) 
 
-uint32  veh_lastTimeMsec  = 0;     // time (msec) of last getTelem call
-int32   veh_speed         = 0;     // cm/sec
-int32   veh_turnRadius    = 0;     // cm
-int32   veh_distance      = 0;     // commanded distance (cm)
+uint32  veh_lastTimeMsec    = 0;    // time (msec) of last veh_check call
+int32   veh_speed           = 0;    // command speed from last move (cm/sec)
+int32   veh_distance        = 0;    // command dist from last move (cm)
+int32   veh_moveDistance    = 0;    // Cutoff dist from last move (cm) 
+                                    // (relative to cumulative distance) 
+int32   veh_turnRadius      = 0;    // cm
 
-int32   veh_moveDistance  = 0;     // Cumulative distance of move command 
-
-Servo   spdServo;                  // Servo controlling the vehicle speed
-Servo   dirServo;                  // Servo controlling the vehicle direction
+Servo   spdServo;                   // Servo controlling vehicle speed
+Servo   dirServo;                   // Servo controlling vehicle dir
 
 ///////////////////////////////////////////////////////////////////////////////
 // Templates
@@ -91,13 +99,18 @@ void veh_init()
     dirServo.attach (DIR_PIN_NUMBER, DIR_MIN_PULSEWIDTH, DIR_MAX_PULSEWIDTH);
     
     // attach two interrupts
+    pinMode(ENC_LEFT_PIN, INPUT);
+    pinMode(ENC_RIGHT_PIN, INPUT);
     attachInterrupt(digitalPinToInterrupt(ENC_LEFT_PIN),  veh_leftWheelInt,  RISING );
     attachInterrupt(digitalPinToInterrupt(ENC_RIGHT_PIN), veh_rightWheelInt, RISING );  
 
-    // Set switches
+    // Set switches 
     pinMode(VEH_START_SWITCH_PIN,INPUT);
     pinMode(VEH_ESTOP_SWITCH_PIN,INPUT);    
     telem.switches = 0;
+    
+    // Initialize the brake
+    pinMode(VEH_BRAKE_PIN, OUTPUT);    
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -111,9 +124,10 @@ uint32_t veh_move (int16_t speed, uint16_t distance)
         return (false);
     }
     
-    veh_speed = speed;          // Open loop speed control
-    telem.currSpeed = speed;
-    veh_moveDistance = distance + telem.cumDistance;  
+    veh_speed           = speed;   
+    veh_distance        = distance;
+    telem.currSpeed     = speed;
+    veh_moveDistance    = telem.cumDistance + veh_distance;  
     
     // Convert from cm/sec to Servo microseconds 
     int32_t uSeconds = SPD_MID_PULSEWIDTH + (speed * SPD_CONVERSION); 
@@ -150,13 +164,13 @@ uint32_t veh_brake (uint16_t onOff)
     if (onOff == 1)
     {
         // Apply the brake
-        // todo
+        digitalWrite(VEH_BRAKE_PIN, HIGH); 
         return (true);       
     }
     else if (onOff == 0)
     {
         // Release the brake
-        // todo
+        digitalWrite(VEH_BRAKE_PIN, LOW);
         return (true);         
     }
     
@@ -182,51 +196,9 @@ uint32_t veh_estop ()
 ///////////////////////////////////////////////////////////////////////////////
 void veh_getTelem (uint32 currTimeMsec)
 {
-    uint32 l_nSteps;
-    uint32 r_nSteps;
-    uint32 l_StepTimes[3];
-    uint32 r_StepTimes[3]; 
-
-    // Get the last step times, but they may be changed by the ISR so 
-    // get them if lt_nSteps changed    
-    l_nSteps       = lt_nSteps;
-    l_StepTimes[0] = lt_StepTimes[0];
-    l_StepTimes[1] = lt_StepTimes[1];   
-    l_StepTimes[2] = lt_StepTimes[2];
-    if (l_nSteps != lt_nSteps)
-    {
-        // If they don't match an interrupt just occurred so get them again       
-        l_StepTimes[0] = lt_StepTimes[0];
-        l_StepTimes[1] = lt_StepTimes[1];   
-        l_StepTimes[2] = lt_StepTimes[2];  
-    }   
-
-    // Get the last step times, but they may be changed by the ISR so 
-    // get them if rt_nSteps changed 
-    r_nSteps       = rt_nSteps;    
-    r_StepTimes[0] = rt_StepTimes[0];
-    r_StepTimes[1] = rt_StepTimes[1];   
-    r_StepTimes[2] = rt_StepTimes[2];
-    if (r_nSteps != rt_nSteps)
-    {
-        // If they don't match an interrupt just occurred so get them again       
-        r_StepTimes[0] = rt_StepTimes[0];
-        r_StepTimes[1] = rt_StepTimes[1];   
-        r_StepTimes[2] = rt_StepTimes[2];  
-    }
-        
-    // Calculate the current rotational speeds.    
-    lt_rotateSpeed  = (ENC_DEG_PER_STEP * 1000) / (l_StepTimes[0]-l_StepTimes[1]);
-    rt_rotateSpeed  = (ENC_DEG_PER_STEP * 1000) / (r_StepTimes[0]-r_StepTimes[1]);    
-    
-    // Now convert to linear speed
-    lt_linearSpeed = (lt_rotateSpeed * VEH_WHEEL_CIRCUM ) / 360 ;
-    rt_linearSpeed = (rt_rotateSpeed * VEH_WHEEL_CIRCUM ) / 360 ;
-    
-    // Time from the last getTelem call to this one
-    uint32 dTime = currTimeMsec - veh_lastTimeMsec;
-    veh_lastTimeMsec = currTimeMsec;
-    
+    // Get the switch status
+    veh_getSwitches (currTimeMsec);
+  
     // Fill in the telemetry fields
     veh_speed = (uint16) ((lt_linearSpeed + rt_linearSpeed) / 2);
     telem.currSpeed = veh_speed;
@@ -237,8 +209,8 @@ void veh_getTelem (uint32 currTimeMsec)
     telem.cumDistance = (uint16) ( (lt_distance + rt_distance) / 2.0 );    
 
     // Lets put the interrpt step counters in the spares for diagnostics
-    telem.spare1 = lt_nSteps;
-    telem.spare2 = rt_nSteps;    
+    telem.volt1 = lt_nSteps;
+    telem.volt2 = rt_nSteps;    
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -247,13 +219,65 @@ void veh_getTelem (uint32 currTimeMsec)
 ///////////////////////////////////////////////////////////////////////////////
 void veh_check (uint32 currTimeMsec)
 {
-  // check if we're at the move limit (but only if we're not moving)
-  if (veh_speed > 0 && veh_moveDistance >= telem.cumDistance)
-  {
+    uint32 l_nSteps;
+    uint32 r_nSteps;
+    uint32 l_StepTimes[3];
+    uint32 r_StepTimes[3]; 
+    
+    // Get the left last step times.   
+    l_nSteps       = lt_nSteps;
+    l_StepTimes[0] = lt_StepTimes[0];
+    l_StepTimes[1] = lt_StepTimes[1];   
+    l_StepTimes[2] = lt_StepTimes[2];
+    
+    // Get lt_nSteps again.  If they are different then an ISR just occurred 
+    // changed the values.  Get them again.  Since an ISR just occurred a new
+    // one cant' re-occur this quickly after the last one.
+    if (l_nSteps != lt_nSteps)
+    {     
+        l_StepTimes[0] = lt_StepTimes[0];
+        l_StepTimes[1] = lt_StepTimes[1];   
+        l_StepTimes[2] = lt_StepTimes[2];  
+    }   
+
+    // Get the right last step times.
+    r_nSteps       = rt_nSteps;    
+    r_StepTimes[0] = rt_StepTimes[0];
+    r_StepTimes[1] = rt_StepTimes[1];   
+    r_StepTimes[2] = rt_StepTimes[2];
+    
+    // And get them again, yada, yada...
+    if (r_nSteps != rt_nSteps)
+    {      
+        r_StepTimes[0] = rt_StepTimes[0];
+        r_StepTimes[1] = rt_StepTimes[1];   
+        r_StepTimes[2] = rt_StepTimes[2];  
+    }
+        
+    // Calculate the current rotational speeds (deg/sec)    
+    lt_rotateSpeed  = (ENC_DEG_PER_STEP * 1000) / (l_StepTimes[0]-l_StepTimes[1]);
+    rt_rotateSpeed  = (ENC_DEG_PER_STEP * 1000) / (r_StepTimes[0]-r_StepTimes[1]);    
+    
+    // Now convert to linear speed (cm/sec)
+    lt_linearSpeed = (lt_rotateSpeed * VEH_WHEEL_CIRCUM ) / 360 ;
+    rt_linearSpeed = (rt_rotateSpeed * VEH_WHEEL_CIRCUM ) / 360 ;    
+    
+    // Find the time from the last call to this one
+    float dTime    = (currTimeMsec - veh_lastTimeMsec) / 1000.0;
+    veh_lastTimeMsec = currTimeMsec;    
+    
+    // Distance each wheel travelled since the last veh_check call
+    float lt_distance = lt_linearSpeed * dTime;         // cm
+    float rt_distance = rt_linearSpeed * dTime;         // cm    
+    float distance = (lt_distance + rt_distance)/2.0;   // average the two   
+    telem.cumDistance += ( (uint16) (distance + 0.5) ); // Our cumulative dist
+    
+    // check if we're at the move limit (but only if we're not moving)
+    if ( veh_speed > 0 && (telem.cumDistance >= veh_moveDistance) )
+    {
         // Yep, we're past the move limit, stop the vehicle
         veh_move (0, 0);
-  }      
-      
+    }      
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -282,8 +306,7 @@ void veh_leftWheelInt (void)
 {
     lt_StepTimes[2] = lt_StepTimes[1];  // Shift the last step times up
     lt_StepTimes[1] = lt_StepTimes[0];
-    lt_StepTimes[0] = millis();
-    
+    lt_StepTimes[0] = millis(); 
     lt_nSteps++;  
 }
 
@@ -295,7 +318,6 @@ void veh_rightWheelInt (void)
     rt_StepTimes[2] = rt_StepTimes[1];  // Shift the last step times up
     rt_StepTimes[1] = rt_StepTimes[0];
     rt_StepTimes[0] = millis();
-    
     rt_nSteps++;  
 }
 

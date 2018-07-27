@@ -1,0 +1,76 @@
+2018/07/09 18:03:20.363  INFO: COSMOS Version: 4.1.1
+2018/07/09 18:03:20.482  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/07/09 18:03:20.498  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/target.txt'
+2018/07/09 18:03:20.512  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/07/09 18:03:20.549  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/07/09 18:03:20.552  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/07/09 18:03:20.565  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/cmd_tlm_server.txt
+2018/07/09 18:03:20.592  INFO: Marshal load success: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/tmp/marshal_c422644ba35fb6f9651b50829a39dca0.bin
+2018/07/09 18:03:21.503  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/07/09 18:03:21.504  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/07/09 18:03:21.504  INFO: Creating thread for interface RPI_CAT_INT
+2018/07/09 18:03:21.505  INFO: Creating thread for interface IOP_UDP_INT
+2018/07/09 18:03:21.505  INFO: Creating thread for interface SYSTEM_INT
+2018/07/09 18:03:21.509  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/07/09 18:03:21.509  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/07/09 18:03:21.509  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/07/09 18:03:21.509  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/07/09 18:03:21.509  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/07/09 18:03:21.513  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/07/09 18:03:21.513  INFO: Starting packet reading for RPI_CAT_INT
+2018/07/09 18:03:21.513  INFO: Connecting to RPI_CAT_INT...
+2018/07/09 18:03:21.516  INFO: Starting packet reading for IOP_UDP_INT
+2018/07/09 18:03:21.516  INFO: Connecting to IOP_UDP_INT...
+2018/07/09 18:03:21.516  INFO: Starting packet reading for SYSTEM_INT
+2018/07/09 18:03:21.516  INFO: Connecting to SYSTEM_INT...
+2018/07/09 18:03:21.516  INFO: SYSTEM_INT Connection Success
+2018/07/09 18:03:21.572  INFO: IOP_UDP_INT Connection Success
+2018/07/09 18:03:21.617  INFO: RPI_CAT_INT Connection Success
+2018/07/09 18:03:21.653  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_07_09_18_03_21_tlm.bin
+2018/07/09 18:04:20.750  INFO: cmd("RPI_CAT NOP_RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/09 18:04:20.752  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_07_09_18_04_20_cmd.bin
+2018/07/09 18:04:22.220  INFO: cmd("RPI_CAT NOP_RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/09 18:04:23.926  INFO: cmd("RPI_CAT NOP_RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/09 18:04:40.233  INFO: cmd("RPI_CAT CAMERA_ANGLE with CMD_ID 86, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/09 18:04:47.328  ERROR: Command parameter 'RPI_CAT CAMERA_ANGLE ANGLE' = 25 not in valid range of -90 to 0
+2018/07/09 18:04:59.398  INFO: cmd("RPI_CAT CAMERA_ANGLE with CMD_ID 86, ANGLE -25, SPARE1 0, SPARE2 0")
+2018/07/09 18:05:15.470  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 25, SPARE1 0, SPARE2 0")
+2018/07/09 18:05:23.845  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -25, SPARE1 0, SPARE2 0")
+2018/07/09 18:05:35.406  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/09 18:05:53.739  INFO: cmd("RPI_CAT MODE with CMD_ID 68, MODE NORMAL, SPARE2 0, SPARE3 0")
+2018/07/09 18:06:10.871  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 10, DISTANCE 10, SPARE3 0")
+2018/07/09 18:06:19.104  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 0, DISTANCE 10, SPARE3 0")
+2018/07/09 18:07:54.218  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/07/09 18:07:54.224  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/07/09 18:14:01.191  ERROR: RPI_CAT STATUS received with actual packet length of 1460 but defined length of 16
+2018/07/09 18:14:01.193  ERROR: RPI_CAT_INT - Unknown 1460 byte packet starting: 68CF09000B00020000000000222222225CD109000B000200000000002222222244D50900
+2018/07/09 18:14:01.213  ERROR: RPI_CAT_INT - Unknown 1460 byte packet starting: 0B000200000000002222222284EE0A000B00020000000000222222226CF20A000B000200
+2018/07/09 18:14:01.221  ERROR: RPI_CAT_INT - Unknown 1460 byte packet starting: 0000000022222222AC0B0C000B0002000000000022222222940F0C000B00020000000000
+2018/07/09 18:14:01.241  ERROR: RPI_CAT STATUS received with actual packet length of 1296 but defined length of 16
+2018/07/09 18:14:04.674  INFO: User disconnecting interface RPI_CAT_INT
+2018/07/09 18:14:04.674  INFO: Killing thread for interface RPI_CAT_INT
+2018/07/09 18:14:04.681  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/07/09 18:14:04.681  INFO: Connection Lost for RPI_CAT_INT
+2018/07/09 18:14:04.681  INFO: Stopped packet reading for RPI_CAT_INT
+2018/07/09 18:14:04.685  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/09 18:38:07.042  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_07_09_18_04_20_cmd.bin
+2018/07/09 18:38:07.049  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_07_09_18_03_21_tlm.bin
+2018/07/09 18:38:07.049  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/07/09 18:38:07.049  INFO: Connection Lost for SYSTEM_INT
+2018/07/09 18:38:07.150  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/07/09 18:38:07.150  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/07/09 18:38:07.150  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/07/09 18:38:07.236  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/07/09 18:38:07.236  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/07/09 18:38:07.236  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/07/09 18:38:07.240  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/07/09 18:38:07.333  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/07/09 18:38:07.344  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/09 18:38:07.344  INFO: Killing thread for interface IOP_UDP_INT
+2018/07/09 18:38:07.347  ERROR: Error reading from interface : IOP_UDP_INT
+2018/07/09 18:38:07.347  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/07/09 18:38:07.347  INFO: Stopped packet reading for IOP_UDP_INT
+2018/07/09 18:38:07.355  INFO: Disconnected from interface IOP_UDP_INT
+2018/07/09 18:38:07.355  INFO: Killing thread for interface SYSTEM_INT
+2018/07/09 18:38:07.361  INFO: Stopped packet reading for SYSTEM_INT
+2018/07/09 18:38:07.366  INFO: Disconnected from interface SYSTEM_INT

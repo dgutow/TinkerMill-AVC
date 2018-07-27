@@ -10,6 +10,7 @@
 #include "commands.h"
 #include "heartbeat.h"
 #include "vehicle.h"
+#include "camera.h"
 
 #ifdef TEENSIE_35
 //	#include "scanner.h"
@@ -37,12 +38,25 @@ uint16_t setMode (int16_t mode);
 ///////////////////////////////////////////////////////////////////////////////
 void commandDecode(cmdData* command)
 {
-    char cmd = (char) command->words[0];
-    uint16_t param1 = command->words[1];
-    uint16_t param2 = command->words[2]; 
-    // uint16_t param3 = command->words[3]; never used
+    uint16_t header = command->words[0];
+    char cmd = (char) command->words[1];
+    uint16_t param1 = command->words[2];
+    uint16_t param2 = command->words[3]; 
+    // uint16_t param3 = command->words[4]; never used
     
-    uint32_t incAccpt = false;      // increment the command accept counter?
+    telem.rejectReason = 5;         // Initialize to unknown in case of bug 
+                                    // This should get overwritten!  
+    uint32_t incAccpt = false;      // increment command accept counter or not
+    
+    if (header != 0x5454)
+    {
+        // Incorrect header on command message
+        telem.rejectCntr++;
+        telem.rejectReason = 1;
+        telem.spare1 = header;
+        telem.spare2 = cmd;        
+        return;
+    }      
   
     switch (cmd)
     {
@@ -105,6 +119,7 @@ void commandDecode(cmdData* command)
 
         case 'V':                   // Set Camera angle
             DBGPORT.println ("commandDecode: Camera angle Command");
+            cam_setAngle  (param1);
             incAccpt = true;
             break;
 
@@ -119,17 +134,22 @@ void commandDecode(cmdData* command)
             break;      
 
         default:
-            // do nothing
-            DBGPORT.println("commandDecode: Unrecognized command");           
-            incAccpt = false;
-            break;
+            // Unrecognized command
+            telem.rejectCntr++;
+            telem.rejectReason = 2;
+            return;
     }   //end switch
 
     if (incAccpt)
     {
        telem.acceptCntr++;
+       telem.rejectReason = 0;      
     }
-  
+    else
+    {
+       telem.rejectCntr++; 
+    }
+    
 } // end cmdDecode
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -141,17 +161,20 @@ uint16_t setMode (int16_t mode)
     {
     case BIST:
         telem.currMode = BIST;
+        telem.bist     = 0;        
         //todo - perform the bist in initialization mode maybe just reset the system?
         return (true);     
         
     case NORMAL:
-        telem.currMode = NORMAL;  
+        telem.currMode    = NORMAL;  
+        telem.cumDistance = 0;
+        telem.bist        = 0;            
         return (true);
         
     case ESTOP:
         veh_estop ();
         telem.currMode = ESTOP;   
-        telem.bist = COMMANDED;
+        telem.bist     = COMMANDED;
         return (true);
         
     default:

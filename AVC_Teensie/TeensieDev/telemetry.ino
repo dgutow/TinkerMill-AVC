@@ -38,17 +38,17 @@ void tlm_init ()
    telem.currMode       = BIST;
    telem.acceptCntr     = 0;
    telem.bist           = BIST_SUCCESSFUL;
-   telem.currSpeed      = 0;
-   telem.currSteerAng   = 0;
-   telem.cumDistance    = 0;
-   telem.irLF           = 0;
-   telem.irLR           = 0;
-   telem.irRF           = 0;
-   telem.irRR           = 0;
+   telem.currSpeed      = 0;        // cm/sec
+   telem.currSteerAng   = 0;        // degress (- is left, + is right)
+   telem.cumDistance    = 0;        // cm
+   telem.scnDist1       = 0;
+   telem.scnDist2       = 0;
+   telem.scnDist3       = 0;
+   telem.scnDist4       = 0;
    telem.switches       = 0;
    telem.sensorAng      = 0;
-   telem.sensor         = 0;
-   telem.sensorDist     = 0;
+   telem.rejectCntr     = 0;
+   telem.rejectReason   = 0;
    telem.volt1          = 0;
    telem.volt2          = 0;
    telem.accel          = 0;
@@ -56,8 +56,8 @@ void tlm_init ()
    telem.compass        = 0;
    telem.cameraAngle    = 0;
    telem.brakeStatus    = 0;
-   telem.spare1         = 0; 
-   telem.spare2         = 0;    
+   telem.spare1         = 0xAA; 
+   telem.spare2         = 0x55;    
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -80,13 +80,13 @@ void tlm_sendToHost (uint32_t currTime)
 void tlm_sendToEsp (uint32_t currTime)
 {
 #ifdef TEENSIE_35    
-  ESPPORT.print   ("Bytes Sent: ");          ESPPORT.println (nBytesSent);
-  ESPPORT.print   ("Current Time: ");        ESPPORT.println(telem.time);
-  ESPPORT.print   ("Mode: ");                ESPPORT.println(telem.currMode);
-  ESPPORT.print   ("Accept Count: ");        ESPPORT.println(telem.acceptCntr);
-  ESPPORT.print   ("Lft Front Distance: ");  ESPPORT.println(telem.irLF);
-  ESPPORT.print   ("Lft Rear Distance: ");   ESPPORT.println(telem.irLR);
-  ESPPORT.print   ("Rght Front Distance: "); ESPPORT.println(telem.irRF);
-  ESPPORT.print   ("Rght Rear Distance: ");  ESPPORT.println(telem.irRR);  
+  ESPPORT.print   ("Bytes Sent: ");   ESPPORT.println (nBytesSent);
+  ESPPORT.print   ("Current Time: "); ESPPORT.println(telem.time);
+  ESPPORT.print   ("Mode: ");         ESPPORT.println(telem.currMode);
+  ESPPORT.print   ("Accept Count: "); ESPPORT.println(telem.acceptCntr);
+  ESPPORT.print   ("Distance 1: ");   ESPPORT.println(telem.scnDist1);
+  ESPPORT.print   ("Distance 2: ");   ESPPORT.println(telem.scnDist2);
+  ESPPORT.print   ("Distance 3: ");   ESPPORT.println(telem.scnDist3);
+  ESPPORT.print   ("Distance 4: ");   ESPPORT.println(telem.scnDist4);  
 #endif  
 }

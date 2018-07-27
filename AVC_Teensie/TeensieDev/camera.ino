@@ -58,9 +58,9 @@ uint32_t cam_setAngle (int16_t angle)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// cam_getAngle - gets the current camera angle and places it into telemetry
+// cam_getTelem - gets the current camera angle and places it into telemetry
 ///////////////////////////////////////////////////////////////////////////////
-void cam_getAngle (uint32_t currTime)
+void cam_getTelem (uint32_t currTime)
 {
     telem.cameraAngle = camAngle;
 }

@@ -1,0 +1,117 @@
+2018/06/01 21:18:48.617  INFO: COSMOS Version: 4.1.1
+2018/06/01 21:18:48.633  INFO: Processing target definition in file 'C:/COSMOS/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/06/01 21:18:48.637  INFO: Processing target definition in file 'C:/COSMOS/RPI_CAT/config/targets/IOP_UDP/target.txt'
+2018/06/01 21:18:48.663  INFO: Processing target definition in file 'C:/COSMOS/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/06/01 21:18:48.669  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/06/01 21:18:48.677  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/06/01 21:18:48.679  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/RPI_CAT/config/targets/IOP_UDP/cmd_tlm_server.txt
+2018/06/01 21:18:48.683  INFO: Marshal file does not exist: C:/COSMOS/RPI_CAT/outputs/tmp/marshal_34c8b60d09c9cd0069b8ef13b74ff486.bin
+2018/06/01 21:18:48.872  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/06/01 21:18:48.872  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/06/01 21:18:48.872  INFO: Creating thread for interface RPI_CAT_INT
+2018/06/01 21:18:48.873  INFO: Creating thread for interface IOP_UDP_INT
+2018/06/01 21:18:48.873  INFO: Creating thread for interface SYSTEM_INT
+2018/06/01 21:18:48.873  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/06/01 21:18:48.873  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/06/01 21:18:48.874  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/06/01 21:18:48.874  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/06/01 21:18:48.874  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/06/01 21:18:48.891  INFO: Starting packet reading for RPI_CAT_INT
+2018/06/01 21:18:48.891  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:18:48.891  INFO: Starting packet reading for IOP_UDP_INT
+2018/06/01 21:18:48.892  INFO: Connecting to IOP_UDP_INT...
+2018/06/01 21:18:48.892  INFO: Starting packet reading for SYSTEM_INT
+2018/06/01 21:18:48.892  INFO: Connecting to SYSTEM_INT...
+2018/06/01 21:18:48.892  INFO: SYSTEM_INT Connection Success
+2018/06/01 21:18:48.892  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/06/01 21:18:48.899  INFO: IOP_UDP_INT Connection Success
+2018/06/01 21:18:53.939  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:18:58.950  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:18:58.952  INFO: RPI_CAT_INT Connection Success
+2018/06/01 21:18:58.973  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/06/01 21:18:58.973  INFO: Connection Lost for RPI_CAT_INT
+2018/06/01 21:19:03.984  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:19:03.986  INFO: RPI_CAT_INT Connection Success
+2018/06/01 21:19:32.263  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/06/01 21:19:32.263  INFO: Connection Lost for RPI_CAT_INT
+2018/06/01 21:19:37.275  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:19:37.277  INFO: RPI_CAT_INT Connection Success
+2018/06/01 21:19:37.308  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/06/01 21:19:37.308  INFO: Connection Lost for RPI_CAT_INT
+2018/06/01 21:19:42.318  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:19:42.829  INFO: RPI_CAT_INT Connection Success
+2018/06/01 21:22:17.507  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/06/01 21:22:17.507  INFO: Connection Lost for RPI_CAT_INT
+2018/06/01 21:22:22.517  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:22:22.519  INFO: RPI_CAT_INT Connection Success
+2018/06/01 21:22:22.596  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/06/01 21:22:22.596  INFO: Connection Lost for RPI_CAT_INT
+2018/06/01 21:22:27.607  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:22:32.617  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:22:37.628  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:22:42.640  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:22:47.651  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:22:52.662  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:22:57.672  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:23:02.683  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:23:07.693  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:23:12.705  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:23:17.717  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:23:22.727  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:23:27.739  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:23:32.750  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:23:37.759  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:23:42.770  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:23:47.779  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:23:52.790  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:23:57.801  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:24:02.813  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:24:07.823  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:24:12.835  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:24:17.847  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:24:22.860  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:24:27.871  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:24:32.881  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:24:37.891  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:24:42.901  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:24:47.911  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:24:52.923  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:24:57.934  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:25:02.945  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:25:07.957  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:25:12.966  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:25:17.976  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:25:22.989  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:25:28.000  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:25:33.010  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:25:38.021  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:25:43.031  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:25:48.042  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:25:53.054  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:25:58.064  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:26:03.076  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:26:08.088  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:26:13.099  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:26:18.109  INFO: Connecting to RPI_CAT_INT...
+2018/06/01 21:26:23.120  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/06/01 21:26:25.702  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/06/01 21:26:25.702  INFO: Connection Lost for SYSTEM_INT
+2018/06/01 21:26:25.802  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/06/01 21:26:25.803  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/06/01 21:26:25.803  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/06/01 21:26:25.911  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/06/01 21:26:25.920  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/06/01 21:26:25.920  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/06/01 21:26:25.924  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/06/01 21:26:26.017  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/06/01 21:26:26.027  INFO: Killing thread for interface RPI_CAT_INT
+2018/06/01 21:26:26.038  INFO: Stopped packet reading for RPI_CAT_INT
+2018/06/01 21:26:26.049  INFO: Disconnected from interface RPI_CAT_INT
+2018/06/01 21:26:26.049  INFO: Killing thread for interface IOP_UDP_INT
+2018/06/01 21:26:26.060  ERROR: Error reading from interface : IOP_UDP_INT
+2018/06/01 21:26:26.060  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/06/01 21:26:26.060  INFO: Stopped packet reading for IOP_UDP_INT
+2018/06/01 21:26:26.069  INFO: Disconnected from interface IOP_UDP_INT
+2018/06/01 21:26:26.070  INFO: Killing thread for interface SYSTEM_INT
+2018/06/01 21:26:26.073  INFO: Stopped packet reading for SYSTEM_INT
+2018/06/01 21:26:26.080  INFO: Disconnected from interface SYSTEM_INT

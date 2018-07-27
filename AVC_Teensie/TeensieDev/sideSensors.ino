@@ -18,13 +18,11 @@ extern Telemetry telem;                // The telemetry class
 // Constants
 ///////////////////////////////////////////////////////////////////////////////
 
-
-#if 0
-// Defined in constants.h
-const int distanceRF = A15;
-const int distanceRR = A12;
-const int distanceLF = A14;
-const int distanceLR = A13;
+#ifdef TEENSIE_35
+    const int distanceRF    = A15;  // Analog input - right front range sensor
+    const int distanceRR    = A12;  // Analog input - right rear range sensor
+    const int distanceLF    = A14;  // Analog input - left front range sensor
+    const int distanceLR    = A13;  // Analog input - left rear range sensor
 #endif
 
 const int IR_DEBUG = 0;
@@ -69,8 +67,8 @@ void sid_getValues (uint32_t currTime)
     errorFlag = sid_readPair (distanceRF, distanceRR, &rightFront, &rightRear);
     if (~errorFlag)
     {
-        telem.irRF = rightFront;
-        telem.irRR = rightRear; 
+        telem.scnDist1 = rightFront;
+        telem.scnDist2 = rightRear; 
     }
     
     if (IR_DEBUG == 1)
@@ -89,8 +87,8 @@ void sid_getValues (uint32_t currTime)
     errorFlag = sid_readPair (distanceLF, distanceLR, &leftFront, &leftRear);
     if (~errorFlag)
     {
-        telem.irLF = leftFront;
-        telem.irLR = leftRear; 
+        telem.irLF = scnDist3;
+        telem.irLR = scnDist4; 
     }
     
     if (IR_DEBUG == 1)

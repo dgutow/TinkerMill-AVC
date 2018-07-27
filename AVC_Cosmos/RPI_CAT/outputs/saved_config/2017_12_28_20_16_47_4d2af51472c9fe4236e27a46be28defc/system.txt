@@ -1,0 +1,2 @@
+DECLARE_TARGET AVC nil target.txt
+DECLARE_TARGET SYSTEM nil target.txt

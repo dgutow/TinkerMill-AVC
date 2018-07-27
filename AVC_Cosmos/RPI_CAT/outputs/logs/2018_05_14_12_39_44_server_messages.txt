@@ -1,0 +1,50 @@
+2018/05/14 12:39:41.471  INFO: COSMOS Version: 4.1.1
+2018/05/14 12:39:41.487  INFO: Processing target definition in file 'C:/COSMOS/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/05/14 12:39:41.490  INFO: Processing target definition in file 'C:/COSMOS/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/05/14 12:39:41.518  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/05/14 12:39:41.519  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/05/14 12:39:41.533  INFO: Marshal load success: C:/COSMOS/RPI_CAT/outputs/tmp/marshal_7772706d361f12aa8ab86d8ee7b2c94a.bin
+2018/05/14 12:39:43.948  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/05/14 12:39:43.948  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/05/14 12:39:43.948  INFO: Creating thread for interface RPI_CAT_INT
+2018/05/14 12:39:43.949  INFO: Creating thread for interface SYSTEM_INT
+2018/05/14 12:39:43.949  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/05/14 12:39:43.949  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/05/14 12:39:43.950  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/05/14 12:39:43.956  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/05/14 12:39:43.956  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/05/14 12:39:43.958  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/05/14 12:39:43.958  INFO: Starting packet reading for RPI_CAT_INT
+2018/05/14 12:39:43.958  INFO: Connecting to RPI_CAT_INT...
+2018/05/14 12:39:43.959  INFO: Starting packet reading for SYSTEM_INT
+2018/05/14 12:39:43.960  INFO: Connecting to SYSTEM_INT...
+2018/05/14 12:39:43.960  INFO: SYSTEM_INT Connection Success
+2018/05/14 12:39:49.008  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/05/14 12:39:54.016  INFO: Connecting to RPI_CAT_INT...
+2018/05/14 12:39:59.026  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/05/14 12:40:04.037  INFO: Connecting to RPI_CAT_INT...
+2018/05/14 12:40:09.047  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/05/14 12:40:14.058  INFO: Connecting to RPI_CAT_INT...
+2018/05/14 12:40:19.068  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/05/14 12:40:24.079  INFO: Connecting to RPI_CAT_INT...
+2018/05/14 12:40:29.091  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/05/14 12:40:34.100  INFO: Connecting to RPI_CAT_INT...
+2018/05/14 12:40:34.100  INFO: RPI_CAT_INT Connection Success
+2018/05/14 12:41:02.587  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/05/14 12:41:02.587  INFO: Connection Lost for SYSTEM_INT
+2018/05/14 12:41:02.687  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/05/14 12:41:02.687  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/05/14 12:41:02.687  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/05/14 12:41:02.697  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/05/14 12:41:02.707  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/05/14 12:41:02.707  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/05/14 12:41:02.716  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/05/14 12:41:02.800  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/05/14 12:41:02.810  INFO: Killing thread for interface RPI_CAT_INT
+2018/05/14 12:41:02.814  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/05/14 12:41:02.814  INFO: Connection Lost for RPI_CAT_INT
+2018/05/14 12:41:02.814  INFO: Stopped packet reading for RPI_CAT_INT
+2018/05/14 12:41:02.821  INFO: Disconnected from interface RPI_CAT_INT
+2018/05/14 12:41:02.821  INFO: Killing thread for interface SYSTEM_INT
+2018/05/14 12:41:02.827  INFO: Stopped packet reading for SYSTEM_INT
+2018/05/14 12:41:02.831  INFO: Disconnected from interface SYSTEM_INT

@@ -1,0 +1,50 @@
+2018/02/16 19:12:24.991  INFO: COSMOS Version: 4.1.1
+2018/02/16 19:12:25.035  INFO: Processing target definition in file 'C:/COSMOS/AVC/config/targets/AVC/target.txt'
+2018/02/16 19:12:25.084  INFO: Processing target definition in file 'C:/COSMOS/AVC/config/targets/SYSTEM/target.txt'
+2018/02/16 19:12:25.090  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/AVC/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/02/16 19:12:25.091  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/AVC/config/targets/AVC/cmd_tlm_server.txt
+2018/02/16 19:12:25.103  INFO: Marshal file does not exist: C:/COSMOS/AVC/outputs/tmp/marshal_c3011af4c30ddae9cbd6392351dcb7c6.bin
+2018/02/16 19:12:27.138  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/02/16 19:12:27.139  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/02/16 19:12:27.141  INFO: Creating thread for interface AVC_INT
+2018/02/16 19:12:27.142  INFO: Creating thread for interface SYSTEM_INT
+2018/02/16 19:12:27.143  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/02/16 19:12:27.143  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/02/16 19:12:27.144  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/02/16 19:12:27.149  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/02/16 19:12:27.149  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/02/16 19:12:27.150  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/02/16 19:12:27.156  INFO: Starting packet reading for AVC_INT
+2018/02/16 19:12:27.156  INFO: Connecting to AVC_INT...
+2018/02/16 19:12:27.156  INFO: Starting packet reading for SYSTEM_INT
+2018/02/16 19:12:27.157  INFO: Connecting to SYSTEM_INT...
+2018/02/16 19:12:27.157  INFO: SYSTEM_INT Connection Success
+2018/02/16 19:12:27.220  INFO: AVC_INT Connection Success
+2018/02/16 19:12:27.240  ERROR: AVC STATUS received with actual packet length of 96 but defined length of 48
+2018/02/16 19:12:27.257  INFO: Log File Opened : C:/COSMOS/AVC/outputs/logs/2018_02_16_19_12_27_tlm.bin
+2018/02/16 19:12:52.732  INFO: cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/02/16 19:12:52.733  INFO: Log File Opened : C:/COSMOS/AVC/outputs/logs/2018_02_16_19_12_52_cmd.bin
+2018/02/16 19:12:58.980  INFO: cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/02/16 19:13:01.805  INFO: cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/02/16 19:13:04.984  INFO: cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/02/16 19:13:12.239  INFO: cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/02/16 19:13:33.876  INFO: Log File Closed : C:/COSMOS/AVC/outputs/logs/2018_02_16_19_12_52_cmd.bin
+2018/02/16 19:13:33.879  INFO: Log File Closed : C:/COSMOS/AVC/outputs/logs/2018_02_16_19_12_27_tlm.bin
+2018/02/16 19:13:33.879  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/02/16 19:13:33.879  INFO: Connection Lost for SYSTEM_INT
+2018/02/16 19:13:33.980  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/02/16 19:13:33.980  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/02/16 19:13:33.980  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/02/16 19:13:34.022  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/02/16 19:13:34.032  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/02/16 19:13:34.032  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/02/16 19:13:34.039  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/02/16 19:13:34.105  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/02/16 19:13:34.115  INFO: Killing thread for interface AVC_INT
+2018/02/16 19:13:34.122  INFO: Clean disconnect from AVC_INT (returned nil)
+2018/02/16 19:13:34.122  INFO: Connection Lost for AVC_INT
+2018/02/16 19:13:34.122  INFO: Stopped packet reading for AVC_INT
+2018/02/16 19:13:34.127  INFO: Disconnected from interface AVC_INT
+2018/02/16 19:13:34.127  INFO: Killing thread for interface SYSTEM_INT
+2018/02/16 19:13:34.136  INFO: Stopped packet reading for SYSTEM_INT
+2018/02/16 19:13:34.138  INFO: Disconnected from interface SYSTEM_INT

@@ -1,0 +1,235 @@
+2018/07/06 17:24:45.696  INFO: COSMOS Version: 4.1.1
+2018/07/06 17:24:45.704  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/07/06 17:24:45.776  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/target.txt'
+2018/07/06 17:24:45.781  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/07/06 17:24:45.925  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/07/06 17:24:45.975  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/07/06 17:24:45.978  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/cmd_tlm_server.txt
+2018/07/06 17:24:46.062  INFO: Marshal load success: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/tmp/marshal_c422644ba35fb6f9651b50829a39dca0.bin
+2018/07/06 17:24:46.268  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/07/06 17:24:46.269  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/07/06 17:24:46.269  INFO: Creating thread for interface RPI_CAT_INT
+2018/07/06 17:24:46.270  INFO: Creating thread for interface IOP_UDP_INT
+2018/07/06 17:24:46.270  INFO: Creating thread for interface SYSTEM_INT
+2018/07/06 17:24:46.282  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/07/06 17:24:46.282  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/07/06 17:24:46.283  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/07/06 17:24:46.283  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/07/06 17:24:46.283  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/07/06 17:24:46.287  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/07/06 17:24:46.287  INFO: Starting packet reading for RPI_CAT_INT
+2018/07/06 17:24:46.287  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:24:46.288  INFO: Starting packet reading for IOP_UDP_INT
+2018/07/06 17:24:46.288  INFO: Connecting to IOP_UDP_INT...
+2018/07/06 17:24:46.292  INFO: IOP_UDP_INT Connection Success
+2018/07/06 17:24:46.302  INFO: Starting packet reading for SYSTEM_INT
+2018/07/06 17:24:46.302  INFO: Connecting to SYSTEM_INT...
+2018/07/06 17:24:46.302  INFO: SYSTEM_INT Connection Success
+2018/07/06 17:24:51.309  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:24:56.320  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:25:01.330  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:25:06.341  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:25:11.352  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:25:16.362  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:25:21.373  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:25:26.383  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:25:31.394  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:25:36.405  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:25:41.415  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:25:46.426  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:25:51.436  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:25:56.447  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:26:01.458  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:26:06.468  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:26:11.479  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:26:16.489  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:26:21.500  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:26:26.511  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:26:31.521  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:26:36.532  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:26:41.543  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:26:46.553  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:26:51.564  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:26:56.574  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:27:01.585  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:27:06.596  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:27:11.606  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:27:16.617  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:27:21.627  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:27:26.639  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:27:31.650  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:27:36.660  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:27:41.671  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:27:46.681  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:27:51.692  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:27:56.703  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:28:01.713  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:28:06.724  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:28:11.734  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:28:16.745  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:28:21.756  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:28:26.766  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:28:31.777  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:28:36.787  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:28:41.798  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:28:46.810  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:28:51.820  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:28:56.831  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:29:01.841  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:29:06.852  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:29:06.864  INFO: RPI_CAT_INT Connection Success
+2018/07/06 17:29:08.339  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_07_06_17_29_08_tlm.bin
+2018/07/06 17:30:10.358  INFO: cmd("RPI_CAT NOP_RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/06 17:30:10.360  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_07_06_17_30_10_cmd.bin
+2018/07/06 17:30:24.049  INFO: cmd("RPI_CAT NOP_RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/06 17:30:25.191  INFO: cmd("RPI_CAT NOP_RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/06 17:30:42.355  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/07/06 17:30:42.355  INFO: Connection Lost for RPI_CAT_INT
+2018/07/06 17:30:47.364  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:30:52.375  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:30:57.385  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:31:02.395  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:31:07.406  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:31:12.416  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:31:17.427  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:31:18.747  INFO: User disconnecting interface RPI_CAT_INT
+2018/07/06 17:31:18.747  INFO: Killing thread for interface RPI_CAT_INT
+2018/07/06 17:31:22.437  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/06 17:31:22.437  INFO: Stopped packet reading for RPI_CAT_INT
+2018/07/06 17:31:22.437  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/06 17:31:49.012  INFO: User connecting interface RPI_CAT_INT
+2018/07/06 17:31:49.012  INFO: Creating thread for interface RPI_CAT_INT
+2018/07/06 17:31:49.013  INFO: Starting packet reading for RPI_CAT_INT
+2018/07/06 17:31:49.013  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 17:31:49.034  INFO: RPI_CAT_INT Connection Success
+2018/07/06 17:32:09.169  INFO: cmd("RPI_CAT NOP_RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/06 17:32:12.356  INFO: cmd("RPI_CAT NOP_RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/06 17:32:15.567  INFO: cmd("RPI_CAT NOP_RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/06 17:32:39.566  INFO: User disconnecting interface RPI_CAT_INT
+2018/07/06 17:32:39.566  INFO: Killing thread for interface RPI_CAT_INT
+2018/07/06 17:32:39.679  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/07/06 17:32:39.679  INFO: Connection Lost for RPI_CAT_INT
+2018/07/06 17:32:39.679  INFO: Stopped packet reading for RPI_CAT_INT
+2018/07/06 17:32:39.688  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/06 18:43:58.082  INFO: User connecting interface RPI_CAT_INT
+2018/07/06 18:43:58.082  INFO: Creating thread for interface RPI_CAT_INT
+2018/07/06 18:43:58.083  INFO: Starting packet reading for RPI_CAT_INT
+2018/07/06 18:43:58.083  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 18:43:58.175  INFO: RPI_CAT_INT Connection Success
+2018/07/06 18:45:36.141  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:38.378  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:39.210  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:40.057  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:41.034  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:41.856  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:42.168  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:42.393  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:42.647  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:42.878  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:43.108  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:43.344  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:43.579  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:43.819  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:44.037  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:44.270  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:44.481  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:44.706  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:44.930  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:45.145  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:45.413  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:50.574  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:50.815  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:51.036  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:51.234  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:51.445  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:53.130  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:53.356  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:53.569  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:45:53.810  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 0, SPARE1 0, SPARE2 0")
+2018/07/06 18:46:03.370  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 45, SPARE1 0, SPARE2 0")
+2018/07/06 18:46:08.345  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 45, SPARE1 0, SPARE2 0")
+2018/07/06 18:46:10.550  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 45, SPARE1 0, SPARE2 0")
+2018/07/06 18:46:13.101  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 45, SPARE1 0, SPARE2 0")
+2018/07/06 18:46:14.613  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 45, SPARE1 0, SPARE2 0")
+2018/07/06 18:46:16.108  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 45, SPARE1 0, SPARE2 0")
+2018/07/06 18:46:18.685  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 45, SPARE1 0, SPARE2 0")
+2018/07/06 18:46:30.222  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -45, SPARE1 0, SPARE2 0")
+2018/07/06 18:46:31.076  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -45, SPARE1 0, SPARE2 0")
+2018/07/06 18:46:31.298  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -45, SPARE1 0, SPARE2 0")
+2018/07/06 18:46:31.541  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -45, SPARE1 0, SPARE2 0")
+2018/07/06 18:46:40.495  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -45, SPARE1 0, SPARE2 0")
+2018/07/06 18:46:41.876  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -45, SPARE1 0, SPARE2 0")
+2018/07/06 18:46:43.998  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -45, SPARE1 0, SPARE2 0")
+2018/07/06 18:48:14.430  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 1, DISTANCE 10, SPARE3 0")
+2018/07/06 18:48:16.852  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 1, DISTANCE 10, SPARE3 0")
+2018/07/06 18:48:17.639  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 1, DISTANCE 10, SPARE3 0")
+2018/07/06 18:48:17.963  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 1, DISTANCE 10, SPARE3 0")
+2018/07/06 18:48:18.189  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 1, DISTANCE 10, SPARE3 0")
+2018/07/06 18:48:24.572  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 1, DISTANCE 10, SPARE3 0")
+2018/07/06 18:48:25.397  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 1, DISTANCE 10, SPARE3 0")
+2018/07/06 18:48:25.788  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 1, DISTANCE 10, SPARE3 0")
+2018/07/06 18:48:32.134  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 1, DISTANCE 10, SPARE3 0")
+2018/07/06 18:48:59.010  INFO: User disconnecting interface RPI_CAT_INT
+2018/07/06 18:48:59.010  INFO: Killing thread for interface RPI_CAT_INT
+2018/07/06 18:48:59.013  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/07/06 18:48:59.013  INFO: Connection Lost for RPI_CAT_INT
+2018/07/06 18:48:59.013  INFO: Stopped packet reading for RPI_CAT_INT
+2018/07/06 18:48:59.021  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/06 18:49:02.343  INFO: User disconnecting interface IOP_UDP_INT
+2018/07/06 18:49:02.343  INFO: Killing thread for interface IOP_UDP_INT
+2018/07/06 18:49:02.351  ERROR: Error reading from interface : IOP_UDP_INT
+2018/07/06 18:49:02.351  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/07/06 18:49:02.351  INFO: Stopped packet reading for IOP_UDP_INT
+2018/07/06 18:49:02.355  INFO: Disconnected from interface IOP_UDP_INT
+2018/07/06 19:00:55.976  INFO: User connecting interface RPI_CAT_INT
+2018/07/06 19:00:55.976  INFO: Creating thread for interface RPI_CAT_INT
+2018/07/06 19:00:55.977  INFO: Starting packet reading for RPI_CAT_INT
+2018/07/06 19:00:55.977  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 19:00:55.990  INFO: RPI_CAT_INT Connection Success
+2018/07/06 19:02:10.402  INFO: cmd("RPI_CAT NOP_RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/06 19:02:12.752  INFO: cmd("RPI_CAT NOP_RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/06 19:02:37.283  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 23, SPARE1 0, SPARE2 0")
+2018/07/06 19:03:01.291  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 23, SPARE1 0, SPARE2 0")
+2018/07/06 19:03:34.999  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 13, DISTANCE 23, SPARE3 0")
+2018/07/06 19:04:49.208  INFO: User disconnecting interface RPI_CAT_INT
+2018/07/06 19:04:49.208  INFO: Killing thread for interface RPI_CAT_INT
+2018/07/06 19:04:49.213  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/07/06 19:04:49.213  INFO: Connection Lost for RPI_CAT_INT
+2018/07/06 19:04:49.213  INFO: Stopped packet reading for RPI_CAT_INT
+2018/07/06 19:04:49.220  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/06 19:06:02.583  INFO: User connecting interface RPI_CAT_INT
+2018/07/06 19:06:02.583  INFO: Creating thread for interface RPI_CAT_INT
+2018/07/06 19:06:02.584  INFO: Starting packet reading for RPI_CAT_INT
+2018/07/06 19:06:02.584  INFO: Connecting to RPI_CAT_INT...
+2018/07/06 19:06:02.605  INFO: RPI_CAT_INT Connection Success
+2018/07/06 19:06:15.982  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 34, SPARE1 0, SPARE2 0")
+2018/07/06 19:06:24.099  ERROR: Command parameter 'RPI_CAT TURN ANGLE' = -56 not in valid range of -45 to 45
+2018/07/06 19:06:31.904  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -33, SPARE1 0, SPARE2 0")
+2018/07/06 19:06:41.223  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 23, DISTANCE 23, SPARE3 0")
+2018/07/06 19:13:20.101  ERROR: RPI_CAT STATUS received with actual packet length of 1424 but defined length of 16
+2018/07/06 19:13:43.161  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 100, DISTANCE 100, SPARE3 0")
+2018/07/06 19:14:05.833  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 2, DISTANCE 100, SPARE3 0")
+2018/07/06 19:14:13.053  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 123, DISTANCE 100, SPARE3 0")
+2018/07/06 19:17:12.341  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -30, SPARE1 0, SPARE2 0")
+2018/07/06 19:17:21.286  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 34, SPARE1 0, SPARE2 0")
+2018/07/06 19:21:14.962  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_07_06_17_30_10_cmd.bin
+2018/07/06 19:21:14.977  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_07_06_17_29_08_tlm.bin
+2018/07/06 19:21:14.977  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/07/06 19:21:14.977  INFO: Connection Lost for SYSTEM_INT
+2018/07/06 19:21:15.077  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/07/06 19:21:15.077  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/07/06 19:21:15.077  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/07/06 19:21:15.176  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/07/06 19:21:15.176  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/07/06 19:21:15.176  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/07/06 19:21:15.185  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/07/06 19:21:15.253  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/07/06 19:21:15.264  INFO: Killing thread for interface RPI_CAT_INT
+2018/07/06 19:21:15.269  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/07/06 19:21:15.269  INFO: Connection Lost for RPI_CAT_INT
+2018/07/06 19:21:15.269  INFO: Stopped packet reading for RPI_CAT_INT
+2018/07/06 19:21:15.275  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/06 19:21:15.275  INFO: Disconnected from interface IOP_UDP_INT
+2018/07/06 19:21:15.275  INFO: Killing thread for interface SYSTEM_INT
+2018/07/06 19:21:15.285  INFO: Stopped packet reading for SYSTEM_INT
+2018/07/06 19:21:15.286  INFO: Disconnected from interface SYSTEM_INT

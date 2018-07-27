@@ -1,0 +1,54 @@
+2018/02/16 21:26:38.788  INFO: COSMOS Version: 4.1.1
+2018/02/16 21:26:38.800  INFO: Processing target definition in file 'C:/COSMOS/AVC/config/targets/AVC/target.txt'
+2018/02/16 21:26:38.831  INFO: Processing target definition in file 'C:/COSMOS/AVC/config/targets/SYSTEM/target.txt'
+2018/02/16 21:26:38.838  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/AVC/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/02/16 21:26:38.839  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/AVC/config/targets/AVC/cmd_tlm_server.txt
+2018/02/16 21:26:38.869  INFO: Marshal load success: C:/COSMOS/AVC/outputs/tmp/marshal_c3011af4c30ddae9cbd6392351dcb7c6.bin
+2018/02/16 21:26:40.972  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/02/16 21:26:40.972  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/02/16 21:26:40.973  INFO: Creating thread for interface AVC_INT
+2018/02/16 21:26:40.973  INFO: Creating thread for interface SYSTEM_INT
+2018/02/16 21:26:40.973  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/02/16 21:26:40.973  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/02/16 21:26:40.974  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/02/16 21:26:40.974  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/02/16 21:26:40.974  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/02/16 21:26:40.974  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/02/16 21:26:40.976  INFO: Starting packet reading for AVC_INT
+2018/02/16 21:26:40.976  INFO: Connecting to AVC_INT...
+2018/02/16 21:26:40.976  INFO: Starting packet reading for SYSTEM_INT
+2018/02/16 21:26:40.976  INFO: Connecting to SYSTEM_INT...
+2018/02/16 21:26:40.976  INFO: SYSTEM_INT Connection Success
+2018/02/16 21:26:41.013  INFO: AVC_INT Connection Success
+2018/02/16 21:26:41.035  ERROR: AVC STATUS received with actual packet length of 96 but defined length of 48
+2018/02/16 21:26:41.045  INFO: Log File Opened : C:/COSMOS/AVC/outputs/logs/2018_02_16_21_26_41_tlm.bin
+2018/02/16 21:28:15.418  INFO: cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/02/16 21:28:15.419  INFO: Log File Opened : C:/COSMOS/AVC/outputs/logs/2018_02_16_21_28_15_cmd.bin
+2018/02/16 21:28:19.820  INFO: cmd("AVC NOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/02/16 21:28:43.967  INFO: cmd("AVC MOVE with CMD_ID 77, SPEED 10, DISTANCE 10, SPARE 0")
+2018/02/16 21:29:02.689  INFO: cmd("AVC MODE with CMD_ID 68, MODE NORMAL, SPARE1 0, SPARE2 0")
+2018/02/16 21:29:19.136  INFO: cmd("AVC MOVE with CMD_ID 77, SPEED 10, DISTANCE 10, SPARE 0")
+2018/02/16 21:29:39.949  ERROR: Command parameter 'AVC MOVE SPEED' = -20 not in valid range of 0 to 999
+2018/02/16 21:29:59.088  INFO: cmd("AVC MOVE with CMD_ID 77, SPEED 5, DISTANCE 10, SPARE 0")
+2018/02/16 21:30:19.896  INFO: cmd("AVC TURN with CMD_ID 84, ANGLE 10, SPARE1 0, SPARE2 0")
+2018/02/16 21:30:31.273  INFO: cmd("AVC TURN with CMD_ID 84, ANGLE -10, SPARE1 0, SPARE2 0")
+2018/02/16 21:31:45.172  INFO: Log File Closed : C:/COSMOS/AVC/outputs/logs/2018_02_16_21_28_15_cmd.bin
+2018/02/16 21:31:45.176  INFO: Log File Closed : C:/COSMOS/AVC/outputs/logs/2018_02_16_21_26_41_tlm.bin
+2018/02/16 21:31:45.176  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/02/16 21:31:45.176  INFO: Connection Lost for SYSTEM_INT
+2018/02/16 21:31:45.276  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/02/16 21:31:45.276  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/02/16 21:31:45.276  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/02/16 21:31:45.371  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/02/16 21:31:45.371  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/02/16 21:31:45.371  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/02/16 21:31:45.379  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/02/16 21:31:45.475  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/02/16 21:31:45.485  INFO: Killing thread for interface AVC_INT
+2018/02/16 21:31:45.491  INFO: Clean disconnect from AVC_INT (returned nil)
+2018/02/16 21:31:45.491  INFO: Connection Lost for AVC_INT
+2018/02/16 21:31:45.491  INFO: Stopped packet reading for AVC_INT
+2018/02/16 21:31:45.496  INFO: Disconnected from interface AVC_INT
+2018/02/16 21:31:45.496  INFO: Killing thread for interface SYSTEM_INT
+2018/02/16 21:31:45.501  INFO: Stopped packet reading for SYSTEM_INT
+2018/02/16 21:31:45.507  INFO: Disconnected from interface SYSTEM_INT

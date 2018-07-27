@@ -40,22 +40,16 @@ const int IN2       = 8;     //connected to Arduino's port 11
 //const int ENC_PIN   = 2;        // Interrupt - scanner encoder
 //const int OPTO_PIN  = 3;        // Interrupt - scanner zero sensor
 
-#ifdef TEENSIE_35
-    const int distanceRF    = A15;  // Analog input - right front range sensor
-    const int distanceRR    = A12;  // Analog input - right rear range sensor
-    const int distanceLF    = A14;  // Analog input - left front range sensor
-    const int distanceLR    = A13;  // Analog input - left rear range sensor
-#endif
-
 const int longFront       = A0;    // Analog input - scanner long range sensor
 const int shortFront      = A1;    // Analog input - scanner short range sensor
 
 #ifdef TEENSIE_35
-    const int TEENSIE_LED     = 13;    // LED on the board. teensie 3.2 - led 13
+    const int TEENSIE_LED   = 13;   // LED on the board. teensie 3.2 - led 13
 #else
-    const int TEENSIE_LED     = 6;     // LED on the board. teensie 2++ - led 6
+    const int TEENSIE_LED   = 6;    // LED on the board. teensie 2++ - led 6
 #endif
 
+const int ENABLE_WIFI = 7;          // Enables the WIFI on the 8266
 const int lrsr_Sel = 8;
 const int Run = 6;
 const int l_Wheel = 11;

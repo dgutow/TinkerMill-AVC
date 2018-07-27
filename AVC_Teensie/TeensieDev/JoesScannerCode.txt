@@ -75,7 +75,7 @@ void setup()
   // initialize the I/O pins
   pinMode(enWifi, OUTPUT);
   pinMode(ledPin, OUTPUT);
-  pinMode(enScan, OUTPUT);
+  pinMode(enScan, OUTPUT);      //SCN_ENABLE
   pinMode(rstScan, OUTPUT);
   pinMode(M0, OUTPUT);
   pinMode(M1, OUTPUT);

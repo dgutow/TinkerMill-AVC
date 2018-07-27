@@ -1,0 +1,262 @@
+2018/04/16 16:16:01.483  INFO: COSMOS Version: 4.1.1
+2018/04/16 16:16:01.500  INFO: Processing target definition in file 'C:/COSMOS/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/04/16 16:16:01.529  INFO: Processing target definition in file 'C:/COSMOS/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/04/16 16:16:01.533  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/04/16 16:16:01.534  INFO: Processing CmdTlmServer configuration in file: C:/COSMOS/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/04/16 16:16:01.560  INFO: Marshal load success: C:/COSMOS/RPI_CAT/outputs/tmp/marshal_7772706d361f12aa8ab86d8ee7b2c94a.bin
+2018/04/16 16:16:04.350  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/04/16 16:16:04.351  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/04/16 16:16:04.352  INFO: Creating thread for interface RPI_CAT_INT
+2018/04/16 16:16:04.353  INFO: Creating thread for interface SYSTEM_INT
+2018/04/16 16:16:04.354  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/04/16 16:16:04.354  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/04/16 16:16:04.355  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/04/16 16:16:04.355  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/04/16 16:16:04.355  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/04/16 16:16:04.360  INFO: Starting packet reading for RPI_CAT_INT
+2018/04/16 16:16:04.360  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:16:04.361  INFO: Starting packet reading for SYSTEM_INT
+2018/04/16 16:16:04.361  INFO: Connecting to SYSTEM_INT...
+2018/04/16 16:16:04.361  INFO: SYSTEM_INT Connection Success
+2018/04/16 16:16:04.368  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/04/16 16:16:09.415  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:16:14.424  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:16:19.440  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:16:24.450  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:16:29.460  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:16:34.469  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:16:34.979  INFO: RPI_CAT_INT Connection Success
+2018/04/16 16:16:38.072  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652030
+2018/04/16 16:16:38.077  INFO: Log File Opened : C:/COSMOS/RPI_CAT/outputs/logs/2018_04_16_16_16_38_tlm.bin
+2018/04/16 16:16:41.079  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652031
+2018/04/16 16:16:44.080  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652032
+2018/04/16 16:16:47.070  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/04/16 16:16:47.071  INFO: Log File Opened : C:/COSMOS/RPI_CAT/outputs/logs/2018_04_16_16_16_47_cmd.bin
+2018/04/16 16:16:47.078  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652033
+2018/04/16 16:16:50.078  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652034
+2018/04/16 16:16:52.709  INFO: User disconnecting interface RPI_CAT_INT
+2018/04/16 16:16:52.709  INFO: Killing thread for interface RPI_CAT_INT
+2018/04/16 16:16:52.713  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/04/16 16:16:52.713  INFO: Connection Lost for RPI_CAT_INT
+2018/04/16 16:16:52.713  INFO: Stopped packet reading for RPI_CAT_INT
+2018/04/16 16:16:52.719  INFO: Disconnected from interface RPI_CAT_INT
+2018/04/16 16:16:59.532  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/04/16 16:18:04.557  INFO: User connecting interface RPI_CAT_INT
+2018/04/16 16:18:04.557  INFO: Creating thread for interface RPI_CAT_INT
+2018/04/16 16:18:04.557  INFO: Starting packet reading for RPI_CAT_INT
+2018/04/16 16:18:04.557  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:18:04.558  INFO: RPI_CAT_INT Connection Success
+2018/04/16 16:18:06.179  INFO: User disconnecting interface RPI_CAT_INT
+2018/04/16 16:18:06.179  INFO: Killing thread for interface RPI_CAT_INT
+2018/04/16 16:18:06.186  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/04/16 16:18:06.186  INFO: Connection Lost for RPI_CAT_INT
+2018/04/16 16:18:06.186  INFO: Stopped packet reading for RPI_CAT_INT
+2018/04/16 16:18:06.189  INFO: Disconnected from interface RPI_CAT_INT
+2018/04/16 16:43:54.881  INFO: User connecting interface RPI_CAT_INT
+2018/04/16 16:43:54.881  INFO: Creating thread for interface RPI_CAT_INT
+2018/04/16 16:43:54.882  INFO: Starting packet reading for RPI_CAT_INT
+2018/04/16 16:43:54.882  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:43:54.883  INFO: RPI_CAT_INT Connection Success
+2018/04/16 16:43:57.847  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652033
+2018/04/16 16:44:00.847  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652034
+2018/04/16 16:44:03.845  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652035
+2018/04/16 16:44:06.852  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652036
+2018/04/16 16:44:08.503  INFO: User disconnecting interface RPI_CAT_INT
+2018/04/16 16:44:08.503  INFO: Killing thread for interface RPI_CAT_INT
+2018/04/16 16:44:08.514  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/04/16 16:44:08.514  INFO: Connection Lost for RPI_CAT_INT
+2018/04/16 16:44:08.514  INFO: Stopped packet reading for RPI_CAT_INT
+2018/04/16 16:44:08.524  INFO: Disconnected from interface RPI_CAT_INT
+2018/04/16 16:45:05.591  INFO: User connecting interface RPI_CAT_INT
+2018/04/16 16:45:05.591  INFO: Creating thread for interface RPI_CAT_INT
+2018/04/16 16:45:05.591  INFO: Starting packet reading for RPI_CAT_INT
+2018/04/16 16:45:05.591  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:45:05.592  INFO: RPI_CAT_INT Connection Success
+2018/04/16 16:45:07.312  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652031
+2018/04/16 16:45:10.316  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652032
+2018/04/16 16:45:13.322  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652033
+2018/04/16 16:45:16.317  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652034
+2018/04/16 16:45:19.317  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652035
+2018/04/16 16:45:20.033  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/04/16 16:45:22.320  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652036
+2018/04/16 16:45:24.927  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/04/16 16:45:25.323  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652037
+2018/04/16 16:45:26.918  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/04/16 16:45:28.318  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652038
+2018/04/16 16:45:31.326  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652039
+2018/04/16 16:45:33.610  INFO: User disconnecting interface RPI_CAT_INT
+2018/04/16 16:45:33.610  INFO: Killing thread for interface RPI_CAT_INT
+2018/04/16 16:45:33.619  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/04/16 16:45:33.619  INFO: Connection Lost for RPI_CAT_INT
+2018/04/16 16:45:33.619  INFO: Stopped packet reading for RPI_CAT_INT
+2018/04/16 16:45:33.621  INFO: Disconnected from interface RPI_CAT_INT
+2018/04/16 16:45:39.995  INFO: User connecting interface RPI_CAT_INT
+2018/04/16 16:45:39.995  INFO: Creating thread for interface RPI_CAT_INT
+2018/04/16 16:45:39.995  INFO: Starting packet reading for RPI_CAT_INT
+2018/04/16 16:45:39.995  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:45:39.996  INFO: RPI_CAT_INT Connection Success
+2018/04/16 16:45:48.389  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/04/16 16:45:48.389  INFO: Connection Lost for RPI_CAT_INT
+2018/04/16 16:45:53.399  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:45:58.407  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:46:03.418  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:46:08.428  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:46:13.437  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:46:18.445  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:46:23.454  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:46:28.466  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:46:33.476  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:46:38.486  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:46:43.495  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:46:48.505  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:46:53.514  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:46:58.523  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:47:03.532  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:47:08.542  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:47:13.551  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:47:18.561  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:47:23.572  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:47:23.572  INFO: RPI_CAT_INT Connection Success
+2018/04/16 16:47:23.583  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652032
+2018/04/16 16:47:26.590  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652033
+2018/04/16 16:47:29.587  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652034
+2018/04/16 16:47:30.848  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/04/16 16:47:32.586  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652035
+2018/04/16 16:47:33.443  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/04/16 16:47:35.592  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652036
+2018/04/16 16:47:36.099  INFO: User disconnecting interface RPI_CAT_INT
+2018/04/16 16:47:36.099  INFO: Killing thread for interface RPI_CAT_INT
+2018/04/16 16:47:36.101  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/04/16 16:47:36.101  INFO: Connection Lost for RPI_CAT_INT
+2018/04/16 16:47:36.101  INFO: Stopped packet reading for RPI_CAT_INT
+2018/04/16 16:47:36.109  INFO: Disconnected from interface RPI_CAT_INT
+2018/04/16 16:48:29.669  INFO: User connecting interface RPI_CAT_INT
+2018/04/16 16:48:29.669  INFO: Creating thread for interface RPI_CAT_INT
+2018/04/16 16:48:29.670  INFO: Starting packet reading for RPI_CAT_INT
+2018/04/16 16:48:29.670  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:48:29.670  INFO: RPI_CAT_INT Connection Success
+2018/04/16 16:48:30.538  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652031
+2018/04/16 16:48:33.537  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652032
+2018/04/16 16:48:35.230  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/04/16 16:48:36.538  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652033
+2018/04/16 16:48:39.542  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652034
+2018/04/16 16:48:39.820  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/04/16 16:48:42.538  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652035
+2018/04/16 16:48:45.543  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652036
+2018/04/16 16:48:48.041  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/04/16 16:48:48.541  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652037
+2018/04/16 16:48:51.541  ERROR: RPI_CAT_INT - Unknown 9 byte packet starting: 4D6573736167652038
+2018/04/16 16:48:54.117  INFO: User disconnecting interface RPI_CAT_INT
+2018/04/16 16:48:54.117  INFO: Killing thread for interface RPI_CAT_INT
+2018/04/16 16:48:54.118  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/04/16 16:48:54.118  INFO: Connection Lost for RPI_CAT_INT
+2018/04/16 16:48:54.118  INFO: Stopped packet reading for RPI_CAT_INT
+2018/04/16 16:48:54.127  INFO: Disconnected from interface RPI_CAT_INT
+2018/04/16 16:49:09.965  INFO: User connecting interface RPI_CAT_INT
+2018/04/16 16:49:09.965  INFO: Creating thread for interface RPI_CAT_INT
+2018/04/16 16:49:09.966  INFO: Starting packet reading for RPI_CAT_INT
+2018/04/16 16:49:09.966  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:49:09.966  INFO: RPI_CAT_INT Connection Success
+2018/04/16 16:49:12.544  ERROR: RPI_CAT_INT - Unknown 10 byte packet starting: 4D657373616765203135
+2018/04/16 16:49:15.545  ERROR: RPI_CAT_INT - Unknown 10 byte packet starting: 4D657373616765203136
+2018/04/16 16:49:16.657  INFO: cmd("RPI_CAT ACCELS with CMD_ID 70, NORM_ACC 999, EMER_ACC 999, SPARE3 0")
+2018/04/16 16:49:18.545  ERROR: RPI_CAT_INT - Unknown 10 byte packet starting: 4D657373616765203137
+2018/04/16 16:49:21.544  ERROR: RPI_CAT_INT - Unknown 10 byte packet starting: 4D657373616765203138
+2018/04/16 16:49:24.546  ERROR: RPI_CAT_INT - Unknown 10 byte packet starting: 4D657373616765203139
+2018/04/16 16:49:27.545  ERROR: RPI_CAT_INT - Unknown 10 byte packet starting: 4D657373616765203230
+2018/04/16 16:49:29.623  INFO: User disconnecting interface RPI_CAT_INT
+2018/04/16 16:49:29.623  INFO: Killing thread for interface RPI_CAT_INT
+2018/04/16 16:49:29.633  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/04/16 16:49:29.633  INFO: Connection Lost for RPI_CAT_INT
+2018/04/16 16:49:29.633  INFO: Stopped packet reading for RPI_CAT_INT
+2018/04/16 16:49:29.643  INFO: Disconnected from interface RPI_CAT_INT
+2018/04/16 16:49:32.604  INFO: User connecting interface RPI_CAT_INT
+2018/04/16 16:49:32.604  INFO: Creating thread for interface RPI_CAT_INT
+2018/04/16 16:49:32.605  INFO: Starting packet reading for RPI_CAT_INT
+2018/04/16 16:49:32.605  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:49:32.606  INFO: RPI_CAT_INT Connection Success
+2018/04/16 16:49:33.552  ERROR: RPI_CAT_INT - Unknown 10 byte packet starting: 4D657373616765203232
+2018/04/16 16:49:36.545  ERROR: RPI_CAT_INT - Unknown 10 byte packet starting: 4D657373616765203233
+2018/04/16 16:49:39.547  ERROR: RPI_CAT_INT - Unknown 10 byte packet starting: 4D657373616765203234
+2018/04/16 16:50:00.238  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/04/16 16:50:00.239  INFO: Connection Lost for RPI_CAT_INT
+2018/04/16 16:50:05.248  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:50:10.258  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:50:15.267  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:50:20.274  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:50:25.284  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:50:30.293  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:50:35.303  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:50:40.311  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:50:45.321  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:50:50.331  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:50:55.341  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:51:00.352  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:51:05.361  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:51:10.370  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:51:15.381  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:51:20.391  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:51:25.400  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:51:30.409  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:51:35.419  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:51:40.429  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:51:45.439  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:51:50.448  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:51:55.458  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:52:00.469  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:52:05.479  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:52:10.487  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:52:15.497  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:52:20.508  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:52:25.518  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:52:30.528  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:52:35.538  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:52:40.548  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:52:45.559  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:52:50.568  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:52:55.576  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:53:00.585  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:53:05.593  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:53:10.604  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:53:15.613  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:53:20.622  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:53:25.630  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:53:30.640  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:53:35.651  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:53:40.662  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:53:45.673  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:53:50.682  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:53:55.691  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:54:00.699  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:54:05.710  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:54:10.719  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:54:15.729  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:54:20.740  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:54:25.750  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:54:30.760  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:54:35.769  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:54:40.780  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:54:45.790  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:54:50.801  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:54:55.811  INFO: Connecting to RPI_CAT_INT...
+2018/04/16 16:54:57.790  INFO: User disconnecting interface RPI_CAT_INT
+2018/04/16 16:54:57.790  INFO: Killing thread for interface RPI_CAT_INT
+2018/04/16 16:55:00.821  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/04/16 16:55:00.821  INFO: Stopped packet reading for RPI_CAT_INT
+2018/04/16 16:55:00.822  INFO: Disconnected from interface RPI_CAT_INT
+2018/04/16 19:04:03.801  INFO: Log File Closed : C:/COSMOS/RPI_CAT/outputs/logs/2018_04_16_16_16_47_cmd.bin
+2018/04/16 19:04:03.803  INFO: Log File Closed : C:/COSMOS/RPI_CAT/outputs/logs/2018_04_16_16_16_38_tlm.bin
+2018/04/16 19:04:03.803  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/04/16 19:04:03.803  INFO: Connection Lost for SYSTEM_INT
+2018/04/16 19:04:03.904  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/04/16 19:04:03.904  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/04/16 19:04:03.904  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/04/16 19:04:03.966  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/04/16 19:04:03.966  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/04/16 19:04:03.966  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/04/16 19:04:03.973  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/04/16 19:04:04.067  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/04/16 19:04:04.077  INFO: Disconnected from interface RPI_CAT_INT
+2018/04/16 19:04:04.077  INFO: Killing thread for interface SYSTEM_INT
+2018/04/16 19:04:04.078  INFO: Stopped packet reading for SYSTEM_INT
+2018/04/16 19:04:04.087  INFO: Disconnected from interface SYSTEM_INT

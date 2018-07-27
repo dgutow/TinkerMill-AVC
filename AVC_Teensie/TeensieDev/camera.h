@@ -11,6 +11,6 @@
 
 void     cam_init();
 uint32_t cam_setAngle  (int16_t angle);
-void     cam_getValues (uint32_t currTime);
+void     cam_getTelem  (uint32_t currTime);
 
 #endif    //  CAMERA_H
