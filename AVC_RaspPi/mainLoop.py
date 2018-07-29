@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 """
  mainLoop.py - The main loop of the racing vehicle.
  
