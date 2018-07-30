@@ -73,10 +73,11 @@ class vehicleState (object):
     iopGyroHoriz       = 0.0   # Gyro value in horizontal plane
     iopCompassAngle    = 0.0   # Compass angle
     iopCameraAngle     = 0.0   # Vertical angle of the camera
+    iopBrakeStatus     = 0.0   # Status of the motor brake
     iopSpare2          = 0.0   # spare    
     iopSpare3          = 0.0   # spare 
     
-    # These are the results of the two range sensors
+    # These are the results of the range sensors
     leftWallAngle      = 0.0   # The angle of the vehicle (relative to left wall)
     leftWallDist       = 0.0   # The calculated distance to left wall
     leftDataValid      = False # Data valid flag

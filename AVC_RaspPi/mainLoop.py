@@ -98,8 +98,8 @@ def mainLoop():
     
     while (not abort): 
         #(vehState.mode.currMode != raceModes.TERMINATE and not abort):  
-        #time.sleep (0.1)          #   
-        time.sleep (0.8)          # dag remove    
+        time.sleep (0.1)          #   
+        #time.sleep (0.8)          # dag remove    
                 
         loopCntr += 1         
         if loopCntr % 20 == 0:
@@ -112,9 +112,9 @@ def mainLoop():
         guiIf.send_rpiTlm (guiAcceptCnt, vehState, rangeLeftPair, rangeRightPair)  
         
         # Get the iop telemetry msgs and parse into state structure
-        iopMsg = get_iopTlm ()
-        if (len(iopMsg) != 0):              
-            guiIf.send_iopTlm (iopMsg)
+        iopMsg = get_iopTlm (loopCntr)
+        #if (len(iopMsg) != 0):              
+        #    guiIf.send_iopTlm (iopMsg)
 
         # Get the vision temetry msgs and parse into state structure        
         #visMsg = getVisionTelemetry()
@@ -145,7 +145,7 @@ def mainLoop():
 ################################################################################
 # get_iopTlm( )
 ################################################################################
-def get_iopTlm():
+def get_iopTlm(loopCntr):
     global IopTlmQueue
     time = 0
     msg = ""
@@ -157,13 +157,16 @@ def get_iopTlm():
         msg = IopTlmQueue.get_nowait()
         #printOut("MAINLOOP:GET_IOPTLM - msg length (%d)" % ( len(msg)) )
         #printOut("MAINLOOP:GET_IOPTLM - got msg (%s)" % ( msg) )
-        time = proc_iopTlm(msg)        
+        time = proc_iopTlm(msg)     
+                    
+        guiIf.send_iopTlm (msg)         # dag - send every pkt to gui
+           
         tlm_cnt += 1
     # end while
 
     
-    if (tlm_cnt > 0):
-        print "MAINLOOP:GET_IOPTLM - nPkts %d, Time %3d, Mode %1d, AccCnt %2d, Switch %2d/%2d" % (
+    if (tlm_cnt > 0 and (loopCntr % 10 == 0) ):
+        print "MAINLOOP:GET_IOPTLM - nPkts %d, Tim %3d, Mode %1d, Accept %2d, But %2d/%2d" % (
             tlm_cnt, vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
             vehState.iopSwitchStatus, vehState.iopStartSwitch) 
     else:
@@ -212,9 +215,10 @@ def proc_iopTlm (data):
     vehState.iopAccelVert   = telemArray[18]
     vehState.iopGyroHoriz   = telemArray[19]
     vehState.iopCompAngle   = telemArray[20]
-    vehState.iopCameraAngle = telemArray[21]        
-    vehState.iopSpare2      = telemArray[22]
-    vehState.iopSpare3      = telemArray[23]   
+    vehState.iopCameraAngle = telemArray[21]   
+    vehState.iopBrakeStatus = telemArray[22]    
+    vehState.iopSpare2      = telemArray[23]
+    vehState.iopSpare3      = telemArray[24]   
     
     if  False:
         print "MAINLOOP:PROC_IOPTLM - Pkid %d, Time %3d, Mode %1d, AccCnt %2d, Spd %3d, Switch %2d/%2d" % (

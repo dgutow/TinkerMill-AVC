@@ -20,11 +20,11 @@ SIM_TEENSY	= False            # When there is a communicating Teensy
 #GUI_IPADDR   = '10.2.124.96'       # TM wifi
 #GUI_IPADDR   = '192.168.4.100'    # 8266 access point
 
-RPI_IPADDR   = '10.2.124.96'      # the Rpi
-UDP_IPADDR   = '10.2.122.53'      # laptop
+#RPI_IPADDR   = '10.2.124.96'      # the Rpi
+#UDP_IPADDR   = '10.2.122.53'      # laptop
 
-#RPI_IPADDR   = '192.168.4.10'      # the Rpi
-#UDP_IPADDR   = '192.168.4.99'      # laptop
+RPI_IPADDR   = '192.168.4.10'      # the Rpi
+UDP_IPADDR   = '192.168.4.30'      # laptop
 
 RPI_TCPPORT  = 61432            # The TCP port for cmds/tlm to/from the Rpi
 UDP_IOPPORT  = 61433            # The UDP port for tlm from IOP 

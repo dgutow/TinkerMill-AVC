@@ -32,7 +32,7 @@ ErrorMaxCnt     = 200    # Number of iterations before repeating error msg
 ###############################################################################
 
 def stateMachine (vehState, serialPort):
-    vehState.mode.printMode("STATEMACHINE:")
+    # vehState.mode.printMode("STATEMACHINE:")
     
     ##*************************************************************************
     # Startup states
