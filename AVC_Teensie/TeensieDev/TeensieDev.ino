@@ -71,13 +71,12 @@ void blinkLed        (uint32_t currTimeMsec);
 ///////////////////////////////////////////////////////////////////////////////
 task taskList[] = { {checkForCmds,        20,     0,      0}, // did we get a new command?
                     {veh_check,           50,     0,      0}, // continual servicing of vehicle systems
-                    {scn_getValues,       25,     0,      0},   
-                    //{hb_check,          10,     1,      0}, // check// get the side sensor values  
-                    {cam_getTelem,       200,     0,      0},                     
-                    {veh_getTelem,       200,     0,      0},                                                  
-                    {tlm_sendToHost,     200,     1,      0},
-                    //{tlm_sendToEsp,     1000,   0,      0},
-                    {blinkLed,           500,     1,      0},                    
+                    {scn_getValues,      100,     0,      0},   
+                    {cam_getTelem,       100,     0,      0},                     
+                    {veh_getTelem,       100,     0,      0},                                                  
+                    {tlm_sendToHost,     100,     1,      0},
+                    //{hb_check,          10,     1,      0}, // check// get the side sensor values                      
+                    //{blinkLed,           500,     1,      0},                    
                     }; 
 
 #if 0
@@ -108,8 +107,8 @@ void setup()
    tlm_init ();              // Initialize the serial ports - must be done first!
    veh_init();
    cam_init ();
-   
-   scn_init();   
+   scn_init();      
+
    //adc_init ();            // initialize the ADC system   
    //scn_init ();            // Initialize the scanner
    //sts_init ();            // initialize the battery status's   

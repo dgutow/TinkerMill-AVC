@@ -36,10 +36,6 @@ extern Telemetry telem;                // The telemetry class
 #define SCN_SENSOR3     A14     // Pin for sensor 2 (~180 degrees)
 #define SCN_SENSOR4     A13     // Pin for sensor 3 (~270 degrees)
 
-#define TIME_STEP_PIN   27      // Timing - Pin/output to time the step ISR
-#define TIME_ZERO_PIN   13      // Timing - Pin/LED to watch the zero ISR
-#define TIME_ADC_PIN    28      // Timing - Pin/output to time the ADC
-
 #define SCN_DIAGNOSTICS         // Output diagnostics
 
 const int SCN_DEBUG    = 0;       // Eliminate dag
@@ -58,11 +54,15 @@ volatile int scn_zeroFlag;              // Flag indicating zero pulse occurred
 volatile int scn_maxCnt;                // The maximum count this revolution
          int scn_uStepsPerInput;        // Number of uSteps output per one
                                         // pulse input (set by hw divider)
-         int scn_uStepsPerRev = 1600;   // Number of uSteps per 1 motor rev.                                    
+                                        
+// Set scanner speed to 3200 (1600) steps per second.  There are 16 step micro-steps
+// (pulses) per full step and 100 full steps per rev.                                        
+         int scn_uStepsPerRev = 3200;   // Number of uSteps per 1 motor rev.                                    
 
 ///////////////////////////////////////////////////////////////////////////////
 // function templates
 /////////////////////////////////////////////////////////////////////////////// 
+void     scn_enable(int enable);
 uint16_t scn_convertLongRange(float voltage);  
 uint16_t scn_convertShortRange(float voltage);
  
@@ -84,10 +84,6 @@ void scn_init ()
     pinMode(SCN_STEP_PULSE, INPUT_PULLUP);
     pinMode(SCN_ZERO_PULSE, INPUT);   
 
-    pinMode(TIME_STEP_PIN, OUTPUT);
-    pinMode(TIME_ZERO_PIN, OUTPUT);     //
-    pinMode(TIME_ADC_PIN, OUTPUT);
-
     // Setup the ADC
     adc->setReference(ADC_REFERENCE::REF_3V3, ADC_0);
     adc->setReference(ADC_REFERENCE::REF_3V3, ADC_1);
@@ -96,12 +92,11 @@ void scn_init ()
     adc->setAveraging (16, ADC_0);
     adc->setAveraging (16, ADC_1);
     
-    // Setup the motor step controller. Set speed to 1600 steps per second.
-    // But we're doing 16 step micro-stepping, so 100 full steps per rev.
-    motor.setMaxSpeed (scn_uStepsPerRev);   
-    motor.setAcceleration (800);
-    motor.setInverseRotation(true);
-    motor.setPullInSpeed (100);    
+    // SCANNER MOTOR SETUP. 
+    motor.setMaxSpeed (scn_uStepsPerRev);   // Set pulses/steps per second
+    motor.setAcceleration (800);            //
+    motor.setInverseRotation(true);         //
+    motor.setPullInSpeed (100);             // Step speed at startup  
     
     // Setup the motor step divider (which causes the step interrupt)
     // M0 M1 M2     motor step divisor
@@ -109,14 +104,14 @@ void scn_init ()
     // 1  0  0      1/2   400
     // 0  1  0      1/4   800
     // 1  1  0      1/8  1600
-    // 0  0  1      1/16 3200    <-
+    // 0  0  1      1/16 3200    <------
     // 1  0  1      1/32 6400
     // 0  1  1      1/32 
     // 1  1  1      1/32 
     digitalWrite(SCN_M0, 0);
     digitalWrite(SCN_M1, 0);
     digitalWrite(SCN_M2, 1); 
-    scn_uStepsPerInput = 16;    // 
+    scn_uStepsPerInput = 16;    
     
     // Initialize our globals
     scn_stepCntr = 0;
@@ -125,16 +120,11 @@ void scn_init ()
 
     // Lastly attach the two interrupts
     attachInterrupt(SCN_STEP_PULSE, scn_stepIsr, RISING);
-    attachInterrupt(SCN_ZERO_PULSE, scn_zeroIsr, FALLING);  
-    
-  // setup motor
-  motor.setMaxSpeed(1600);          //
-  motor.setAcceleration(800);       //
-  motor.setInverseRotation(true);   //
-  motor.setPullInSpeed(100);        //    
+    attachInterrupt(SCN_ZERO_PULSE, scn_zeroIsr, FALLING);         
 
     // Start scanning
-    scn_enable();
+    scn_setSpeed (1600);
+    // scn_enable(1);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -288,11 +278,20 @@ int scn_getAngle (void)
 ///////////////////////////////////////////////////////////////////////////////
 // SCN_ENABLE - enable/start the scanner.  
 ///////////////////////////////////////////////////////////////////////////////
-void scn_enable (void)
+void scn_enable(int enable)
 {
-  digitalWrite(SCN_RESET,  1);      // dag - should this go down?
-  digitalWrite(SCN_ENABLE, 0);
-  controller.rotateAsync(motor);    
+    if (enable)
+    {
+        digitalWrite(SCN_RESET,  1);      // dag - should this go down?
+        digitalWrite(SCN_ENABLE, 0);
+        controller.rotateAsync(motor);                    
+    }
+    else
+    {
+        digitalWrite(SCN_RESET,  0); 
+        digitalWrite(SCN_ENABLE, 1);
+        // controller.rotateAsync(motor);           
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -300,8 +299,10 @@ void scn_enable (void)
 ///////////////////////////////////////////////////////////////////////////////
 void scn_setSpeed (int speed)
 {
-    motor.setMaxSpeed (speed);   
-    scn_uStepsPerRev = speed;
+    scn_uStepsPerRev = speed;   
+    scn_enable(0);    
+    motor.setMaxSpeed (scn_uStepsPerRev);  
+    scn_enable(1);        
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -311,7 +312,6 @@ void scn_setSpeed (int speed)
 void scn_zeroIsr (void)
 {
     scn_zeroFlag = true;
-    // digitalWriteFast(ledPin, !digitalReadFast(ledPin)); dag
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -324,7 +324,6 @@ void scn_zeroIsr (void)
 ///////////////////////////////////////////////////////////////////////////////
 void scn_stepIsr (void)
 {
-    digitalWriteFast(TIME_STEP_PIN, 1);
     if (scn_zeroFlag)       // If the zero pulse occurred zero the step counter
     { 
         scn_maxCnt   = scn_stepCntr;
@@ -335,7 +334,6 @@ void scn_stepIsr (void)
     {
         scn_stepCntr++;              
     } 
-    digitalWriteFast(TIME_STEP_PIN, 0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

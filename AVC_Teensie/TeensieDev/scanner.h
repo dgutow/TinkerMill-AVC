@@ -11,5 +11,7 @@
 
 void     scn_init();
 void     scn_getValues (uint32_t currTime);
+void     scn_enable    (int enable);
+void     scn_setSpeed  (int speed);
 
 #endif    //  SCANNER_H

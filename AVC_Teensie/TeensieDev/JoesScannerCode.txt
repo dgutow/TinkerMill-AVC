@@ -114,7 +114,7 @@ step_active = 0;
   attachInterrupt(4, step_isr, RISING);
   attachInterrupt(AtHome, home_isr, FALLING);
   // setup motor
-  motor.setMaxSpeed(1600);          //
+  motor.setMaxSpeed(1600);          // pulses/steps per second
   motor.setAcceleration(800);       //
   motor.setInverseRotation(true);   //
   motor.setPullInSpeed(100);        //

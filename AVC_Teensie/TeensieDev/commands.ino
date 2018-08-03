@@ -11,9 +11,10 @@
 #include "heartbeat.h"
 #include "vehicle.h"
 #include "camera.h"
+#include "scanner.h"
 
 #ifdef TEENSIE_35
-//	#include "scanner.h"
+//	
 //	#include "sideSensors.h"
 //	#include "nineDof.h"
 #endif
@@ -53,8 +54,8 @@ void commandDecode(cmdData* command)
         // Incorrect header on command message
         telem.rejectCntr++;
         telem.rejectReason = 1;
-        telem.spare1 = header;
-        telem.spare2 = cmd;        
+        // telem.spare1 = header;
+        // telem.spare2 = cmd;        
         return;
     }      
   
@@ -109,6 +110,7 @@ void commandDecode(cmdData* command)
 
         case 'S':                   // Scan speed
             DBGPORT.println ("commandDecode: Scan speed Command");
+            scn_setSpeed (param1);
             incAccpt = true;
             break;
 
@@ -123,8 +125,9 @@ void commandDecode(cmdData* command)
             incAccpt = true;
             break;
 
-        case 'C':                   // Set scan sensor
+        case 'C':                   // Set scan sensor enable
             DBGPORT.println ("commandDecode: Set scan sensor command");
+            scn_enable(param1);
             incAccpt = true;
             break;
       

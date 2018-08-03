@@ -16,6 +16,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 extern Telemetry telem;                // The telemetry class
 
+void blinkLed (uint32_t currTimeMsec);
 ///////////////////////////////////////////////////////////////////////////////
 // Constants
 ///////////////////////////////////////////////////////////////////////////////
@@ -88,7 +89,7 @@ int32   veh_turnRadius      = 0;    // cm
 
 Servo   spdServo;                   // Servo controlling vehicle speed
 Servo   trnServo;                   // Servo controlling vehicle steering
-Servo     brkServo;                   // Servo controlling vehicle brake
+Servo   brkServo;                   // Servo controlling vehicle brake
 ///////////////////////////////////////////////////////////////////////////////
 // Templates
 ///////////////////////////////////////////////////////////////////////////////
@@ -207,8 +208,10 @@ void veh_getTelem (uint32 currTimeMsec)
     telem.currSpeed = (uint16) ((lt_linearSpeed + rt_linearSpeed) / 2); 
 
     // Lets put the interrupt step counters in the spares for diagnostics
-    telem.volt1 = lt_nSteps;
-    telem.volt2 = rt_nSteps;    
+    telem.spare1 = lt_nSteps;
+    telem.spare2 = rt_nSteps;     
+    //telem.volt1 = lt_nSteps;
+    //telem.volt2 = rt_nSteps;    
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -303,6 +306,8 @@ void veh_leftWheelInt (void)
     // Calc our new total distance
     lt_totalDist  += VEH_DIST_PER_STEP;
     lt_nSteps++;  
+    
+    blinkLed (0);   
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -317,6 +322,8 @@ void veh_rightWheelInt (void)
     // Calc our new total distance
     rt_totalDist  += VEH_DIST_PER_STEP;
     rt_nSteps++;  
+    
+    blinkLed (0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
