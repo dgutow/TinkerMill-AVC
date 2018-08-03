@@ -37,8 +37,6 @@
 const int ENA       = 10;    //connected to Arduino's port 5(output pwm)
 const int IN1       = 9;     //connected to Arduino's port 10
 const int IN2       = 8;     //connected to Arduino's port 11
-//const int ENC_PIN   = 2;        // Interrupt - scanner encoder
-//const int OPTO_PIN  = 3;        // Interrupt - scanner zero sensor
 
 const int longFront       = A0;    // Analog input - scanner long range sensor
 const int shortFront      = A1;    // Analog input - scanner short range sensor

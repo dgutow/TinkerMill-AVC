@@ -52,7 +52,7 @@ public:
     uint16_t scnDist3;
     uint16_t scnDist4;
     uint16_t switches;
-    uint16_t sensorAng;
+    uint16_t scanAng;
     uint16_t rejectCntr;
     uint16_t rejectReason;
     uint16_t volt1;

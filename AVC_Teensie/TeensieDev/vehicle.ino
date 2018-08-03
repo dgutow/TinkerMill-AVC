@@ -88,7 +88,7 @@ int32   veh_turnRadius      = 0;    // cm
 
 Servo   spdServo;                   // Servo controlling vehicle speed
 Servo   trnServo;                   // Servo controlling vehicle steering
-Servo   brkServo;                   // Servo controlling vehicle brake
+Servo     brkServo;                   // Servo controlling vehicle brake
 ///////////////////////////////////////////////////////////////////////////////
 // Templates
 ///////////////////////////////////////////////////////////////////////////////
@@ -118,8 +118,13 @@ void veh_init()
     pinMode(VEH_START_SWITCH_PIN,INPUT);
     pinMode(VEH_ESTOP_SWITCH_PIN,INPUT);    
     telem.switches = 0;   
+    
+    // Check if the Servos were able to construct successfully
+    // if ( !(spdServo.isOk() && trnServo.isOk()) )
+    // {
+    //     telem.bist = 0xFF;
+    // }
 }
-
 ///////////////////////////////////////////////////////////////////////////////
 // veh_move - start or continue a move command
 ///////////////////////////////////////////////////////////////////////////////

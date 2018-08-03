@@ -46,7 +46,7 @@ void tlm_init ()
    telem.scnDist3       = 0;
    telem.scnDist4       = 0;
    telem.switches       = 0;
-   telem.sensorAng      = 0;
+   telem.scanAng        = 0;
    telem.rejectCntr     = 0;
    telem.rejectReason   = 0;
    telem.volt1          = 0;
