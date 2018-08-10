@@ -23,14 +23,14 @@ void blinkLed (uint32_t currTimeMsec);
 
 // Servo definitions for speed control
 #define SPD_PIN_NUMBER        29
-#define SPD_CONVERSION         5    // Convert from cm/second to microseconds
-#define SPD_MID_PULSEWIDTH  1500    // Servo neutral position
+#define SPD_CONVERSION        63    // Convert from cm/second to microseconds
+#define SPD_MID_PULSEWIDTH  1400    // Servo neutral position (offset = -100)
 #define SPD_MIN_PULSEWIDTH  1000
 #define SPD_MAX_PULSEWIDTH  2000
 
 // Servo definitions for turning servo
 #define TRN_PIN_NUMBER        30
-#define TRN_CONVERSION        -5    // Convert from cm/second to microseconds
+#define TRN_CONVERSION       -25    // Convert from degrees to microseconds
 #define TRN_MID_PULSEWIDTH  1500    // Servo neutral position
 #define TRN_MIN_PULSEWIDTH  1000
 #define TRN_MAX_PULSEWIDTH  2000

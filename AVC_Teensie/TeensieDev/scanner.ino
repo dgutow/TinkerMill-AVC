@@ -172,14 +172,7 @@ void scn_getValues (uint32_t currTime)
     // ADC_ERROR_WRONG_ADC       ADC_ERROR_SYNCH
     
     // Get the angle of the scanner
-    int stepCntr = scn_stepCntr;
-    if (stepCntr != scn_stepCntr)       // Get it again to make sure 
-    {                                   // we werent' interrupted
-        stepCntr = scn_stepCntr;        // An interrupt just occured so 
-    }                                   // it won't occur again this soon.
-    
-    float angle = ((float) stepCntr * 360.0) / ((float) scn_uStepsPerRev);
-    telem.scanAng = (uint16) ( (angle / 10.0) + 0.5 );
+    scn_getAngle ();
 }
 ///////////////////////////////////////////////////////////////////////////////
 // scn_convertLongRange - converts a voltage read from a long range sensor
@@ -268,11 +261,21 @@ int scn_readPair (int sensor1, int sensor2, float* volt1, float* volt2)
 ///////////////////////////////////////////////////////////////////////////////
 int scn_getAngle (void)
 {
-    float   currStepCnt     = (float) scn_stepCntr;   
-    float   numStepsPerRev  = (float) scn_uStepsPerRev / (float) scn_uStepsPerInput;
-    float   currAngle       = currStepCnt * 360 /  numStepsPerRev;
-    int     intCurrAngle    = (int) (currAngle * 100 + 0.5);
-    return (intCurrAngle);
+    int stepCnt = scn_stepCntr;        // Get the a angle count of the scanner
+    if (stepCnt != scn_stepCntr)       // Get it again to make sure 
+    {                                   // we werent' interrupted
+        stepCnt = scn_stepCntr;        // An interrupt just occured so 
+    }                                   // it won't occur again this soon.
+    
+    float angle = ((float) stepCnt * 360.0) / ((float) scn_uStepsPerRev);
+    telem.scanAng = (uint16) stepCnt ; // (uint16) ( (angle / 10.0) + 0.5 );    
+    return stepCnt;
+    
+    //float   currStepCnt     = (float) scn_stepCntr;   
+    //float   numStepsPerRev  = (float) scn_uStepsPerRev / (float) scn_uStepsPerInput;
+    //float   currAngle       = currStepCnt * 360 /  numStepsPerRev;
+    //int     intCurrAngle    = (int) (currAngle * 100 + 0.5);
+    //return (intCurrAngle);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
