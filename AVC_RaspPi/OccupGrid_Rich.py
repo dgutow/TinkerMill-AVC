@@ -199,6 +199,23 @@ class Histogram(object):
         costGrid = np.multiply(np.flip(np.array(costArray), axis=0), self.getScanMatrix(grid))
 
         return self.scanCostGrid(costGrid)
+    
+    def getAngle(self, array, nearest):
+        array = np.array(array)
+        minCostSum = np.amin(array[:,1]) # get the slices with the minimum cost...
+        
+        array = array[np.where(array[:,1] == minCostSum)[0]][:,0]
+        
+        # if there are multiple paths, pick the one closest to "nearest angle"
+        closestAngle = array[(np.abs(array - nearest)).argmin()]
+        
+        angFactor = 1 if (closestAngle > 0) else -1
+        
+        furthestAngle = array[(np.abs(array - angFactor * self.scanAngle)).argmin()]
+        
+        angle = closestAngle + angFactor * (abs(furthestAngle - closestAngle) / 2)
+        
+        return angle
         
     pass
 
@@ -210,29 +227,45 @@ if __name__ == '__main__':
 #     g.enterRange (35, -10, 20, 10)  # Resulting point should be at (43.92, 54.47)  
 #     g.enterRange (25,  10, 20, 10)  # Resulting point should be at (61.18, 43.41) 
     
-    # KEEP OPENING BETWEEN -30 and -15 degrees
-    for i in range(-60, 10, 1):
+    # KEEP OPENING BETWEEN -40 and -30 degrees and 15 to 25 degrees
+    for i in range(-60, -40, 1):
+        for j in range(200, 300, 10):
+            g.enterRange(0, 0, j, i)
+    
+    for i in range(-20, 10, 1):
+        for j in range(200, 300, 10):
+            g.enterRange(0, 0, j, i)
+            
+    for i in range(35, 60, 1):
         for j in range(100, 300, 10):
             g.enterRange(0, 0, j, i)
     
-    for i in range(45, 60, 1):
-        for j in range(100, 300, 10):
-            g.enterRange(0, 0, j, i)
+    
+#     for i in range(-40, -30, 1):
+#         g.enterRange(0, 0, 350, i)
+        
+#     for i in range(15, 30, 1):
+#         g.enterRange(0, 0, 350, i)
     
 #     g.graphGrid ("AFTER POINTS ENTERED:", 4, False, False 
 #     g.printGrid("\nAFTER POINTS ENTERED:") 
     
     np.set_printoptions(precision=3, linewidth=2000, threshold=np.nan)
-#     x = g.getGrid()
-#     print(x)
-#     print("")
-    
+    # scanAngle or "Cone": +/- (deg)
+    # angDelta or "Slice": (deg)
+    # minCost - smallest cost to display representing no object detected (recommended set to 0)
+    # maxCost - largest cost to display representing imminent collision (recommended set to 9 max)
     h = Histogram(origin=[0.5 * g.nCols * g.resolution, 0], scanAngle=45, angDelta=5, minCost=0, maxCost=5)
-
-    hist = h.calcHist(g)
     
-#     print(np.flip(np.array([[h.getCost(x, y, g) for y in range(g.nCols)] for x in range(g.nRows)]), axis=0))
+    # Display Cost Grid 
+#     print(np.flip(np.array([[h.getCost(x, y, g) for y in range(g.nCols)] for x in range(g.nRows)]), axis = 0))
 #     print("")
-    print(hist)
-    print("")    
-    print(hist[np.argmin(hist, axis = 0)[1]][0])
+    # Display Cost Array
+#     print(np.array(h.calcHist(g)))
+#     print("")
+    
+    # OUTPUT
+    output = h.getAngle(h.calcHist(g), 0)
+    
+    print(output)
+    
