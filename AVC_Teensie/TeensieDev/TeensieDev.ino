@@ -71,10 +71,10 @@ void blinkLed        (uint32_t currTimeMsec);
 ///////////////////////////////////////////////////////////////////////////////
 task taskList[] = { {checkForCmds,        20,     0,      0}, // did we get a new command?
                     {veh_check,           50,     0,      0}, // continual servicing of vehicle systems
-                    {scn_getValues,       40,     0,      0},   
+                    {scn_getValues,        2,     0,      0},   
                     {cam_getTelem,        40,     0,      0},                     
                     {veh_getTelem,        40,     0,      0},                                                  
-                    {tlm_sendToHost,      40,     1,      0},
+                    {tlm_sendToHost,      10,     1,      0},
                     //{hb_check,          10,     1,      0}, // check// get the side sensor values                      
                     //{blinkLed,           500,     1,      0},                    
                     }; 
@@ -117,13 +117,14 @@ void setup()
    initExecuteTasks ();
     
    // Original setup code - Connect all the devices to their respective pins
-   pinMode(ENA,OUTPUT);//output
-   pinMode(IN1,OUTPUT);
-   pinMode(IN2,OUTPUT);
-
-   analogWrite (ENA,0);
-   digitalWrite(IN1,LOW); 
-   digitalWrite(IN2,HIGH);//setting motorA's directon
+   // All OBE
+   // pinMode(ENA,OUTPUT);//output
+   // pinMode(IN1,OUTPUT);
+   // pinMode(IN2,OUTPUT);
+   // 
+   // analogWrite (ENA,0);
+   // digitalWrite(IN1,LOW); 
+   // digitalWrite(IN2,HIGH);//setting motorA's directon
    
    // Enable the LED for blinking
    pinMode(TEENSIE_LED, OUTPUT);

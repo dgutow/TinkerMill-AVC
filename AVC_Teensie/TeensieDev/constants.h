@@ -25,8 +25,8 @@
 // The serial ports
 ///////////////////////////////////////////////////////////////////////////////
 #define RPIPORT   Serial         // Serial port connected to the Raspberry Pi 
-#define DBGPORT   Serial1        // Serial port for textual debugging
-#define ESPPORT   Serial2        // Serial port connected to the ESP8266
+#define DBGPORT   Serial2        // Serial port for textual debugging
+#define TFPORT    Serial1        // Serial port connected to the TFMini
 
 ///////////////////////////////////////////////////////////////////////////////
 // Pin assignments
@@ -34,10 +34,10 @@
 #define MOTOR_BATT_PIN_NUMBER       A8  // batteries supplying drive motor
 #define ELECT_BATT_PIN_NUMBER       A9  // batteries supplying the electronics
 
-const int ENA       = 10;    //connected to Arduino's port 5(output pwm)
-const int IN1       = 9;     //connected to Arduino's port 10
-const int IN2       = 8;     //connected to Arduino's port 11
-
+//const int ENA       = 10;    //connected to Arduino's port 5(output pwm)
+//const int IN1       = 9;     //connected to Arduino's port 10
+//const int IN2       = 8;     // reset the stepper driver
+//
 const int longFront       = A0;    // Analog input - scanner long range sensor
 const int shortFront      = A1;    // Analog input - scanner short range sensor
 

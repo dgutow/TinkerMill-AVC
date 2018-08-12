@@ -6,7 +6,7 @@
 // Header files
 ///////////////////////////////////////////////////////////////////////////////
 #include <StepControl.h>
-// #include <ADC.h>
+#include <ADC.h>
 #include <math.h>
 #include "telemetry.h"
 #include "scanner.h"
@@ -44,6 +44,9 @@ const int SCN_DEBUG    = 0;       // Eliminate dag
 ///////////////////////////////////////////////////////////////////////////////
 // local global variables
 ///////////////////////////////////////////////////////////////////////////////
+extern  ADC *adc;                       // The ADC class
+extern  ADC::Sync_result result;
+extern  ADC::Sync_result result1;
 
 Stepper motor(SCN_MOTOR1, SCN_MOTOR2);  // The stepper motor object
 StepControl<> controller;               // The step controller
@@ -86,6 +89,14 @@ void scn_init ()
     
     pinMode(SCN_STEP_PULSE, INPUT_PULLUP);
     pinMode(SCN_ZERO_PULSE, INPUT);   
+
+    // Setup the ADC
+    adc->setReference(ADC_REFERENCE::REF_3V3, ADC_0);
+    adc->setReference(ADC_REFERENCE::REF_3V3, ADC_1);
+    adc->setResolution(12, ADC_0);
+    adc->setResolution(12, ADC_1);
+    adc->setAveraging (16, ADC_0);
+    adc->setAveraging (16, ADC_1);
     
     // The TFMini is initialized in the class constructor
     TFPORT.begin(115200);    
@@ -144,27 +155,95 @@ void scn_getValues (uint32_t currTime)
         // Get the angle of the scanner
         scn_getAngle ();  
         counter = 0;        
-        
-        // We ostensibly have a valid packet from the TFMini.  Lets check
-        if (tfmini.rangeMsg.msg.strength == 0)
+    }
+    else if (counter++ % 5 == 0)
+    {
+        telem.scnDist1 = counter;
+        telem.scnDist2 = retVal;
+        telem.scnDist3 = tfmini.nResync;
+        telem.scnDist4 = tfmini.nDropped;  
+    } 
+
+}
+///////////////////////////////////////////////////////////////////////////////
+// scn_convertLongRange - converts a voltage read from a long range sensor
+// (Sharp GY2Y0A710K - 100 to 550 cm) to a distance (cm)
+///////////////////////////////////////////////////////////////////////////////
+uint16_t scn_convertLongRange(float voltage)
+{
+    float dist = (-181.82 * voltage) + 554.55;   
+    return ( (uint16_t) (dist + 0.5) );
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// scn_convertShortRange - converts a voltage read from a short range sensor
+// (Sharp GY2Y0AnnnK - 20 to 150 cm) to a distance (cm)
+///////////////////////////////////////////////////////////////////////////////
+uint16_t scn_convertShortRange(float voltage)
+{
+    float dist = (-75.0 * voltage) + 180;    
+    return ( (uint16_t) (dist + 0.5) );
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// scn_readPair - reads a coupled pair of ADC channels, either the two left
+// or two right IR sensors
+///////////////////////////////////////////////////////////////////////////////
+int scn_readPair (int sensor1, int sensor2, float* volt1, float* volt2)
+{
+        // reads both sensors at the same time
+    if (adc->startSynchronizedSingleRead(sensor1, sensor2))
+    {
+        while (adc->isConverting(ADC_0) || adc->isConverting(ADC_1))
         {
-            // This seems to be an indicator of bad data
-            tfmini.reset();
+            ;               // wait for conversions to complete
+        }
+        
+        ADC::Sync_result result = adc->readSynchronizedSingle();
+        
+        // orig code
+        //float sensor1val = map(result.result_adc0, 0, adc->getMaxValue(ADC_0), 0, 5000);
+        //float sensor2val = map(result.result_adc1, 0, adc->getMaxValue(ADC_1), 0, 5000);
+        //*dist1 = 1.0 / (((sensor1val - 1125.0) / 1000.0) / 137.5);
+        //*dist2 = 1.0 / (((sensor2val - 1125.0) / 1000.0) / 137.5);
+        
+        // Convert ADC counts to milli-volts
+        uint32 v1 = map(result.result_adc0, 0, adc->getMaxValue(ADC_0), 0, 5000);
+        uint32 v2 = map(result.result_adc1, 0, adc->getMaxValue(ADC_1), 0, 5000); 
+        *volt1 = ((float) (v1)) / 1000.0;
+        *volt2 = ((float) (v2)) / 1000.0;
+    }
+    
+    // Any error occur?
+    int failFlag0 = adc->adc0->fail_flag;
+    if (failFlag0) 
+    {
+        DBGPORT.print("ADC0 error flags: 0x");
+        DBGPORT.println(failFlag0, HEX);
+        if (failFlag0 == ADC_ERROR_COMPARISON) 
+        {
+            adc->adc0->fail_flag &= ~ADC_ERROR_COMPARISON; // clear that error
+            DBGPORT.println("Comparison error in ADC0");
         }
     }
-    else
+    
+#   if ADC_NUM_ADCS>1
+    int failFlag1 = adc->adc1->fail_flag;
+    if (failFlag1) 
     {
-        // Not enough characters in buffer
-        counter++;
-        
-        if (counter++ % 50 == 0)
+        DBGPORT.print("ADC1 error flags: 0x");
+        DBGPORT.println(failFlag1, HEX);
+        if (failFlag1 == ADC_ERROR_COMPARISON) 
         {
-            telem.scnDist1 = 1234;
-            telem.scnDist2 = retVal;
-            telem.scnDist3 = tfmini.nResync;
-            telem.scnDist4 = tfmini.nDropped;  
-        } 
+            adc->adc1->fail_flag &= ~ADC_ERROR_COMPARISON; // clear that error
+            DBGPORT.println("Comparison error in ADC1");
+        }
     }
+    
+    return (failFlag0 | failFlag1);   
+#   else
+    return (failFlag0);  
+#   endif
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -254,3 +333,42 @@ void scn_stepIsr (void)
 ///////////////////////////////////////////////////////////////////////////////
 // DEAD CODE
 ///////////////////////////////////////////////////////////////////////////////
+#if 0    
+    int   errorFlag = 0;
+    float sensor1   = 0;
+    float sensor2   = 0;
+    float sensor3   = 0;
+    float sensor4   = 0;
+    
+    // reads sensor 1 @ 0 degrees, sensor 2 @ 90 degrees.
+    errorFlag = scn_readPair (SCN_SENSOR1, SCN_SENSOR2, &sensor1, &sensor2);
+    if (~errorFlag)
+    {
+        telem.scnDist1 = scn_convertLongRange(sensor1);
+        telem.scnDist2 = scn_convertShortRange(sensor2); 
+    }
+    else
+    {
+        telem.scnDist1 = 0;
+        telem.scnDist2 = 0; 
+    }
+    // reads sensor 3 @ 180 degrees, sensor 3 @ 270 degrees.
+    errorFlag = scn_readPair (SCN_SENSOR3, SCN_SENSOR4, &sensor3, &sensor4);
+    if (~errorFlag)
+    {
+        telem.scnDist3 = scn_convertLongRange(sensor3);
+        telem.scnDist4 = scn_convertShortRange(sensor4);
+    }
+    else
+    {
+        telem.scnDist3 = 0;
+        telem.scnDist4 = 0; 
+    }  
+    // Fail_flag contains all possible errors.  These are bit masks?
+    // They are defined in  ADC_Module.h as
+    // ADC_ERROR_OTHER           ADC_ERROR_CALIB
+    // ADC_ERROR_WRONG_PIN       ADC_ERROR_ANALOG_READ
+    // ADC_ERROR_COMPARISON      ADC_ERROR_ANALOG_DIFF_READ
+    // ADC_ERROR_CONT            ADC_ERROR_CONT_DIFF
+    // ADC_ERROR_WRONG_ADC       ADC_ERROR_SYNCH
+#endif
