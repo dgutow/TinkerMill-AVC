@@ -204,7 +204,7 @@ class Histogram(object):
     def getAngle(self, array, nearest):
         array = np.array(array)
         minCostSum = np.amin(array[:,1]) # get the slices with the minimum cost...
-
+        print(minCostSum)
         array = array[np.where(array[:,1] == minCostSum)[0]][:,0]
 
         # if there are multiple paths, pick the one closest to "nearest angle"
@@ -221,10 +221,13 @@ class Histogram(object):
     pass
 
 if __name__ == '__main__':
-    # RPLIDAR A2 scanner radius is 4 meters max
-    maxWidth = 8 # meters
+
+    np.set_printoptions(precision=3, linewidth=2000, threshold=np.nan, suppress=True)
+
+    # RPLIDAR A2 scanner radius is 12 meters max
+    maxWidth = 16 # meters
     desired_columns = 60
-    res = (maxWidth * 100) / desired_columns # cm/col
+    res = (maxWidth * 100) / desired_columns # cm/Grid
 
     g = Grid(resolution=res, nRows=desired_columns, nCols=desired_columns, distance=0, angle=0)
 
@@ -249,25 +252,25 @@ if __name__ == '__main__':
 
     s = LIDAR(portname='/dev/ttyUSB0')
 
-    for j in range(2):
+    for j in range(10):
         obstacles = s.scan() # returns an array of one rotation of obstacles
 
         for i in obstacles:
             g.enterRange(0, 0, i[1] / 10, i[0])
 
-    np.set_printoptions(precision=3, linewidth=2000, threshold=np.nan)
+
     # scanAngle or "Cone": +/- (deg)
     # angDelta or "Slice": (deg)
     # minCost - smallest cost to display representing no object detected (recommended set to 0)
     # maxCost - largest cost to display representing imminent collision (recommended set to 9 max)
-    h = Histogram(origin=[0.5 * g.nCols * g.resolution, 0], scanAngle=45, angDelta=5, minCost=0, maxCost=9)
+    h = Histogram(origin=[0.5 * g.nCols * g.resolution, 0], scanAngle=45, angDelta=3, minCost=0, maxCost=9)
 
-    # Display Cost Grid
-    print(np.flip(np.array([[h.getCost(x, y, g) for y in range(g.nCols)] for x in range(g.nRows)]), axis = 0))
-    print("")
-    # Display Cost Array
-    print(np.array(h.calcHist(g)))
-    print("")
+    # # Display Cost Grid
+    # print(np.flip(np.array([[h.getCost(x, y, g) for y in range(g.nCols)] for x in range(g.nRows)]), axis = 0))
+    # print("")
+    # # Display Cost Array
+    # print(np.array(h.calcHist(g)))
+    # print("")
 
     # OUTPUT
     output = h.getAngle(h.calcHist(g), 0)

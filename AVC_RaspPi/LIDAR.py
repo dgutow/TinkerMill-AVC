@@ -28,7 +28,7 @@ class LIDAR(object):
 
             if i > 360:
                break
-               
+
         lidar.stop()
         lidar.stop_motor()
         lidar.disconnect()
