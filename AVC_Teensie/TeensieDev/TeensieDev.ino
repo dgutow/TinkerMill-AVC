@@ -15,9 +15,8 @@
 #include "camera.h"
 
 #ifdef TEENSIE_35
-
-//	#include "scanner.h"
-	#include "sideSensors.h"
+#include "scanner.h"
+//	#include "sideSensors.h"
 //	#include "nineDof.h"
 #endif
 
@@ -56,8 +55,6 @@ void sendTelemToEsp  (uint32_t currTimeMsec);
 void sendTelemToHost (uint32_t currTimeMsec); 
 void blinkLed        (uint32_t currTimeMsec);
 
-void adc_init();              // initialize the ADC system
-
 ///////////////////////////////////////////////////////////////////////////////
 // taskList - An array of 'task's that are initialized to the list of functions
 // to run and the interval to run them.
@@ -74,13 +71,12 @@ void adc_init();              // initialize the ADC system
 ///////////////////////////////////////////////////////////////////////////////
 task taskList[] = { {checkForCmds,        20,     0,      0}, // did we get a new command?
                     {veh_check,           50,     0,      0}, // continual servicing of vehicle systems
-                    {sid_getValues,       25,     0,      0},   
-                    //{hb_check,          10,     1,      0}, // check// get the side sensor values  
-                    {cam_getTelem,       200,     0,      0},                     
-                    {veh_getTelem,       200,     0,      0},                                                  
-                    {tlm_sendToHost,     200,     1,      0},
-                    //{tlm_sendToEsp,     1000,   0,      0},
-                    {blinkLed,           500,     1,      0},                    
+                    {scn_getValues,        2,     0,      0},   
+                    {cam_getTelem,        40,     0,      0},                     
+                    {veh_getTelem,        40,     0,      0},                                                  
+                    {tlm_sendToHost,      10,     1,      0},
+                    //{hb_check,          10,     1,      0}, // check// get the side sensor values                      
+                    //{blinkLed,           500,     1,      0},                    
                     }; 
 
 #if 0
@@ -111,8 +107,8 @@ void setup()
    tlm_init ();              // Initialize the serial ports - must be done first!
    veh_init();
    cam_init ();
-   
-   sid_init();   
+   scn_init();      
+
    //adc_init ();            // initialize the ADC system   
    //scn_init ();            // Initialize the scanner
    //sts_init ();            // initialize the battery status's   
@@ -121,13 +117,14 @@ void setup()
    initExecuteTasks ();
     
    // Original setup code - Connect all the devices to their respective pins
-   pinMode(ENA,OUTPUT);//output
-   pinMode(IN1,OUTPUT);
-   pinMode(IN2,OUTPUT);
-
-   analogWrite (ENA,0);
-   digitalWrite(IN1,LOW); 
-   digitalWrite(IN2,HIGH);//setting motorA's directon
+   // All OBE
+   // pinMode(ENA,OUTPUT);//output
+   // pinMode(IN1,OUTPUT);
+   // pinMode(IN2,OUTPUT);
+   // 
+   // analogWrite (ENA,0);
+   // digitalWrite(IN1,LOW); 
+   // digitalWrite(IN2,HIGH);//setting motorA's directon
    
    // Enable the LED for blinking
    pinMode(TEENSIE_LED, OUTPUT);
@@ -184,23 +181,6 @@ void blinkLed (uint32_t currTimeMsec)
     blinkVal = 0;
   }
 }
-
-///////////////////////////////////////////////////////////////////////////////
-// adc_init - initialize the ADC system 
-// system.
-/////////////////////////////////////////////////////////////////////////////// 
-void adc_init ()
-{
-#  ifdef TEENSIE_35
-   adc->setReference (ADC_REFERENCE::REF_3V3, ADC_0);
-   adc->setReference (ADC_REFERENCE::REF_3V3, ADC_1);
-   adc->setResolution (12, ADC_0);
-   adc->setResolution (12, ADC_1);
-   adc->setAveraging  (16, ADC_0);
-   adc->setAveraging  (16, ADC_1);
-#  endif  
-}
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // 

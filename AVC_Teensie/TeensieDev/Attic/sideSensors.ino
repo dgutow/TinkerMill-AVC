@@ -19,10 +19,10 @@ extern Telemetry telem;                // The telemetry class
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifdef TEENSIE_35
-    const int distanceRF    = A15;  // Analog input - right front range sensor
-    const int distanceRR    = A12;  // Analog input - right rear range sensor
-    const int distanceLF    = A14;  // Analog input - left front range sensor
-    const int distanceLR    = A13;  // Analog input - left rear range sensor
+#define SCN_SENSOR1     A15     // Pin for sensor 0 (~0 degrees)
+#define SCN_SENSOR2     A12     // Pin for sensor 1 (~90 degrees)
+#define SCN_SENSOR3     A14     // Pin for sensor 2 (~180 degrees)
+#define SCN_SENSOR4     A13     // Pin for sensor 3 (~270 degrees)
 #endif
 
 const int IR_DEBUG = 0;
@@ -58,49 +58,49 @@ void sid_init ()
 void sid_getValues (uint32_t currTime)
 {
     int errorFlag = 0;
-    int rightFront= 0;
-    int rightRear = 0;
-    int leftFront = 0;
-    int leftRear  = 0;
+    int sensor1   = 0;
+    int sensor2   = 0;
+    int sensor3   = 0;
+    int sensor4   = 0;
     
     // reads both front and rear sensors on the right side
-    errorFlag = sid_readPair (distanceRF, distanceRR, &rightFront, &rightRear);
+    errorFlag = sid_readPair (SCN_SENSOR1, SCN_SENSOR2, &sensor1, &sensor2);
     if (~errorFlag)
     {
-        telem.scnDist1 = rightFront;
-        telem.scnDist2 = rightRear; 
+        telem.scnDist1 = sensor1;
+        telem.scnDist2 = sensor2; 
     }
     
     if (IR_DEBUG == 1)
     {
         DBGPORT.print("Pin: ");
-        DBGPORT.print(distanceRF);
+        DBGPORT.print(sensor1);
         DBGPORT.print(", value ADC0: ");
-        DBGPORT.println(rightFront);
+        DBGPORT.println(sensor1);
         DBGPORT.print("Pin: ");
-        DBGPORT.print(distanceRR);
+        DBGPORT.print(sensor1);
         DBGPORT.print(", value ADC1: ");
-        DBGPORT.println(rightRear); 
+        DBGPORT.println(sensor2); 
     }
     
     // reads both front and rear sensors on the left side
-    errorFlag = sid_readPair (distanceLF, distanceLR, &leftFront, &leftRear);
+    errorFlag = sid_readPair (SCN_SENSOR3, SCN_SENSOR4, &sensor3, &sensor4);
     if (~errorFlag)
     {
-        telem.irLF = scnDist3;
-        telem.irLR = scnDist4; 
+        telem.scnDist1 = sensor3;
+        telem.scnDist2 = sensor4; 
     }
     
     if (IR_DEBUG == 1)
     {
         DBGPORT.print("Pin: ");
-        DBGPORT.print(distanceLF);
+        DBGPORT.print(sensor3);
         DBGPORT.print(", value ADC0: ");
-        DBGPORT.println(leftFront);
+        DBGPORT.println(sensor3);
         DBGPORT.print("Pin: ");
-        DBGPORT.print(distanceLR);
+        DBGPORT.print(sensor4);
         DBGPORT.print(", value ADC1: ");
-        DBGPORT.println(leftRear); 
+        DBGPORT.println(sensor4); 
     }
   
     /* fail_flag contains all possible errors,

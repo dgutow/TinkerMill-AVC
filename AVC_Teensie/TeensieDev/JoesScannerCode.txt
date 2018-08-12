@@ -80,12 +80,12 @@ void setup()
   pinMode(M0, OUTPUT);
   pinMode(M1, OUTPUT);
   pinMode(M2, OUTPUT);
-  pinMode(2, OUTPUT);
-  pinMode(3, OUTPUT);
-  pinMode(4, INPUT_PULLUP);
+  pinMode(2, OUTPUT);           // motor 1
+  pinMode(3, OUTPUT);           // motor 2
+  pinMode(4, INPUT_PULLUP);     // step interrupt
   pinMode(AtHome, INPUT);
-  pinMode(t1, OUTPUT);
-  pinMode(t2, OUTPUT);
+  pinMode(t1, OUTPUT);           // TIME_STEP_PIN
+  pinMode(t2, OUTPUT);           // TIME_ADC_PIN
 
 atHome = 0;
 step_active = 0;
@@ -114,7 +114,7 @@ step_active = 0;
   attachInterrupt(4, step_isr, RISING);
   attachInterrupt(AtHome, home_isr, FALLING);
   // setup motor
-  motor.setMaxSpeed(1600);          //
+  motor.setMaxSpeed(1600);          // pulses/steps per second
   motor.setAcceleration(800);       //
   motor.setInverseRotation(true);   //
   motor.setPullInSpeed(100);        //

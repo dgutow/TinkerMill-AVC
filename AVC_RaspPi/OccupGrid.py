@@ -302,13 +302,17 @@ class Histogram(object)
 ###############################################################################
 # Test code
 ###############################################################################
+from graphics import *
+
 if __name__ == '__main__':
     g = Grid(resolution=10, nCols=10, nRows=9, distance=0, angle=0)
     g.enterRange (35, -10, 0,  10)  # Resulting point should be at (43.92, 34.47)
     g.enterRange (00,  0, 35, -10)  # Resulting point should be at (43.92, 34.47)    
     g.enterRange (35, -10, 20, 10)  # Resulting point should be at (43.92, 54.47)  
-    g.enterRange (25,  10, 20, 10)  # Resulting point should be at (61.18, 43.41) 
-    g.graphGrid ("AFTER POINTS ENTERED:", 4, False, False)
+    g.enterRange (25,  10, 20, 10)  # Resulting point should be at (61.18, 43.41)
+    g.enterRange (0, 0, 45, -90)
+    g.printGrid("")
+    #g.graphGrid ("AFTER POINTS ENTERED:", 50, False, False)
 
 
 

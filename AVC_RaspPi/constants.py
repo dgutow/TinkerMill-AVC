@@ -17,8 +17,8 @@ SIM_TEENSY	= False            # When there is a communicating Teensy
 ###############################################################################
 #RPI_IPADDR   = "127.0.0.1"
 #GUI_IPADDR   = 'localhost'       
-#GUI_IPADDR   = '10.2.124.96'       # TM wifi
-#GUI_IPADDR   = '192.168.4.100'    # 8266 access point
+#GUI_IPADDR   = '10.2.124.96'   # TM wifi
+#GUI_IPADDR   = '192.168.4.100' # 8266 access point
 
 #RPI_IPADDR   = '10.2.124.96'      # the Rpi
 #UDP_IPADDR   = '10.2.122.53'      # laptop

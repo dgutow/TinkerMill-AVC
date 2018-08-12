@@ -26,11 +26,7 @@ void tlm_init ()
 {
    // Initialize the serial ports 
    RPIPORT.begin(115200);
-   DBGPORT.begin(115200);
-   
-#  ifdef TEENSIE_35    
-    ESPPORT.begin(115200);
-#  endif   
+   DBGPORT.begin(115200);  
    
    // initialize the structure
    telem.pktId          = 0x44454144;
@@ -46,7 +42,7 @@ void tlm_init ()
    telem.scnDist3       = 0;
    telem.scnDist4       = 0;
    telem.switches       = 0;
-   telem.sensorAng      = 0;
+   telem.scanAng        = 0;
    telem.rejectCntr     = 0;
    telem.rejectReason   = 0;
    telem.volt1          = 0;
@@ -79,14 +75,5 @@ void tlm_sendToHost (uint32_t currTime)
 ///////////////////////////////////////////////////////////////////////////////
 void tlm_sendToEsp (uint32_t currTime)
 {
-#ifdef TEENSIE_35    
-  ESPPORT.print   ("Bytes Sent: ");   ESPPORT.println (nBytesSent);
-  ESPPORT.print   ("Current Time: "); ESPPORT.println(telem.time);
-  ESPPORT.print   ("Mode: ");         ESPPORT.println(telem.currMode);
-  ESPPORT.print   ("Accept Count: "); ESPPORT.println(telem.acceptCntr);
-  ESPPORT.print   ("Distance 1: ");   ESPPORT.println(telem.scnDist1);
-  ESPPORT.print   ("Distance 2: ");   ESPPORT.println(telem.scnDist2);
-  ESPPORT.print   ("Distance 3: ");   ESPPORT.println(telem.scnDist3);
-  ESPPORT.print   ("Distance 4: ");   ESPPORT.println(telem.scnDist4);  
-#endif  
+    ;
 }
