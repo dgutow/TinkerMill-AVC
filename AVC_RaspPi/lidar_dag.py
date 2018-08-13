@@ -3,39 +3,51 @@ from rplidar import RPLidar
 import time
 
 
-#PORT_NAME = '/dev/ttyUSB0'
+PORT_NAME = '/dev/ttyUSB0'
 
 
 ###############################################################################
 # scan 
 ############################################################################### 
 def scan():
-    lidar = RPLidar(portname)
+    lidar = RPLidar(PORT_NAME )
+    #info = lidar.get_info()
+    #print (info)
+    
+    lidar.start_motor()
+    scandata = lidar.iter_scans()
+    
     
     while (True): 
         
         time.sleep (0.1)  
         
         curr_time = time.time()
-        print ( "MAIN_LOOP - curr_time %f\n" % (curr_time) )
+        print ( "MAIN_LOOP - pre_time %f\n" % (curr_time) )
+        #scan =  lidar.iter_scans()
+        meas = next(scandata)
+        #for meas in scan:
         
+        print (len(meas))
+        #print ( "MAIN_LOOP - number of meas %d\n" % (len(scan) )       )
+        #meas =  scan[0]
+        #print (list)
+        print ( "MAIN_LOOP - post_time %f\n" % (curr_time) )
+
     
     
-    
-    
-    
-    
-    
-###############################################################################
+##################################################################an()    
+#############
 # stopScan 
-###############################################################################    
+###############################################################################   
+""" 
 def stopScan():
     lidar = RPLidar(portname) 
     lidar.stop()
     lidar.stop_motor()
     lidar.disconnect()   
 # end stopScan    
-
+"""
 ###############################################################################
 # MAIN-LOOP EXECUTION
 ###############################################################################
