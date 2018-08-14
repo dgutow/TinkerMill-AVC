@@ -5,87 +5,118 @@ import time
 
 PORT_NAME = '/dev/ttyUSB0'
 
-
+lidar    = None
+scandata = None
+scan_iter= None
 ###############################################################################
-# scan 
+# init_scan0
 ############################################################################### 
-def scan():
+'''def init_scan0():
+    global scandata
+    global lidar
+    
     lidar = RPLidar(PORT_NAME )
     #info = lidar.get_info()
     #print (info)
     
     lidar.start_motor()
     scandata = lidar.iter_scans()
+#end init_scan    
+'''
+###############################################################################
+# init_scan1 
+############################################################################### 
+def init_scan1():
+    global scandata
+    global lidar
+    global scan_iter
     
+    lidar = RPLidar(PORT_NAME )
+    #info = lidar.get_info()
+    #print (info)
+    
+    lidar.start_motor()
+    #scan_iter = lidar.iter_measures()
+#end init_scan    
+    
+###############################################################################
+# scan0 
+############################################################################### 
+'''def scan0():
+
+    while (True): 
+        
+        time.sleep (0.2)  
+        
+        curr_time = time.time()
+        print ( "------------- PRE-TIME %f" % (curr_time) )
+        meas = next(scandata)
+        nMeas = len(meas)
+        print ( "nMeas %d" % (nMeas) )
+        #print (meas[0])
+
+        print ( "measure time %f\n" % ( time.time() - curr_time ) )
+#end scan()    
+'''    
+###############################################################################
+# scan1 
+############################################################################### 
+def scan1():
+    global scan_iter
     
     while (True): 
         
-        time.sleep (0.1)  
+        time.sleep (0.2)  
         
         curr_time = time.time()
-        print ( "MAIN_LOOP - pre_time %f\n" % (curr_time) )
-        #scan =  lidar.iter_scans()
-        meas = next(scandata)
-        #for meas in scan:
+        print ( "------------- PRE-TIME %f" % (curr_time) )
         
-        print (len(meas))
-        #print ( "MAIN_LOOP - number of meas %d\n" % (len(scan) )       )
-        #meas =  scan[0]
-        #print (list)
-        print ( "MAIN_LOOP - post_time %f\n" % (curr_time) )
-
+        new_cnt = 0
+        old_cnt = 0                              
+        scan_list = []
+        iterator = lidar.iter_measures('normal', 3000)
+        for new_scan, quality, angle, distance in iterator:
+            if new_scan:
+                new_cnt += 1
+                if len(scan_list) > 5:
+                    break
+            else:
+                old_cnt += 1                                    
+            if distance > 0:
+                scan_list.append((quality, angle, distance))                
+                
+                
+                
+                
+                
+        print ( "new_cnt %d old_cnt %d" % (new_cnt, old_cnt) )
+        print ( "measure time %f\n" % ( time.time() - curr_time ) )
+    # end while
+            
+#end scan()        
     
-    
-##################################################################an()    
-#############
+###############################################################################
 # stopScan 
 ###############################################################################   
-""" 
 def stopScan():
-    lidar = RPLidar(portname) 
-    lidar.stop()
-    lidar.stop_motor()
-    lidar.disconnect()   
+    if lidar != None:
+        lidar.stop()
+        lidar.stop_motor()
+        lidar.disconnect()   
 # end stopScan    
-"""
+
 ###############################################################################
-# MAIN-LOOP EXECUTION
+# MAIN-LOOP TESTING
 ###############################################################################
 if __name__ == "__main__":
-    ##### TEST # 1 
-    #initializations()
-    scan()    
+    init_scan1()
+    try:
+        scan1() 
+    except:
+        pass
+        
+    stopScan()    
+        
 # end    
 
-"""
-class LIDAR(object):
-    def __init__(self, portname):
-        self.portname = portname
 
-    def scan(self):
-        pointCloud = []
-        lidar = RPLidar(self.portname)
-
-        for i, measurement in enumerate(lidar.iter_measures()):
-            for j, v in enumerate(measurement):
-                if j == 0:
-                    newscan = v
-                if j == 1:
-                    quality = v
-                if j == 2:
-                    angle = v
-                if j == 3:
-                    length = v
-
-            # change angle to match orientation of vehicle
-            angle = -1 * (angle - 90)
-
-            pointCloud.append([angle, length])
-
-            if i > 360:
-               break
-
-
-
-        return pointCloud
-"""
