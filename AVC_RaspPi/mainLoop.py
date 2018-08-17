@@ -114,7 +114,7 @@ def mainLoop():
         # Get the iop telemetry msgs and parse into state structure
         iopMsg = get_iopTlm (loopCntr)
         #if (len(iopMsg) != 0):              
-        #    guiIf.send_iopTlm (iopMsg)
+        #    guiIf.send_iopTlm (iopMsg) done in get_iopTlm now
 
         # Get the vision temetry msgs and parse into state structure        
         #visMsg = getVisionTelemetry()
@@ -157,10 +157,9 @@ def get_iopTlm(loopCntr):
         msg = IopTlmQueue.get_nowait()
         #printOut("MAINLOOP:GET_IOPTLM - msg length (%d)" % ( len(msg)) )
         #printOut("MAINLOOP:GET_IOPTLM - got msg (%s)" % ( msg) )
-        time = proc_iopTlm(msg)     
-                    
+        time = proc_iopTlm(msg)                  
         guiIf.send_iopTlm (msg)         # dag - send every pkt to gui
-           
+    
         tlm_cnt += 1
     # end while
 

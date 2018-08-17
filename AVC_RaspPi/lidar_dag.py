@@ -12,7 +12,7 @@ scan_iter= None
 ###############################################################################
 # init_scan 
 ############################################################################### 
-def init_scan():
+def init_lidar_scan():
     global lidar
     global scandata
     global scan_iter
@@ -24,30 +24,11 @@ def init_scan():
     lidar.start_motor()
     #scan_iter = lidar.iter_measures()
 #end init_scan    
-    
-###############################################################################
-# scan0 
-############################################################################### 
-'''def scan0():
-
-    while (True): 
-        
-        time.sleep (0.2)  
-        
-        curr_time = time.time()
-        print ( "------------- PRE-TIME %f" % (curr_time) )
-        meas = next(scandata)
-        nMeas = len(meas)
-        print ( "nMeas %d" % (nMeas) )
-        #print (meas[0])
-
-        print ( "measure time %f\n" % ( time.time() - curr_time ) )
-#end scan()    
-'''    
+       
 ###############################################################################
 # scan1 
 ############################################################################### 
-def get_scan():
+def get_lidar_scan():
     global scan_iter
     
     new_cnt     = 0
@@ -80,7 +61,7 @@ def get_scan():
 ###############################################################################
 # stop_scan 
 ###############################################################################   
-def stop_scan():
+def stop_lidar_scan():
     if lidar != None:
         lidar.stop()
         lidar.stop_motor()
@@ -91,15 +72,15 @@ def stop_scan():
 # MAIN-LOOP TESTING
 ###############################################################################
 if __name__ == "__main__":
-    init_scan()
+    init_lidar_scan()
 
     try:
         while (True):      
-            time.sleep (0.2)  
+            time.sleep (0.05)  
             
             curr_time = time.time()
             print ( "------------- PRE-TIME %f" % (curr_time) )    
-            scan_list = get_scan()
+            scan_list = get_lidar_scan()
             print ( "measure time %f\n" % ( time.time() - curr_time ) )
             
             nScans = len(scan_list)
@@ -108,7 +89,7 @@ if __name__ == "__main__":
                qual  = dataPt[1]
                angle = dataPt[2]
                dist  = dataPt[3]
-               print ("New %d, qual %d, angle %d, dist %d) % (newPt, qual, angle, dist))
+               #print ("New %d, qual %d, angle %d, dist %d\n" % (newPt, qual, angle, dist))
             # end for
             
         # end while        
@@ -116,7 +97,7 @@ if __name__ == "__main__":
     except:
         pass
         
-    stop_scan()       
+    stop_lidar_scan()       
 # end    
 
 
