@@ -13,7 +13,8 @@
 from vehicleState   import *
 from raceModes      import raceModes   
 from constants      import *        # Vehicle and course constants
-from printOut        import *
+from printOut       import *
+from OccupGrid      import Grid
 
 if SIM_TEENSY:
     from serialClassSim  import serialClass
@@ -24,14 +25,14 @@ else:
 apprCount       = 2     # Count of loops to stay in any of the appr states
 BistMaxCnt      = 90    # 3 sec - max time for IOP to get to BIST
 NormMaxCnt      = 30    # 2 sec - max time for IOP to enter NORM mode after cmd 
-simMaxCnt       = 100     # 
-ErrorMaxCnt     = 200    # Number of iterations before repeating error msg
+simMaxCnt       = 100   # 
+ErrorMaxCnt     = 200   # Number of iterations before repeating error msg
 
 ############################################################################### 
 # stateControl - choose what to do depending on our current state
 ###############################################################################
 
-def stateMachine (vehState, serialPort):
+def stateMachine (vehState, serialPort, occGrid):
     # vehState.mode.printMode("STATEMACHINE:")
     
     ##*************************************************************************
@@ -116,6 +117,7 @@ def stateMachine (vehState, serialPort):
         
         # If we got an obstacle sighting from the vision system transition
         newState = obstacleTransition (vehState)  
+        occGrid.avoidObstacles()
         
     #------------------------------------------------------         
     elif vehState.mode.currMode == raceModes.RACE_CURVE:

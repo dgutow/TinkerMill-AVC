@@ -20,6 +20,7 @@ from rangeClass      import Range
 from OccupGrid       import Grid
 from guiInterface    import guiIfClass
 from printOut        import *
+from lidar_dag       import *
 
 if SIM_TEENSY:
     from serialClassSim  import serialClass
@@ -79,6 +80,9 @@ def initializations():
     # initialize vehicle state
     vehState.mode.setMode (raceModes.NONE)   
     
+    # start and initialize the RPLidar
+    #init_lidar_scan()
+    
     time.sleep(0.5) 
     printOut("INITIALIZATIONS: initializations complete")       
     
@@ -92,14 +96,13 @@ def initializations():
 def mainLoop():
     abort = False
     loopCntr    = 0
-    printOut ("MAIN_LOOP: Dwelling for 10 seconds...")
+    printOut ("MAIN_LOOP: Dwelling for 2 seconds...")
     time.sleep (10.0)
     printOut ("MAIN_LOOP: starting loop")
     
     while (not abort): 
         #(vehState.mode.currMode != raceModes.TERMINATE and not abort):  
-        time.sleep (0.1)          #   
-        #time.sleep (0.8)          # dag remove    
+        time.sleep (0.1)          #      
                 
         loopCntr += 1         
         if loopCntr % 20 == 0:
@@ -120,10 +123,13 @@ def mainLoop():
         #visMsg = getVisionTelemetry()
         #if (length(visMsg) != 0):
         #    guiIf.send_visTlm (visMsg)  
+        
+        # Get all the RPlidar data and enter it into the occGrid
+        # get_lidar_data()
             
         # Now do all the state specific actions
         try:
-            stateMachine (vehState, serialPort)
+            stateMachine (vehState, serialPort, occGrid)
         except:
             print ("MAIN_LOOP - ERROR in stateMachine")
         
@@ -142,6 +148,30 @@ def mainLoop():
     printOut ("MAIN_LOOP: guiIf killed, returning...")       
 # end def 
     
+################################################################################
+# get_lidar_data()( )
+################################################################################
+def get_lidar_data():
+    # Get the lastest range points from the RPLidar
+    scan_list = get_lidar_scan()
+    
+    # Enter each of the range points into the occGrid
+    for dataPt in scan_list:
+        newPt = dataPt[0]
+        qual  = dataPt[1]
+        angle = dataPt[2]
+        dist  = dataPt[3]  
+        occGrid.enterRange(vehState.iopCumDistance, vehState.iopSteerAngle, 
+                        dist, angle)                              
+
+    # Now shift the occGrid down by the vehicles motion since the last time
+    occGrid.recenterGrid(vehState.iopCumDistance, vehState.iopSteerAngle);
+    
+    # Send the occGrid as telemetry to our GUI
+    # occGrid.sendUDP()
+# End
+        
+
 ################################################################################
 # get_iopTlm( )
 ################################################################################

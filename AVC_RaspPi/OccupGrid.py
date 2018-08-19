@@ -52,7 +52,7 @@ class Grid(object):
     ###########################################################################
     # __init__   Note - the position of the car when this map was created or
     # updated is always in the center and at Y = 0.0
-    #  
+    ###########################################################################
     def __init__(self, resolution=10, nRows=50, nCols=50, distance=0, angle=0):
         """ 
         Construct an empty occupancy grid.              
@@ -67,7 +67,7 @@ class Grid(object):
     
     ###########################################################################
     # clear   Clears and re-initializes the grid
-    #     
+    ###########################################################################
     
     def clear (self, distance=0, angle= 0):
         self.distance   = distance
@@ -88,7 +88,7 @@ class Grid(object):
     #   scanAngle   - angle of scanner relative to the heading of the car (deg)
     #                 positive values are to the right
     #                 negative values are to the left    
-    
+    ###########################################################################    
     def enterRange (self,  carCumDist, carCurrAngle, scanDist, scanAngle):
         # The last time the map was translated/rotated the map was set so 
         # that it's angle was perpindiclar to the car and the car's position
@@ -116,7 +116,7 @@ class Grid(object):
     
     ###########################################################################
     # enterPoint - enters an objects position into the grid  
-    
+    ###########################################################################    
     def enterPoint(self, x, y):
         col = int (x / self.resolution)
         row = int (y / self.resolution)
@@ -140,7 +140,7 @@ class Grid(object):
     # all the rotated/translated points to it, we do it within the same grid.
     # CAUTION though, this method only works if we are going forward, e.g.
     # moving the data in the grid generally downward.
-    
+    ###########################################################################    
     def recenterGrid(self, dist, angle):
         # Calculate the delta X,Y that all points will be moved by
         deltaAngle = angle - self.angle
@@ -169,7 +169,8 @@ class Grid(object):
     # end
     
     ###########################################################################
-    # getValue   
+    # getValue 
+    ###########################################################################      
     def getValue (self, xIndex, yIndex):
         return self.grid[xIndex][yIndex]
     # end
@@ -177,6 +178,7 @@ class Grid(object):
     ###########################################################################
     # isZero - checks if a map cell contains no data, taking into account 
     # floating point roundoff
+    ###########################################################################    
     def isZero (self, xIndex, yIndex):
         point = self.grid[xIndex][yIndex]
         x = point[0]
@@ -185,9 +187,16 @@ class Grid(object):
             return True
         return False
     # end   
+ 
+    ###########################################################################
+    # avoidObstacles    
+    ###########################################################################   
+    def avoidObstacles():
+        pass
 
     ###########################################################################
     # printGrid - 
+    ###########################################################################    
     def printGrid (self, str):
         print (str)
         for row in range (self.nRows-1, -1, -1):
@@ -211,6 +220,7 @@ class Grid(object):
     #   borders (T/F) is whether to draw a grid surrounding all the cells
     #   circle (T/F) is whether to draw a circle or a line segment in each
     #       occupied cell. Drawing a line is faster than drawing a circle.
+    ###########################################################################    
     def graphGrid (self, str, nPix, borders = False, circle = False):  
         frame = nPix / 2         # Width of frame around map
         xSize = self.nCols * nPix
