@@ -5,12 +5,12 @@ Author: David Gutow, Rich
 Version: 8/2018
 """
 
-from math import *
+from math       import *
 import numpy as np
 from matplotlib import pyplot as plt
 
-from LIDAR import *
-
+from LIDAR      import *
+from graphics   import *        # dag - remove before flight
 ###############################################################################
 # Class Grid
 ###############################################################################
@@ -208,6 +208,8 @@ class Grid(object):
                 Ptp = Point (self.frame + (col * nPix), self.frame)
                 Pbt = Point (self.frame + (col * nPix), self.frame + (self.nRows * nPix)) 
                 lin = Line (Ptp, Pbt)
+                lin.setWidth(1)      
+                lin.setFill("gray")   
                 lin.draw(self.win)            
                 
             # Draw the horiz edges
@@ -215,6 +217,8 @@ class Grid(object):
                 Plt = Point (self.frame, self.frame + (row * nPix))
                 Prt = Point (self.frame + (self.nCols * nPix), self.frame + (row * nPix)) 
                 lin = Line (Plt, Prt)
+                lin.setWidth(1)   
+                lin.setFill("gray")             
                 lin.draw(self.win)  
         # end if borders           
            
@@ -280,14 +284,14 @@ class Histogram(object):
     # end
     
     ###########################################################################
-    # initGraphGrid - 
+    # getDist - 
     ###########################################################################     
     def getDist(self, fromcoords, tocoords):
         return sqrt((tocoords[0] - fromcoords[0]) ** 2 + (tocoords[1] - fromcoords[1]) ** 2)
     # end
     
     ###########################################################################
-    # initGraphGrid - 
+    # getCost - 
     ###########################################################################     
     def getCost(self, row, col, grid):
         # get the maximum distance based on our scanner; to be used as a scaling factor
@@ -309,14 +313,14 @@ class Histogram(object):
     # end
     
     ###########################################################################
-    # initGraphGrid - 
+    # getCone - 
     ###########################################################################     
     def getCone(self, x, y, grid): #
         return 1 if (y >= (x - (grid.nCols / 2)) * -tan(radians(self.scanAngle))) and (y >= (x-(grid.nCols / 2)) * tan(radians(self.scanAngle))) else 0
     # end
     
     ###########################################################################
-    # initGraphGrid - 
+    # getScanMatrix - 
     ###########################################################################     
     def getScanMatrix(self, grid):
         scanMatrix = [[self.getCone(x, y, grid) for x in range(grid.nCols)] for y in range(grid.nRows)]
@@ -324,7 +328,7 @@ class Histogram(object):
     # end
     
     ###########################################################################
-    # initGraphGrid - 
+    # scanCostGrid - 
     ###########################################################################     
     def scanCostGrid(self, grid):
         slices = []
@@ -358,7 +362,7 @@ class Histogram(object):
     # end
     
     ###########################################################################
-    # initGraphGrid - 
+    # calcHist - 
     ###########################################################################     
     def calcHist(self, grid):
         costArray = [[self.getCost(x, y, grid) for y in range(grid.nCols)] for x in range(grid.nRows)]
@@ -368,7 +372,7 @@ class Histogram(object):
     # end
     
     ###########################################################################
-    # initGraphGrid - 
+    # getAngle - 
     ###########################################################################     
     def getAngle(self, array, nearest):
         array = np.array(array)

@@ -17,10 +17,11 @@ from stateMachine    import stateMachine
 from rangeSensorPair import rangeSensorPair
 from raceModes       import raceModes
 from rangeClass      import Range
-from OccupGrid       import Grid
+from OccupGrid_Rich  import Grid
 from guiInterface    import guiIfClass
 from printOut        import *
 from lidar_dag       import *
+
 
 if SIM_TEENSY:
     from serialClassSim  import serialClass
@@ -97,16 +98,18 @@ def mainLoop():
     abort = False
     loopCntr    = 0
     printOut ("MAIN_LOOP: Dwelling for 2 seconds...")
-    time.sleep (10.0)
-    printOut ("MAIN_LOOP: starting loop")
+    time.sleep (2.0)
+    last_time = time.clock()
     
     while (not abort): 
-        #(vehState.mode.currMode != raceModes.TERMINATE and not abort):  
-        time.sleep (0.1)          #      
-                
-        loopCntr += 1         
+        #(vehState.mode.currMode != raceModes.TERMINATE and not abort): 
+        # Wait until 0.1 seconds have gone by from the last loop
+        while ( time.clock() < (last_time + 0.1) ):
+            pass
+        last_time = time.clock()
+                       
         if loopCntr % 20 == 0:
-            printOut (("\nMAIN_LOOP: Loop #%2d" % (loopCntr)))       
+            printOut ("\nMAIN_LOOP: Loop #%2d, time %f" % (loopCntr, time.clock()) )      
     
         # Check if we received a command from the GUI host and
         # send the GUI a telemetry packet
@@ -135,8 +138,11 @@ def mainLoop():
         
         # Let the iop know we're alive
         vehState.currHeartBeat += 1        
-        #serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)   dag turn on              
+        #serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)   dag turn on  
+        
+        loopCntr += 1              
     # end while
+    
     printOut ("MAIN_LOOP: Terminating mainLoop, killing serialPort")
     serialPort.killThread()     
       
@@ -162,7 +168,7 @@ def get_lidarTlm(loopCntr):
         angle = dataPt[2]
         dist  = dataPt[3]  
         occGrid.enterRange(vehState.iopCumDistance, vehState.iopSteerAngle, 
-                           dist, angle)                              
+                           dist/10, angle)                              
 
     # Now shift the occGrid down by the vehicles motion since the last time
     occGrid.recenterGrid(vehState.iopCumDistance, vehState.iopSteerAngle);
@@ -170,11 +176,11 @@ def get_lidarTlm(loopCntr):
     # Send the occGrid as telemetry to our GUI
     # occGrid.sendUDP()
     
-    if (loopCntr == 1):
+    if (loopCntr == 0):
         # Initialize the graphic window
         occGrid.initGraphGrid("Occupancy Grid", 4, True, False);
-    if loopCntr % 20 == 0:
-        # every two seconds update the graph
+    if loopCntr % 10 == 0:
+        # every seconds update the graph
         occGrid.graphGrid ();
 # End
         
