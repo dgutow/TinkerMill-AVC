@@ -215,44 +215,52 @@ class Grid(object):
     # end def
     
     ###########################################################################
+    # initGraphGrid - 
+    ###########################################################################    
+    def initGraphGrid (self, str, nPix, borders = False, circle = False):  
+        self.nPix      = nPix  
+        self.borders   = borders
+        self.circle    = circle     
+        self.frame     = nPix / 2         # Width of frame around map
+        xSize = self.nCols * nPix
+        ySize = self.nRows * nPix  
+
+        self.win = GraphWin( str, xSize + (2*self.frame), ySize + (2*self.frame) ) 
+                
+        if borders:
+            # Draw the vertical edges
+            for col in range (self.nCols+1):
+                Ptp = Point (self.frame + (col * nPix), self.frame)
+                Pbt = Point (self.frame + (col * nPix), self.frame + (self.nRows * nPix)) 
+                lin = Line (Ptp, Pbt)
+                lin.draw(self.win)            
+                
+            # Draw the horiz edges
+            for row in range (self.nRows+1):
+                Plt = Point (self.frame, self.frame + (row * nPix))
+                Prt = Point (self.frame + (self.nCols * nPix), self.frame + (row * nPix)) 
+                lin = Line (Plt, Prt)
+                lin.draw(self.win)  
+        # end if borders           
+           
+           
+    ###########################################################################
     # graphGrid - 
     #   nPix is the num of pixels to draw a single cell (nPixels per cell)
     #   borders (T/F) is whether to draw a grid surrounding all the cells
     #   circle (T/F) is whether to draw a circle or a line segment in each
     #       occupied cell. Drawing a line is faster than drawing a circle.
     ###########################################################################    
-    def graphGrid (self, str, nPix, borders = False, circle = False):  
-        frame = nPix / 2         # Width of frame around map
-        xSize = self.nCols * nPix
-        ySize = self.nRows * nPix
-        
-        win = GraphWin( str, xSize + (2*frame), ySize + (2*frame) )
-        
-        if borders:
-            # Draw the vertical edges
-            for col in range (self.nCols+1):
-                Ptp = Point (frame + (col * nPix), frame)
-                Pbt = Point (frame + (col * nPix), frame + (self.nRows * nPix)) 
-                lin = Line (Ptp, Pbt)
-                lin.draw(win)            
-                
-            # Draw the horiz edges
-            for row in range (self.nRows+1):
-                Plt = Point (frame, frame + (row * nPix))
-                Prt = Point (frame + (self.nCols * nPix), frame + (row * nPix)) 
-                lin = Line (Plt, Prt)
-                lin.draw(win)  
-        # end if borders
-        
-        if (circle):
+    def graphGrid (self):         
+        if (self.circle):
             # Draw a circle in each occupied cell (slow):
             for row in range (self.nRows):
                 for col in range (self.nCols):
                     if (not self.isZero(row, col)):
-                        pt = Point((col+1) * nPix, (self.nRows - row) * nPix)
-                        cir = Circle(pt, frame/2)
+                        pt = Point((col+1) * self.nPix, (self.nRows - row) * self.nPix)
+                        cir = Circle(pt, self.frame/2)
                         cir.setFill("red")
-                        cir.draw(win)                    
+                        cir.draw(self.win)                    
                 # end for col
             # end for row       
         else:
@@ -260,18 +268,18 @@ class Grid(object):
             for row in range (self.nRows):
                 for col in range (self.nCols):
                     if (not self.isZero(row, col)):
-                        Ptp = Point((col+1) * nPix, (self.nRows - row) * nPix - frame)
-                        Pbt = Point((col+1) * nPix, (self.nRows - row) * nPix + frame)
+                        Ptp = Point((col+1) * self.nPix, (self.nRows - row) * self.nPix - self.frame)
+                        Pbt = Point((col+1) * self.nPix, (self.nRows - row) * self.nPix + self.frame)
                         lin = Line(Ptp, Pbt)
                         lin.setFill("red")
-                        lin.setWidth(frame)
-                        lin.draw(win)                    
+                        lin.setWidth(self.frame)
+                        lin.draw(self.win)                    
                 # end for col
             # end for row               
         # end if circle
  
-        win.getMouse()
-        win.close
+        #win.getMouse()
+        #win.close
     # end def
 # end 
     

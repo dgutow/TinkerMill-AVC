@@ -159,7 +159,7 @@ def stop_lidar_scan():
 if __name__ == "__main__":
     init_lidar_scan()
     
-    if (0):
+    if (1):
         try:
                 time.sleep (0.10)  
                 curr_time = time.time()

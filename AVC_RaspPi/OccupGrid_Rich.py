@@ -1,10 +1,61 @@
-from math import *
+#!/usr/bin/env python
+""" Simple occupancy-grid-based mapping. 
 
+Author: David Gutow, Rich
+Version: 8/2018
+"""
+
+from math import *
 import numpy as np
 from matplotlib import pyplot as plt
+
 from LIDAR import *
 
+###############################################################################
+# Class Grid
+###############################################################################
+
 class Grid(object):
+    """ 
+    The Grid class stores an occupancy grid as a two dimensional array.
+    Each cell in the grid can be thought of as a bin holding a position 
+    of an obstacle as detected by the sensor.  Each cell only holds one 
+    position; if another obstacle is detected in the same cell (in 
+    same vicinity) it is assumed to be the same obstacle.  The newer
+    position replaces the older one, on the assumption that the vehicle
+    is closer to the obstacle and thus the measurement is more accurate.
+    
+    (Possible future enhancement - look at the 8 surrounding cells to 
+    see if there is an entry within a set distance say 'resolution' and
+    if so, assume that is the original for the current point)
+    
+    The origin (0,0) of the grid is considered to be the lower left
+    corner with 'x' increasing to the right (increasing column index)
+    and 'y' increasing going up (increasing row index).
+    
+    The grid is dynamic in that it is referenced to the vehicle.  As the
+    vehicle moves the grid moves with it.  The distance and angle variables
+    are the vehicle cumulative distance and angle which correspond to the
+    current grid. Angle is assumed to be an absolute angle in world 
+    reference frame, something like we might obtain from a compass. 
+    
+    Public instance variables:
+        nCols      --  Number of columns in the occupancy grid.
+        nRows      --  Number of rows in the occupancy grid.
+        resolution --  Width & height of each grid square in cm. 
+        distance   --  The distance (position) this grid is referenced from
+                       (The cumulative distance the car has travelled)
+        angle      --  The angle this grid is referenced from
+        grid       --  integer array with nRows rows and nCols columns.
+        Xpos       --  The position of the car which the map is relative to 
+        Ypos       --  The position of the car which the map is relative to
+
+    """    
+    
+    ###########################################################################
+    # __init__   Note - the position of the car when this map was created or
+    # updated is always in the center and at Y = 0.0
+    ###########################################################################
     def __init__(self, resolution=10, nRows=50, nCols=50, distance=0, angle=0):
         self.resolution = resolution
         self.nCols      = nCols
@@ -12,12 +63,31 @@ class Grid(object):
         self.Xpos       = nCols * resolution / 2
         self.Ypos       = 0.0
         self.clear (distance, angle)
-
+    # end
+    
+    ###########################################################################
+    # clear   Clears and re-initializes the grid
+    ###########################################################################
     def clear (self, distance=0, angle= 0):
         self.distance   = distance
         self.angle      = angle
         self.grid = [[ [0.0, 0.0] for x in range(self.nCols)] for y in range(self.nRows)]
-
+    # end
+    
+    ###########################################################################
+    # enterRange - enters a point into the map.  The vehicle only knows about
+    # it's cumulative, and it's currAngle.  The scanner knows it's scan angle 
+    # and range distance.
+    # Parameters:
+    #   carCumDist  - cumulative distance the car has travelled
+    #   carCurrAngle- current angle of the car relative to left/right wall (deg).
+    #                 positive values are angled to the right
+    #                 negative values are angled to the left
+    #   scanDist    - range of the object (cm)
+    #   scanAngle   - angle of scanner relative to the heading of the car (deg)
+    #                 positive values are to the right
+    #                 negative values are to the left    
+    ###########################################################################    
     def enterRange (self,  carCumDist, carCurrAngle, scanDist, scanAngle):
         distTravelled = carCumDist   - self.distance
         angleDiff     = carCurrAngle - self.angle
@@ -33,7 +103,11 @@ class Grid(object):
         Xpos          = rangeXpos + carXpos
         Ypos          = rangeYpos + carYpos
         self.enterPoint (Xpos, Ypos)
+    # end
 
+    ###########################################################################
+    # enterPoint - enters an objects position into the grid  
+    ###########################################################################        
     def enterPoint(self, x, y):
         col = int (x / self.resolution)
         row = int (y / self.resolution)
@@ -44,7 +118,15 @@ class Grid(object):
             return
 
         self.grid[row][col] = [x, y]
+    # end
 
+    ###########################################################################
+    # recenterGrid - translates and rotates the map to the new distance 
+    # and angle.  NOTE - rather than creating a second grid and transferring
+    # all the rotated/translated points to it, we do it within the same grid.
+    # CAUTION though, this method only works if we are going forward, e.g.
+    # moving the data in the grid generally downward.
+    ###########################################################################    
     def recenterGrid(self, dist, angle):
         deltaAngle = angle - self.angle
         deltaDist  = dist  - self.distance
@@ -64,10 +146,31 @@ class Grid(object):
         self.angle    = angle
         self.distance = dist
         pass
+    # end
 
+    ###########################################################################
+    # getValue 
+    ###########################################################################      
     def getValue (self, xIndex, yIndex):
         return self.grid[xIndex][yIndex]
-
+    # end
+    
+    ###########################################################################
+    # isZero - checks if a map cell contains no data, taking into account 
+    # floating point roundoff
+    ###########################################################################    
+    def isZero (self, xIndex, yIndex):
+        point = self.grid[xIndex][yIndex]
+        x = point[0]
+        y = point[1]
+        if (x > -0.001 and x < 0.001 and y > -0.001 and y < 0.001):
+            return True
+        return False
+    # end   
+    
+    ###########################################################################
+    # printGrid - 
+    ###########################################################################        
     def printGrid (self, str):
         print (str)
         for row in range (self.nRows-1, -1, -1):
@@ -83,51 +186,89 @@ class Grid(object):
             print ("\n")
         # end for row
         print ""
+    # end
+    
+    
+    ###########################################################################
+    # initGraphGrid - 
+    ###########################################################################    
+    def initGraphGrid (self, str, nPix, borders = False, circle = False):  
+        self.nPix      = nPix  
+        self.borders   = borders
+        self.circle    = circle     
+        self.frame     = nPix / 2         # Width of frame around map
+        xSize = self.nCols * nPix
+        ySize = self.nRows * nPix  
 
-#     def graphGrid (self, str, nPix, borders = False, circle = False):
-#         frame = nPix / 2
-#         xSize = self.nCols * nPix
-#         ySize = self.nRows * nPix
+        self.win = GraphWin( str, xSize + (2*self.frame), ySize + (2*self.frame) ) 
+                
+        if borders:
+            # Draw the vertical edges
+            for col in range (self.nCols+1):
+                Ptp = Point (self.frame + (col * nPix), self.frame)
+                Pbt = Point (self.frame + (col * nPix), self.frame + (self.nRows * nPix)) 
+                lin = Line (Ptp, Pbt)
+                lin.draw(self.win)            
+                
+            # Draw the horiz edges
+            for row in range (self.nRows+1):
+                Plt = Point (self.frame, self.frame + (row * nPix))
+                Prt = Point (self.frame + (self.nCols * nPix), self.frame + (row * nPix)) 
+                lin = Line (Plt, Prt)
+                lin.draw(self.win)  
+        # end if borders           
+           
+           
+    ###########################################################################
+    # graphGrid - 
+    #   nPix is the num of pixels to draw a single cell (nPixels per cell)
+    #   borders (T/F) is whether to draw a grid surrounding all the cells
+    #   circle (T/F) is whether to draw a circle or a line segment in each
+    #       occupied cell. Drawing a line is faster than drawing a circle.
+    ###########################################################################    
+    def graphGrid (self):         
+        if (self.circle):
+            # Draw a circle in each occupied cell (slow):
+            for row in range (self.nRows):
+                for col in range (self.nCols):
+                    if (not self.isZero(row, col)):
+                        pt = Point((col+1) * self.nPix, (self.nRows - row) * self.nPix)
+                        cir = Circle(pt, self.frame/2)
+                        cir.setFill("red")
+                        cir.draw(self.win)                    
+                # end for col
+            # end for row       
+        else:
+            # Draw a vertical line in each occupied cell (faster):
+            for row in range (self.nRows):
+                for col in range (self.nCols):
+                    if (not self.isZero(row, col)):
+                        Ptp = Point((col+1) * self.nPix, (self.nRows - row) * self.nPix - self.frame)
+                        Pbt = Point((col+1) * self.nPix, (self.nRows - row) * self.nPix + self.frame)
+                        lin = Line(Ptp, Pbt)
+                        lin.setFill("red")
+                        lin.setWidth(self.frame)
+                        lin.draw(self.win)                    
+                # end for col
+            # end for row               
+        # end if circle
+ 
+        #win.getMouse()
+        #win.close
+    # end graphGrid
 
-#         win = GraphWin( str, xSize + (2*frame), ySize + (2*frame) )
-
-#         if borders:
-#             for col in range (self.nCols+1):
-#                 Ptp = Point (frame + (col * nPix), frame)
-#                 Pbt = Point (frame + (col * nPix), frame + (self.nRows * nPix))
-#                 lin = Line (Ptp, Pbt)
-#                 lin.draw(win)
-
-#             for row in range (self.nRows+1):
-#                 Plt = Point (frame, frame + (row * nPix))
-#                 Prt = Point (frame + (self.nCols * nPix), frame + (row * nPix))
-#                 lin = Line (Plt, Prt)
-#                 lin.draw(win)
-
-#         if (circle):
-#             for row in range (self.nRows):
-#                 for col in range (self.nCols):
-#                     if (not self.isZero(row, col)):
-#                         pt = Point((col+1) * nPix, (self.nRows - row) * nPix)
-#                         cir = Circle(pt, frame/2)
-#                         cir.setFill("red")
-#                         cir.draw(win)
-#         else:
-#             for row in range (self.nRows):
-#                 for col in range (self.nCols):
-#                     if (not self.isZero(row, col)):
-#                         Ptp = Point((col+1) * nPix, (self.nRows - row) * nPix - frame)
-#                         Pbt = Point((col+1) * nPix, (self.nRows - row) * nPix + frame)
-#                         lin = Line(Ptp, Pbt)
-#                         lin.setFill("red")
-#                         lin.setWidth(frame)
-#                         lin.draw(win)
-
-#         win.getMouse()
-#         win.close
+    ###########################################################################
+    # initGraphGrid - 
+    ###########################################################################        
     def getGrid(self):
         return (np.flip([[self.getValue(x, y) for y in range(self.nCols)] for x in range(self.nRows)], axis=0).tolist())
+    # end    
+    
+# end class
 
+###############################################################################
+# Class Histogram
+###############################################################################   
 class Histogram(object):
     def __init__(self, origin, scanAngle, angDelta, minCost, maxCost):
 
@@ -136,10 +277,18 @@ class Histogram(object):
         self.minCost = minCost
         self.maxCost = maxCost
         self.origin = origin
-
+    # end
+    
+    ###########################################################################
+    # initGraphGrid - 
+    ###########################################################################     
     def getDist(self, fromcoords, tocoords):
         return sqrt((tocoords[0] - fromcoords[0]) ** 2 + (tocoords[1] - fromcoords[1]) ** 2)
-
+    # end
+    
+    ###########################################################################
+    # initGraphGrid - 
+    ###########################################################################     
     def getCost(self, row, col, grid):
         # get the maximum distance based on our scanner; to be used as a scaling factor
         maxDist = sqrt((((grid.nCols / 2) * grid.resolution) ** 2) + ((grid.nRows * grid.resolution) ** 2))
@@ -157,14 +306,26 @@ class Histogram(object):
             cost = 0
 
         return cost
-
+    # end
+    
+    ###########################################################################
+    # initGraphGrid - 
+    ###########################################################################     
     def getCone(self, x, y, grid): #
         return 1 if (y >= (x - (grid.nCols / 2)) * -tan(radians(self.scanAngle))) and (y >= (x-(grid.nCols / 2)) * tan(radians(self.scanAngle))) else 0
-
+    # end
+    
+    ###########################################################################
+    # initGraphGrid - 
+    ###########################################################################     
     def getScanMatrix(self, grid):
         scanMatrix = [[self.getCone(x, y, grid) for x in range(grid.nCols)] for y in range(grid.nRows)]
         return np.flip(np.array(scanMatrix), axis=0)
-
+    # end
+    
+    ###########################################################################
+    # initGraphGrid - 
+    ###########################################################################     
     def scanCostGrid(self, grid):
         slices = []
 
@@ -194,13 +355,21 @@ class Histogram(object):
             slices.append([angle, slice_])
 
         return slices
-
+    # end
+    
+    ###########################################################################
+    # initGraphGrid - 
+    ###########################################################################     
     def calcHist(self, grid):
         costArray = [[self.getCost(x, y, grid) for y in range(grid.nCols)] for x in range(grid.nRows)]
         costGrid = np.multiply(np.flip(np.array(costArray), axis=0), self.getScanMatrix(grid))
 
         return self.scanCostGrid(costGrid)
-
+    # end
+    
+    ###########################################################################
+    # initGraphGrid - 
+    ###########################################################################     
     def getAngle(self, array, nearest):
         array = np.array(array)
         minCostSum = np.amin(array[:,1]) # get the slices with the minimum cost...
@@ -219,7 +388,11 @@ class Histogram(object):
         return angle
 
     pass
-
+    # end
+    
+###############################################################################
+# Test code
+###############################################################################
 if __name__ == '__main__':
 
     np.set_printoptions(precision=3, linewidth=2000, threshold=np.nan, suppress=True)

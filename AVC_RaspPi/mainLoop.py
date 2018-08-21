@@ -81,7 +81,7 @@ def initializations():
     vehState.mode.setMode (raceModes.NONE)   
     
     # start and initialize the RPLidar
-    #init_lidar_scan()
+    init_lidar_scan()
     
     time.sleep(0.5) 
     printOut("INITIALIZATIONS: initializations complete")       
@@ -125,7 +125,7 @@ def mainLoop():
         #    guiIf.send_visTlm (visMsg)  
         
         # Get all the RPlidar data and enter it into the occGrid
-        # get_lidar_data()
+        get_lidarTlm(loopCntr)
             
         # Now do all the state specific actions
         try:
@@ -149,11 +149,11 @@ def mainLoop():
 # end def 
     
 ################################################################################
-# get_lidar_data()( )
+# get_lidarTlm(loopCntr)
 ################################################################################
-def get_lidar_data():
+def get_lidarTlm(loopCntr):
     # Get the lastest range points from the RPLidar
-    scan_list = get_lidar_scan()
+    scan_list = get_lidar_data()
     
     # Enter each of the range points into the occGrid
     for dataPt in scan_list:
@@ -162,13 +162,20 @@ def get_lidar_data():
         angle = dataPt[2]
         dist  = dataPt[3]  
         occGrid.enterRange(vehState.iopCumDistance, vehState.iopSteerAngle, 
-                        dist, angle)                              
+                           dist, angle)                              
 
     # Now shift the occGrid down by the vehicles motion since the last time
     occGrid.recenterGrid(vehState.iopCumDistance, vehState.iopSteerAngle);
     
     # Send the occGrid as telemetry to our GUI
     # occGrid.sendUDP()
+    
+    if (loopCntr == 1):
+        # Initialize the graphic window
+        occGrid.initGraphGrid("Occupancy Grid", 4, True, False);
+    if loopCntr % 20 == 0:
+        # every two seconds update the graph
+        occGrid.graphGrid ();
 # End
         
 
