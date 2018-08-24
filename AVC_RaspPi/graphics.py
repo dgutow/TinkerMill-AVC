@@ -398,6 +398,12 @@ class GraphWin(tk.Canvas):
             item.draw(self)
         self.update()
         
+    def dag_clear(self):
+        for item in self.items[:]:
+            item.undraw()
+            item.remove(item)
+        self.update()       
+        
                       
 class Transform:
 

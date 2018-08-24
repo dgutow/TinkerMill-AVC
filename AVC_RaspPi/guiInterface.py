@@ -107,7 +107,8 @@ class guiIfClass (object):
 
             self.guiTcpSock.sendString(data)        
         except:
-            printOut ("GUIINTERFACE:send_rpiTlm - ERROR Unable to send telemetry")         
+            # printOut ("GUIINTERFACE:send_rpiTlm - ERROR Unable to send telemetry")  
+            pass       
     # end send_mainTlm
     
     ###########################################################################

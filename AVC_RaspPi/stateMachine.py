@@ -14,7 +14,7 @@ from vehicleState   import *
 from raceModes      import raceModes   
 from constants      import *        # Vehicle and course constants
 from printOut       import *
-from OccupGrid      import Grid
+from OccupGrid_Rich import *
 
 if SIM_TEENSY:
     from serialClassSim  import serialClass
@@ -28,6 +28,7 @@ NormMaxCnt      = 30    # 2 sec - max time for IOP to enter NORM mode after cmd
 simMaxCnt       = 100   # 
 ErrorMaxCnt     = 200   # Number of iterations before repeating error msg
 
+hist = Histogram(origin=[0.5 * ogNcols * ogResolution, 0], scanAngle=45, angDelta=3, minCost=0, maxCost=9)
 ############################################################################### 
 # stateControl - choose what to do depending on our current state
 ###############################################################################
@@ -103,8 +104,10 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)    
         # end
 
-        if (vehState.iopStartSwitch):     # We're Off!
-            vehState.mode.setMode(raceModes.RACE_STRAIGHT) 
+        # This is just a transitory state to initialize things
+        # Clear out the occ grid and then move to RACE
+        occGrid.clear()     
+        vehState.mode.setMode(raceModes.RACE_STRAIGHT) 
         # end
          
     ##*************************************************************************
@@ -115,10 +118,13 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState) 
         # end
         
+        # serialPort.sendCommand ('M', vehState.mode.getSpeed(), 0, 0)  
+        
         # If we got an obstacle sighting from the vision system transition
         newState = obstacleTransition (vehState)  
-        occGrid.avoidObstacles()
+        angle = hist.getAngle(hist.calcHist(occGrid), 0)
         
+        print ("Histogram Angle = ", angle)
     #------------------------------------------------------         
     elif vehState.mode.currMode == raceModes.RACE_CURVE:
         if vehState.mode.newMode():   

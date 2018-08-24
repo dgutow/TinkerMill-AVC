@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """ Simple occupancy-grid-based mapping. 
 
-Author: David Gutow, Rich
+Author: David Gutow, Rich Paasch
 Version: 8/2018
 """
 
@@ -143,6 +143,7 @@ class Grid(object):
                     self.grid[row][col] = [0.0, 0.0]
                     self.enterPoint(x,y)
 
+        # Save these last values
         self.angle    = angle
         self.distance = dist
         pass
@@ -222,6 +223,12 @@ class Grid(object):
                 lin.draw(self.win)  
         # end if borders           
            
+    ###########################################################################
+    # clearGraphGrid - 
+    ###########################################################################             
+    def clearGraphGrid (self):   
+        self.win.dag_clear()
+              
            
     ###########################################################################
     # graphGrid - 
@@ -230,7 +237,7 @@ class Grid(object):
     #   circle (T/F) is whether to draw a circle or a line segment in each
     #       occupied cell. Drawing a line is faster than drawing a circle.
     ###########################################################################    
-    def graphGrid (self):         
+    def graphGrid (self, color="red"):         
         if (self.circle):
             # Draw a circle in each occupied cell (slow):
             for row in range (self.nRows):
@@ -238,7 +245,7 @@ class Grid(object):
                     if (not self.isZero(row, col)):
                         pt = Point((col+1) * self.nPix, (self.nRows - row) * self.nPix)
                         cir = Circle(pt, self.frame/2)
-                        cir.setFill("red")
+                        cir.setFill(color)
                         cir.draw(self.win)                    
                 # end for col
             # end for row       
@@ -250,7 +257,7 @@ class Grid(object):
                         Ptp = Point((col+1) * self.nPix, (self.nRows - row) * self.nPix - self.frame)
                         Pbt = Point((col+1) * self.nPix, (self.nRows - row) * self.nPix + self.frame)
                         lin = Line(Ptp, Pbt)
-                        lin.setFill("red")
+                        lin.setFill(color)
                         lin.setWidth(self.frame)
                         lin.draw(self.win)                    
                 # end for col
@@ -262,7 +269,7 @@ class Grid(object):
     # end graphGrid
 
     ###########################################################################
-    # initGraphGrid - 
+    # getGrid - 
     ###########################################################################        
     def getGrid(self):
         return (np.flip([[self.getValue(x, y) for y in range(self.nCols)] for x in range(self.nRows)], axis=0).tolist())

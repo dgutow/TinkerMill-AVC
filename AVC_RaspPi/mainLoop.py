@@ -131,10 +131,10 @@ def mainLoop():
         get_lidarTlm(loopCntr)
             
         # Now do all the state specific actions
-        try:
-            stateMachine (vehState, serialPort, occGrid)
-        except:
-            print ("MAIN_LOOP - ERROR in stateMachine")
+        #try:
+        stateMachine (vehState, serialPort, occGrid)
+        #except:
+            #print ("MAIN_LOOP - ERROR in stateMachine")
         
         # Let the iop know we're alive
         vehState.currHeartBeat += 1        
@@ -158,6 +158,11 @@ def mainLoop():
 # get_lidarTlm(loopCntr)
 ################################################################################
 def get_lidarTlm(loopCntr):
+    
+    if (loopCntr == 0):
+        # Initialize the graphic window
+        occGrid.initGraphGrid("Occupancy Grid", 4, False, False)  
+
     # Get the lastest range points from the RPLidar
     scan_list = get_lidar_data()
     
@@ -166,22 +171,25 @@ def get_lidarTlm(loopCntr):
         newPt = dataPt[0]
         qual  = dataPt[1]
         angle = dataPt[2]
-        dist  = dataPt[3]  
+        #dist  = dataPt[3]  / 10     # data is in mm DAG        
+        dist  = dataPt[3]  / 1     # data is in mm DAG 
         occGrid.enterRange(vehState.iopCumDistance, vehState.iopSteerAngle, 
-                           dist/10, angle)                              
+                           dist, angle)                              
 
     # Now shift the occGrid down by the vehicles motion since the last time
     occGrid.recenterGrid(vehState.iopCumDistance, vehState.iopSteerAngle);
     
     # Send the occGrid as telemetry to our GUI
     # occGrid.sendUDP()
-    
-    if (loopCntr == 0):
-        # Initialize the graphic window
-        occGrid.initGraphGrid("Occupancy Grid", 4, True, False);
-    if loopCntr % 10 == 0:
-        # every seconds update the graph
-        occGrid.graphGrid ();
+
+    if loopCntr % 5 == 0:
+        # every 1/2 second update the graph
+        occGrid.graphGrid ("red")
+        
+    if loopCntr % 20 == 0:
+        # every 2 seconds clear the graph
+        #occGrid.clearGraphGrid ()    
+        pass    
 # End
         
 
@@ -239,7 +247,6 @@ def proc_iopTlm (data):
     vehState.iopSteerAngle  = telemArray[6]         
     vehState.iopCumDistance = telemArray[7]
     
-    # Enter the side IR sensors into the two rangeSensorPairs
     irLF_Range              = telemArray[8]
     irLR_Range              = telemArray[9]        
     irRF_Range              = telemArray[10]
@@ -285,33 +292,14 @@ def proc_iopTlm (data):
     # -180 to +180, rather than 0 to 360 degrees.
     if (vehState.iopCompAngle > 180):
         vehState.iopCompAngle -= 360
-    #print ("MAINLOOP:PROC_IOPTLM - 1")
+        
     #######################################################################  
     # Enter the scanner info into the iopRanges buffer
-    vehState.iopRanges.enterRange(time   = vehState.iopTime, 
-                                  angle  = measScanAngle, 
-                                  ranger = 1, 
-                                  range  = 1) 
-    #print ("MAINLOOP:PROC_IOPTLM - 2")                                      
-    #######################################################################                                      
-    # Enter the scanner info into the occupGrid - DAG should we 
-    # enter the data if we are using the short range sensor?
-    occGrid.enterRange ( carCumDist   = vehState.iopCumDistance, 
-                         carCurrAngle = vehState.iopCompAngle, 
-                         scanDist     = 1, 
-                         scanAngle    = 1)       
-    #print ("MAINLOOP:PROC_IOPTLM - 3")                             
-    #######################################################################        
-    # Enter the side IR sensor data into the two rangeSensorPairs
-    if not SIM_TEENSY:
-        #rangeLeftPair.newMeasurement (measFrontRange = irLF_Range, 
-                                    #measRearRange  = irLR_Range)                                     
-        #rangeRightPair.newMeasurement(measFrontRange = irRF_Range, 
-                                    #measRearRange  = irRR_Range)   
-        pass
-    # end SIM_TEENSY     
-    
-    # print ("MAINLOOP:PROC_IOPTLM - 4 end")        
+    #vehState.iopRanges.enterRange(time   = vehState.iopTime, 
+    #                              angle  = measScanAngle, 
+    #                              ranger = 1, 
+    #                              range  = 1)                                          
+  
     return vehState.iopTime
 # end
 
