@@ -28,7 +28,7 @@ NormMaxCnt      = 30    # 2 sec - max time for IOP to enter NORM mode after cmd
 simMaxCnt       = 100   # 
 ErrorMaxCnt     = 200   # Number of iterations before repeating error msg
 
-hist = Histogram(origin=[0.5 * ogNcols * ogResolution, 0], scanAngle=45, angDelta=3, minCost=0, maxCost=9)
+hist = Histogram(origin=[0.5 * ogNcols * ogResolution, 0], scanAngle=45, angDelta=3)
 ############################################################################### 
 # stateControl - choose what to do depending on our current state
 ###############################################################################
@@ -122,7 +122,7 @@ def stateMachine (vehState, serialPort, occGrid):
         
         # If we got an obstacle sighting from the vision system transition
         newState = obstacleTransition (vehState)  
-        angle = hist.getAngle(hist.calcHist(occGrid), 0)
+        angle = hist.getAngle(hist.getSlices(hist.getCostArray(occGrid), hist.scanAngle, hist.angDelta), 0)
         
         print ("Histogram Angle = ", angle)
     #------------------------------------------------------         
