@@ -299,7 +299,7 @@ class Histogram(object):
     ###########################################################################
     def remapAngle(self, angle):
         # remap 0 to 180 CCW to 90 to -90 CCW
-        if (angle >= 0 and angle < 90):
+        if (angle >= 0 and angle <= 90):
             factor = 1
         elif (angle > 90 and angle <= 180):
             factor = -1
@@ -309,10 +309,8 @@ class Histogram(object):
     ###########################################################################
     # getCostArray -
     ###########################################################################
-    def getCostArray(self, grid):
-        # get the maximum distance based on our scanner; to be used as a scaling factor
-        # maxDist = sqrt((((grid.nCols / 2) * grid.resolution) ** 2) + ((grid.nRows * grid.resolution) ** 2))
-        maxDist = 1789
+    def getCostArray(self, grid, maxDist):
+        # get the maximum distance based on our scanner       
 
         costArray = []
 
