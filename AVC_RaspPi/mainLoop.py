@@ -14,9 +14,9 @@ from simulator       import *       # Only for the simulator
 from vehicleState    import *       # Everything we know about the vehicle
 from constants       import *       # Vehicle and course constants
 from stateMachine    import stateMachine
-from rangeSensorPair import rangeSensorPair
+#from rangeSensorPair import rangeSensorPair
 from raceModes       import raceModes
-from rangeClass      import Range
+#from rangeClass      import Range
 from OccupGrid_Rich  import Grid
 from guiInterface    import guiIfClass
 from printOut        import *
@@ -35,6 +35,7 @@ else:
 # Vehicle State holds everything known about the current vehicle state
 vehState        = vehicleState()
 
+"""
 # The two side IT range sensor pairs
 rangeLeftPair   = rangeSensorPair(initFrontAng   = rsLeftFrontAng, 
                               initRearAng    = rsLeftRearAng, 
@@ -49,7 +50,7 @@ rangeRightPair  = rangeSensorPair(initFrontAng   = rsRightFrontAng,
                               initMinDist    = rsMinDistance,
                               initMaxDist    = rsMaxDistance, 
                               rightSide      = rsRigthSide)                             
-
+"""
 # The vehicle occupancy grid
 occGrid       = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
 
@@ -70,6 +71,8 @@ guiIf = guiIfClass (RPI_IPADDR, RPI_TCPPORT, UDP_IPADDR, UDP_IOPPORT, UDP_VISPOR
 # Number of accepted commands from the GUI
 guiAcceptCnt = 0
 
+# DAG TEMPORARY dag
+cumulative_dist = 0
 ############################################################################### 
 # Initialize the entire system
 ###############################################################################
@@ -115,7 +118,7 @@ def mainLoop():
         # send the GUI a telemetry packet
         guiCmd = guiIf.get_cmd () 
         abort = exec_guiCmd (guiCmd)           
-        guiIf.send_rpiTlm (guiAcceptCnt, vehState, rangeLeftPair, rangeRightPair)  
+        guiIf.send_rpiTlm (guiAcceptCnt, vehState)  
         
         # Get the iop telemetry msgs and parse into state structure
         iopMsg = get_iopTlm (loopCntr)
@@ -162,6 +165,7 @@ def get_lidarTlm(loopCntr):
     if (loopCntr == 0):
         # Initialize the graphic window
         occGrid.initGraphGrid("Occupancy Grid", 4, False, False)  
+        pass
 
     # Get the lastest range points from the RPLidar
     scan_list = get_lidar_data()
@@ -185,6 +189,7 @@ def get_lidarTlm(loopCntr):
     if loopCntr % 5 == 0:
         # every 1/2 second update the graph
         occGrid.graphGrid ("red")
+        pass
         
     if loopCntr % 20 == 0:
         # every 2 seconds clear the graph
@@ -245,8 +250,9 @@ def proc_iopTlm (data):
     vehState.iopBistStatus  = telemArray[4]
     vehState.iopSpeed       = telemArray[5]
     vehState.iopSteerAngle  = telemArray[6]         
-    vehState.iopCumDistance = telemArray[7]
+    #vehState.iopCumDistance = telemArray[7]   #dag remove before flight
     
+    vehState.iopCumDistance += 2
     irLF_Range              = telemArray[8]
     irLR_Range              = telemArray[9]        
     irRF_Range              = telemArray[10]

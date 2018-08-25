@@ -7,7 +7,6 @@ Version: 8/2018
 
 from math       import *
 import numpy as np
-from matplotlib import pyplot as plt
 
 from LIDAR      import *
 from graphics   import *        # dag - remove before flight
@@ -384,21 +383,12 @@ class Histogram(object):
     def getAngle(self, array, nearest):
         array = np.array(array)
         minCostSum = np.amin(array[:,1]) # get the slices with the minimum cost...
-        print(minCostSum)
         array = array[np.where(array[:,1] == minCostSum)[0]][:,0]
 
         # if there are multiple paths, pick the one closest to "nearest angle"
         closestAngle = array[(np.abs(array - nearest)).argmin()]
 
-        angFactor = 1 if (closestAngle > 0) else -1
-
-        furthestAngle = array[(np.abs(array - angFactor * self.scanAngle)).argmin()]
-
-        angle = closestAngle + angFactor * (abs(furthestAngle - closestAngle) / 2)
-
-        return angle
-
-    pass
+        return closestAngle
     # end
     
 ###############################################################################

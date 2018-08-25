@@ -7,9 +7,9 @@
  Written by David Gutow 8/2017
 """
 
-from rangeSensorPair import rangeSensorPair
+#from rangeSensorPair import rangeSensorPair
 from raceModes       import raceModes
-from rangeClass      import Range
+#from rangeClass      import Range
 
 ###############################################################################
 # class obstacle - an enumeration of the track obstacles we know about
@@ -60,33 +60,38 @@ class vehicleState (object):
     #leftRangeSensors   = rangeSensorPair(50, 10, 0, 100, 500, False)
     #rightRangeSensors  = rangeSensorPair(50, 10, 0, 100, 500, True)
     
-    iopSwitchStatus    = 0x00  # Bitfield of status of each bump switch
-    iopStartSwitch     = False # Start switch been pushed   
+    iopSwitchStatus     = 0x00  # Bitfield of status of each bump switch
+    iopStartSwitch      = False # Start switch been pushed   
    
     # The last seconds worth of scan ranges are stored in this buffer.   
-    iopRanges          = Range(40)
+    #iopRanges           = Range(40)
     
-    iopBattVolt1       = 0.0   # Voltage of battery 1
-    iopBattVolt2       = 0.0   # Voltage of battery 2
+    iopBattVolt1        = 0.0   # Voltage of battery 1
+    iopBattVolt2        = 0.0   # Voltage of battery 2
     
-    iopAccelVert       = 0.0   # Value of the vertical accelerometer
-    iopGyroHoriz       = 0.0   # Gyro value in horizontal plane
-    iopCompassAngle    = 0.0   # Compass angle
-    iopCameraAngle     = 0.0   # Vertical angle of the camera
-    iopBrakeStatus     = 0.0   # Status of the motor brake
-    iopSpare2          = 0.0   # spare    
-    iopSpare3          = 0.0   # spare 
+    iopAccelVert        = 0.0   # Value of the vertical accelerometer
+    iopGyroHoriz        = 0.0   # Gyro value in horizontal plane
+    iopCompassAngle     = 0.0   # Compass angle
+    iopCameraAngle      = 0.0   # Vertical angle of the camera
+    iopBrakeStatus      = 0.0   # Status of the motor brake
+    iopSpare2           = 0.0   # spare    
+    iopSpare3           = 0.0   # spare 
+    
+    # Occupancy grid and Histogram values
+    histAngle           = 0.0   # Steer angle calculated from histogram
+    leftWallDist        = 0.0   # Distance to left wall
+    RightWallDist       = 0.0   # Ditto
     
     # These are the results of the range sensors
-    leftWallAngle      = 0.0   # The angle of the vehicle (relative to left wall)
-    leftWallDist       = 0.0   # The calculated distance to left wall
-    leftDataValid      = False # Data valid flag
-    rightWallAngle     = 0.0   # The angle of the vehicle (relative to right wall)    
-    rightWallDist      = 0.0   # The calculated distance to right wall
-    rightDataValid     = False # Data Valid flag
-    controlAngle       = 0.0   # The calculated vehicle control angle
-    controlDist        = 0.0   # The calculated vehicle dist (to the left wall)
-    compassAngle       = 0.0   # The compass angle the last time these values were
+    #leftWallAngle       = 0.0   # The angle of the vehicle (relative to left wall)
+    #leftWallDist        = 0.0   # The calculated distance to left wall
+    #leftDataValid       = False # Data valid flag
+    #rightWallAngle      = 0.0   # The angle of the vehicle (relative to right wall)    
+    #rightWallDist       = 0.0   # The calculated distance to right wall
+    #rightDataValid      = False # Data Valid flag
+    controlAngle        = 0.0   # The calculated vehicle control angle
+    controlDist         = 0.0   # The calculated vehicle dist (to the left wall)
+    compassAngle        = 0.0   # The compass angle the last time these values were
                                # updated from good data
     
     # Desires coming out of the wall follower controller

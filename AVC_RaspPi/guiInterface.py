@@ -20,7 +20,6 @@ from   constants        import *       # Vehicle and course constants
 from   tcpSocketClass   import *
 from   Queue            import Queue
 from   vehicleState     import *
-from   rangeSensorPair  import rangeSensorPair
 
 ############################################################################## 
 # class guiIfClass - 
@@ -90,20 +89,20 @@ class guiIfClass (object):
     ###########################################################################
     # send_rpiTlm - sends a telemetry packet from the main processor. 
     ###########################################################################     
-    def send_rpiTlm (self, guiAcceptCnt, vehState, rangeLeftPair, rangeRightPair):   
+    def send_rpiTlm (self, guiAcceptCnt, vehState):   
         try: 
         
             # '<' - little-endian (win), 'L' - ulong, 'h' - short, 'B' - uchar
             #data = struct.pack('<LLhhBBBB', 1,2,3,4,5,6,7,8)
-            data = struct.pack('<LLhhBBBB',  
+            data = struct.pack('<LLhhhhhh',  
                                 0x22222222,
                                 vehState.iopTime,
                                 guiAcceptCnt,
-                                vehState.mode.currMode, 
-                                rangeLeftPair.frontValid,
-                                rangeLeftPair.rearValid,
-                                rangeRightPair.frontValid,
-                                rangeRightPair.rearValid)
+                                vehState.mode.currMode,
+                                vehState.histAngle, 
+                                vehState.leftWallDist,
+                                vehState.RightWallDist,
+                                0 )
 
             self.guiTcpSock.sendString(data)        
         except:
