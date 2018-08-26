@@ -354,6 +354,7 @@ def visionSend(obstacle):
 ###########################################################################    
 def exec_guiCmd (cmdMsg):
     global guiAcceptCnt
+    global vehState
     abort = False
     
     if (len(cmdMsg) == 0):      # Is there a real gui command here?
@@ -381,8 +382,11 @@ def exec_guiCmd (cmdMsg):
         serialPort.sendCommand (command, param1, param2, param3)
         guiAcceptCnt += 1        
         
-    elif (command == 'C'):      # Set scanner sensor   
-        serialPort.sendCommand (command, param1, param2, param3)
+    elif (command == 'C'):      # Scanner Enable   
+        if (param1 == 1):
+            start_lidar_scan()
+        else:            
+            stop_lidar_scan()
         guiAcceptCnt += 1
         
     elif (command == 'D'):      # Set IOP mode    
@@ -437,7 +441,8 @@ def exec_guiCmd (cmdMsg):
         guiAcceptCnt += 1       
         
     elif (command == 'R'):      # Set Rpi mode
-        pass
+        vehState.mode.currMode = param1
+        guiAcceptCnt += 1         
         
     elif (command == 'S'):      # Set scanner speed            
         serialPort.sendCommand (command, param1, param2, param3)

@@ -142,9 +142,19 @@ def get_lidar_scan_old():
     return scan_list        
     
 #end scan()   
+
+###############################################################################
+# start_lidar_scan 
+###############################################################################   
+def start_lidar_scan():
+    if lidar != None:
+        lidar.reset()
+        lidar.start_motor()
+        lidar.start('normal')
+# end stop_scan    
     
 ###############################################################################
-# stop_scan 
+# stop_lidar_scan 
 ###############################################################################   
 def stop_lidar_scan():
     if lidar != None:

@@ -102,7 +102,7 @@ class guiIfClass (object):
                                 vehState.histAngle, 
                                 vehState.leftWallDist,
                                 vehState.RightWallDist,
-                                0 )
+                                vehState.iopCumDistance )
 
             self.guiTcpSock.sendString(data)        
         except:
