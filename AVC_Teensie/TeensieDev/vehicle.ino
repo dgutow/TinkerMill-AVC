@@ -23,8 +23,8 @@ void blinkLed (uint32_t currTimeMsec);
 
 // Servo definitions for speed control
 #define SPD_PIN_NUMBER        29
-#define SPD_CONVERSION        63    // Convert from cm/second to microseconds
-#define SPD_MID_PULSEWIDTH  1400    // Servo neutral position (offset = -100)
+#define SPD_CONVERSION        10 // 63 calibrated    // Convert from cm/second to microseconds
+#define SPD_MID_PULSEWIDTH  1500 // 1400 calibrated    // Servo neutral position (offset = -100)
 #define SPD_MIN_PULSEWIDTH  1000
 #define SPD_MAX_PULSEWIDTH  2000
 
@@ -218,6 +218,7 @@ void veh_getTelem (uint32 currTimeMsec)
 // veh_check - perform all the continuing maintenance on a move and/or turn 
 // command.  Called by the main loop routine
 ///////////////////////////////////////////////////////////////////////////////
+#if 0
 void veh_check (uint32 currTimeMsec)
 {
     uint32 l_nSteps;
@@ -267,13 +268,14 @@ void veh_check (uint32 currTimeMsec)
     // total distances of our wheels.  
     telem.cumDistance = (int) ( (lt_totalDist + rt_totalDist) / 2 );
     
-    // check if we're at the move limit (but only if we're not moving)
+    // check if we're at the move limit (but only if we're moving)
     if ( veh_cmd_speed > 0 && (telem.cumDistance >= veh_moveDistance) )
     {
         // Yep, we're past the move limit, stop the vehicle
         veh_move (0, 0);
     }      
 }
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 // veh_getSwitches - gets the status of all the switches.  Signals an estop
@@ -329,3 +331,54 @@ void veh_rightWheelInt (void)
 ///////////////////////////////////////////////////////////////////////////////
 // 
 ///////////////////////////////////////////////////////////////////////////////
+// #define uint32 unsigned integer
+
+void VerifySteps(volatile uint32 step[3],uint32 localStep[3],volatile uint32 &wheelSteps,uint32 &localSteps)
+{
+        localSteps = wheelSteps;
+        for (int i = 0;i < 3;i++) {
+            localStep[i] = step[i];
+        }
+        if (wheelSteps != localSteps) {//repeat if we see change.
+            localSteps = wheelSteps;
+            for (int i = 0;i < 3;i++) {
+                localStep[i] = step[i];
+            }
+        }
+}
+float getRWheelRotateSpeed() {
+    uint32 r_nSteps;
+    uint32 r_StepTimes[3];
+    VerifySteps(rt_StepTimes, r_StepTimes, rt_nSteps, r_nSteps);//verify right wheel
+    return (ENC_DEG_PER_STEP * 1000) / (r_StepTimes[0] - r_StepTimes[1]);
+}
+float getLWheelrotateSpeed() {
+    uint32 l_nSteps;
+    uint32 l_StepTimes[3];
+    VerifySteps(lt_StepTimes, l_StepTimes, lt_nSteps, l_nSteps);//verify left wheel
+    return (ENC_DEG_PER_STEP * 1000) / (l_StepTimes[0] - l_StepTimes[1]);
+}
+float getLeftLinearSpeed() {
+    return (getLWheelrotateSpeed() * VEH_WHEEL_CIRCUM) / 360;
+}
+float getRightLinearSpeed() {
+    return (getRWheelRotateSpeed() * VEH_WHEEL_CIRCUM) / 360;
+}
+void veh_check(uint32 currTimeMsec)
+{
+    // Calculate the current rotational speeds (deg/sec)    
+    lt_rotateSpeed = getLWheelrotateSpeed();
+    rt_rotateSpeed = getLWheelrotateSpeed();
+    // Now convert to linear speed (cm/sec)
+    lt_linearSpeed = getLeftLinearSpeed();
+    rt_linearSpeed = getRightLinearSpeed();
+    // Our cumulative distance travelled is just the average of the two
+    // total distances of our wheels.  
+    telem.cumDistance = (int)((lt_totalDist + rt_totalDist) / 2);
+    // check if we're at the move limit (but only if we're moving)
+    if (veh_cmd_speed > 0 && (telem.cumDistance >= veh_moveDistance))
+    {
+      // Yep, we're past the move limit, stop the vehicle
+      veh_move(0, 0);
+    }
+}
