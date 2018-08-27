@@ -71,10 +71,10 @@ void blinkLed        (uint32_t currTimeMsec);
 ///////////////////////////////////////////////////////////////////////////////
 task taskList[] = { {checkForCmds,        20,     0,      0}, // did we get a new command?
                     {veh_check,           50,     0,      0}, // continual servicing of vehicle systems
-                    {scn_getValues,        2,     0,      0},   
-                    {cam_getTelem,        40,     0,      0},                     
-                    {veh_getTelem,        40,     0,      0},                                                  
-                    {tlm_sendToHost,      10,     1,      0},
+                    {scn_getValues,        3,     0,      0},   
+                    {cam_getTelem,        50,     0,      0},                     
+                    {veh_getTelem,        50,     0,      0},                                                  
+                    {tlm_sendToHost,      50,     1,      0},
                     //{hb_check,          10,     1,      0}, // check// get the side sensor values                      
                     //{blinkLed,           500,     1,      0},                    
                     }; 
