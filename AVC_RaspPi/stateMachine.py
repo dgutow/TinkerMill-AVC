@@ -125,7 +125,7 @@ def stateMachine (vehState, serialPort, occGrid):
 
         # If we got an obstacle sighting from the vision system transition
         newState = obstacleTransition (vehState)
-        angle = hist.getAngle(hist.getCostArray(occGrid, maxAngle, hist.scanAngle, hist.angDelta), 0)
+        angle = hist.getAngle(hist.getCostArray(occGrid, maxDist, hist.scanAngle, hist.angDelta), 0)
 
         print ("Histogram Angle = ", angle)
     #------------------------------------------------------

@@ -295,6 +295,12 @@ class Histogram(object):
     # end
 
     ###########################################################################
+    # printSimpleGrid -
+    ###########################################################################
+    def printSimpleGrid(self, grid):
+	return np.flip(np.array([[0 if grid.isZero(x, y) else 1 for y in range(grid.nCols)] for x in range(grid.nRows)]), axis = 0)
+
+    ###########################################################################
     # getCostArray -
     ###########################################################################
     def getCostArray(self, grid, maxDist, scanAngle, angDelta):
@@ -303,20 +309,20 @@ class Histogram(object):
         for col in range(grid.nCols):
             for row in range(grid.nRows):
                 # if coordinate found, get cost and angle
-                if not (g.isZero(row, col)):
+                if not (grid.isZero(row, col)):
                     cost = maxDist * (1 - (self.getDist(self.origin, grid.grid[row][col]) / maxDist))
                     angle = degrees(np.arctan((grid.grid[row][col][0]-self.origin[0]) / (grid.grid[row][col][1]-self.origin[1])))
 
-                # bin angle into degree buckets
-                for slice in range(-scanAngle, scanAngle, angDelta):
-                    if angle >= slice and angle < slice + angDelta:
-                        # initialize bucket
-                        if not angleBin.has_key(slice):
-                            angleBin[slice] = cost
-                        # add cost to existing bucket
-                        else:
-                            newValue = angleBin[slice] + cost
-                            angleBin[slice] = newValue
+                    # bin angle into degree buckets
+                    for slice in range(-scanAngle, scanAngle, angDelta):
+                        if angle >= slice and angle < slice + angDelta:
+                            # initialize bucket
+                            if not angleBin.has_key(slice):
+                                angleBin[slice] = cost
+                            # add cost to existing bucket
+                            else:
+                                newValue = angleBin[slice] + cost
+                                angleBin[slice] = newValue
                 else:
                     cost = 0
 
@@ -374,8 +380,9 @@ if __name__ == '__main__':
     # minCost - smallest cost to display representing no object detected (recommended set to 0)
     # maxCost - largest cost to display representing imminent collision (recommended set to 9 max)
     h = Histogram(origin=[0.5 * g.nCols * g.resolution, 0], scanAngle=45, angDelta=3)
-
-    costArray = h.getCostArray(g, maxAngle, h.scanAngle, h.angDelta)
+    
+    # print(h.printSimpleGrid(g))
+    costArray = h.getCostArray(g, maxDist, h.scanAngle, h.angDelta)
     # print(costArray)
     # OUTPUT
     output = h.getAngle(costArray, 0)
