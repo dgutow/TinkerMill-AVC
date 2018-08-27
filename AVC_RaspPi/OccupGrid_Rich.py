@@ -295,54 +295,39 @@ class Histogram(object):
     # end
 
     ###########################################################################
-    # remapAngle -
-    ###########################################################################
-    def remapAngle(self, angle):
-        # remap 0 to 180 CCW to 90 to -90 CCW
-        if (angle >= 0 and angle <= 90):
-            factor = 1
-        elif (angle > 90 and angle <= 180):
-            factor = -1
-
-        return factor * abs(angle - 90)
-
-    ###########################################################################
     # getCostArray -
     ###########################################################################
-    def getCostArray(self, grid, maxDist):
-        # get the maximum distance based on our scanner       
-
-        costArray = []
+    def getCostArray(self, grid, maxDist, scanAngle, angDelta):
+        angleBin = {}
 
         for col in range(grid.nCols):
             for row in range(grid.nRows):
-                # replace [0.0, 0.0] distances since that could be interpreted as next to the robot with large number
-                if (grid.grid[row][col][0] != 0 and grid.grid[row][col][1] != 0):
+                # if coordinate found, get cost and angle
+                if not (g.isZero(row, col)):
                     cost = maxDist * (1 - (self.getDist(self.origin, grid.grid[row][col]) / maxDist))
-                    angle = degrees(np.arccos((grid.grid[row][col][0]-self.origin[0]) / self.getDist(self.origin, grid.grid[row][col])))
-                    angle = self.remapAngle(angle)
+                    angle = degrees(np.arctan((grid.grid[row][col][0]-self.origin[0]) / (grid.grid[row][col][1]-self.origin[1])))
+
+                # bin angle into degree buckets
+                for slice in range(-scanAngle, scanAngle, angDelta):
+                    if angle >= slice and angle < slice + angDelta:
+                        # initialize bucket
+                        if not angleBin.has_key(slice):
+                            angleBin[slice] = cost
+                        # add cost to existing bucket
+                        else:
+                            newValue = angleBin[slice] + cost
+                            angleBin[slice] = newValue
                 else:
                     cost = 0
-                    angle = 0
 
-                costArray.append([cost, angle])
+        # for buckets that did not any cost, add empty buckets
+        for slice in range(-scanAngle, scanAngle, angDelta):
+            if not angleBin.has_key(slice):
+                angleBin[slice] = 0
 
-        costArray = np.flip(costArray, axis = 0)
+        costArray = np.array(angleBin.items())
 
         return costArray
-
-    ###########################################################################
-    # getSlices -
-    ###########################################################################
-    def getSlices(self, costAngGrid, scanAngle, angDelta):
-
-        bin = []
-
-        for slice in range(-scanAngle, scanAngle, angDelta):
-            cost = np.sum(costAngGrid[np.where((costAngGrid[:,1] >= slice) & (costAngGrid[:,1] < slice + angDelta))])
-            bin.append([slice, cost])
-
-        return np.array(bin)
 
     ###########################################################################
     # getAngle -
@@ -384,15 +369,14 @@ if __name__ == '__main__':
         for i in obstacles:
             g.enterRange(0, 0, i[1] / 10, i[0])
 
-
     # scanAngle or "Cone": +/- (deg)
     # angDelta or "Slice": (deg)
     # minCost - smallest cost to display representing no object detected (recommended set to 0)
     # maxCost - largest cost to display representing imminent collision (recommended set to 9 max)
     h = Histogram(origin=[0.5 * g.nCols * g.resolution, 0], scanAngle=45, angDelta=3)
 
-    costArray = h.getSlices(h.getCostArray(g), h.scanAngle, h.angDelta)
-
+    costArray = h.getCostArray(g, maxAngle, h.scanAngle, h.angDelta)
+    # print(costArray)
     # OUTPUT
     output = h.getAngle(costArray, 0)
 
