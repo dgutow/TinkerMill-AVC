@@ -8,23 +8,10 @@
 """
 
 #from rangeSensorPair import rangeSensorPair
-from raceModes       import raceModes
+from raceModes          import raceModes
+from constants          import *        # Vehicle and course constants
 #from rangeClass      import Range
 
-###############################################################################
-# class obstacle - an enumeration of the track obstacles we know about
-###############################################################################
-class obstacle (object):
-    NONE         =  0
-    PEDESTRIAN   =  80
-    STOPSIGN     =  83 
-    CROSSWALK    =  67
-    RAMP         =  82
-    HOOP         =  72 
-    BARRELS      =  66  
-    COURSE_END   =  69
-    ALL          =  65
-# end class  
 
 ###############################################################################
 # Enumeration of the modes of the IOP

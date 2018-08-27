@@ -1,10 +1,10 @@
-# raceModes.py
-#
 """
  raceState.py 
  Class to store the current mode of the system during the race.
  Written by David Gutow 8/2017
 """
+
+from constants      import *        # Vehicle and course constants
 
 ############################################################################### 
 # class RaceModes - an enumeration of the possible states of the race
@@ -83,35 +83,35 @@ class raceModes(object):
                   ESTOP          : "ESTOP"         ,
                   UNKNOWN        : "UNKNOWN"       }    
     # Nominal speeds in each state
-    speedDict = {NONE           : 0,
-                 WAIT_FOR_BIST  : 0,
-                 WAIT_FOR_START : 0,
-                 RACE_BEGIN     : 0,
-                 RACE_STRAIGHT  : 50,
-                 RACE_CURVE     : 40,
-                 NEGOT_CROSSING : 50,
-                 APPR_STOPSIGN  : 30,
-                 NEGOT_STOPSIGN : 30,
-                 RECOV_STOPSIGN : 30,
-                 APPR_HOOP      : 30,
-                 NEGOT_HOOP     : 30,
-                 RECOV_HOOP     : 30,
-                 APPR_BARRELS   : 30,
-                 NEGOT_BARRELS  : 20,
-                 RECOV_BARRELS  : 30,
-                 APPR_RAMP      : 30,
-                 NEGOT_RAMP     : 30,
-                 RECOV_RAMP     : 30,
-                 APPR_PED       : 30,
-                 APPR_XWALK     : 10,
-                 STOP_XWALK     : 0,
-                 XWALK_STARTUP  : 30,
-                 WAIT_FOR_END   : 50,
-                 NEGOT_END      : 10,
-                 TERMINATE      : 0,
-                 ERROR          : 0,
-                 ESTOP          : 0,
-                 UNKNOWN        : 0 }                      
+    speedDict = {NONE           : speedZero,
+                 WAIT_FOR_BIST  : speedZero,
+                 WAIT_FOR_START : speedZero,
+                 RACE_BEGIN     : speedZero,
+                 RACE_STRAIGHT  : speedMax,
+                 RACE_CURVE     : speedMax,
+                 NEGOT_CROSSING : speedMax,
+                 APPR_STOPSIGN  : speedApproach,
+                 NEGOT_STOPSIGN : speedPed,
+                 RECOV_STOPSIGN : speedRecov,
+                 APPR_HOOP      : speedApproach,
+                 NEGOT_HOOP     : speedHoop,
+                 RECOV_HOOP     : speedRecov,
+                 APPR_BARRELS   : speedApproach,
+                 NEGOT_BARRELS  : speedBarrels,
+                 RECOV_BARRELS  : speedRecov,
+                 APPR_RAMP      : speedApproach,
+                 NEGOT_RAMP     : speedRamp,
+                 RECOV_RAMP     : speedRecov,
+                 APPR_PED       : speedApproach,
+                 APPR_XWALK     : speedApproach,
+                 STOP_XWALK     : speedZero,
+                 XWALK_STARTUP  : speedApproach,
+                 WAIT_FOR_END   : speedMax,
+                 NEGOT_END      : speedMax,
+                 TERMINATE      : speedZero,
+                 ERROR          : speedZero,
+                 ESTOP          : speedZero,
+                 UNKNOWN        : speedZero }                      
  
     ###########################################################################    
     # The values stored in this class

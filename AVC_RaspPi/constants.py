@@ -41,23 +41,31 @@ trackWidth      = (16 * 12 * 2.54)      # Width between walls - 16 feet (cm)
 trackLength     = 13116                 # Approx length of track (cm)
 
 ###############################################################################
+# class obstacle - an enumeration of the track obstacles we know about
 # Course obstacle sequence - this array holds the sequence of obstacles which
 # the vehicle will encounter
 ###############################################################################
-trObstacle1     = obstacle.BARRELS      # The order we will face the obstacles
-trObstacle2     = obstacle.RAMP         # BARRELS RAMP HOOP PEDESTRIAN NONE
-trObstacle3     = obstacle.HOOP         # COURSE_END ALL
-trObstacle4     = obstacle.PEDESTRIAN
-trObstacle5     = obstacle.COURSE_END 
-trObstacle6     = obstacle.ALL
+class obstacle (object):
+    NONE         =  0
+    PEDESTRIAN   =  80
+    STOPSIGN     =  83 
+    CROSSWALK    =  67
+    RAMP         =  82
+    HOOP         =  72 
+    BARRELS      =  66  
+    COURSE_END   =  69
+    ALL          =  65
+# end class 
 
+# The order we will face the obstacles: BARRELS RAMP HOOP PEDESTRIAN NONE
+# COURSE_END ALL
 obstacleSequence = []    
-obstacleSequence.append (trObstacle1)
-obstacleSequence.append (trObstacle2)
-obstacleSequence.append (trObstacle3)
-obstacleSequence.append (trObstacle4)
-obstacleSequence.append (trObstacle5)    
-obstacleSequence.append (trObstacle6)   
+obstacleSequence.append (obstacle.BARRELS)
+obstacleSequence.append (obstacle.RAMP)
+obstacleSequence.append (obstacle.HOOP)
+obstacleSequence.append (obstacle.PEDESTRIAN)
+obstacleSequence.append (obstacle.COURSE_END)    
+obstacleSequence.append (obstacle.ALL)   
     
 ###############################################################################   
 """ Occupancy Grid constants:  We need to represent an area at least 52 feet wide 
@@ -103,13 +111,34 @@ rsLRspacing     = 15    # The spacing between the left and right sensor pairs
 ###############################################################################
 # The various speed values:  
 ###############################################################################
-speedMax        = 100   # Maximum speed we'll ever go
-speedApproach   = 50    # The speed we'll approach obstacle with
-speedHoop       = 50    # The speed we'll negotiate the hoop obstacle
-speedRamp       = 60    # The speed we'll jump the ramp
-speedPed        = 40    # The speed we'll negotiate the pedestrian
-speedBarrels    = 30    # The speed we'll negotiate the barrels
-speedMin        = 20    # The minimum speed (except zero) we'll ever go
+speedMax        = 8     # Maximum speed we'll ever go
+speedApproach   = 6     # The speed we'll approach obstacle with
+speedRecov      = 6
+speedHoop       = 5     # The speed we'll negotiate the hoop obstacle
+speedRamp       = 6     # The speed we'll jump the ramp
+speedPed        = 5     # The speed we'll negotiate the pedestrian
+speedBarrels    = 5     # The speed we'll negotiate the barrels
+speedMin        = 5     # The minimum speed (except zero) we'll ever go
 speedZero       = 0     # Stopped
 
+###############################################################################
+# The commands to the IOP:  
+###############################################################################
+cmdMove         = 'M'
+cmdTurn         = 'T'
+cmdEstop        = 'E'
+cmdHeartBeat    = 'H'
+cmdLighting     = 'L'
+cmdSpeedPid     = 'P'
+cmdTurnPid      = 'Q'
+cmdGoToMode     = 'D'
+cmdNop          = 'N'
+cmdScanSpeed    = 'S'
+cmdScanAngle    = 'A'
+cmdCamAngle     = 'V'
+cmdScanEnable   = 'C'
+cmdBrake        = 'B'
+
+###############################################################################
+# :  
 ###############################################################################

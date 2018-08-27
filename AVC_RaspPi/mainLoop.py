@@ -164,7 +164,7 @@ def get_lidarTlm(loopCntr):
     
     if (loopCntr == 0):
         # Initialize the graphic window
-        occGrid.initGraphGrid("Occupancy Grid", 4, False, False)  
+        #occGrid.initGraphGrid("Occupancy Grid", 4, False, False)  
         pass
 
     # Get the lastest range points from the RPLidar
@@ -188,7 +188,7 @@ def get_lidarTlm(loopCntr):
 
     if loopCntr % 5 == 0:
         # every 1/2 second update the graph
-        occGrid.graphGrid ("red")
+        #occGrid.graphGrid ("red")
         pass
         
     if loopCntr % 20 == 0:
