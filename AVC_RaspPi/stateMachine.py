@@ -13,7 +13,8 @@
 from vehicleState   import *
 from raceModes      import raceModes   
 from constants      import *        # Vehicle and course constants
-from printOut        import *
+from printOut       import *
+from OccupGrid_Rich import *
 
 if SIM_TEENSY:
     from serialClassSim  import serialClass
@@ -24,14 +25,18 @@ else:
 apprCount       = 2     # Count of loops to stay in any of the appr states
 BistMaxCnt      = 90    # 3 sec - max time for IOP to get to BIST
 NormMaxCnt      = 30    # 2 sec - max time for IOP to enter NORM mode after cmd 
-simMaxCnt       = 100     # 
-ErrorMaxCnt     = 200    # Number of iterations before repeating error msg
+simMaxCnt       = 100   # 
+ErrorMaxCnt     = 200   # Number of iterations before repeating error msg
+
+hist = Histogram(origin=[0.5 * ogNcols * ogResolution, 0], scanAngle=45, angDelta=3)
+
+maxDist = sqrt((((ogNcols / 2) * ogResolution) ** 2) + ((ogNrows * ogResolution) ** 2))
 
 ############################################################################### 
 # stateControl - choose what to do depending on our current state
 ###############################################################################
 
-def stateMachine (vehState, serialPort):
+def stateMachine (vehState, serialPort, occGrid):
     # vehState.mode.printMode("STATEMACHINE:")
     
     ##*************************************************************************
@@ -102,8 +107,10 @@ def stateMachine (vehState, serialPort):
             playSound (vehState)    
         # end
 
-        if (vehState.iopStartSwitch):     # We're Off!
-            vehState.mode.setMode(raceModes.RACE_STRAIGHT) 
+        # This is just a transitory state to initialize things
+        # Clear out the occ grid and then move to RACE
+        occGrid.clear()     
+        vehState.mode.setMode(raceModes.RACE_STRAIGHT) 
         # end
          
     ##*************************************************************************
@@ -114,9 +121,13 @@ def stateMachine (vehState, serialPort):
             playSound (vehState) 
         # end
         
+        # serialPort.sendCommand ('M', vehState.mode.getSpeed(), 0, 0)  
+        
         # If we got an obstacle sighting from the vision system transition
         newState = obstacleTransition (vehState)  
+        angle = hist.getAngle(hist.getSlices(hist.getCostArray(occGrid, maxDist), hist.scanAngle, hist.angDelta), 0)
         
+        print ("Histogram Angle = ", angle)
     #------------------------------------------------------         
     elif vehState.mode.currMode == raceModes.RACE_CURVE:
         if vehState.mode.newMode():   

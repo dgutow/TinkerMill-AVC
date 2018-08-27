@@ -14,12 +14,14 @@ from simulator       import *       # Only for the simulator
 from vehicleState    import *       # Everything we know about the vehicle
 from constants       import *       # Vehicle and course constants
 from stateMachine    import stateMachine
-from rangeSensorPair import rangeSensorPair
+#from rangeSensorPair import rangeSensorPair
 from raceModes       import raceModes
-from rangeClass      import Range
-from OccupGrid       import Grid
+#from rangeClass      import Range
+from OccupGrid_Rich  import Grid
 from guiInterface    import guiIfClass
 from printOut        import *
+from lidar_dag       import *
+
 
 if SIM_TEENSY:
     from serialClassSim  import serialClass
@@ -33,6 +35,7 @@ else:
 # Vehicle State holds everything known about the current vehicle state
 vehState        = vehicleState()
 
+"""
 # The two side IT range sensor pairs
 rangeLeftPair   = rangeSensorPair(initFrontAng   = rsLeftFrontAng, 
                               initRearAng    = rsLeftRearAng, 
@@ -47,7 +50,7 @@ rangeRightPair  = rangeSensorPair(initFrontAng   = rsRightFrontAng,
                               initMinDist    = rsMinDistance,
                               initMaxDist    = rsMaxDistance, 
                               rightSide      = rsRigthSide)                             
-
+"""
 # The vehicle occupancy grid
 occGrid       = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
 
@@ -68,6 +71,8 @@ guiIf = guiIfClass (RPI_IPADDR, RPI_TCPPORT, UDP_IPADDR, UDP_IOPPORT, UDP_VISPOR
 # Number of accepted commands from the GUI
 guiAcceptCnt = 0
 
+# DAG TEMPORARY dag
+cumulative_dist = 0
 ############################################################################### 
 # Initialize the entire system
 ###############################################################################
@@ -78,6 +83,9 @@ def initializations():
     
     # initialize vehicle state
     vehState.mode.setMode (raceModes.NONE)   
+    
+    # start and initialize the RPLidar
+    init_lidar_scan()
     
     time.sleep(0.5) 
     printOut("INITIALIZATIONS: initializations complete")       
@@ -92,45 +100,52 @@ def initializations():
 def mainLoop():
     abort = False
     loopCntr    = 0
-    printOut ("MAIN_LOOP: Dwelling for 10 seconds...")
-    time.sleep (10.0)
-    printOut ("MAIN_LOOP: starting loop")
+    printOut ("MAIN_LOOP: Dwelling for 2 seconds...")
+    time.sleep (2.0)
+    last_time = time.clock()
     
     while (not abort): 
-        #(vehState.mode.currMode != raceModes.TERMINATE and not abort):  
-        time.sleep (0.1)          #   
-        #time.sleep (0.8)          # dag remove    
-                
-        loopCntr += 1         
+        #(vehState.mode.currMode != raceModes.TERMINATE and not abort): 
+        # Wait until 0.1 seconds have gone by from the last loop
+        while ( time.clock() < (last_time + 0.1) ):
+            pass
+        last_time = time.clock()
+                       
         if loopCntr % 20 == 0:
-            printOut (("\nMAIN_LOOP: Loop #%2d" % (loopCntr)))       
+            printOut ("\nMAIN_LOOP: Loop #%2d, time %f" % (loopCntr, time.clock()) )      
     
         # Check if we received a command from the GUI host and
         # send the GUI a telemetry packet
         guiCmd = guiIf.get_cmd () 
         abort = exec_guiCmd (guiCmd)           
-        guiIf.send_rpiTlm (guiAcceptCnt, vehState, rangeLeftPair, rangeRightPair)  
+        guiIf.send_rpiTlm (guiAcceptCnt, vehState)  
         
         # Get the iop telemetry msgs and parse into state structure
         iopMsg = get_iopTlm (loopCntr)
         #if (len(iopMsg) != 0):              
-        #    guiIf.send_iopTlm (iopMsg)
+        #    guiIf.send_iopTlm (iopMsg) done in get_iopTlm now
 
         # Get the vision temetry msgs and parse into state structure        
         #visMsg = getVisionTelemetry()
         #if (length(visMsg) != 0):
         #    guiIf.send_visTlm (visMsg)  
+        
+        # Get all the RPlidar data and enter it into the occGrid
+        get_lidarTlm(loopCntr)
             
         # Now do all the state specific actions
-        try:
-            stateMachine (vehState, serialPort)
-        except:
-            print ("MAIN_LOOP - ERROR in stateMachine")
+        #try:
+        stateMachine (vehState, serialPort, occGrid)
+        #except:
+            #print ("MAIN_LOOP - ERROR in stateMachine")
         
         # Let the iop know we're alive
         vehState.currHeartBeat += 1        
-        #serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)   dag turn on              
+        #serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)   dag turn on  
+        
+        loopCntr += 1              
     # end while
+    
     printOut ("MAIN_LOOP: Terminating mainLoop, killing serialPort")
     serialPort.killThread()     
       
@@ -142,6 +157,47 @@ def mainLoop():
     printOut ("MAIN_LOOP: guiIf killed, returning...")       
 # end def 
     
+################################################################################
+# get_lidarTlm(loopCntr)
+################################################################################
+def get_lidarTlm(loopCntr):
+    
+    if (loopCntr == 0):
+        # Initialize the graphic window
+        occGrid.initGraphGrid("Occupancy Grid", 4, False, False)  
+        pass
+
+    # Get the lastest range points from the RPLidar
+    scan_list = get_lidar_data()
+    
+    # Enter each of the range points into the occGrid
+    for dataPt in scan_list:
+        newPt = dataPt[0]
+        qual  = dataPt[1]
+        angle = dataPt[2]
+        #dist  = dataPt[3]  / 10     # data is in mm DAG        
+        dist  = dataPt[3]  / 1     # data is in mm DAG 
+        occGrid.enterRange(vehState.iopCumDistance, vehState.iopSteerAngle, 
+                           dist, angle)                              
+
+    # Now shift the occGrid down by the vehicles motion since the last time
+    occGrid.recenterGrid(vehState.iopCumDistance, vehState.iopSteerAngle);
+    
+    # Send the occGrid as telemetry to our GUI
+    # occGrid.sendUDP()
+
+    if loopCntr % 5 == 0:
+        # every 1/2 second update the graph
+        occGrid.graphGrid ("red")
+        pass
+        
+    if loopCntr % 20 == 0:
+        # every 2 seconds clear the graph
+        #occGrid.clearGraphGrid ()    
+        pass    
+# End
+        
+
 ################################################################################
 # get_iopTlm( )
 ################################################################################
@@ -157,10 +213,9 @@ def get_iopTlm(loopCntr):
         msg = IopTlmQueue.get_nowait()
         #printOut("MAINLOOP:GET_IOPTLM - msg length (%d)" % ( len(msg)) )
         #printOut("MAINLOOP:GET_IOPTLM - got msg (%s)" % ( msg) )
-        time = proc_iopTlm(msg)     
-                    
+        time = proc_iopTlm(msg)                  
         guiIf.send_iopTlm (msg)         # dag - send every pkt to gui
-           
+    
         tlm_cnt += 1
     # end while
 
@@ -195,9 +250,9 @@ def proc_iopTlm (data):
     vehState.iopBistStatus  = telemArray[4]
     vehState.iopSpeed       = telemArray[5]
     vehState.iopSteerAngle  = telemArray[6]         
-    vehState.iopCumDistance = telemArray[7]
+    #vehState.iopCumDistance = telemArray[7]   #dag remove before flight
     
-    # Enter the side IR sensors into the two rangeSensorPairs
+    vehState.iopCumDistance += 2
     irLF_Range              = telemArray[8]
     irLR_Range              = telemArray[9]        
     irRF_Range              = telemArray[10]
@@ -243,33 +298,14 @@ def proc_iopTlm (data):
     # -180 to +180, rather than 0 to 360 degrees.
     if (vehState.iopCompAngle > 180):
         vehState.iopCompAngle -= 360
-    #print ("MAINLOOP:PROC_IOPTLM - 1")
+        
     #######################################################################  
     # Enter the scanner info into the iopRanges buffer
-    vehState.iopRanges.enterRange(time   = vehState.iopTime, 
-                                  angle  = measScanAngle, 
-                                  ranger = 1, 
-                                  range  = 1) 
-    #print ("MAINLOOP:PROC_IOPTLM - 2")                                      
-    #######################################################################                                      
-    # Enter the scanner info into the occupGrid - DAG should we 
-    # enter the data if we are using the short range sensor?
-    occGrid.enterRange ( carCumDist   = vehState.iopCumDistance, 
-                         carCurrAngle = vehState.iopCompAngle, 
-                         scanDist     = 1, 
-                         scanAngle    = 1)       
-    #print ("MAINLOOP:PROC_IOPTLM - 3")                             
-    #######################################################################        
-    # Enter the side IR sensor data into the two rangeSensorPairs
-    if not SIM_TEENSY:
-        #rangeLeftPair.newMeasurement (measFrontRange = irLF_Range, 
-                                    #measRearRange  = irLR_Range)                                     
-        #rangeRightPair.newMeasurement(measFrontRange = irRF_Range, 
-                                    #measRearRange  = irRR_Range)   
-        pass
-    # end SIM_TEENSY     
-    
-    # print ("MAINLOOP:PROC_IOPTLM - 4 end")        
+    #vehState.iopRanges.enterRange(time   = vehState.iopTime, 
+    #                              angle  = measScanAngle, 
+    #                              ranger = 1, 
+    #                              range  = 1)                                          
+  
     return vehState.iopTime
 # end
 

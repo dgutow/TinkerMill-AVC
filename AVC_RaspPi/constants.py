@@ -65,13 +65,13 @@ obstacleSequence.append (trObstacle6)
 off to the right/left during turns).  The 16 feet track width is included twice 
 since we always keep the car centered in the X center of the grid (Xcenter,0), 
 and then the car can be either all the way to the right or all the way to left.  
-The height of the map corresponds to 16 feet high, the max range of the sensor. 
+The height of the map corresponds to ~33 feet high, the max range of the sensor. 
 Since the grid cells are only bins we can set the resolution value fairly large.
 """
 ###############################################################################
-ogResolution    = 15    # Size of each cell in the occupancy grid (cm)
-ogNcols         = 104   # At 15 cm (6") this corresponds to 52 feet wide
-ogNrows         = 32    # At 15 cm cells this is 16 feet (the range of the sensors)
+ogResolution    = 10    # Size of each cell in the occupancy grid (cm)
+ogNcols         = 160   # At 10 cm this corresponds to ~52 feet wide
+ogNrows         = 100   # At 10 cm cells this is 33 feet (the range of the sensors)
 ogStartDist     = 0.0   # Initial cumulative distance when system intitialized
 ogStartAngle    = 0.0   # Initial angle of the vehicle when system initialized
 
