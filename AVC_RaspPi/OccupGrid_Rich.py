@@ -70,7 +70,12 @@ class Grid(object):
     def clear (self, distance=0, angle= 0):
         self.distance   = distance
         self.angle      = angle
+        
+        # Create the occupancy grid
         self.grid = [[ [0.0, 0.0] for x in range(self.nCols)] for y in range(self.nRows)]
+        
+        # Create the binary grid to send as telemetry
+        self.binaryGrid =  [[ 0 for x in range(self.nCols)] for y in range(self.nRows)]
     # end
 
     ###########################################################################
@@ -266,6 +271,44 @@ class Grid(object):
         #win.getMouse()
         #win.close
     # end graphGrid
+    
+    ################################################################################
+    # sendUDP()
+    ################################################################################
+    def sendUDP(currTime, angle):
+        PktId   = 0x55555555              # packet ID for the occupancy grid msg
+        nRows   = occGrid.nRows
+        nCols   = occGrid.nCols
+        carXpos = int(self.Xpos)
+        carYpos = int(self.Ypos)
+    
+        #Fill the binary grid from the occupancy grid
+        for row in range (self.nRows):
+            for col in range (self.nCols):
+                if (self.isZero(row, col)):  
+                    binaryGrid[row][col] = False
+                else:
+                    binaryGrid[row][col] = True
+                # End if
+        # end for
+        
+        # Calculate our checksum
+        checksum = PktId + currTime + nRows + nCols + carXpos + carYpos + angle
+        for row in range (self.nRows):
+            for col in range (self.nCols):
+                checksum += binaryGrid[row][col] 
+        # end for
+        
+        # 'L' - ulong, i - int, 'h' - short, 'B' - uchar, 
+        # 'x' - char, 's', 'p' - string, char[]
+        # Create the packet to send
+        packetDesc = '>LLLLiii%sx' % (nRows * nCols)
+        packetData = struct.pack(packetDesc, PktId, currTime, nRows, nCols, 
+                            carXpos, carYpos, angle, *binaryGrid)
+            
+        # Send the packet!
+        s.sendto(packetData, (host, UDP_PORT))
+    # end    
 
     ###########################################################################
     # getGrid -

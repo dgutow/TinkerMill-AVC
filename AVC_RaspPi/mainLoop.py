@@ -197,7 +197,41 @@ def get_lidarTlm(loopCntr):
         pass    
 # End
         
+################################################################################
+# sendOccupancyGrid_init()
+################################################################################
+def sendOccupancyGrid_init():        
+    # host = '192.168.56.1'
+    host = '10.2.127.123'  # Symbolic name meaning all available interfaces
 
+    # '<' - little-endian (win), 'L' - ulong, 'h' - short, 'B' - uchar
+    # data = struct.pack('<LLhhBBBB', 1,2,3,4,5,6,7,8)
+    ################################################################
+    # UDP SEND EXAMPLE
+    # ref: http://www.joshmcculloch.nz/#!python-network-udp-intro
+    ################################################################
+    UDP_PORT = 12346  # The same port as used by the server
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    time = datetime.datetime.utcnow()
+    header = 0x55555555
+    carPositionX = 10
+    carPositionY = 11
+    angleOfDecision = 180
+    gridRows = 2 # 300
+    gridColumns = 2 # = 50
+    # gridSize = 1500  # 50 X 300
+    # gridArray = 1
+    # checkSum = 999
+
+    dataGrid = ""
+    for i in range(0, gridRows):
+        for j in range(0, gridColumns):
+            dataGrid += str(i) + str(j) + " "
+            
+    # end for
+# end    
+    
 ################################################################################
 # get_iopTlm( )
 ################################################################################
