@@ -5,8 +5,10 @@ Author: David Gutow, Rich Paasch
 Version: 8/2018
 """
 
-from math       import *
+import socket
+import struct
 import numpy as np
+from   math     import *
 
 from LIDAR      import *
 from graphics   import *        # dag - remove before flight
@@ -61,6 +63,11 @@ class Grid(object):
         self.nRows      = nRows
         self.Xpos       = nCols * resolution / 2
         self.Ypos       = 0.0
+        
+        self.host       = None          # Used for UDP telemetry
+        self.port       = None
+        self.sock       = None
+        
         self.clear (distance, angle)
     # end
 
@@ -272,42 +279,56 @@ class Grid(object):
         #win.close
     # end graphGrid
     
+    
     ################################################################################
     # sendUDP()
     ################################################################################
-    def sendUDP(currTime, angle):
+    def sendUDP_init(self, host, port):    
+        self.host = host
+        self.port = port
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    # end
+    
+    ################################################################################
+    # sendUDP()
+    ################################################################################
+    def sendUDP(self, currTime, angle):
         PktId   = 0x55555555              # packet ID for the occupancy grid msg
-        nRows   = occGrid.nRows
-        nCols   = occGrid.nCols
+        nRows   = self.nRows
+        nCols   = self.nCols
         carXpos = int(self.Xpos)
         carYpos = int(self.Ypos)
     
         #Fill the binary grid from the occupancy grid
+        binaryGrid = []
         for row in range (self.nRows):
             for col in range (self.nCols):
                 if (self.isZero(row, col)):  
-                    binaryGrid[row][col] = False
+                    binaryGrid.append (False)
                 else:
-                    binaryGrid[row][col] = True
+                    binaryGrid.append (True)
                 # End if
         # end for
-        
+
         # Calculate our checksum
         checksum = PktId + currTime + nRows + nCols + carXpos + carYpos + angle
-        for row in range (self.nRows):
-            for col in range (self.nCols):
-                checksum += binaryGrid[row][col] 
+        for x in range (len(binaryGrid)):
+                checksum += binaryGrid[x] 
         # end for
         
+        # Create the packet to send       
         # 'L' - ulong, i - int, 'h' - short, 'B' - uchar, 
-        # 'x' - char, 's', 'p' - string, char[]
-        # Create the packet to send
-        packetDesc = '>LLLLiii%sx' % (nRows * nCols)
+        # 'x' - char, 's', 'p' - string, pascal char[]
+        #packetDesc = ( '>LLLLiii%dH' % (nRows * nCols) )
+        #packetDesc = ( '>LLLLiii%dx' % (nRows * nCols) ) dnw expected 7
+        packetDesc = ( '>LLLLiii%dB' % (nRows * nCols) )   
         packetData = struct.pack(packetDesc, PktId, currTime, nRows, nCols, 
-                            carXpos, carYpos, angle, *binaryGrid)
-            
+                            carXpos, carYpos, angle, *binaryGrid )
+                            
         # Send the packet!
-        s.sendto(packetData, (host, UDP_PORT))
+        if (self.sock != None):
+            self.sock.sendto(packetData, (self.host, self.port))
+            
     # end    
 
     ###########################################################################

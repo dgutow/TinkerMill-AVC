@@ -53,7 +53,7 @@ def stateMachine (vehState, serialPort, occGrid):
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.WAIT_FOR_BIST:
         if vehState.mode.newMode():
-            serialPort.sendCommand ('D', 0, 0, 0)   # Go to BIST mode
+            serialPort.sendCommand (CMD_MODE, 0, 0, 0)   # Go to BIST mode
             playSound (vehState)
 
         # Are we in BIST mode yet?
@@ -97,7 +97,7 @@ def stateMachine (vehState, serialPort, occGrid):
             if (vehState.iopStartSwitch):     # We're Off!
                 vehState.mode.setMode(raceModes.RACE_BEGIN)
                 # Send the move command ASAP
-                serialPort.sendCommand ('M', vehState.mode.getSpeed(), 0, 0)
+                serialPort.sendCommand (CMD_MOVE, vehState.mode.getSpeed(), 0, 0)
             # end
         # end
 
@@ -121,13 +121,12 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)
         # end
 
-        # serialPort.sendCommand ('M', vehState.mode.getSpeed(), 0, 0)
+        serialPort.sendCommand (CMD_MOVE, vehState.mode.getSpeed(), 100, 0)
+        serialPort.sendCommand (CMD_TURN, vehState.histAngle, 0, 0)        
 
         # If we got an obstacle sighting from the vision system transition
         newState = obstacleTransition (vehState)
-        angle = hist.getAngle(hist.getCostArray(occGrid, maxDist, hist.scanAngle, hist.angDelta), 0)
-
-        print ("Histogram Angle = ", angle)
+        
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.RACE_CURVE:
         if vehState.mode.newMode():

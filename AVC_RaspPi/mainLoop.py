@@ -18,6 +18,7 @@ from stateMachine    import stateMachine
 from raceModes       import raceModes
 #from rangeClass      import Range
 from OccupGrid_Rich  import Grid
+from OccupGrid_Rich  import Histogram
 from guiInterface    import guiIfClass
 from printOut        import *
 from lidar_dag       import *
@@ -53,6 +54,7 @@ rangeRightPair  = rangeSensorPair(initFrontAng   = rsRightFrontAng,
 """
 # The vehicle occupancy grid
 occGrid       = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
+hist          = Histogram( [0.5 * 160 * 10, 0], 45, 3 )
 
 # IopTlmQueue is used to pass telemetry packets from the IOP serial port thread
 IopTlmQueue  = Queue(50)
@@ -86,6 +88,7 @@ def initializations():
     
     # start and initialize the RPLidar
     init_lidar_scan()
+    occGrid.sendUDP_init(OCC_IPADD, UDP_OCCPORT)
     
     time.sleep(0.5) 
     printOut("INITIALIZATIONS: initializations complete")       
@@ -161,11 +164,7 @@ def mainLoop():
 # get_lidarTlm(loopCntr)
 ################################################################################
 def get_lidarTlm(loopCntr):
-    
-    if (loopCntr == 0):
-        # Initialize the graphic window
-        #occGrid.initGraphGrid("Occupancy Grid", 4, False, False)  
-        pass
+    global vehState   
 
     # Get the lastest range points from the RPLidar
     scan_list = get_lidar_data()
@@ -183,54 +182,32 @@ def get_lidarTlm(loopCntr):
     # Now shift the occGrid down by the vehicles motion since the last time
     occGrid.recenterGrid(vehState.iopCumDistance, vehState.iopSteerAngle);
     
+    # Calculate the steering angle.  This angle won't be used until we're in
+    # the proper state
+    vehState.histAngle = hist.getAngle(hist.getCostArray(occGrid, 512, 45, hist.angDelta), 0)
+    print ("Histogram Angle = ", vehState.histAngle)
+    
     # Send the occGrid as telemetry to our GUI
-    # occGrid.sendUDP()
+    occGrid.sendUDP(vehState.iopTime, vehState.histAngle)
 
+    if (loopCntr == 0):
+        # Initialize the graphic window
+        #occGrid.initGraphGrid("Occupancy Grid", 4, False, False)  
+        pass
     if loopCntr % 5 == 0:
         # every 1/2 second update the graph
-        #occGrid.graphGrid ("red")
-        pass
-        
+        #
+        pass   
     if loopCntr % 20 == 0:
         # every 2 seconds clear the graph
-        #occGrid.clearGraphGrid ()    
+        #   
         pass    
 # End
         
 ################################################################################
-# sendOccupancyGrid_init()
+# 
 ################################################################################
-def sendOccupancyGrid_init():        
-    # host = '192.168.56.1'
-    host = '10.2.127.123'  # Symbolic name meaning all available interfaces
-
-    # '<' - little-endian (win), 'L' - ulong, 'h' - short, 'B' - uchar
-    # data = struct.pack('<LLhhBBBB', 1,2,3,4,5,6,7,8)
-    ################################################################
-    # UDP SEND EXAMPLE
-    # ref: http://www.joshmcculloch.nz/#!python-network-udp-intro
-    ################################################################
-    UDP_PORT = 12346  # The same port as used by the server
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-    time = datetime.datetime.utcnow()
-    header = 0x55555555
-    carPositionX = 10
-    carPositionY = 11
-    angleOfDecision = 180
-    gridRows = 2 # 300
-    gridColumns = 2 # = 50
-    # gridSize = 1500  # 50 X 300
-    # gridArray = 1
-    # checkSum = 999
-
-    dataGrid = ""
-    for i in range(0, gridRows):
-        for j in range(0, gridColumns):
-            dataGrid += str(i) + str(j) + " "
-            
-    # end for
-# end    
+ 
     
 ################################################################################
 # get_iopTlm( )

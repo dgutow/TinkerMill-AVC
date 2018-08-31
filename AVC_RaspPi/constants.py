@@ -20,15 +20,19 @@ SIM_TEENSY	= False            # When there is a communicating Teensy
 #GUI_IPADDR   = '10.2.124.96'   # TM wifi
 #GUI_IPADDR   = '192.168.4.100' # 8266 access point
 
-#RPI_IPADDR   = '10.2.124.96'      # the Rpi
-#UDP_IPADDR   = '10.2.122.53'      # laptop
+#RPI_IPADDR   = '10.2.124.96'   # the Rpi
+#UDP_IPADDR   = '10.2.122.53'   # laptop
 
-RPI_IPADDR   = '192.168.4.10'      # the Rpi
-UDP_IPADDR   = '192.168.4.30'      # laptop
+RPI_IPADDR   = '192.168.4.10'   # the Rpi
+UDP_IPADDR   = '192.168.4.30'   # laptop
 
 RPI_TCPPORT  = 61432            # The TCP port for cmds/tlm to/from the Rpi
 UDP_IOPPORT  = 61433            # The UDP port for tlm from IOP 
 UDP_VISPORT  = 61434            # The UDP port for tlm from VIS
+
+# For sending Occupancy Grid UDP telemetry
+OCC_IPADD    = '127.0.0.1'
+UDP_OCCPORT  = 12346
 
 ###############################################################################
 # Constants used throughout the code
@@ -68,7 +72,8 @@ obstacleSequence.append (obstacle.COURSE_END)
 obstacleSequence.append (obstacle.ALL)   
     
 ###############################################################################   
-""" Occupancy Grid constants:  We need to represent an area at least 52 feet wide 
+""" 
+Occupancy Grid constants:  We need to represent an area at least 52 feet wide 
 (2 * 16 feet for the track and an additional 2 * 10 feet for the track veering
 off to the right/left during turns).  The 16 feet track width is included twice 
 since we always keep the car centered in the X center of the grid (Xcenter,0), 
@@ -124,20 +129,20 @@ speedZero       = 0     # Stopped
 ###############################################################################
 # The commands to the IOP:  
 ###############################################################################
-cmdMove         = 'M'
-cmdTurn         = 'T'
-cmdEstop        = 'E'
-cmdHeartBeat    = 'H'
-cmdLighting     = 'L'
-cmdSpeedPid     = 'P'
-cmdTurnPid      = 'Q'
-cmdGoToMode     = 'D'
-cmdNop          = 'N'
-cmdScanSpeed    = 'S'
-cmdScanAngle    = 'A'
-cmdCamAngle     = 'V'
-cmdScanEnable   = 'C'
-cmdBrake        = 'B'
+CMD_MOVE         = 'M'
+CMD_TURN         = 'T'
+CMD_ESTOP        = 'E'
+CMD_HEARTBEAT    = 'H'
+CMD_LIGHTING     = 'L'
+CMD_SPEEDPID     = 'P'
+CMD_TURNPID      = 'Q'
+CMD_MODE         = 'D'
+CMD_NOP          = 'N'
+CMD_SCANSPEED    = 'S'
+CMD_SCANANGLE    = 'A'
+CMD_CAMANGLE     = 'V'
+CMD_SCANENABLE   = 'C'
+CMD_BRAKE        = 'B'
 
 ###############################################################################
 # :  
