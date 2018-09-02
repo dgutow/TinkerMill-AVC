@@ -197,7 +197,7 @@ class Grid(object):
             # end for col
             print ("\n")
         # end for row
-        print ""
+        print ("")
     # end
 
 
@@ -371,7 +371,7 @@ class Histogram(object):
         angleBin = {}
 
         for col in range(grid.nCols):
-            for row in range(grid.nRows):
+            for row in range(1, grid.nRows):
                 # if coordinate found, get cost and angle
                 if not (grid.isZero(row, col)):
                     cost = maxDist * (1 - (self.getDist(self.origin, grid.grid[row][col]) / maxDist))
@@ -420,35 +420,77 @@ if __name__ == '__main__':
 
     np.set_printoptions(precision=3, linewidth=2000, threshold=np.nan, suppress=True)
 
-    # RPLIDAR A2 scanner radius is 12 meters max
-    maxWidth = 16 # meters
-    desired_columns = 60
-    res = (maxWidth * 100) / desired_columns # cm/Grid
 
-    g = Grid(resolution=res, nRows=desired_columns, nCols=desired_columns, distance=0, angle=0)
-
-    # # TEST SCRIPT - Draw a left wall
-    # for y in range(3000):
-    #     g.enterPoint(y*tan(radians(40)), y)
-
-    s = LIDAR(portname='/dev/ttyUSB0')
-
-    for j in range(10):
-        obstacles = s.scan() # returns an array of one rotation of obstacles
-
-        for i in obstacles:
-            g.enterRange(0, 0, i[1] / 10, i[0])
-
-    # scanAngle or "Cone": +/- (deg)
-    # angDelta or "Slice": (deg)
-    # minCost - smallest cost to display representing no object detected (recommended set to 0)
-    # maxCost - largest cost to display representing imminent collision (recommended set to 9 max)
-    h = Histogram(origin=[0.5 * g.nCols * g.resolution, 0], scanAngle=45, angDelta=3)
+    if (False):
+        """
+        # RPLIDAR A2 scanner radius is 12 meters max
+        maxWidth = 16 # meters
+        desired_columns = 60
+        res = (maxWidth * 100) / desired_columns # cm/Grid
     
-    # print(h.printSimpleGrid(g))
-    costArray = h.getCostArray(g, maxDist, h.scanAngle, h.angDelta)
-    # print(costArray)
-    # OUTPUT
-    output = h.getAngle(costArray, 0)
+        g = Grid(res, nRows=desired_columns, nCols=desired_columns, distance=0, angle=0)
+    
+        # # TEST SCRIPT - Draw a left wall
+        # for y in range(3000):
+        #     g.enterPoint(y*tan(radians(40)), y)
+    
+        s = LIDAR(portname='/dev/ttyUSB0')
+    
+        for j in range(10):
+            obstacles = s.scan() # returns an array of one rotation of obstacles
+    
+            for i in obstacles:
+                g.enterRange(0, 0, i[1] / 10, i[0])
+    
+        # scanAngle or "Cone": +/- (deg)
+        # angDelta or "Slice": (deg)
+        # minCost - smallest cost to display representing no object detected (recommended set to 0)
+        # maxCost - largest cost to display representing imminent collision (recommended set to 9 max)
+        h = Histogram(origin=[0.5 * g.nCols * g.resolution, 0], scanAngle=45, angDelta=3)
+        
+        # print(h.printSimpleGrid(g))
+        costArray = h.getCostArray(g, maxDist, h.scanAngle, h.angDelta)
+        # print(costArray)
+        # OUTPUT
+        output = h.getAngle(costArray, 0)
+    
+        print(output)
+        """
+        pass
+    else:           # DAG
+        rows = 100
+        cols = 160
+        res  = 10   # resolution 10 cm
 
-    print(output)
+        grid = Grid(res, rows, cols, 0, 0)
+        
+        #initGraphGrid (self, str, nPix, borders = False, circle = False):
+        #graphGrid (self, color="red"):
+        #enterRange (self,  carCumDist, carCurrAngle, scanDist, scanAngle):
+        #enterPoint(self, x, y):
+        
+        mult = -1
+        for row in range(0, rows):
+            grid.enterPoint(500+(mult*row),   row*10)
+            grid.enterPoint(1100+(mult*row),  row*10)
+            
+        grid.initGraphGrid ("Testing", 4, borders = False, circle = False)    
+        grid.graphGrid (color="red")
+        
+        time.sleep(2)
+
+        # scanAngle or "Cone": +/- (deg)
+        # angDelta or "Slice": (deg)
+        # minCost - smallest cost to display representing no object detected (recommended set to 0)
+        # maxCost - largest cost to display representing imminent collision (recommended set to 9 max)
+        h = Histogram(origin=[0.5 * grid.nCols * grid.resolution, 0], scanAngle=45, angDelta=3)
+        
+        # print(h.printSimpleGrid(g))
+        costArray = h.getCostArray(grid, 1300, h.scanAngle, h.angDelta)
+        # print(costArray)
+        # OUTPUT
+        output = h.getAngle(costArray, 0)
+    
+        print(output)   
+    # end if
+    

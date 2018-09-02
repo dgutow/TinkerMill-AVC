@@ -5,10 +5,12 @@ Author: David Gutow, Rich Paasch
 Version: 8/2018
 """
 
+import sys
 import socket
 import struct
 import numpy as np
 from   math     import *
+
 
 from LIDAR      import *
 from graphics   import *        # dag - remove before flight
@@ -441,6 +443,10 @@ class Histogram(object):
     # getNearestAngle -
     ###########################################################################
     def getNearestAngle(self, nearest):
+        # Zero out any old results in the histogram
+        self.histArr =  [ 0 for x in range(self.histSize)]
+                
+        # Fill the histArr with the cost of each grid point                
         for row in range(self.nRows):
             for col in range(self.nCols):
                 if not (grid.isZero(row, col)):
@@ -448,7 +454,11 @@ class Histogram(object):
                     angleIndex = self.angArr[row][col]
                     self.histArr[angleIndex] += cost
 
+        self.printHistArr()
+
         minCost = min(self.histArr)
+        print("MinCost is", minCost)
+        
         newDiff = 90
 
         for index in range(len(self.histArr)):
@@ -461,7 +471,19 @@ class Histogram(object):
 
         return closestAngle
     # end
-
+    
+    ###########################################################################
+    # printHistArr -
+    ###########################################################################
+    def printHistArr(self):    
+        for index in range(self.histSize):  
+            sys.stdout.write("%4d" % (self.histArr[index]))  
+        print ("\n")
+        for index in range(self.histSize): 
+            sys.stdout.write("%4d" % (index)) 
+        print ("\n")         
+    # end printHistArr
+               
 ###############################################################################
 # Test code
 ###############################################################################
@@ -518,16 +540,17 @@ if __name__ == '__main__':
         #enterRange (self,  carCumDist, carCurrAngle, scanDist, scanAngle):
         #enterPoint(self, x, y):
 
-        multiplier = 6
+        multiplier = 1
+        middle = (cols / 2) * res
 
-        for row in range(0, rows):
-            grid.enterPoint((multiplier * row) + 500, row*10)
-            grid.enterPoint((multiplier * row) + 1100, row*10)
+        for y in range(0, rows * res, res):
+            grid.enterPoint((multiplier * y) + (middle-300), y)
+            grid.enterPoint((multiplier * y) + (middle+300), y)
 
         grid.initGraphGrid ("Testing", 4, borders = False, circle = False)
         grid.graphGrid (color="red")
 
-        time.sleep(2)
+        time.sleep(3)
         #exit()
 
 
@@ -535,7 +558,7 @@ if __name__ == '__main__':
         # angDelta or "Slice": (deg)
         # minCost - smallest cost to display representing no object detected (recommended set to 0)
         # maxCost - largest cost to display representing imminent collision (recommended set to 9 max)
-        h = Histogram(grid, origin=[0.5 * grid.nCols * grid.resolution, 0], scanAngle=45, angDelta=3)
+        h = Histogram(grid, origin=[0.5 * grid.nCols * grid.resolution, 0], scanAngle=45, angDelta=5)
 
         # OUTPUT
         output = h.getNearestAngle(0)
