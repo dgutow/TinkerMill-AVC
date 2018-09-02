@@ -63,11 +63,11 @@ class Grid(object):
         self.nRows      = nRows
         self.Xpos       = nCols * resolution / 2
         self.Ypos       = 0.0
-        
+
         self.host       = None          # Used for UDP telemetry
         self.port       = None
         self.sock       = None
-        
+
         self.clear (distance, angle)
     # end
 
@@ -77,10 +77,10 @@ class Grid(object):
     def clear (self, distance=0, angle= 0):
         self.distance   = distance
         self.angle      = angle
-        
+
         # Create the occupancy grid
         self.grid = [[ [0.0, 0.0] for x in range(self.nCols)] for y in range(self.nRows)]
-        
+
         # Create the binary grid to send as telemetry
         self.binaryGrid =  [[ 0 for x in range(self.nCols)] for y in range(self.nRows)]
     # end
@@ -278,17 +278,17 @@ class Grid(object):
         #win.getMouse()
         #win.close
     # end graphGrid
-    
-    
+
+
     ################################################################################
     # sendUDP()
     ################################################################################
-    def sendUDP_init(self, host, port):    
+    def sendUDP_init(self, host, port):
         self.host = host
         self.port = port
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     # end
-    
+
     ################################################################################
     # sendUDP()
     ################################################################################
@@ -298,12 +298,12 @@ class Grid(object):
         nCols   = self.nCols
         carXpos = int(self.Xpos)
         carYpos = int(self.Ypos)
-    
+
         #Fill the binary grid from the occupancy grid
         binaryGrid = []
         for row in range (self.nRows):
             for col in range (self.nCols):
-                if (self.isZero(row, col)):  
+                if (self.isZero(row, col)):
                     binaryGrid.append (False)
                 else:
                     binaryGrid.append (True)
@@ -313,23 +313,23 @@ class Grid(object):
         # Calculate our checksum
         checksum = PktId + currTime + nRows + nCols + carXpos + carYpos + angle
         for x in range (len(binaryGrid)):
-                checksum += binaryGrid[x] 
+                checksum += binaryGrid[x]
         # end for
-        
-        # Create the packet to send       
-        # 'L' - ulong, i - int, 'h' - short, 'B' - uchar, 
+
+        # Create the packet to send
+        # 'L' - ulong, i - int, 'h' - short, 'B' - uchar,
         # 'x' - char, 's', 'p' - string, pascal char[]
         #packetDesc = ( '>LLLLiii%dH' % (nRows * nCols) )
         #packetDesc = ( '>LLLLiii%dx' % (nRows * nCols) ) dnw expected 7
-        packetDesc = ( '>LLLLiii%dB' % (nRows * nCols) )   
-        packetData = struct.pack(packetDesc, PktId, currTime, nRows, nCols, 
+        packetDesc = ( '>LLLLiii%dB' % (nRows * nCols) )
+        packetData = struct.pack(packetDesc, PktId, currTime, nRows, nCols,
                             carXpos, carYpos, angle, *binaryGrid )
-                            
+
         # Send the packet!
         if (self.sock != None):
             self.sock.sendto(packetData, (self.host, self.port))
-            
-    # end    
+
+    # end
 
     ###########################################################################
     # getGrid -
@@ -354,65 +354,53 @@ class Histogram(object):
         self.maxAngle   = scanAngle
         self.origin     = origin
         self.maxDist    = (sqrt( (grid.nRows/2)**2 + (grid.nCols)**2 ) )
-        
+
         # Create the histogram array
         self.histSize = int((scanAngle * 2) / angDelta) + 1
         self.histArr =  [ 0 for x in range(self.histSize)]
-        
+
         # Create the cost and angle arrays and calculate their values
         self.costArr =  [[ 0 for x in range(self.nCols)] for y in range(self.nRows)]
-        self.angArr  =  [[ 0 for x in range(self.nCols)] for y in range(self.nRows)]  
+        self.angArr  =  [[ 0 for x in range(self.nCols)] for y in range(self.nRows)]
 
         # NOTE - don't do row 0 or there will be a divide by 0 at the origin
         for row in range(1, self.nRows):
             for col in range(self.nCols):
-                angle = self.getAngleIndex(row, col)
-                if (angle == -1):
-                    self.angArr[row][col]  = 0            
+                angIndex = self.getAngleIndex(row, col)
+                if (angIndex == -1):
+                    self.angArr[row][col]  = 0
                     self.costArr[row][col] = 0
                 else:
-                    self.angArr[row][col]  = self.getAngle(row, col)            
+                    self.angArr[row][col]  = angIndex
                     self.costArr[row][col] = self.getCost(row, col)
-                    
+
         # Now fill in row 0 with all 0 values
-        for col in range (self.nCols):
+        for col in range(self.nCols):
             self.costArr[0][col] = 0
             self.angArr[0][col]  = 0
+
     # end
 
     ###########################################################################
     # getCost calculates the cost from the specified row/col to the origin
-    ###########################################################################    
+    ###########################################################################
     def getCost(self, row, col):
         dist = sqrt ( (row) ** 2 + (self.nCols/2 - col) ** 2 )
         cost = self.maxDist * (1 - dist/self.maxDist)
         return cost
     # end
-    
+
     ###########################################################################
     # getAngleIndex calculates the angle from the specified row/col to the origin
-    ###########################################################################    
+    ###########################################################################
     def getAngleIndex(self, row, col):
-        angle = degrees( np.arctan( (col - self.nCols/2) / row) )
+        angle = degrees( np.arctan2( (col - self.nCols/2), row ) )
         angIndex = int( (angle - self.minAngle) / self.angDelta )
         if angIndex < 0 or angIndex >= self.histSize:
             return -1
         else:
             return angIndex
-    # end    
-    
-    ###########################################################################
-    # getDist -
-    ###########################################################################
-    def getDist(self, fromcoords, tocoords):
-        return sqrt((tocoords[0] - fromcoords[0]) ** 2 + (tocoords[1] - fromcoords[1]) ** 2)
     # end
-
-    ###########################################################################
-    # printSimpleGrid -
-    ###########################################################################
-    def printSimpleGrid(self, grid):
-	return np.flip(np.array([[0 if grid.isZero(x, y) else 1 for y in range(grid.nCols)] for x in range(grid.nRows)]), axis = 0)
 
     ###########################################################################
     # getCostArray -
@@ -450,15 +438,26 @@ class Histogram(object):
         return costArray
 
     ###########################################################################
-    # getAngle -
+    # getNearestAngle -
     ###########################################################################
-    def getAngle(self, array, nearest):
-        array = np.array(array)
-        minCostSum = np.amin(array[:,1]) # get the slices with the minimum cost...
-        array = array[np.where(array[:,1] == minCostSum)[0]][:,0]
+    def getNearestAngle(self, nearest):
+        for row in range(self.nRows):
+            for col in range(self.nCols):
+                if not (grid.isZero(row, col)):
+                    cost = self.costArr[row][col]
+                    angleIndex = self.angArr[row][col]
+                    self.histArr[angleIndex] += cost
 
-        # if there are multiple paths, pick the one closest to "nearest angle"
-        closestAngle = array[(np.abs(array - nearest)).argmin()]
+        minCost = min(self.histArr)
+        newDiff = 90
+
+        for index in range(len(self.histArr)):
+            anglePos = self.minAngle + self.angDelta * index
+            if self.histArr[index] == minCost:
+                diff = abs(anglePos - nearest)
+                if diff < newDiff:
+                    newDiff = diff
+                    closestAngle = anglePos
 
         return closestAngle
     # end
@@ -468,42 +467,42 @@ class Histogram(object):
 ###############################################################################
 if __name__ == '__main__':
     import time
-    
+
     np.set_printoptions(precision=3, linewidth=2000, threshold=np.nan, suppress=True)
-    
+
     if (False):
         """
         # RPLIDAR A2 scanner radius is 12 meters max
         maxWidth = 16 # meters
         desired_columns = 60
         res = (maxWidth * 100) / desired_columns # cm/Grid
-    
+
         g = Grid(res, nRows=desired_columns, nCols=desired_columns, distance=0, angle=0)
-    
+
         # # TEST SCRIPT - Draw a left wall
         # for y in range(3000):
         #     g.enterPoint(y*tan(radians(40)), y)
-    
+
         s = LIDAR(portname='/dev/ttyUSB0')
-    
+
         for j in range(10):
             obstacles = s.scan() # returns an array of one rotation of obstacles
-    
+
             for i in obstacles:
                 g.enterRange(0, 0, i[1] / 10, i[0])
-    
+
         # scanAngle or "Cone": +/- (deg)
         # angDelta or "Slice": (deg)
         # minCost - smallest cost to display representing no object detected (recommended set to 0)
         # maxCost - largest cost to display representing imminent collision (recommended set to 9 max)
         h = Histogram(origin=[0.5 * g.nCols * g.resolution, 0], scanAngle=45, angDelta=3)
-        
+
         # print(h.printSimpleGrid(g))
         costArray = h.getCostArray(g, maxDist, h.scanAngle, h.angDelta)
         # print(costArray)
         # OUTPUT
         output = h.getAngle(costArray, 0)
-    
+
         print(output)
         """
         pass
@@ -513,35 +512,33 @@ if __name__ == '__main__':
         res  = 10   # resolution 10 cm
 
         grid = Grid(res, rows, cols, 0, 0)
-        
+
         #initGraphGrid (self, str, nPix, borders = False, circle = False):
         #graphGrid (self, color="red"):
         #enterRange (self,  carCumDist, carCurrAngle, scanDist, scanAngle):
         #enterPoint(self, x, y):
-        
+
+        multiplier = 6
+
         for row in range(0, rows):
-            grid.enterPoint(500,   row*10)
-            grid.enterPoint(1100,  row*10)
-            
-        grid.initGraphGrid ("Testing", 4, borders = False, circle = False)    
+            grid.enterPoint((multiplier * row) + 500, row*10)
+            grid.enterPoint((multiplier * row) + 1100, row*10)
+
+        grid.initGraphGrid ("Testing", 4, borders = False, circle = False)
         grid.graphGrid (color="red")
-        
+
         time.sleep(2)
         #exit()
 
-    
+
         # scanAngle or "Cone": +/- (deg)
         # angDelta or "Slice": (deg)
         # minCost - smallest cost to display representing no object detected (recommended set to 0)
         # maxCost - largest cost to display representing imminent collision (recommended set to 9 max)
         h = Histogram(grid, origin=[0.5 * grid.nCols * grid.resolution, 0], scanAngle=45, angDelta=3)
-        
-        # print(h.printSimpleGrid(g))
-        costArray = h.getCostArray(grid, 1300, h.scanAngle, h.angDelta)
-        # print(costArray)
+
         # OUTPUT
-        output = h.getAngle(costArray, 0)
-    
-        print(output)   
+        output = h.getNearestAngle(0)
+
+        print(output)
     # end if
-    
