@@ -84,6 +84,9 @@ class Grid(object):
         # Create the cost and angle arrays and calculate their values
         self.costArr =  [[ 0 for x in range(self.nCols)] for y in range(self.nRows)]
         self.angArr  =  [[ 0 for x in range(self.nCols)] for y in range(self.nRows)]
+        
+        # Create the binary array so send UDP
+        self.binArr =  [ 0 for x in range(self.nCols * self.nRows)] 
 
         # NOTE - don't do row 0 or there will be a divide by 0 at the origin
         for row in range(1, self.nRows):
@@ -332,22 +335,24 @@ class Grid(object):
         carXpos = int(self.Xpos)
         carYpos = int(self.Ypos)
 
-        #Fill the binary grid from the occupancy grid
-        binaryGrid = []
+        # Fill the binary array from the occupancy grid. At the same time
+        # calculate the total number of non-zero cells and the (partial) checksum
+        total       = 0               # total number of non-zero cells
+        checksum    = 0
         for row in range (self.nRows):
             for col in range (self.nCols):
                 if (self.isZero(row, col)):
-                    binaryGrid.append (False)
+                    val = 0
                 else:
-                    binaryGrid.append (True)
+                    val = 1
+                    total += 1                    
                 # End if
+                self.binArr[row * self.nCols + col] = val                    
+                checksum += val
         # end for
 
-        # Calculate our checksum
+        # Finish off the checksum
         checksum = PktId + currTime + nRows + nCols + carXpos + carYpos + angle
-        for x in range (len(binaryGrid)):
-                checksum += binaryGrid[x]
-        # end for
 
         # Create the packet to send
         # 'L' - ulong, i - int, 'h' - short, 'B' - uchar,
@@ -356,11 +361,13 @@ class Grid(object):
         #packetDesc = ( '>LLLLiii%dx' % (nRows * nCols) ) dnw expected 7
         packetDesc = ( '>LLLLiii%dB' % (nRows * nCols) )
         packetData = struct.pack(packetDesc, PktId, currTime, nRows, nCols,
-                            carXpos, carYpos, angle, *binaryGrid )
+                            carXpos, carYpos, angle, *self.binArr)
 
         # Send the packet!
         if (self.sock != None):
             self.sock.sendto(packetData, (self.host, self.port))
+            
+        print ('sendUDP - number of non-0 entries', total)         
 
     # end
 
@@ -478,28 +485,37 @@ class Grid(object):
     # findBestAngle - find the widest path and go towards the center of it
     ###########################################################################
     def findBestAngle(self, minCost):
-        anglePaths = []
-        collectPaths = []
+        inRun = False # are we in a run of minimums?
+        anglePaths = [] # the run of minimums
+        collectPaths = [] # the collections of minimum runs
         for index in range(self.histSize):
-            if self.histArr[index] == minCost: 
-                anglePaths.append(index)
-            if self.histArr[index] != minCost and index != 0 and self.histArr[index-1] == minCost:
-                collectPaths.append(anglePaths)
-                anglePaths = []
-
+            if inRun and self.histArr[index] == minCost: # are we in a run and at minimum cost?
+                anglePaths.append(index) # then we are still in a run, collect the index
+            elif inRun and self.histArr[index] != minCost: # are we in a run and not a minimum cost?
+                collectPaths.append(anglePaths) # then stash the runs to the collection
+                anglePaths = [] # clear out the last collected run
+                inRun = False # now we're not in a run, set to False
+            elif not inRun and self.histArr[index] == minCost: # are we not in a run but at minimum cost?
+                anglePaths.append(index) # then we're actually in a run so collect the index
+                inRun = True # now we're in a run, set to True
+            elif not inRun and self.histArr[index] != minCost: # are we not in a run and not at minimum cost?
+                pass # don't do anything, we don't care!
+        
+        if inRun: # if the very last item in the histArr is still in a run...
+            collectPaths.append(anglePaths) # collect the very last run!
+            
         widestPath = 0
         pathIndex = 0
         for index, path in enumerate(collectPaths):
             if len(path) > widestPath:
                 widestPath = len(path)
                 pathIndex = index
-                
-        if len(collectPaths) > 0:
-            bestIndex = int(sum(collectPaths[pathIndex]) / widestPath)
+        
+        # debug
+        #print(collectPaths)
+        bestIndex = int(sum(collectPaths[pathIndex]) / widestPath)
 
-        anglePos = self.minAngle + (self.angDelta * bestIndex)
-
-        self.histArr =  [ 0 for x in range(self.histSize)]
+        anglePos = self.minAngle + (self.angDelta * bestIndex)        
         
         return anglePos
 

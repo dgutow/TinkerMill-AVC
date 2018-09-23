@@ -51,7 +51,7 @@ rangeRightPair  = rangeSensorPair(initFrontAng   = rsRightFrontAng,
 """
 # The vehicle occupancy grid and histogram
 occGrid       = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
-occGrid.sendUDP_init (OCC_IPADD, UDP_OCCPORT)
+# occGrid.sendUDP_init (OCC_IPADD, UDP_OCCPORT)
 
 # IopTlmQueue is used to pass telemetry packets from the IOP serial port thread
 IopTlmQueue  = Queue(50)
@@ -166,6 +166,9 @@ def get_lidarTlm(loopCntr):
     # Get the lastest range points from the RPLidar
     scan_list = get_lidar_data()
     
+    # Clear out the Occupancy Grid - remove before flight - dag
+    # occGrid.clear()
+    
     # Enter each of the range points into the occGrid
     for dataPt in scan_list:
         newPt = dataPt[0]
@@ -182,12 +185,7 @@ def get_lidarTlm(loopCntr):
     # Calculate the steering angle.  This angle won't be used until we're in
     # the proper state
     vehState.histAngle = occGrid.getNearestAngle(0)
-    
-    occGrid.initGraphGrid ("Testing", 4, borders = False, circle = False)
-    occGrid.graphGrid (color="red")
-    time.sleep(1)
-    exit()
-    
+   
     print ("Histogram Angle = ", vehState.histAngle)
     
     # Send the occGrid as telemetry to our GUI
@@ -266,7 +264,7 @@ def proc_iopTlm (data):
     vehState.iopSteerAngle  = telemArray[6]         
     #vehState.iopCumDistance = telemArray[7]   #dag remove before flight
     
-    vehState.iopCumDistance += 2
+    vehState.iopCumDistance += 6
     irLF_Range              = telemArray[8]
     irLR_Range              = telemArray[9]        
     irRF_Range              = telemArray[10]
