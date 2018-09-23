@@ -14,11 +14,8 @@ from simulator       import *       # Only for the simulator
 from vehicleState    import *       # Everything we know about the vehicle
 from constants       import *       # Vehicle and course constants
 from stateMachine    import stateMachine
-#from rangeSensorPair import rangeSensorPair
 from raceModes       import raceModes
-#from rangeClass      import Range
-from OccupGrid_Rich  import Grid
-from OccupGrid_Rich  import Histogram
+from OccupGrid_v5_1 import Grid
 from guiInterface    import guiIfClass
 from printOut        import *
 from lidar_dag       import *
@@ -52,9 +49,9 @@ rangeRightPair  = rangeSensorPair(initFrontAng   = rsRightFrontAng,
                               initMaxDist    = rsMaxDistance, 
                               rightSide      = rsRigthSide)                             
 """
-# The vehicle occupancy grid
+# The vehicle occupancy grid and histogram
 occGrid       = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
-hist          = Histogram( [0.5 * 160 * 10, 0], 45, 3 )
+occGrid.sendUDP_init (OCC_IPADD, UDP_OCCPORT)
 
 # IopTlmQueue is used to pass telemetry packets from the IOP serial port thread
 IopTlmQueue  = Queue(50)
@@ -184,7 +181,13 @@ def get_lidarTlm(loopCntr):
     
     # Calculate the steering angle.  This angle won't be used until we're in
     # the proper state
-    vehState.histAngle = hist.getAngle(hist.getCostArray(occGrid, 512, 45, hist.angDelta), 0)
+    vehState.histAngle = occGrid.getNearestAngle(0)
+    
+    occGrid.initGraphGrid ("Testing", 4, borders = False, circle = False)
+    occGrid.graphGrid (color="red")
+    time.sleep(1)
+    exit()
+    
     print ("Histogram Angle = ", vehState.histAngle)
     
     # Send the occGrid as telemetry to our GUI
@@ -195,8 +198,8 @@ def get_lidarTlm(loopCntr):
         #occGrid.initGraphGrid("Occupancy Grid", 4, False, False)  
         pass
     if loopCntr % 5 == 0:
-        # every 1/2 second update the graph
-        #
+        # every 1/2 second send the occupancy grid to be displayed
+        occGrid.sendUDP(vehState.iopTime, vehState.histAngle)
         pass   
     if loopCntr % 20 == 0:
         # every 2 seconds clear the graph
@@ -231,7 +234,7 @@ def get_iopTlm(loopCntr):
     # end while
 
     
-    if (tlm_cnt > 0 and (loopCntr % 10 == 0) ):
+    if (tlm_cnt > 0 and (loopCntr % 20 == 0) ):
         print "MAINLOOP:GET_IOPTLM - nPkts %d, Tim %3d, Mode %1d, Accept %2d, But %2d/%2d" % (
             tlm_cnt, vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
             vehState.iopSwitchStatus, vehState.iopStartSwitch) 

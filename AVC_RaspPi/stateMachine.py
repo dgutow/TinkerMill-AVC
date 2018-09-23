@@ -14,7 +14,7 @@ from vehicleState   import *
 from raceModes      import raceModes
 from constants      import *        # Vehicle and course constants
 from printOut       import *
-from OccupGrid_Rich import *
+from OccupGrid_v5_1 import *
 
 if SIM_TEENSY:
     from serialClassSim  import serialClass
@@ -27,10 +27,6 @@ BistMaxCnt      = 90    # 3 sec - max time for IOP to get to BIST
 NormMaxCnt      = 30    # 2 sec - max time for IOP to enter NORM mode after cmd
 simMaxCnt       = 100   #
 ErrorMaxCnt     = 200   # Number of iterations before repeating error msg
-
-hist = Histogram(origin=[0.5 * ogNcols * ogResolution, 0], scanAngle=45, angDelta=3)
-
-maxDist = sqrt((((ogNcols / 2) * ogResolution) ** 2) + ((ogNrows * ogResolution) ** 2))
 
 ###############################################################################
 # stateControl - choose what to do depending on our current state

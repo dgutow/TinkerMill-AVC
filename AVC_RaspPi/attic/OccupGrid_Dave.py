@@ -325,11 +325,13 @@ class Grid(object):
         #packetDesc = ( '>LLLLiii%dx' % (nRows * nCols) ) dnw expected 7
         packetDesc = ( '>LLLLiii%dB' % (nRows * nCols) )
         packetData = struct.pack(packetDesc, PktId, currTime, nRows, nCols,
-                            carXpos, carYpos, angle, *binaryGrid )
+                            carXpos, carYpos, int(angle), *binaryGrid )
 
         # Send the packet!
         if (self.sock != None):
             self.sock.sendto(packetData, (self.host, self.port))
+            
+        #print ("OccupGrid - sending UDP telem");            
 
     # end
 
@@ -405,134 +407,50 @@ class Histogram(object):
     # end
 
     ###########################################################################
-    # getCostArray -
-    ###########################################################################
-    def getCostArray(self, grid, maxDist, scanAngle, angDelta):
-        angleBin = {}
-
-        for col in range(grid.nCols):
-            for row in range(grid.nRows):
-                # if coordinate found, get cost and angle
-                if not (grid.isZero(row, col)):
-                    cost = maxDist * (1 - (self.getDist(self.origin, grid.grid[row][col]) / maxDist))
-                    angle = degrees(np.arctan((grid.grid[row][col][0]-self.origin[0]) / (grid.grid[row][col][1]-self.origin[1])))
-
-                    # bin angle into degree buckets
-                    for slice in range(-scanAngle, scanAngle, angDelta):
-                        if angle >= slice and angle < slice + angDelta:
-                            # initialize bucket
-                            if not angleBin.has_key(slice):
-                                angleBin[slice] = cost
-                            # add cost to existing bucket
-                            else:
-                                newValue = angleBin[slice] + cost
-                                angleBin[slice] = newValue
-                else:
-                    cost = 0
-
-        # for buckets that did not any cost, add empty buckets
-        for slice in range(-scanAngle, scanAngle, angDelta):
-            if not angleBin.has_key(slice):
-                angleBin[slice] = 0
-
-        costArray = np.array(angleBin.items())
-
-        return costArray
-
-    ###########################################################################
     # getNearestAngle -
     ###########################################################################
     def getNearestAngle(self, nearest):
         # Zero out any old results in the histogram
         self.histArr =  [ 0 for x in range(self.histSize)]
-
-        # Fill the histArr with the cost of each grid point
+                
+        # Fill the histArr with the cost of each grid point                
         for row in range(self.nRows):
             for col in range(self.nCols):
-                if not (grid.isZero(row, col)):
+                if not (self.grid.isZero(row, col)):
                     cost = self.costArr[row][col]
                     angleIndex = self.angArr[row][col]
                     self.histArr[angleIndex] += cost
 
-        #debug
         #self.printHistArr()
 
         minCost = min(self.histArr)
-        print("MinCost is", minCost)
+        #print("MinCost is", minCost)
+        
+        newDiff = 90
 
-        self.lowPassFilter(3)
-
-        #debug
-        self.printHistArr()
-
-        # newDiff = 90
-
-        return self.findBestAngle(minCost)
-
-        # for index in range(self.histSize):
-        #     anglePos = self.minAngle + self.angDelta * index
-        #     if self.histArr[index] == minCost:
-        #         diff = abs(anglePos - nearest)
-        #         if diff < newDiff:
-        #             newDiff = diff
-        #             closestAngle = anglePos
-
-        # return closestAngle
-    # end
-
-    ###########################################################################
-    # lowPassFilter - to eliminate naughty zeros
-    ###########################################################################
-    def lowPassFilter(self, size):
-        histArrayFiltered = []
-
-        for index in range(self.histSize):
-            histArrayFiltered.insert(index, self.histArr[index])
-            if index >= size:
-                meanCost = sum(self.histArr[index - size:index]) / size
-                histArrayFiltered[int(index-floor(size/2)) - 1] = meanCost
-
-        self.histArr = histArrayFiltered
-
-    ###########################################################################
-    # findBestAngle - find the widest path and go towards the center of it
-    ###########################################################################
-    def findBestAngle(self, minCost):
-        anglePaths = []
-        collectPaths = []
-        for index in range(self.histSize):
-            if self.histArr[index] == minCost:
-                anglePaths.append(index)
-            if self.histArr[index] != minCost and self.histArr[index-1] == minCost:
-                collectPaths.append(anglePaths)
-                anglePaths = []
-
-        widestPath = 0
-        pathIndex = 0
-        for index, path in enumerate(collectPaths):
-            if len(path) > widestPath:
-                widestPath = len(path)
-                pathIndex = index
-
-        bestIndex = sum(collectPaths[pathIndex]) / widestPath
-
-        for index in range(self.histSize):
+        for index in range(len(self.histArr)):
             anglePos = self.minAngle + self.angDelta * index
-            if index == bestIndex:
-                return anglePos
+            if self.histArr[index] == minCost:
+                diff = abs(anglePos - nearest)
+                if diff < newDiff:
+                    newDiff = diff
+                    closestAngle = anglePos
 
+        return closestAngle
+    # end
+    
     ###########################################################################
     # printHistArr -
     ###########################################################################
-    def printHistArr(self):
-        for index in range(self.histSize):
-            sys.stdout.write("%5d" % (self.histArr[index]))
+    def printHistArr(self):    
+        for index in range(self.histSize):  
+            sys.stdout.write("%4d" % (self.histArr[index]))  
         print ("\n")
-        for index in range(self.histSize):
-            sys.stdout.write("%5d" % (index))
-        print ("\n")
+        for index in range(self.histSize): 
+            sys.stdout.write("%4d" % (index)) 
+        print ("\n")         
     # end printHistArr
-
+               
 ###############################################################################
 # Test code
 ###############################################################################
@@ -589,20 +507,12 @@ if __name__ == '__main__':
         #enterRange (self,  carCumDist, carCurrAngle, scanDist, scanAngle):
         #enterPoint(self, x, y):
 
-        multiplier = 1
+        multiplier = -.1
         middle = (cols / 2) * res
 
         for y in range(0, rows * res, res):
-            if y <= rows * res * 0.5:
-                grid.enterPoint((0 * y) + (middle-300), y)
-                grid.enterPoint((0 * y) + (middle+300), y)
-            else:
-                grid.enterPoint((multiplier * y) + (middle-200), y)
-                grid.enterPoint((-multiplier * y) + (middle+200), y)
-
-        for y in range(0, rows * res, res):
-            grid.enterPoint((-multiplier * y) + (middle+100), y + 800)
-            grid.enterPoint((multiplier * y) + (middle+100), y + 800)
+            grid.enterPoint((multiplier * y) + (middle-300), y)
+            grid.enterPoint((multiplier * y) + (middle+300), y)
 
         grid.initGraphGrid ("Testing", 4, borders = False, circle = False)
         grid.graphGrid (color="red")
@@ -615,7 +525,7 @@ if __name__ == '__main__':
         # angDelta or "Slice": (deg)
         # minCost - smallest cost to display representing no object detected (recommended set to 0)
         # maxCost - largest cost to display representing imminent collision (recommended set to 9 max)
-        h = Histogram(grid, origin=[0.5 * grid.nCols * grid.resolution, 0], scanAngle=45, angDelta=3)
+        h = Histogram(grid, origin=[0.5 * grid.nCols * grid.resolution, 0], scanAngle=45, angDelta=1)
 
         # OUTPUT
         output = h.getNearestAngle(0)
