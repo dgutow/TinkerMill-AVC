@@ -24,14 +24,14 @@ SIM_TEENSY	= False            # When there is a communicating Teensy
 #UDP_IPADDR   = '10.2.122.53'   # laptop
 
 RPI_IPADDR   = '192.168.4.10'   # the Rpi
-UDP_IPADDR   = '192.168.4.30'   # laptop
+UDP_IPADDR   = '192.168.4.30'   # Daves laptop
 
 RPI_TCPPORT  = 61432            # The TCP port for cmds/tlm to/from the Rpi
 UDP_IOPPORT  = 61433            # The UDP port for tlm from IOP 
 UDP_VISPORT  = 61434            # The UDP port for tlm from VIS
 
 # For sending Occupancy Grid UDP telemetry
-OCC_IPADD    = '127.0.0.1'
+OCC_IPADD    = '192.168.4.101'   # Daves laptop
 UDP_OCCPORT  = 12346
 
 ###############################################################################
