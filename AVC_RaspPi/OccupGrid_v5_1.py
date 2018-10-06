@@ -367,7 +367,7 @@ class Grid(object):
         if (self.sock != None):
             self.sock.sendto(packetData, (self.host, self.port))
             
-        print ('sendUDP - number of non-0 entries', total)         
+        # print ('sendUDP - number of non-0 entries', total)         
 
     # end
 
@@ -458,11 +458,10 @@ class Grid(object):
         self.lowPassFilter(3)
 
         minCost = min(self.histArr)
-        print("MinCost is", minCost)
 
-        #debug
         #print("After Low Pass Filter...")
-        self.printHistArr()
+        #print("MinCost is", minCost)        
+        #self.printHistArr()
 
         return self.findBestAngle(minCost)
     # end

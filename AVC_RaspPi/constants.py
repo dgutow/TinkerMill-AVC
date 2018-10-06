@@ -31,7 +31,8 @@ UDP_IOPPORT  = 61433            # The UDP port for tlm from IOP
 UDP_VISPORT  = 61434            # The UDP port for tlm from VIS
 
 # For sending Occupancy Grid UDP telemetry
-OCC_IPADD    = '192.168.4.101'   # Daves laptop
+OCC_IPADD    = '192.168.4.30'   # Dave's laptop
+#OCC_IPADD    = '192.168.4.101'   # TJ's laptop
 UDP_OCCPORT  = 12346
 
 ###############################################################################
@@ -116,14 +117,14 @@ rsLRspacing     = 15    # The spacing between the left and right sensor pairs
 ###############################################################################
 # The various speed values:  
 ###############################################################################
-speedMax        = 8     # Maximum speed we'll ever go
-speedApproach   = 6     # The speed we'll approach obstacle with
-speedRecov      = 6
-speedHoop       = 5     # The speed we'll negotiate the hoop obstacle
-speedRamp       = 6     # The speed we'll jump the ramp
-speedPed        = 5     # The speed we'll negotiate the pedestrian
-speedBarrels    = 5     # The speed we'll negotiate the barrels
-speedMin        = 5     # The minimum speed (except zero) we'll ever go
+speedMax        = 6     # Maximum speed we'll ever go
+speedApproach   = 5     # The speed we'll approach obstacle with
+speedRecov      = 5
+speedHoop       = 3     # The speed we'll negotiate the hoop obstacle
+speedRamp       = 5     # The speed we'll jump the ramp
+speedPed        = 3     # The speed we'll negotiate the pedestrian
+speedBarrels    = 3     # The speed we'll negotiate the barrels
+speedMin        = 3     # The minimum speed (except zero) we'll ever go
 speedZero       = 0     # Stopped
 
 ###############################################################################

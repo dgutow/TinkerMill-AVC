@@ -91,7 +91,10 @@ class guiIfClass (object):
     ###########################################################################     
     def send_rpiTlm (self, guiAcceptCnt, vehState):   
         try: 
-        
+            lidar_get_data_time = vehState.lidar_get_data_time
+            grid_enter_data_time= vehState.grid_enter_data_time
+            hist_get_angle_time = vehState.hist_get_angle_time
+            grid_send_data_time = vehState.grid_send_data_time
             # '<' - little-endian (win), 'L' - ulong, 'h' - short, 'B' - uchar
             #data = struct.pack('<LLhhBBBB', 1,2,3,4,5,6,7,8)
             data = struct.pack('<LLhhhhhh',  

@@ -15,7 +15,7 @@ from vehicleState    import *       # Everything we know about the vehicle
 from constants       import *       # Vehicle and course constants
 from stateMachine    import stateMachine
 from raceModes       import raceModes
-from OccupGrid_v5_1 import Grid
+from OccupGrid_v5_1  import Grid
 from guiInterface    import guiIfClass
 from printOut        import *
 from lidar_dag       import *
@@ -33,22 +33,6 @@ else:
 # Vehicle State holds everything known about the current vehicle state
 vehState        = vehicleState()
 
-"""
-# The two side IT range sensor pairs
-rangeLeftPair   = rangeSensorPair(initFrontAng   = rsLeftFrontAng, 
-                              initRearAng    = rsLeftRearAng, 
-                              initSensorDist = rsFRspacing, 
-                              initMinDist    = rsMinDistance,
-                              initMaxDist    = rsMaxDistance, 
-                              rightSide      = rsLeftSide)
-                              
-rangeRightPair  = rangeSensorPair(initFrontAng   = rsRightFrontAng, 
-                              initRearAng    = rsRightRearAng, 
-                              initSensorDist = rsFRspacing, 
-                              initMinDist    = rsMinDistance,
-                              initMaxDist    = rsMaxDistance, 
-                              rightSide      = rsRigthSide)                             
-"""
 # The vehicle occupancy grid and histogram
 occGrid       = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
 # occGrid.sendUDP_init (OCC_IPADD, UDP_OCCPORT)
@@ -70,8 +54,6 @@ guiIf = guiIfClass (RPI_IPADDR, RPI_TCPPORT, UDP_IPADDR, UDP_IOPPORT, UDP_VISPOR
 # Number of accepted commands from the GUI
 guiAcceptCnt = 0
 
-# DAG TEMPORARY dag
-cumulative_dist = 0
 ############################################################################### 
 # Initialize the entire system
 ###############################################################################
@@ -117,13 +99,12 @@ def mainLoop():
         # Check if we received a command from the GUI host and
         # send the GUI a telemetry packet
         guiCmd = guiIf.get_cmd () 
-        abort = exec_guiCmd (guiCmd)           
+        abort  = exec_guiCmd (guiCmd)           
         guiIf.send_rpiTlm (guiAcceptCnt, vehState)  
         
         # Get the iop telemetry msgs and parse into state structure
+        # Also, send the iopTlm to gui in get_iopTlm
         iopMsg = get_iopTlm (loopCntr)
-        #if (len(iopMsg) != 0):              
-        #    guiIf.send_iopTlm (iopMsg) done in get_iopTlm now
 
         # Get the vision temetry msgs and parse into state structure        
         #visMsg = getVisionTelemetry()
@@ -164,12 +145,12 @@ def get_lidarTlm(loopCntr):
     global vehState   
 
     # Get the lastest range points from the RPLidar
+    start_time = time.clock()
     scan_list = get_lidar_data()
-    
-    # Clear out the Occupancy Grid - remove before flight - dag
-    # occGrid.clear()
+    vehState.lidar_get_data_time = time.clock() - start_time        ##### time
     
     # Enter each of the range points into the occGrid
+    start_time = time.clock()
     for dataPt in scan_list:
         newPt = dataPt[0]
         qual  = dataPt[1]
@@ -181,27 +162,30 @@ def get_lidarTlm(loopCntr):
 
     # Now shift the occGrid down by the vehicles motion since the last time
     occGrid.recenterGrid(vehState.iopCumDistance, vehState.iopSteerAngle);
-    
+    vehState.grid_enter_data_time = time.clock() - start_time       ##### time
+        
     # Calculate the steering angle.  This angle won't be used until we're in
     # the proper state
+    start_time = time.clock()    
     vehState.histAngle = occGrid.getNearestAngle(0)
-   
-    print ("Histogram Angle = ", vehState.histAngle)
-    
-    # Send the occGrid as telemetry to our GUI
-    occGrid.sendUDP(vehState.iopTime, vehState.histAngle)
-
+    vehState.hist_get_angle_time = time.clock() - start_time        ##### time
+       
     if (loopCntr == 0):
         # Initialize the graphic window
         #occGrid.initGraphGrid("Occupancy Grid", 4, False, False)  
         pass
+        
     if loopCntr % 5 == 0:
         # every 1/2 second send the occupancy grid to be displayed
+        start_time = time.clock()     
         occGrid.sendUDP(vehState.iopTime, vehState.histAngle)
+        vehState.grid_send_data_time = time.clock() - start_time    ##### time
+        # print ("Histogram Angle = ", vehState.histAngle)        
         pass   
+        
     if loopCntr % 20 == 0:
         # every 2 seconds clear the graph
-        #   
+        #  occGrid.clear ()
         pass    
 # End
         
