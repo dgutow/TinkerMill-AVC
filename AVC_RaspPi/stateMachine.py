@@ -107,7 +107,7 @@ def stateMachine (vehState, serialPort, occGrid):
 
         # This is just a transitory state to initialize things
         # Clear out the occ grid and then move to RACE
-        occGrid.clear()
+        occGrid.clear(0, 0)
         vehState.mode.setMode(raceModes.RACE_STRAIGHT)
         # end
 

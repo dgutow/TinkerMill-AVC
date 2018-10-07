@@ -70,8 +70,8 @@ class Grid(object):
         self.port       = None
         self.sock       = None
 
-        self.scanAngle  = 45
-        self.angDelta   = 3
+        self.scanAngle  = 30
+        self.angDelta   = 5
         self.minAngle   = -1 * self.scanAngle
         self.maxAngle   = self.scanAngle
         self.origin     = [0.5 * self.nCols * self.resolution, 0]
@@ -453,9 +453,9 @@ class Grid(object):
 
         #debug
         #print("Before Low Pass Filter...")
-        #self.printHistArr()
+        self.printHistArr()
         
-        self.lowPassFilter(3)
+        #self.lowPassFilter(3)
 
         minCost = min(self.histArr)
 

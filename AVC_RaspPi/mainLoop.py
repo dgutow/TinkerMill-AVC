@@ -145,6 +145,7 @@ def get_lidarTlm(loopCntr):
     global vehState   
 
     # Get the lastest range points from the RPLidar
+
     start_time = time.clock()
     scan_list = get_lidar_data()
     vehState.lidar_get_data_time = time.clock() - start_time        ##### time
@@ -155,7 +156,7 @@ def get_lidarTlm(loopCntr):
         newPt = dataPt[0]
         qual  = dataPt[1]
         angle = dataPt[2]
-        #dist  = dataPt[3]  / 10     # data is in mm DAG        
+        dist  = dataPt[3]  / 10    # data is in mm DAG        
         dist  = dataPt[3]  / 1     # data is in mm DAG 
         occGrid.enterRange(vehState.iopCumDistance, vehState.iopSteerAngle, 
                            dist, angle)                              
@@ -167,7 +168,7 @@ def get_lidarTlm(loopCntr):
     # Calculate the steering angle.  This angle won't be used until we're in
     # the proper state
     start_time = time.clock()    
-    vehState.histAngle = occGrid.getNearestAngle(0)
+    vehState.histAngle = occGrid.getNearestAngle(0) 
     vehState.hist_get_angle_time = time.clock() - start_time        ##### time
        
     if (loopCntr == 0):
@@ -175,7 +176,7 @@ def get_lidarTlm(loopCntr):
         #occGrid.initGraphGrid("Occupancy Grid", 4, False, False)  
         pass
         
-    if loopCntr % 5 == 0:
+    if loopCntr % 4 == 0:
         # every 1/2 second send the occupancy grid to be displayed
         start_time = time.clock()     
         occGrid.sendUDP(vehState.iopTime, vehState.histAngle)
@@ -183,9 +184,9 @@ def get_lidarTlm(loopCntr):
         # print ("Histogram Angle = ", vehState.histAngle)        
         pass   
         
-    if loopCntr % 20 == 0:
-        # every 2 seconds clear the graph
-        #  occGrid.clear ()
+    if loopCntr % 1 == 0:
+        # every 0.8 seconds clear the graph
+        occGrid.clear ()
         pass    
 # End
         
@@ -245,10 +246,11 @@ def proc_iopTlm (data):
     vehState.iopAcceptCnt   = telemArray[3]
     vehState.iopBistStatus  = telemArray[4]
     vehState.iopSpeed       = telemArray[5]
-    vehState.iopSteerAngle  = telemArray[6]         
-    #vehState.iopCumDistance = telemArray[7]   #dag remove before flight
+    vehState.iopSteerAngle  = telemArray[6]  
+           
+    vehState.iopCumDistance = telemArray[7]     #dag remove before flight
+    #vehState.iopCumDistance += 10             #dag remove before flight
     
-    vehState.iopCumDistance += 6
     irLF_Range              = telemArray[8]
     irLR_Range              = telemArray[9]        
     irRF_Range              = telemArray[10]
@@ -459,7 +461,7 @@ def exec_guiCmd (cmdMsg):
         bad_cmd (command, param1, param2, param3)    
         
     elif (command == 'X'):      # Set speed
-        bad_cmd (command, param1, param2, param3)  
+        vehState.mode.setSpeed (param1)  
         
     elif (command == 'Y'):      # Set vision mode
         guiAcceptCnt += 1   

@@ -144,6 +144,13 @@ class raceModes(object):
     # end
     
     ###########################################################################
+    # setSpeed - Gets the speed for this state
+    #   
+    def setSpeed(self, speed):
+        self.speedDict[self.currMode] = speed
+    # end    
+    
+    ###########################################################################
     # newMode - Returns true if we've just switched to a mode.  Also increments
     # the modeCount value each time it's called.
     #   
