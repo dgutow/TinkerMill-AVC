@@ -68,13 +68,14 @@ def stateMachine (vehState, serialPort, occGrid):
             else:
                 vehState.mode.setMode(raceModes.WAIT_FOR_START)
         # end if
-
+    
+    # Need a mode - wait for NORMAL mode of vehicle - dag
+    
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.WAIT_FOR_START:
         if vehState.mode.newMode():
             serialPort.sendCommand ('D', 1, 0, 0)   # Go to NORMAL mode
             playSound (vehState)
-
         # end
 
         if (vehState.iopMode <> IOP_MODE_NORMAL):
@@ -86,7 +87,8 @@ def stateMachine (vehState, serialPort, occGrid):
         else:
             # IOP is in NORMAL mode so set steering.  We'll send this
             # command every cycle but who cares?
-            #serialPort.sendCommand ('T', 0, 0, 0)   # Set steering to 0       dag
+            serialPort.sendCommand (CMD_MOVE, 0, 0, 0)
+            serialPort.sendCommand (CMD_TURN, 0, 0, 0)  
             pass
 
             # Did we get the start switch closure?

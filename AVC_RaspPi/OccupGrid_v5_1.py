@@ -136,8 +136,8 @@ class Grid(object):
     #                 negative values are to the left
     ###########################################################################
     def enterRange (self,  carCumDist, carCurrAngle, scanDist, scanAngle):
-        distTravelled = carCumDist   - self.distance
-        angleDiff     = carCurrAngle - self.angle
+        distTravelled = 0       # carCumDist   - self.distance
+        angleDiff     = 0       # carCurrAngle - self.angle
         carXpos       = (sin(radians(angleDiff)) * distTravelled)
         carYpos       = (cos(radians(angleDiff)) * distTravelled)
         carXpos       += self.Xpos
@@ -175,7 +175,7 @@ class Grid(object):
     # moving the data in the grid generally downward.
     ###########################################################################
     def recenterGrid(self, dist, angle):
-        deltaAngle = angle - self.angle
+        deltaAngle = angle   #  - self.angle  dag?
         deltaDist  = dist  - self.distance
         deltaY     = deltaDist * cos(radians(deltaAngle))
         deltaX     = deltaDist * sin(radians(deltaAngle))
