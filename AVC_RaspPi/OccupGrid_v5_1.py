@@ -136,8 +136,8 @@ class Grid(object):
     #                 negative values are to the left
     ###########################################################################
     def enterRange (self,  carCumDist, carCurrAngle, scanDist, scanAngle):
-        distTravelled = carCumDist   - self.distance
-        angleDiff     = carCurrAngle - self.angle
+        distTravelled = 0       # carCumDist   - self.distance
+        angleDiff     = 0       # carCurrAngle - self.angle
         carXpos       = (sin(radians(angleDiff)) * distTravelled)
         carYpos       = (cos(radians(angleDiff)) * distTravelled)
         carXpos       += self.Xpos
@@ -175,7 +175,7 @@ class Grid(object):
     # moving the data in the grid generally downward.
     ###########################################################################
     def recenterGrid(self, dist, angle):
-        deltaAngle = angle - self.angle
+        deltaAngle = angle   #  - self.angle  dag?
         deltaDist  = dist  - self.distance
         deltaY     = deltaDist * cos(radians(deltaAngle))
         deltaX     = deltaDist * sin(radians(deltaAngle))
@@ -367,7 +367,7 @@ class Grid(object):
         if (self.sock != None):
             self.sock.sendto(packetData, (self.host, self.port))
             
-        print ('sendUDP - number of non-0 entries', total)         
+        # print ('sendUDP - number of non-0 entries', total)         
 
     # end
 
@@ -458,11 +458,10 @@ class Grid(object):
         self.lowPassFilter(3)
 
         minCost = min(self.histArr)
-        print("MinCost is", minCost)
 
-        #debug
         #print("After Low Pass Filter...")
-        self.printHistArr()
+        #print("MinCost is", minCost)        
+        #self.printHistArr()
 
         return self.findBestAngle(minCost)
     # end

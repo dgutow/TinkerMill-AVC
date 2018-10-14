@@ -69,13 +69,13 @@ class vehicleState (object):
     leftWallDist        = 0.0   # Distance to left wall
     RightWallDist       = 0.0   # Ditto
     
+    # timers
+    lidar_get_data_time = 0.0
+    grid_enter_data_time= 0.0
+    hist_get_angle_time = 0.0
+    grid_send_data_time = 0.0
+    
     # These are the results of the range sensors
-    #leftWallAngle       = 0.0   # The angle of the vehicle (relative to left wall)
-    #leftWallDist        = 0.0   # The calculated distance to left wall
-    #leftDataValid       = False # Data valid flag
-    #rightWallAngle      = 0.0   # The angle of the vehicle (relative to right wall)    
-    #rightWallDist       = 0.0   # The calculated distance to right wall
-    #rightDataValid      = False # Data Valid flag
     controlAngle        = 0.0   # The calculated vehicle control angle
     controlDist         = 0.0   # The calculated vehicle dist (to the left wall)
     compassAngle        = 0.0   # The compass angle the last time these values were
