@@ -4,7 +4,7 @@ This example demonstrates many of the 2D plotting capabilities
 in pyqtgraph. All of the plots may be panned/scaled by dragging with
 the left/right mouse buttons. Right click on any plot to show a context menu.
 """
-HOST = '192.168.4.101'
+HOST = '192.168.4.30'
 # HOST = '10.2.127.123'
 # HOST = '198.162.4.40'
 UDP_PORT = 12346  # The same port as used by the server
