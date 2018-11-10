@@ -402,7 +402,7 @@ class Grid(object):
     # end
 
     ###########################################################################
-    # getCostArray -
+    # getCostArray - not used
     ###########################################################################
     def getCostArray(self, grid, maxDist, scanAngle, angDelta):
         angleBin = {}
@@ -455,7 +455,7 @@ class Grid(object):
         #print("Before Low Pass Filter...")
         self.printHistArr()
         
-        #self.lowPassFilter(3)
+        self.lowPassFilter(3)
 
         minCost = min(self.histArr)
 
@@ -466,19 +466,27 @@ class Grid(object):
         return self.findBestAngle(minCost)
     # end
 
-    ###########################################################################
-    # lowPassFilter - to eliminate naughty zeros
+        
+###########################################################################
+    # lowPassFilterDag - to eliminate naughty zeros
     ###########################################################################
     def lowPassFilter(self, size):
-        histArrayFiltered = []
-
-        for index in range(self.histSize):
-            histArrayFiltered.insert(index, self.histArr[index])
-            if index >= size:
-                meanCost = sum(self.histArr[(index - size):index]) / size
-                histArrayFiltered[int(index-floor(size/2)) - 1] = meanCost
-                
-        self.histArr = histArrayFiltered
+        histArrayFiltered =  [ 9.0 for x in range(self.histSize)]
+        halfSize = int(floor(size/2))
+        
+        for index in range(halfSize, self.histSize - halfSize):
+            min = (index - halfSize)
+            max = (index + halfSize + 1)
+            ave = sum( self.histArr[min:max] ) / size    
+            histArrayFiltered[index] =  ave            
+            
+        for index in range (0, halfSize):      
+            histArrayFiltered[index] = histArrayFiltered[halfSize] 
+            
+        for index in range ( (self.histSize - halfSize), self.histSize):
+            histArrayFiltered[index] = histArrayFiltered[self.histSize - halfSize - 1]
+            
+        self.histArr = histArrayFiltered        
 
     ###########################################################################
     # findBestAngle - find the widest path and go towards the center of it
@@ -523,7 +531,7 @@ class Grid(object):
     ###########################################################################
     def printHistArr(self):
         for index in range(self.histSize):
-            sys.stdout.write("%5d" % (self.histArr[index]))
+            sys.stdout.write("%5.1f" % (self.histArr[index]))
         print ("\n")
         for index in range(self.histSize):
             sys.stdout.write("%5d" % (index))
@@ -537,12 +545,24 @@ class Grid(object):
 # Test code
 ###############################################################################
 if __name__ == '__main__':
+
+    g = Grid(10, nRows=100, nCols=160, distance=0, angle=0)
+    g.histSize = 9
+    #g.histArr =  [ 0.0, 4.0, 4.0, 5.0, 6.0, 0.0, 0.0, 5.0, 0.0]
+    g.histArr  =  [ 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
+    
+    g.printHistArr()
+    g.lowPassFilterDag(5)
+    g.printHistArr()    
+    #g.histArr
+    
+
+"""
     import time
 
     np.set_printoptions(precision=3, linewidth=2000, threshold=np.nan, suppress=True)
 
     if (False):
-        """
         # RPLIDAR A2 scanner radius is 12 meters max
         maxWidth = 16 # meters
         desired_columns = 60
@@ -575,7 +595,6 @@ if __name__ == '__main__':
         output = h.getAngle(costArray, 0)
 
         print(output)
-        """
         pass
     else:           # DAG
         rows = 100
@@ -615,3 +634,4 @@ if __name__ == '__main__':
 
         print(output)
     # end if
+"""
