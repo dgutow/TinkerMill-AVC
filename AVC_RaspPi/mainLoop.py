@@ -186,7 +186,7 @@ def get_lidarTlm(loopCntr):
         
     if loopCntr % 1 == 0:
         # every 0.8 seconds clear the graph
-        occGrid.clear ()
+        occGrid.clear (occGrid.distance, occGrid.angle)
         pass    
 # End
         
