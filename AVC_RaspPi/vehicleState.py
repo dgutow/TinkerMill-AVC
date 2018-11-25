@@ -33,6 +33,10 @@ class vehicleState (object):
     distAtStart        = 0.0   # Distance measured when start signal arrived
     compassAtStart     = 0.0   # Compass angle when start signal arrived
     
+    # map state information
+    currentAngleLock   = threading.lock() # a lock to prevent race conditions
+    currentAngle       = 0.0
+    
     # Telemetry coming from the IOP processor
     iopTime            = 0     # IOP current time
     iopMode            = IOP_MODE_NONE  # Mode of the IOP processor
@@ -52,7 +56,10 @@ class vehicleState (object):
    
     # The last seconds worth of scan ranges are stored in this buffer.   
     #iopRanges           = Range(40)
-    
+    # a circular buffer of the LIDAR readings
+    lidarBuffer = [[0]*180 for i in range(5)]
+    lidarBufferLock = threading.lock() # a lock to prevent race conditions
+
     iopBattVolt1        = 0.0   # Voltage of battery 1
     iopBattVolt2        = 0.0   # Voltage of battery 2
     

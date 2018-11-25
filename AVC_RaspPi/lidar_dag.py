@@ -75,6 +75,75 @@ def get_lidar_data():             # stolen from iter_measures()
 # end def
 
 ###############################################################################
+# get_lidar_data_circular 
+###############################################################################
+def get_lidar_data_circular():             # stolen from iter_measures()
+    """ Returns nothing : it does update the lidar buffer in the vehicle state
+    new_scan : bool - True if measures belongs to a new scan
+    quality  : int  - Reflected laser pulse strength
+    angle    : float- The measure heading angle in degree unit [0, 360)
+    distance : float- Measured object distance related to the sensor's 
+                          rotation center (mm). 
+    """
+    """
+    new_cnt     = 0
+    old_cnt     = 0  
+    zero_cnt    = 0    
+    """    
+    global vehState # only use lidarBuffer, currentAngle, and their locks
+    
+    # get a local copy of the current angle
+    vehState.currentAngleLock.acquire()
+    currentAngle = vehState.currentAngle
+    vehState.currentAngleLock.release()
+
+    current_time = time.clock()
+
+    if not lidar.scanning[0]:
+        raise RPLidarException ('Scanning not started in scan2')
+            
+    dsize = lidar.scanning[1]            
+    while (lidar._serial.inWaiting() >= dsize):
+        data = lidar._serial.read(dsize)
+        error, new_scan, quality, angle, distance =  process_data(data)
+        if (error):
+            # Error occured getting data, clear out the serial buffer
+            lidar.scanning[0] = False
+            lidar.clean_input()
+            lidar.scanning[0] = True
+        else:
+            if distance > 0:
+                # TODO CHECK IF THE DATA ARE RELIABLE USING THE GRAVITY SENSOR
+                # calculate the absolute angle and bound it to [0,2*pi)
+                absoluteAngle = (angle+currentAngle) % (math.pi*2)
+                """
+                while absoluteAngle >= 2*math.pi
+                    absoluteAngle -= 2* math.pi
+                while absoluteAngle < 0
+                    absoluteAngle += 2* math.pi
+                """
+                # use the absolute angle to index into the buffer
+                # offset forces it to round to 1 to 180
+                bufferIndex = round(absoluteAngle/(2*math.pi)*len(lidarBuffer)+.5)
+                lidarBufferLock.acquire()
+                lidarBuffer[bufferIndex][:]=[current_time, quality, angle, distance,1]
+                lidarBufferLock.release()
+                #scan_list.append((new_scan, quality, angle, distance))  
+            """
+            else:
+                zero_cnt += 1
+    
+            if new_scan:
+                new_cnt += 1
+            else:
+                old_cnt += 1    
+            """
+        # end if .. else
+    # end while
+    return
+# end def
+
+###############################################################################
 # process_data - Processes input raw data and returns measurement data
 ###############################################################################
 def process_data (raw):         # was _process_scan(raw) in rplidar.py
