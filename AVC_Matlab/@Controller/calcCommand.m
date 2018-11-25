@@ -854,8 +854,120 @@ elseif obj.type==7
         drawnow;
 
     end
-end
+elseif obj.type==8
+    LIDAR_RANGE=12;
+    METERS_PER_FOOT=0.3048;
+    
+    FINE_RESOLUTION=.01;
+    
+    %load temp.mat;
+    if 0&&isempty(obj.map10)
+        obj.map10 = 1;
+        BUFFER=700; % 100* the gradient slope distance (m)
+        % now prep the normal map
+        obj.mapFull=obj.map*BUFFER;
+        % now fill the center
+        obj.mapEmpty=fill(obj.map,round(size(obj.mapFull)/2),BUFFER);
+        obj.mapEmpty(obj.mapEmpty==1)=0;
+        % now bleed stuff
+        for i=BUFFER:-1:2
+            disp(i)
+            obj.mapFull=bleedToNeighbours(obj.mapFull,i);
+            obj.mapEmpty=bleedToNeighbours(obj.mapEmpty,i);
+        end
+        mapEmpty=sparse(obj.mapEmpty);
+        mapFull=sparse(obj.mapFull);
+        save temp.mat mapEmpty mapFull;
+    elseif 0
+        obj.map=[];
+        load temp.mat;
+        obj.mapEmpty=mapEmpty;
+        obj.mapFull=mapFull;
+        clear mapEmpty mapFull;
+    end
+    
+    command = calcLongCenteredObstacleAvoidance(sensorData,vehicle);
 
+    sensorData=vehicle.sensorData;
+    % sort the data by angle
+    [~,I]=sort(sensorData{1}(:,1));
+    sensorData{1}=sensorData{1}(I,:);
+    
+    % convert from lidar readings to cartesian
+    LIDARPoints=(sensorData{1}(:,2)*ones(1,2)).*[cos(sensorData{1}(:,1)),sin(sensorData{1}(:,1))];
+
+    % speed, oldParticle, deadParticle, curParticle,
+    particles = obj.particles;
+    oldParticles = obj.particles;
+    velocity = obj.estimVelocity;
+
+    % update our location estimate(s) using dead reckoning
+    if ~isempty(vehicle.intertialSensorValue)
+        for i=1:1:size(particles,2)
+            particles(3,i) = particles(3,i)+vehicle.timeStep*vehicle.intertialSensorValue(1);
+            velocity(:,i) = velocity(:,i) + vehicle.timeStep*rot(particles(3,i))*vehicle.intertialSensorValue(2:3)';
+            particles(1:2,i) = particles(1:2,i) + vehicle.timeStep*velocity(:,i);
+        end
+    end
+    
+    % speed, oldParticle, deadParticle, curParticle,
+    value = assessSearchState(particles, obj, LIDARPoints, oldParticles, particles);
+    options=optimset('TolX',.005,'TolFun',1);
+    x = fminsearch(@assessSearchState,particles,options);
+    value2 = assessSearchState(x, obj, LIDARPoints, oldParticles, particles);
+    %particles(1:2,:)=round(particles(1:2,:));
+
+    obj.particles=x;
+    obj.estimVelocity=velocity/norm(velocity)*vehicle.speed;%(x(1:2)-oldParticles(1:2))/vehicle.timeStep;
+    
+    %obj.estimVelocity = (obj.particles(1:2,:) - oldPosition)/vehicle.timeStep;
+    % now update the map
+    if obj.show
+        figure(2); subplot(1,3,3); cla; hold on;
+        xlim([-12,12]);
+        ylim([-12,12]);
+        title('Controller View');
+        ylabel('Distance Left (m)');
+        xlabel('Distance Forward (m)');
+
+        % convert from lidar readings to cartesian
+        LIDARPoints=(sensorData{1}(:,2)*ones(1,2)).*[cos(sensorData{1}(:,1)),sin(sensorData{1}(:,1))];
+        plot(LIDARPoints(:,1),LIDARPoints(:,2),'g.');
+
+        %angle = vehicle.lowpassOrientation-vehicle.orientation;
+        plot(0,0,'b.','markersize',10);
+        %plot([0,cos(angle)],[0,-sin(angle)],'k-');
+        plot(command(1)*[0,cos(command(2))],command(1)*[0,sin(command(2))],'b-');
+        drawnow;
+
+        figure(3);% clf; hold on;
+        persistent h8 r8 g8;
+        if ~isempty(h8)
+            delete(h8);
+            delete(r8);
+            delete(g8);
+        else
+            figure(3); clf; hold on;
+            ind = find(obj.mapFull==1);
+            plot(mod(ind-1,size(obj.mapFull,1))+1,floor((ind-1)/size(obj.mapFull,1))+1,'k.','markersize',1);
+            maxVal=max(max(obj.mapFull))
+            ind = find(obj.mapFull==maxVal);
+            plot(mod(ind-1,size(obj.mapFull,1))+1,floor((ind-1)/size(obj.mapFull,1))+1,'.','markersize',1,'color',[.5,.5,.5]);
+        end
+        for i=1:1:size(obj.particles,2)
+            h8(i)=plot(obj.particles(1,i)/obj.MAP_RESOLUTION,obj.particles(2,i)/obj.MAP_RESOLUTION,'b.');
+        end
+        r8 = plot(vehicle.position(1)/obj.MAP_RESOLUTION,vehicle.position(2)/obj.MAP_RESOLUTION,'ro');
+        
+        % convert to global frame
+        LIDARPoints(:,[1,2])=(rot(obj.particles(3,1) )*LIDARPoints(:,[1,2])')';
+        LIDARPoints(:,1)=LIDARPoints(:,1)+obj.particles(1,1);
+        LIDARPoints(:,2)=LIDARPoints(:,2)+obj.particles(2,1);
+        g8 = plot(LIDARPoints(:,1)/obj.MAP_RESOLUTION,LIDARPoints(:,2)/obj.MAP_RESOLUTION,'g.');
+        title(['State Cost: ',num2str(value2),' Search Improvement: ',num2str((value2-value))]);
+        drawnow;
+    end
+end
 end
 
 function [res]=movingSum(n,filterSize)
@@ -1043,7 +1155,6 @@ function value = assessStateQuick(courseMap, lidarPoints, position, orientation,
     
 end
 
-
 function LIDARLines= getLidarLines(obj,vehicle)
     LIDAR_RANGE=12;
 
@@ -1203,5 +1314,125 @@ function outputMap = rotImage(map,orientation)
             end
             outputMap(i,j) = map(inds(1),inds(2));
         end
+    end
+end
+
+function map=fill(map,startPoint,value)
+    % get the value that things have to start at
+    disp(length(find(map>0)));
+    startValue = map(startPoint(1),startPoint(2));
+    qLength=10000;
+    queue = zeros(qLength,2);
+    queue(1,:)=startPoint;
+    map(startPoint(1),startPoint(2))=value;
+    queueCount=2;
+    queueStart=1;
+    count=1;
+    while (queueCount~=queueStart)
+        curPoint=queue(queueStart,:);
+        queueStart=mod(queueStart,qLength)+1;
+        %if (sum(curPoint>0)<2)&&(map(curPoint(1),curPoint(2))~=startValue)
+        %    continue;
+        %end
+        count=count+1;
+        
+        if (map(curPoint(1)+1,curPoint(2))==startValue)
+            map(curPoint(1)+1,curPoint(2))=value;
+            queue(queueCount,:)=curPoint+[1,0];
+            queueCount=mod(queueCount,qLength)+1;
+        end
+        if (map(curPoint(1)-1,curPoint(2))==startValue)
+            map(curPoint(1)-1,curPoint(2))=value;
+            queue(queueCount,:)=curPoint+[-1,0];
+            queueCount=mod(queueCount,qLength)+1;
+        end
+        if (map(curPoint(1),curPoint(2)+1)==startValue)
+            map(curPoint(1),curPoint(2)+1)=value;
+            queue(queueCount,:)=curPoint+[0,1];
+            queueCount=mod(queueCount,qLength)+1;
+        end
+        if (map(curPoint(1),curPoint(2)-1)==startValue)
+            map(curPoint(1),curPoint(2)-1)=value;
+            queue(queueCount,:)=curPoint+[0,-1];
+            queueCount=mod(queueCount,qLength)+1;
+        end
+        if mod(count,1E6)==0
+            %disp(num2str(count/14816702*100));
+        end
+    end
+end
+
+function map=bleedToNeighbours(map,sourceValue)
+    endValue=sourceValue-1;
+    inds=find(map==sourceValue);
+    map(inds(map(inds+1)<sourceValue)+1)=endValue;
+    map(inds(map(inds-1)<sourceValue)-1)=endValue;
+    map(inds(map(inds-size(map,1))<sourceValue)-size(map,1))=endValue;
+    map(inds(map(inds+size(map,1))<sourceValue)+size(map,1))=endValue;
+end
+
+function value = assessSearchState(particle, controller, lidarPoints, oldParticles, deadParticle)
+    persistent cont sourcePoints old dead;
+    show=0;
+    if nargin()>1
+        cont=controller;
+        sourcePoints=lidarPoints;
+        old=oldParticles;
+        dead=deadParticle;
+        show=0;
+    end
+    speed=norm(old(1:2,1)-dead(1:2,1))*10;
+    resolution=cont.MAP_RESOLUTION;
+    % assessing the state largely means checking the congruence of the
+    % LIDAR and map information. If the lidar point occupy a map
+    % point then the assess value goes up by that value.
+
+    % convert to lidarMap to global frame
+    points = (rot(particle(3,1))*sourcePoints')';
+    offset = particle(1:2,1);
+    value = 0;
+    
+    for i=1:1:size(points,1)
+        inds=[round((offset(1)+points(i,1))/resolution),...
+                round((offset(2)+points(i,2))/resolution)];
+        if (inds(1)<1)||(inds(1)>size(cont.mapFull,1))||...
+            (inds(2)<1)||(inds(2)>size(cont.mapFull,2))
+            value=0;
+            return;
+        end
+        
+        if (norm(points(i,:))<11.9)
+            value=value+cont.mapFull(inds(1),inds(2));
+        else
+            value=value+cont.mapEmpty(inds(1),inds(2));
+        end
+    end
+
+    % now add in the cost for moving from the dead reckoning point
+    % assess angle difference
+    value=value+10*abs(particle(3,1)-dead(3,1))/0.1745;
+    % assess position difference
+    value=value+10*norm(particle(1:2,1)-dead(1:2,1))/1;
+    % assess speed difference
+    value=value+10*abs(norm((particle(1:2,1)-old(1:2,1))*10)-speed)/1;
+    
+    if show
+        ind1=round((offset(1)+points(:,1))/resolution);
+        ind2=round((offset(2)+points(:,2))/resolution);
+
+        figure(4); clf; hold on; 
+        inds=find(cont.mapFull==1);
+        indices=[mod(inds-1,size(cont.mapFull,1))+1,floor((inds-1)/size(cont.mapFull,1))+1];
+        plot(indices(:,1),indices(:,2),'k.');
+
+        inds=find(cont.mapFull==699);
+        indices=[mod(inds-1,size(cont.mapFull,1))+1,floor((inds-1)/size(cont.mapFull,1))+1];
+        plot(indices(:,1),indices(:,2),'.','color',[.5,.5,.5]);
+
+        plot(ind1,ind2,'g.');
+        title(['value: ',num2str(value)]);
+        axis tight;
+        drawnow;
+        pause(0.01);
     end
 end

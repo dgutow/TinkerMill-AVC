@@ -33,12 +33,12 @@ end
 end
 video=1;
 if video
-    v = VideoWriter('MapLocatilizationParticle','MPEG-4');
+    v = VideoWriter('MapLocatilizationSearch','MPEG-4');
     open(v);
 end
 % test out some control
 tic;
-controller=Controller(6);
+controller=Controller(8);
 vehicle.position=pathPoints(1,:);
 controller.estimPosition=pathPoints(1,:)';
 controller.estimVelocity=[0;0];
@@ -53,6 +53,21 @@ controller = fillMap(controller, wallLines);
 controller.show=1;
 curPathPoint=1;
 res(count)=0;
+
+controller.map=[];
+load temp.mat;
+% inds = find(mapEmpty==0);
+% mapEmpty=-(mapEmpty-700);
+% mapEmpty(inds)=0;
+% mapEmpty=sparse(mapEmpty);
+% inds = find(mapFull==0);
+% mapFull=-(mapFull-700);
+% mapFull(inds)=0;
+% mapFull=sparse(mapFull);
+controller.mapEmpty=mapEmpty;
+controller.mapFull=mapFull;
+clear mapEmpty mapFull;
+        
 for i=1:1:600
     vehicle=vehicle.getSensorData();
     if (mod(i,1)==0)&&(i>1)

@@ -11,6 +11,8 @@ classdef Controller
         estimOrientation
         particles
         map;
+        mapEmpty;
+        mapFull;
         map10;
         map100;
         MAP_RESOLUTION;        

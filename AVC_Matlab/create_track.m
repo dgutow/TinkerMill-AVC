@@ -131,6 +131,7 @@ end
 %    plot([wallLines(i,1),wallLines(i,1)+wallLines(i,3)],[wallLines(i,2),wallLines(i,2)+wallLines(i,4)],'k-');
 %end
 
+if 1
 % now pick a spot for the ramp
 randInd=round(rand(1)*size(pathPoints,1));
 rampWidth=RAMP_WIDTH_MIN+rand(1)*RAMP_WIDTH_RANGE;
@@ -152,8 +153,10 @@ wallLines=[[rampPoints(1,:),rampPoints(2,:)-rampPoints(1,:);...
 %for i=1:1:4
 %    plot([wallLines(i,1),wallLines(i,1)+wallLines(i,3)],[wallLines(i,2),wallLines(i,2)+wallLines(i,4)],'k-');
 %end
+end
 
 % now pick a spot for the barrels that is at least 20 feat from the ramp
+if 1
 while 1
     randInd=round(rand(1)*size(pathPoints,1)+.5);
     if min(sum((rampPoints-pathPoints(randInd,:)).^2,2))^.5>20*METERS_PER_FOOT
@@ -203,6 +206,7 @@ end
 %for i=1:1:size(wallLines,1)
 %    plot([wallLines(i,1),wallLines(i,1)+wallLines(i,3)],[wallLines(i,2),wallLines(i,2)+wallLines(i,4)],'k-');
 %end
+end
 
 save course.mat wallLines pathPoints pathDirs pathNormal;
 end
