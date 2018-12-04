@@ -1,3 +1,4 @@
+# this file covers all of the behind the scenes aspects of the lidar
 '''Simple and lightweight module for working with RPLidar rangefinder scanners.
 
 Usage example:
@@ -69,39 +70,98 @@ class RPLidarException(Exception):
     '''Basic exception class for RPLidar'''
 
 
+
+###############################################################################
+# process_data - Processes input raw data and returns measurement data
+###############################################################################
+def process_data (raw, lidar):         # was _process_scan(raw) in rplidar.py
+    if len(raw)==5: # standard packet
+        return process_scan
+    elif len(raw)==84: # an express mode packet
+        return process_express_scan
+    else:
+        return (True, 0, 0, 0, 0)
+
+def process_scan(raw):
+        new_scan = bool((_b2i(raw[0]) & 0x03)==1)
+        inversed_new_scan = bool((_b2i(raw[0]) & 0x03)==2)
+        if new_scan == inversed_new_scan:
+            print ('New scan flags mismatch')
+            return (True, 0, 0, 0, 0)
+            
+        check_bit = _b2i(raw[1]) & 0x01
+        if check_bit != 1:
+            return (True, 0, 0, 0, 0)
+            
+        quality  =   _b2i(raw[0]) >> 2        
+        angle    = ((_b2i(raw[1]) >> 1) + (_b2i(raw[2]) << 7)) / 64.
+        distance =  (_b2i(raw[3])       + (_b2i(raw[4]) << 8)) / 4.
+        #print("raw: ",_b2i(raw[0]),_b2i(raw[1]),_b2i(raw[2]),_b2i(raw[3]),", angle: ",angle,", distance: ",distance)
+        return (False, new_scan, quality, angle, distance)
+
+
+def process_express_scan(raw, lidar):
+    #chkSum= (_b2i(raw[0]) & 0x0F) + (_b2i(raw[1]) << 4)
+    readings=[]
+    # check the sync bytes
+    if (_b2i(raw[0]) >> 4) != 0x0A:
+        readings.append((True, 0, 0, 0, 0))
+        return readings
+    if (_b2i(raw[1]) >> 4) != 0x05:
+        readings.append((True, 0, 0, 0, 0))
+        return readings
+
+    new_scan=bool(_b2i(raw[3]) >>7)
+    
+    startAngle= (_b2i(raw[2])+((_b2i(raw[3]) & 0x7F) << 8) % 360)
+    
+    global lastExpressStartAngle
+    if (lidar.lastExpressStartAngle>0) and ( not new_scan):
+        # if we have a valid previous angle then process
+        
+        # get the delta angle per measurement            
+        delta=(startAngle-lidar.lastExpressStartAngle)/32.0
+        if startAngle<=lidar.lastExpressStartAngle:
+            delta=(startAngle+360-lidar.lastExpressStartAngle)/32.0
+
+        # loop variables
+        angle=startAngle+delta
+        cabinStartByteIndex=4
+        for i in range(16):
+            # decode the cabin
+            d1 = (_b2i(raw[cabinStartByteIndex+0]) >> 2)+ \
+                    (_b2i(raw[cabinStartByteIndex+1]) << 6)
+            d2 = (_b2i(raw[cabinStartByteIndex+2]) >> 2)+ \
+                    (_b2i(raw[cabinStartByteIndex+3]) << 6)
+            dTheta1= ((_b2i(raw[cabinStartByteIndex+0]) & 0x01)+ \
+                        (_b2i(raw[cabinStartByteIndex+4]) & 0x0F) << 1)/8.
+            dTheta2= ((_b2i(raw[cabinStartByteIndex+2]) & 0x01)+ \
+                        (_b2i(raw[cabinStartByteIndex+4]) & 0xF0) >> 3)/8.
+            if bool(_b2i(raw[cabinStartByteIndex+0]) & 0x02):
+                dTheta1 = -dTheta1
+            if bool(_b2i(raw[cabinStartByteIndex+2]) & 0x02):
+                dTheta2 = -dTheta2
+            readings.append((False, new_scan, 0, angle+dTheta1, d1))
+            angle=(angle+delta)%360
+            readings.append((False, new_scan, 0, angle+dTheta2, d2))
+            angle=(angle+delta)%360
+            cabinStartByteIndex=cabinStartByteIndex+5
+            #print("d1: ",d1," a1: ",(angle+dTheta1-2*delta),"d2: ",d1," a2: ",(angle+dTheta2-delta));
+
+            
+    # update the starting angle
+    lastExpressStartAngle = startAngle
+        
+    return readings
+
+###############################################################################
+# _b2i - Converts byte to integer (for Python 2 compatability)
+############################################################################### 
 def _b2i(byte):
-    '''Converts byte to integer (for Python 2 compatability)'''
-    return byte if int(sys.version[0]) == 3 else ord(byte)
-
-
-def _showhex(signal):
-    '''Converts string bytes to hex representation (useful for debugging)'''
-    return [format(_b2i(b), '#02x') for b in signal]
-
-
-def _process_scan(raw):
-    '''Processes input raw data and returns measurement data'''
-    new_scan = bool(_b2i(raw[0]) & 0b1)
-    inversed_new_scan = bool((_b2i(raw[0]) >> 1) & 0b1)
-    quality = _b2i(raw[0]) >> 2
-    if new_scan == inversed_new_scan:
-        raise RPLidarException('New scan flags mismatch')
-    check_bit = _b2i(raw[1]) & 0b1
-    if check_bit != 1:
-        raise RPLidarException('Check bit not equal to 1')
-    angle = ((_b2i(raw[1]) >> 1) + (_b2i(raw[2]) << 7)) / 64.
-    distance = (_b2i(raw[3]) + (_b2i(raw[4]) << 8)) / 4.
-    return new_scan, quality, angle, distance
-
-
-def _process_express_scan(data, new_angle, trame):
-    new_scan = (new_angle < data.start_angle) & (trame == 1)
-    angle = (data.start_angle + (
-            (new_angle - data.start_angle) % 360
-            )/32*trame - data.angle[trame-1]) % 360
-    distance = data.distance[trame-1]
-    return new_scan, None, angle, distance
-
+    if int(sys.version[0]) == 3:
+        return byte 
+    else: 
+        return ord(byte)
 
 class RPLidar(object):
     '''Class for communicating with RPLidar rangefinder scanners'''
@@ -125,8 +185,9 @@ class RPLidar(object):
         self.baudrate = baudrate
         self.timeout = timeout
         self._motor_speed = DEFAULT_MOTOR_PWM
-        self.scanning = [False, 0, 'normal']
+        self.scanning = [False, 0, 'normal', 'express']
         self.express_trame = 32
+        self.lastExpressStartAngle = -1
         self.express_data = False
         self.motor_running = None
         if logger is None:
@@ -346,7 +407,7 @@ class RPLidar(object):
         if dtype != _SCAN_TYPE[scan_type]['response']:
             raise RPLidarException('Wrong response data type')
         self.scanning = [True, dsize, scan_type]
-
+    
     def reset(self):
         '''Resets sensor core, reverting it to a similar state as it has
         just been powered up.'''
@@ -354,7 +415,7 @@ class RPLidar(object):
         self._send_cmd(RESET_BYTE)
         time.sleep(2)
         self.clean_input()
-
+    """
     def iter_measures(self, scan_type='normal', max_buf_meas=3000):
         '''Iterate over measures. Note that consumer must be fast enough,
         otherwise data will be accumulated inside buffer and consumer will get
@@ -420,7 +481,8 @@ class RPLidar(object):
                 yield _process_express_scan(self.express_old_data,
                                             self.express_data.start_angle,
                                             self.express_trame)
-
+    """
+    """
     def iter_scans(self, scan_type='normal', max_buf_meas=3000, min_len=5):
         '''Iterate over scans. Note that consumer must be fast enough,
         otherwise data will be accumulated inside buffer and consumer will get
@@ -450,8 +512,8 @@ class RPLidar(object):
                 scan_list = []
             if distance > 0:
                 scan_list.append((quality, angle, distance))
-
-
+    """
+"""
 class ExpressPacket(namedtuple('express_packet',
                                'distance angle new_scan start_angle')):
     sync1 = 0xa
@@ -486,3 +548,130 @@ class ExpressPacket(namedtuple('express_packet',
                 (packet[i+6] & 0b00000001) << 4))/8*cls.sign[(
                     packet[i+6] & 0b00000010) >> 1],)
         return cls(d, a, new_scan, start_angle)
+
+"""
+"""    
+###############################################################################
+# clean_input - Clean input buffer by reading all available data
+############################################################################### 
+def clean_input():
+    while (lidar._serial.inWaiting() > 0):    
+        lidar._serial.read(1)
+"""
+"""     
+###############################################################################
+# get_lidar_scan_old  - OBE
+############################################################################### 
+def get_lidar_scan_old():
+    global scan_iter
+    
+    new_cnt     = 0
+    old_cnt     = 0  
+    zero_cnt    = 0    
+    scan_list   = []
+    try:
+        iterator = lidar.iter_measures('normal', -1)
+        for new_scan, quality, angle, distance in iterator:
+            if distance > 0:
+                scan_list.append((new_scan, quality, angle, distance))  
+            else:
+                zero_cnt += 1
+    
+            if new_scan:
+                new_cnt += 1
+                if len(scan_list) > 5:
+                    break
+            else:
+                old_cnt += 1  
+        # end for
+    except:
+        print ( "GET_LIDAR_SCAN - ERROR exception" )     
+        lidar.scanning[0] = False
+        lidar.clean_input()
+        lidar.scanning[0] = True   
+            
+    print ( "new_cnt %d old_cnt %d zero_cnt %d" % (new_cnt, old_cnt, zero_cnt) )
+    return scan_list        
+    
+#end scan()   
+"""
+
+"""            
+###############################################################################
+
+# get_lidar_data 
+###############################################################################
+def get_lidar_data():             # stolen from iter_measures()
+    # Returns a list of tuples:
+    # new_scan : bool - True if measures belongs to a new scan
+    # quality  : int  - Reflected laser pulse strength
+    # angle    : float- The measure heading angle in degree unit [0, 360)
+    # distance : float- Measured object distance related to the sensor's 
+    #                      rotation center (mm). 
+    #
+    new_cnt     = 0
+    old_cnt     = 0  
+    zero_cnt    = 0    
+    scan_list   = []
+        
+    if not lidar.scanning[0]:
+        raise RPLidarException ('Scanning not started in scan2')
+            
+    dsize = lidar.scanning[1]            
+    while (lidar._serial.inWaiting() >= dsize):
+        data = lidar._serial.read(dsize)
+        error, new_scan, quality, angle, distance =  process_data(data)
+        if (error):
+            # Error occured getting data, clear out the serial buffer
+            lidar.scanning[0] = False
+            lidar.clean_input()
+            lidar.scanning[0] = True
+        else:
+            if distance > 0:
+                scan_list.append((new_scan, quality, angle, distance))  
+            else:
+                zero_cnt += 1
+    
+            if new_scan:
+                new_cnt += 1
+            else:
+                old_cnt += 1    
+        # end if .. else
+    # end while
+    return scan_list        
+# end def
+"""
+"""
+def _b2i(byte):
+    '''Converts byte to integer (for Python 2 compatability)'''
+    return byte if int(sys.version[0]) == 3 else ord(byte)
+"""
+"""
+def _showhex(signal):
+    '''Converts string bytes to hex representation (useful for debugging)'''
+    return [format(_b2i(b), '#02x') for b in signal]
+"""
+"""
+def _process_scan(raw):
+    '''Processes input raw data and returns measurement data'''
+    new_scan = bool(_b2i(raw[0]) & 0b1)
+    inversed_new_scan = bool((_b2i(raw[0]) >> 1) & 0b1)
+    quality = _b2i(raw[0]) >> 2
+    if new_scan == inversed_new_scan:
+        raise RPLidarException('New scan flags mismatch')
+    check_bit = _b2i(raw[1]) & 0b1
+    if check_bit != 1:
+        raise RPLidarException('Check bit not equal to 1')
+    angle = ((_b2i(raw[1]) >> 1) + (_b2i(raw[2]) << 7)) / 64.
+    distance = (_b2i(raw[3]) + (_b2i(raw[4]) << 8)) / 4.
+    return new_scan, quality, angle, distance
+"""
+"""
+def _process_express_scan(data, new_angle, trame):
+    new_scan = (new_angle < data.start_angle) & (trame == 1)
+    angle = (data.start_angle + (
+            (new_angle - data.start_angle) % 360
+            )/32*trame - data.angle[trame-1]) % 360
+    distance = data.distance[trame-1]
+    return new_scan, None, angle, distance
+"""
