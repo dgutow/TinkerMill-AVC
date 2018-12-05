@@ -4,7 +4,7 @@
  Written by David Gutow 8/2017
 """
 
-from vehicleState    import *       # Everything we know about the vehicle
+#from vehicleState    import *       # Everything we know about the vehicle
 
 ###############################################################################
 # SIM_TEENSY - Used when integrating with no Teensy connected.
@@ -50,16 +50,15 @@ trackLength     = 13116                 # Approx length of track (cm)
 # Course obstacle sequence - this array holds the sequence of obstacles which
 # the vehicle will encounter
 ###############################################################################
-class obstacle (object):
-    NONE         =  0
-    PEDESTRIAN   =  80
-    STOPSIGN     =  83 
-    CROSSWALK    =  67
-    RAMP         =  82
-    HOOP         =  72 
-    BARRELS      =  66  
-    COURSE_END   =  69
-    ALL          =  65
+OBSTACLE_NONE         =  0
+OBSTACLE_PEDESTRIAN   =  80
+OBSTACLE_STOPSIGN     =  83 
+OBSTACLE_CROSSWALK    =  67
+OBSTACLE_RAMP         =  82
+OBSTACLE_HOOP         =  72 
+OBSTACLE_BARRELS      =  66  
+OBSTACLE_COURSE_END   =  69
+OBSTACLE_ALL          =  65
 # end class 
 
 # The order we will face the obstacles: BARRELS RAMP HOOP PEDESTRIAN NONE
@@ -117,7 +116,7 @@ rsLRspacing     = 15    # The spacing between the left and right sensor pairs
 ###############################################################################
 # The various speed values:  
 ###############################################################################
-speedMax        = 10     # Maximum speed we'll ever go
+speedMax        = 13     # Maximum speed we'll ever go
 speedApproach   = 5     # The speed we'll approach obstacle with
 speedRecov      = 5
 speedHoop       = 3     # The speed we'll negotiate the hoop obstacle
@@ -148,11 +147,20 @@ CMD_BRAKE        = 'B'
 ###############################################################################
 # The lidar buffer columns:  
 ###############################################################################
-LIDAR_TIME       = 1
-LIDAR_QUALITY    = 2
-LIDAR_ANGLE      = 3
-LIDAR_DISTANCE   = 4
-LIDAR_USED       = 5 # I am thinking that the test for this would be value % prime ==0
+LIDAR_BUFFER_TIME       = 0
+LIDAR_BUFFER_QUALITY    = 1
+LIDAR_BUFFER_ANGLE      = 2
+LIDAR_BUFFER_DISTANCE   = 3
+LIDAR_BUFFER_USED       = 4 # I am thinking that the test for this would be value % prime ==0
+
+###############################################################################
+# The lidar readings columns:  
+###############################################################################
+LIDAR_READING_ERROR     = 0
+LIDAR_READING_NEWSCAN   = 1
+LIDAR_READING_QUALITY   = 2
+LIDAR_READING_ANGLE     = 3
+LIDAR_READING_DISTANCE  = 4
 ###############################################################################
 # :  
 ###############################################################################
