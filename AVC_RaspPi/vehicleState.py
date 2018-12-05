@@ -10,6 +10,8 @@
 #from rangeSensorPair import rangeSensorPair
 from raceModes          import raceModes
 from constants          import *        # Vehicle and course constants
+import threading as threading
+import numpy as np
 #from rangeClass      import Range
 
 
@@ -34,7 +36,7 @@ class vehicleState (object):
     compassAtStart     = 0.0   # Compass angle when start signal arrived
     
     # map state information
-    currentAngleLock   = threading.lock() # a lock to prevent race conditions
+    currentAngleLock   = threading.Lock() # a lock to prevent race conditions
     currentAngle       = 0.0
     
     # Telemetry coming from the IOP processor
@@ -57,8 +59,8 @@ class vehicleState (object):
     # The last seconds worth of scan ranges are stored in this buffer.   
     #iopRanges           = Range(40)
     # a circular buffer of the LIDAR readings
-    lidarBuffer = [[0]*180 for i in range(5)]
-    lidarBufferLock = threading.lock() # a lock to prevent race conditions
+    lidarBuffer = np.zeros((180,5))
+    lidarBufferLock = threading.Lock() # a lock to prevent race conditions
 
     iopBattVolt1        = 0.0   # Voltage of battery 1
     iopBattVolt2        = 0.0   # Voltage of battery 2
@@ -95,7 +97,7 @@ class vehicleState (object):
     dsrdRightWallDist  = 0.0
     
     # Last vision system reported obstacle
-    obstacleType       = obstacle.NONE
+    obstacleType       = OBSTACLE_NONE
     obstacleHcent      = 0.0
     obstacleVcent      = 0.0    
     obstacleIndex      = 0     # The index into obstacleSequence

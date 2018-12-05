@@ -7,7 +7,7 @@
  Written by David Gutow 9/2017
 """
 
-from Queue           import Queue
+from queue           import Queue
 import threading
 import struct
 import time

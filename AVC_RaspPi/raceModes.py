@@ -186,7 +186,7 @@ if __name__ == "__main__":
     
     mode.setMode (raceModes.NONE           )     
     mode.printMode ("NONE          ")
-    print "speed", mode.getSpeed()
+    print("speed", mode.getSpeed())
     mode.setMode (raceModes.WAIT_FOR_BIST  )     
     mode.printMode ("WAIT_FOR_BIST ")
     mode.setMode (raceModes.WAIT_FOR_START )     

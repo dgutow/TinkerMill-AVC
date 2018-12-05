@@ -64,12 +64,12 @@ OBSTACLE_ALL          =  65
 # The order we will face the obstacles: BARRELS RAMP HOOP PEDESTRIAN NONE
 # COURSE_END ALL
 obstacleSequence = []    
-obstacleSequence.append (obstacle.BARRELS)
-obstacleSequence.append (obstacle.RAMP)
-obstacleSequence.append (obstacle.HOOP)
-obstacleSequence.append (obstacle.PEDESTRIAN)
-obstacleSequence.append (obstacle.COURSE_END)    
-obstacleSequence.append (obstacle.ALL)   
+obstacleSequence.append (OBSTACLE_BARRELS)
+obstacleSequence.append (OBSTACLE_RAMP)
+obstacleSequence.append (OBSTACLE_HOOP)
+obstacleSequence.append (OBSTACLE_PEDESTRIAN)
+obstacleSequence.append (OBSTACLE_COURSE_END)    
+obstacleSequence.append (OBSTACLE_ALL)   
     
 ###############################################################################   
 """ 

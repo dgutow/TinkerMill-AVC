@@ -233,7 +233,7 @@ class Grid(object):
             # end for col
             print ("\n")
         # end for row
-        print ""
+        print("")
     # end
 
 
@@ -361,7 +361,7 @@ class Grid(object):
         #packetDesc = ( '>LLLLiii%dx' % (nRows * nCols) ) dnw expected 7
         packetDesc = ( '>LLLLiii%dB' % (nRows * nCols) )
         packetData = struct.pack(packetDesc, PktId, currTime, nRows, nCols,
-                            carXpos, carYpos, angle, *self.binArr)
+                           carXpos, carYpos, angle, *self.binArr)
 
         # Send the packet!
         if (self.sock != None):
@@ -436,65 +436,7 @@ class Grid(object):
 
         return costArray
 
-    ###########################################################################
-    # calcTargetAngle -
-    ###########################################################################
-    def calcTargetAngle(self):
-        # this algorithm has two stages, the first finds the angles within +- 
-        # 45 deg of our current heading that have the largest distance reading, 
-        # and prefers angles that are closest to our current angle. The second 
-        # searches within +- 45 deg of the first angle for the direction that 
-        # we can go the farthest and not collide with stuff
-
-        # get a local copy of the current angle
-        vehState.currentAngleLock.acquire()
-        currentAngle = vehState.currentAngle
-        vehState.currentAngleLock.release()
-
-        # now copy out the lidar readings, recentering on our current direction
-        localLidar = []
-        lidarBufferLock.acquire()
-        for index in range(180)]
-            bufferIndex = round(((currentAngle - math.pi+(index-1)*math.pi*2/180) % (2*math.pi))/(2*math.pi)*len(vehState.lidarBuffer)+.5)
-            localLidar[index]=vehState.lidarBuffer[bufferIndex][LIDAR_DISTANCE]
-        lidarBufferLock.release()        
-        
-        # FIND THE FIRST ANGLE
-
-        # find the direction that would get us the farthest with the least turning, assuming that we are a particle
-        maxDistance = 0
-        bestDistanceIndex = 0
-        for index in range(68,114) # 91 is the 0 angle, 91+- 23 is ~ +-45 deg
-            if localLidar[index]>maxDistance
-                maxDistance=localLidar[index]
-                bestDistanceIndex=index
-                continue
-            if (localLidar[index]==maxDistance)AND(abs(index-91)>abs(bestDistanceIndex-91))
-                bestDistanceIndex=index
-                continue
-
-        # FIND THE SECOND ANGLE
-        # convert the localLidar to max distance 
-        obstacleDistance = List(localLidar)
-        for index in range(bestDistanceIndex-45-23,bestDistanceIndex+45+23)
-            for subIndex in range(max(bestDistanceIndex-23,subIndex-45),min(bestDistanceIndex-23,subIndex+45))
-                obstacleDistance[subIndex]=min(obstacleDistance[subIndex],9*2.54/localLidar[index]*sin(2*abs(index-subIndex)/180*math.pi))
-
-        # find the direction that would get us the farthest with the least turning, assuming that we are a particle
-        maxDistance = 0
-        bestDistanceIndex = 0
-        for index in range(bestDistanceIndex-23,bestDistanceIndex+23) # 91 is the 0 angle, 91+- 23 is ~ +-45 deg
-            if obstacleDistance[index]>maxDistance
-                maxDistance=obstacleDistance[index]
-                bestDistanceIndex=index
-                continue
-            if (obstacleDistance[index]==maxDistance)AND(abs(index-bestDistanceIndex)>abs(bestDistanceIndex-bestDistanceIndex))
-                bestDistanceIndex=index
-                continue
-
-        return -math.pi+(bestDistanceIndex-1)*math.pi*2/180
-    # end
-
+    
     ###########################################################################
     # getNearestAngle -
     ###########################################################################

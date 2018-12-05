@@ -56,9 +56,9 @@ def get_lidar_data(lidar, vehState, occGrid):
             
     dSize = lidar.scanning[1]
 
-    while (dSize==84) and (lidar._serial.inWaiting() >4*dSize):
-        lidar._serial.read(dSize)
-        continue
+    #while (dSize==84) and (lidar._serial.inWaiting() >4*dSize):
+    #    lidar._serial.read(dSize)
+    #    continue
 
     while (lidar._serial.inWaiting() >= dSize):
         data = lidar._serial.read(dSize)
@@ -66,6 +66,7 @@ def get_lidar_data(lidar, vehState, occGrid):
         # don't pay attention to excess data
         readings =  process_data(data, lidar)
         if len(readings) == 0:
+            print("starting new scan")
             # we started a new scan, so wait
             return
             
@@ -74,6 +75,7 @@ def get_lidar_data(lidar, vehState, occGrid):
             lidar.scanning[0] = False
             lidar.clean_input()
             lidar.scanning[0] = True
+            print("error getting data")
         else:
             for reading  in readings:
                 dist=reading[LIDAR_READING_DISTANCE]
@@ -93,7 +95,7 @@ def get_lidar_data(lidar, vehState, occGrid):
                 vehState.lidarBuffer[bufferIndex,:]=[current_time, 0, absoluteAngle, dist/1000.,1]
                 #vehState.lidarBufferLock.release()
                 occGrid.enterRange(vehState.iopCumDistance, vehState.iopSteerAngle, 
-                           dist/1, reading[LIDAR_READING_ANGLE]) / 1    # data is in mm DAG - For testing
+                           dist/1, reading[LIDAR_READING_ANGLE])    # data is in mm DAG - For testing
 #                occGrid.enterRange(vehState.iopCumDistance, vehState.iopSteerAngle, 
 #                           dist/10, reading[LIDAR_READING_ANGLE]) # data is in mm DAG - For real      
             # end for
@@ -121,6 +123,24 @@ def stop_lidar_scan():
         lidar.stop_motor()
         lidar.disconnect()   
 # end stop_scan    
+
+############################################################################### 
+# Initialize only what is necessary
+###############################################################################
+def initializations():
+    
+    # Vehicle State holds everything known about the current vehicle state
+    vehState        = vehicleState()
+    
+    # start and initialize the RPLidar
+    lidar = init_lidar_scan()
+ 
+    occGrid       = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
+    
+    time.sleep(0.5) 
+
+    return lidar, occGrid, vehState
+# end initializations   
 
 ###############################################################################
 # MAIN-LOOP TESTING
@@ -176,23 +196,3 @@ if __name__ == "__main__":
         
     stop_lidar_scan()       
 # end    
-
-############################################################################### 
-# Initialize only what is necessary
-###############################################################################
-
-def initializations():
-    
-    # Vehicle State holds everything known about the current vehicle state
-    vehState        = vehicleState()
-    
-    # start and initialize the RPLidar
-    lidar = init_lidar_scan()
- 
-    occGrid       = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
-    
-    time.sleep(0.5) 
-
-    return lidar, occGrid, vehState
-# end initializations   
-

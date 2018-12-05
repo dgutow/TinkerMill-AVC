@@ -11,7 +11,7 @@ import threading
 import struct
 import serial
 import array
-from Queue           import Queue
+from queue           import Queue
 from constants       import *           # Vehicle and course constants
 from printOut        import *
   
@@ -45,7 +45,7 @@ class serialClass (object):
     # SerialPortThread(state)
     ###########################################################################
     def serialPortThread(self):
-        print "SERIAL PORT THREAD: starting loop"  
+        print("SERIAL PORT THREAD: starting loop")
         runFlag = self.serialPortFlag
         #self.serialPort.reset_input_buffer()
         self.serialPort.flushOutput()    
@@ -89,7 +89,7 @@ class serialClass (object):
     ########################################################################### 
     def killThread (self):
         self.serialPortFlag = False
-        print "SERIAL PORT THREAD: setting serialPortFlag false" 
+        print("SERIAL PORT THREAD: setting serialPortFlag false")
     # end
     
 # End class    

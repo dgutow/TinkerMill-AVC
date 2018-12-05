@@ -76,9 +76,9 @@ class RPLidarException(Exception):
 ###############################################################################
 def process_data (raw, lidar):         # was _process_scan(raw) in rplidar.py
     if len(raw)==5: # standard packet
-        return process_scan
+        return process_scan(raw)
     elif len(raw)==84: # an express mode packet
-        return process_express_scan
+        return process_express_scan(raw, lidar)
     else:
         return (True, 0, 0, 0, 0)
 
@@ -105,17 +105,15 @@ def process_express_scan(raw, lidar):
     readings=[]
     # check the sync bytes
     if (_b2i(raw[0]) >> 4) != 0x0A:
-        readings.append((True, 0, 0, 0, 0))
-        return readings
+        return (True, 0, 0, 0, 0)
     if (_b2i(raw[1]) >> 4) != 0x05:
-        readings.append((True, 0, 0, 0, 0))
-        return readings
+        return (True, 0, 0, 0, 0)
 
     new_scan=bool(_b2i(raw[3]) >>7)
     
     startAngle= (_b2i(raw[2])+((_b2i(raw[3]) & 0x7F) << 8) % 360)
     
-    global lastExpressStartAngle
+    lidar.lastExpressStartAngle
     if (lidar.lastExpressStartAngle>0) and ( not new_scan):
         # if we have a valid previous angle then process
         
@@ -150,7 +148,7 @@ def process_express_scan(raw, lidar):
 
             
     # update the starting angle
-    lastExpressStartAngle = startAngle
+    lidar.lastExpressStartAngle = startAngle
         
     return readings
 
@@ -162,6 +160,10 @@ def _b2i(byte):
         return byte 
     else: 
         return ord(byte)
+
+def _showhex(signal):
+    '''Converts string bytes to hex representation (useful for debugging)'''
+    return [format(_b2i(b), '#02x') for b in signal]
 
 class RPLidar(object):
     '''Class for communicating with RPLidar rangefinder scanners'''
@@ -646,11 +648,8 @@ def _b2i(byte):
     '''Converts byte to integer (for Python 2 compatability)'''
     return byte if int(sys.version[0]) == 3 else ord(byte)
 """
-"""
-def _showhex(signal):
-    '''Converts string bytes to hex representation (useful for debugging)'''
-    return [format(_b2i(b), '#02x') for b in signal]
-"""
+
+
 """
 def _process_scan(raw):
     '''Processes input raw data and returns measurement data'''

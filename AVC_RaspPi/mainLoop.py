@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 """
  mainLoop.py - The main loop of the racing vehicle.
@@ -9,7 +9,7 @@
 import time
 import threading
 import struct
-from Queue           import Queue
+from queue           import Queue
 from simulator       import *       # Only for the simulator
 from vehicleState    import *       # Everything we know about the vehicle
 from constants       import *       # Vehicle and course constants
@@ -18,7 +18,7 @@ from raceModes       import raceModes
 from OccupGrid_v5_1  import Grid
 from guiInterface    import guiIfClass
 from printOut        import *
-#from lidar_dag       import *
+from lidar_dag       import *
 from controller      import *
 
 if SIM_TEENSY:
@@ -83,7 +83,7 @@ def initializations():
 # becomes Modes.Terminate)
 ##############################################################################
 
-def mainLoop(lidar occGrid, vehState):
+def mainLoop(lidar, occGrid, vehState):
     abort = False
     loopCntr    = 0
     printOut ("MAIN_LOOP: Dwelling for 2 seconds...")
@@ -116,7 +116,7 @@ def mainLoop(lidar occGrid, vehState):
         #    guiIf.send_visTlm (visMsg)  
         
         # Get all the RPlidar data and enter it into the occGrid
-        get_lidarTlm(loopCntr)
+        get_lidarTlm(loopCntr, vehState, lidar, occGrid)
             
         # Now do all the state specific actions
         #try:
@@ -145,11 +145,11 @@ def mainLoop(lidar occGrid, vehState):
 ################################################################################
 # get_lidarTlm(loopCntr)
 ################################################################################
-def get_lidarTlm(loopCntr, vehState, lidar):
+def get_lidarTlm(loopCntr, vehState, lidar, occGrid):
     # Get the lastest range points from the RPLidar
 
     start_time = time.clock()
-    scan_list = get_lidar_data_circular(lidar, vehState, occGrid)
+    scan_list = get_lidar_data(lidar, vehState, occGrid)
 
     vehState.lidar_get_data_time = time.clock() - start_time        ##### time
     start_time = time.clock()
@@ -161,7 +161,7 @@ def get_lidarTlm(loopCntr, vehState, lidar):
     # Calculate the steering angle.  This angle won't be used until we're in
     # the proper state
     start_time = time.clock()    
-    vehState.histAngle = cont.calcTargetAngle() 
+    vehState.histAngle = cont.calcTargetAngle(vehState) 
     #vehState.histAngle = occGrid.getNearestAngle(0) 
     #print(occGrid.printHistArr())
     vehState.hist_get_angle_time = time.clock() - start_time        ##### time
@@ -174,7 +174,7 @@ def get_lidarTlm(loopCntr, vehState, lidar):
     if loopCntr % 4 == 0:
         # every 1/2 second send the occupancy grid to be displayed
         start_time = time.clock()     
-        occGrid.sendUDP(vehState.iopTime, vehState.histAngle)
+        #occGrid.sendUDP(vehState.iopTime, vehState.histAngle)
         vehState.grid_send_data_time = time.clock() - start_time    ##### time
         #print ("GET_LIDARTLM: Sending grid. Histogram Angle = %d\n" % (vehState.histAngle))        
         pass   
@@ -213,9 +213,10 @@ def get_iopTlm(loopCntr):
 
     
     if (tlm_cnt > 0 and (loopCntr % 20 == 0) ):
-        print "MAINLOOP:GET_IOPTLM - nPkts %d, Tim %3d, Mode %1d, Accept %2d, But %2d/%2d" % (
-            tlm_cnt, vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
-            vehState.iopSwitchStatus, vehState.iopStartSwitch) 
+        pass
+        #print "MAINLOOP:GET_IOPTLM - nPkts %d, Tim %3d, Mode %1d, Accept %2d, But %2d/%2d" % (
+        #    tlm_cnt, vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
+        #    vehState.iopSwitchStatus, vehState.iopStartSwitch) 
     else:
         #print ("MAINLOOP:GET_IOPTLM - no new telemetry ")         
         pass
@@ -271,9 +272,10 @@ def proc_iopTlm (data):
     vehState.iopSpare3      = telemArray[24]   
     
     if  False:
-        print "MAINLOOP:PROC_IOPTLM - Pkid %d, Time %3d, Mode %1d, AccCnt %2d, Spd %3d, Switch %2d/%2d" % (
-            telemArray[0],  telemArray[1],  telemArray[2],   telemArray[3],  telemArray[5], 
-            telemArray[12] , telemArray[12] & 0x01)   
+        pass
+        #print "MAINLOOP:PROC_IOPTLM - Pkid %d, Time %3d, Mode %1d, AccCnt %2d, Spd %3d, Switch %2d/%2d" % (
+        #    telemArray[0],  telemArray[1],  telemArray[2],   telemArray[3],  telemArray[5], 
+         #   telemArray[12] , telemArray[12] & 0x01)   
         #print "PROCESS_TELEM - Bist %d, Speed %d, SteerAng %d, Distance  %d" % (
             # vehState.iopBistStatus, vehState.iopSpeed, vehState.iopSteerAngle, 
             # vehState.iopCumDistance)                  
@@ -319,7 +321,7 @@ def get_visTlm():
     # end while
 
     if new_data:
-        print "GET VISION - received new telemetry"
+        print("GET VISION - received new telemetry")
     else:
         pass #print "GET VISION - no new telemetry "      
 
@@ -340,7 +342,7 @@ def proc_visTlm (data):
 def visionSend(obstacle):
     global visionCmdQueue  
 
-    print "VISION SEND - sending value ", chr(obstacle)
+    print("VISION SEND - sending value ", chr(obstacle))
        
 # end   
 
@@ -511,5 +513,5 @@ def bad_cmd (cmd, p1, p2, p3):
 if __name__ == "__main__":
     ##### TEST # 1 
     lidar, occGrid, vehState =initializations()
-    mainLoop(lidar occGrid, vehState)
+    mainLoop(lidar, occGrid, vehState)
 # end    

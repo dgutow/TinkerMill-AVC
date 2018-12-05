@@ -53,7 +53,7 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)
 
         # Are we in BIST mode yet?
-        if (vehState.iopMode <> IOP_MODE_BIST):
+        if (vehState.iopMode != IOP_MODE_BIST):
             # Not yet - wait for up to BistMaxCnt for IOP BIST mode
             if (vehState.mode.modeCount > BistMaxCnt):
               vehState.errorString = ("IOP NOT COMMUNICATING")
@@ -61,7 +61,7 @@ def stateMachine (vehState, serialPort, occGrid):
             # end if
         else:
             # Yep, we're in BIST mode, was there a BIST error
-            if (vehState.iopBistStatus <> 0):
+            if (vehState.iopBistStatus != 0):
                 vehState.errorString = ( "IOP BIST FAILURE")
                     #"IOP BIST FAILURE, value %d" % (vehState.iopBistStatus))
                 vehState.mode.setMode (raceModes.ERROR)
@@ -78,7 +78,7 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)
         # end
 
-        if (vehState.iopMode <> IOP_MODE_NORMAL):
+        if (vehState.iopMode != IOP_MODE_NORMAL):
             # Wait up to NormMaxCnt for IOP to be normal mode
             if (vehState.mode.modeCount > NormMaxCnt):
                 vehState.errorString = "IOP NOT GOING TO NORMAL MODE"
@@ -149,7 +149,7 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)
 
         # Make sure we still spot the obstacle otherwise just go back to RACE
-        if (vehState.obstacleType <> obstacle.STOPSIGN):
+        if (vehState.obstacleType != obstacle.STOPSIGN):
             vehState.mode.setMode(raceModes.RACE_STRAIGHT)
 
         # If we've been in the approach state long enough go to negotiate
@@ -180,7 +180,7 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)
 
         # Make sure we still spot the obstacle otherwise just go back to RACE
-        if (vehState.obstacleType <> obstacle.HOOP):
+        if (vehState.obstacleType != obstacle.HOOP):
             vehState.mode.setMode(raceModes.RACE_STRAIGHT)
 
         # If we've been in the approach state long enough go to negotiate
@@ -211,7 +211,7 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)
 
         # Make sure we still spot the obstacle otherwise just go back to RACE
-        if (vehState.obstacleType <> obstacle.BARRELS):
+        if (vehState.obstacleType != obstacle.BARRELS):
             vehState.mode.setMode(raceModes.RACE_STRAIGHT)
 
         # If we've been in the approach state long enough go to negotiate
@@ -242,7 +242,7 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)
 
         # Make sure we still spot the obstacle otherwise just go back to RACE
-        if (vehState.obstacleType <> obstacle.RAMP):
+        if (vehState.obstacleType != obstacle.RAMP):
             vehState.mode.setMode(raceModes.RACE_STRAIGHT)
 
         # If we've been in the approach state long enough go to negotiate
@@ -273,7 +273,7 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)
 
         # Make sure we still spot the obstacle otherwise just go back to RACE
-        if (vehState.obstacleType <> obstacle.PEDESTRIAN):
+        if (vehState.obstacleType != obstacle.PEDESTRIAN):
             vehState.mode.setMode(raceModes.RACE_STRAIGHT)
 
         # If we've been in the approach state long enough go to negotiate
@@ -411,9 +411,9 @@ if __name__ == '__main__':
         # end while
 
         if (tlm_cnt > 0):
-            print "MAINLOOP:GET_IOPTLM - nPkts %d, Time %3d, Mode %1d, AccCnt %2d, Switch %2d/%2d" % (
-                tlm_cnt, vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt,
-                vehState.iopSwitchStatus, vehState.iopStartSwitch)
+            print("MAINLOOP:GET_IOPTLM - nPkts tlm_cnt, \
+                Time vehState.iopTime, Mode vehState.iopMode, \
+                AccCnt vehState.iopAcceptCnt, Switch vehState.iopSwitchStatus/vehState.iopStartSwitch")
         else:
             #print ("MAINLOOP:GET_IOPTLM - no new telemetry ")
             pass
@@ -466,9 +466,9 @@ if __name__ == '__main__':
         vehState.iopSpare3      = telemArray[23]
 
         if  False:
-            print "MAINLOOP:PROC_IOPTLM - Time %3d, Mode %1d, AccCnt %2d, Switch %2d/%2d" % (
-            vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt,
-            vehState.iopSwitchStatus, vehState.iopStartSwitch)
+            print("MAINLOOP:PROC_IOPTLM - Time vehState.iopTime, Mode \
+                vehState.iopMode, AccCnt vehState.iopAcceptCnt, Switch \
+                vehState.iopSwitchStatus/vehState.iopStartSwitch")
             #print "PROCESS_TELEM - Bist %d, Speed %d, SteerAng %d, Distance  %d" % (
             # vehState.iopBistStatus, vehState.iopSpeed, vehState.iopSteerAngle,
             # vehState.iopCumDistance)
