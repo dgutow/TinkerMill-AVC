@@ -59,7 +59,7 @@ class vehicleState (object):
     # The last seconds worth of scan ranges are stored in this buffer.   
     #iopRanges           = Range(40)
     # a circular buffer of the LIDAR readings
-    lidarBuffer = np.zeros((180,5))
+    lidarBuffer = np.zeros((360,5))
     lidarBufferLock = threading.Lock() # a lock to prevent race conditions
 
     iopBattVolt1        = 0.0   # Voltage of battery 1

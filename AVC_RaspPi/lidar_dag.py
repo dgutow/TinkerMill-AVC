@@ -2,8 +2,9 @@
 import serial
 import time
 import math
+import matplotlib.pyplot as plt
 
-from constants      import *        # Vehicle and course constants
+import constants as ct        # Vehicle and course constants
 from rplidar import *
 from vehicleState    import *       # Everything we know about the vehicle
 from OccupGrid_v5_1  import Grid
@@ -30,6 +31,7 @@ def init_lidar_scan():
     lidar.start_motor()
     lidar.start('express')
     
+    plt.ion()
     return lidar
 #end init_scan    
 
@@ -79,8 +81,7 @@ def get_lidar_data(lidar, vehState, occGrid):
         else:
             for reading  in readings:
                 dist=reading[LIDAR_READING_DISTANCE]
-                if reading[LIDAR_READING_DISTANCE] == 0:
-                    dist = 12000.
+                    
                 # TODO CHECK IF THE DATA ARE RELIABLE USING THE GRAVITY SENSOR
                 # calculate the absolute angle and bound it to [0,2*pi)
                 absoluteAngle = (reading[LIDAR_READING_ANGLE]/180*math.pi+currentAngle) % (math.pi*2)
@@ -90,6 +91,8 @@ def get_lidar_data(lidar, vehState, occGrid):
                 # offset forces it to round to 1 to 180
                 bufferIndex = int(round(absoluteAngle/(2*math.pi)* \
                     (len(vehState.lidarBuffer)-1)))
+                if reading[LIDAR_READING_DISTANCE] == 0:
+                    dist = 12000#vehState.lidarBuffer[bufferIndex,LIDAR_BUFFER_DISTANCE]+1000.
                 #print("bufferI: ",bufferIndex," absAngle: ",absoluteAngle," angle ", reading[LIDAR_READING_ANGLE], "distance: ",dist/1000.);
                 #vehState.lidarBufferLock.acquire()
                 vehState.lidarBuffer[bufferIndex,:]=[current_time, 0, absoluteAngle, dist/1000.,1]
@@ -101,6 +104,35 @@ def get_lidar_data(lidar, vehState, occGrid):
             # end for
         # end if .. else
     # end while
+    #print("start")
+    #print(vehState.lidarBuffer[:,LIDAR_BUFFER_TIME]-vehState.lidarBuffer[1,LIDAR_BUFFER_TIME])
+    #print("stop")
+    points = np.zeros((vehState.lidarBuffer.shape[0],2))
+    points = np.linspace(0,2*math.pi,360)
+    #print(points.shape)
+    points=np.append(points,np.cos(points))
+    points=np.reshape(points,(360,2),'F')
+    points[0:360,0]=np.sin(points[0:360,0])
+    #print(points)
+    
+    points[:,0]=np.multiply(points[:,0],vehState.lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE])
+    points[:,1]=np.multiply(points[:,1],vehState.lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE])
+    #for i in range(360):
+    #    points[i,:]= points[i,:]*vehState.lidarBuffer[i,ct.LIDAR_BUFFER_DISTANCE]
+    #print("break")
+    #print(points)
+
+    #plt.close()
+    plt.cla()
+    plt.plot(points[:,0],points[:,1],linestyle=' ',marker='.',markersize=5)
+    plt.xlim((-12,12))
+    plt.ylim((-12,12))
+    plt.grid(True)
+
+    #plt.show(block=False)
+    plt.show()
+    #plt.draw()
+    plt.pause(0.001)
     return
 # end def
 
@@ -147,7 +179,7 @@ def initializations():
 ###############################################################################
 if __name__ == "__main__":
     lidar, occGrid, vehState =initializations()
-
+    """
     if (1):
         try:
                 time.sleep (0.10)  
@@ -193,6 +225,6 @@ if __name__ == "__main__":
             # end for
             
         # end while               
-        
+    """    
     stop_lidar_scan()       
 # end    

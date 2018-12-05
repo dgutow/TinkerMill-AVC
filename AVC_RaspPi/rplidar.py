@@ -56,7 +56,8 @@ HEALTH_TYPE = 6
 
 # Constants & Command to start A2 motor
 MAX_MOTOR_PWM = 1023
-DEFAULT_MOTOR_PWM = 660
+# 600 gives just over 1 sample per degree in express mode (1/.99 deg)
+DEFAULT_MOTOR_PWM = 600
 SET_PWM_BYTE = b'\xF0'
 
 _HEALTH_STATUSES = {
@@ -68,8 +69,6 @@ _HEALTH_STATUSES = {
 
 class RPLidarException(Exception):
     '''Basic exception class for RPLidar'''
-
-
 
 ###############################################################################
 # process_data - Processes input raw data and returns measurement data
@@ -111,9 +110,9 @@ def process_express_scan(raw, lidar):
 
     new_scan=bool(_b2i(raw[3]) >>7)
     
-    startAngle= (_b2i(raw[2])+((_b2i(raw[3]) & 0x7F) << 8) % 360)
+    startAngle= (_b2i(raw[2])+((_b2i(raw[3]) & 0x7F) << 8))/2**6
     
-    lidar.lastExpressStartAngle
+    #lidar.lastExpressStartAngle
     if (lidar.lastExpressStartAngle>0) and ( not new_scan):
         # if we have a valid previous angle then process
         
@@ -121,7 +120,7 @@ def process_express_scan(raw, lidar):
         delta=(startAngle-lidar.lastExpressStartAngle)/32.0
         if startAngle<=lidar.lastExpressStartAngle:
             delta=(startAngle+360-lidar.lastExpressStartAngle)/32.0
-
+        #print("delta: ",delta," lastAngle: ",lidar.lastExpressStartAngle," cur angle: ",startAngle)
         # loop variables
         angle=startAngle+delta
         cabinStartByteIndex=4
@@ -139,9 +138,9 @@ def process_express_scan(raw, lidar):
                 dTheta1 = -dTheta1
             if bool(_b2i(raw[cabinStartByteIndex+2]) & 0x02):
                 dTheta2 = -dTheta2
-            readings.append((False, new_scan, 0, angle+dTheta1, d1))
+            readings.append((False, new_scan, 0, (angle+0*dTheta1) % 360, d1))
             angle=(angle+delta)%360
-            readings.append((False, new_scan, 0, angle+dTheta2, d2))
+            readings.append((False, new_scan, 0, (angle+0*dTheta2) % 360, d2))
             angle=(angle+delta)%360
             cabinStartByteIndex=cabinStartByteIndex+5
             #print("d1: ",d1," a1: ",(angle+dTheta1-2*delta),"d2: ",d1," a2: ",(angle+dTheta2-delta));
