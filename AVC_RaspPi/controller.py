@@ -7,6 +7,7 @@
 
 import numpy as np
 import math
+import matplotlib.pyplot as plt
 #from rangeClass      import Range
 
 import constants as ct        # Vehicle and course constants
@@ -24,13 +25,13 @@ class controller (object):
     # map state information
     #currentAngleLock   = threading.lock() # a lock to prevent race conditions
     currentAngle       = 0.0 # the angle between the global frame and the body's
-    # the offset (global frame) between global and body
+    # the offset distance (global frame) between global and body
     currentOffset      = np.zeros((1,2)) 
     
     # The last seconds worth of scan ranges are stored in this buffer.   
     #iopRanges           = Range(40)
     # a circular buffer of the LIDAR readings
-    lidarBuffer = 12*np.ones((180,5))
+    #lidarBuffer = 12*np.ones((360,5))
     #lidarBufferLock = threading.lock() # a lock to prevent race conditions
     cosines = np.zeros((181,1))
     sines = np.zeros((181,1))
@@ -44,8 +45,8 @@ class controller (object):
     def calcTargetAngle(self, vehState):
         if self.cosines[0,0]==0:
             for i in range(181):
-                self.cosines[i,0] = math.cos((i-90)/180.8*math.pi)
-                self.sines[i,0] = math.cos((i-90)/180.8*math.pi)
+                self.cosines[i,0] = math.cos((i-90)*ct.DEG_TO_RAD)
+                self.sines[i,0] = math.sin((i-90)*ct.DEG_TO_RAD)
             
         # this algorithm has two stages, the first finds the angles within +- 
         # 45 deg of our current heading that have the largest distance reading, 
@@ -59,12 +60,11 @@ class controller (object):
         #vehState.currentAngleLock.release()
 
         # now copy out the lidar readings, recentering on our current direction
-        localLidar = np.zeros((180,1))
+        localLidar = np.zeros((360))
         #lidarBufferLock.acquire()
-        for index in range(180):
+        for index in range(360):
             bufferIndex = int(round( \
-                ((currentAngle - math.pi+(index-1)*math.pi*2/180) % \
-                (2*math.pi))/(2*math.pi)*(len(vehState.lidarBuffer)-1)))
+                ((currentAngle - 180 + index) % 360) ))
             #print("bufferIndex: ",bufferIndex," LocalIndex: ",index, "distance: ", \
             #    vehState.lidarBuffer[bufferIndex,ct.LIDAR_BUFFER_DISTANCE])
             #print(index,", ",bufferIndex,", ",ct.LIDAR_BUFFER_DISTANCE)
@@ -76,46 +76,74 @@ class controller (object):
         # find the direction that would get us the farthest with the least turning, assuming that we are a particle
         maxDistance = 0.
         bestDistanceIndex = 0
-        for index in range(68,114): # 91 is the 0 angle, 91+- 23 is ~ +-45 deg
+        # 180 is the 0 angle, 180+- 45 is the range we want to consider
+        for index in range(180-45,180+45): 
             if localLidar[index]>maxDistance:
                 maxDistance=localLidar[index].astype(float)
                 bestDistanceIndex=index
                 continue
-            if (localLidar[index]==maxDistance) and (abs(index-91)<abs(bestDistanceIndex-91)):
+            if (localLidar[index]==maxDistance) and (abs(index-180)<abs(bestDistanceIndex-180)):
                 bestDistanceIndex=index
                 continue
 
-        #print("maxDistance: ",maxDistance, " bestDistanceIndex: ",bestDistanceIndex) 
+        print("maxDistance: ",maxDistance, " bestDistanceIndex: ",bestDistanceIndex) 
         # FIND THE SECOND ANGLE
         # convert the localLidar to max distance 
         obstacleDistance = localLidar.copy()
         # iterate over the potential directions (+-45 deg)
-        for index in range(bestDistanceIndex-23,bestDistanceIndex+23):
+        for index in range(bestDistanceIndex-45,bestDistanceIndex+45):
             # iterate over the potential obstacles (+-90 deg)
-            for subIndex in range(index-45,index+45):
+            for subIndex in range(index-90,index+90):
+                if index==subIndex:
+                    continue
                 #print("sideDist: ",((localLidar[subIndex].astype(float))* \
-                #    math.sin(2.*abs(index-subIndex)/180.*math.pi))," dist ", \
-                #    (localLidar[subIndex].astype(float))," angle ",(2.*abs(index-subIndex)))
-                if localLidar[subIndex]*self.sines[2*abs(index-subIndex)]< (9/39.3): # 9 inches
-                    obstacleDistance[index]=min(obstacleDistance[index], \
-                        localLidar[subIndex]*self.cosines[2*abs(index-subIndex)])
+                #    math.sin(abs(index-subIndex)*ct.DEG_TO_RAD))," dist ", \
+                #    (localLidar[subIndex].astype(float))," angle ",(abs(index-subIndex)))
+                # if we would run into the obstacle sooner than our 
+                # distance, then lower our distance
+                #print("index: ",index,"subIndex: ",subIndex,"sideDist: ",localLidar[subIndex],"sin ",self.sines[90-(index-subIndex)], " cos ",self.cosines[90-abs(index-subIndex)]," curDist: ",obstacleDistance[index]," angle: ",(index-subIndex))
+                if (localLidar[subIndex]*abs(self.sines[90-(index-subIndex)]) < \
+                    (9/12*ct.METERS_PER_FOOT)) and \
+                    (obstacleDistance[index] > localLidar[subIndex]*self.cosines[90-(index-subIndex)]): 
+                    #print("Yindex: ",index,"subIndex: ",subIndex,"sideDist: ",localLidar[subIndex],"sin ",self.sines[90-(index-subIndex)], " cos ",self.cosines[90-abs(index-subIndex)]," curDist: ",obstacleDistance[index]," angle: ",(index-subIndex))
+                    obstacleDistance[index]= \
+                        localLidar[subIndex]*self.cosines[90-(index-subIndex)]
+                #else:
+                #    if (171==index):
+                #        print("Nindex: ",index,"subIndex: ",subIndex,"sideDist: ",localLidar[subIndex],"sin ",self.sines[90-(index-subIndex)], " cos ",self.cosines[90-abs(index-subIndex)]," curDist: ",obstacleDistance[index]," angle: ",(index-subIndex))
+
+                            
+
+        #print("localLidar")
+        #print(localLidar[bestDistanceIndex-45:bestDistanceIndex+45])
+        #print("obstacleDistance")
+        #print(obstacleDistance[bestDistanceIndex-45:bestDistanceIndex+45])
 
         # find the direction that would get us the farthest with the least turning, assuming that we are a particle
         maxDistance = 0.
         outputAngleIndex = 0
-        for index in range(bestDistanceIndex-23,bestDistanceIndex+23): # 91 is the 0 angle, 91+- 23 is ~ +-45 deg
+        # bestDistanceIndex is the 0 angle, bestDistanceIndex+- 45
+        for index in range(bestDistanceIndex-45,bestDistanceIndex+45): 
             #print("distToGo[",index,"] = ",obstacleDistance[index].astype(float));
             if obstacleDistance[index]>maxDistance:
                 maxDistance=obstacleDistance[index]
                 outputAngleIndex=index
                 continue
-            if (obstacleDistance[index]==maxDistance) and (abs(index-bestDistanceIndex)<abs(bestDistanceIndex-bestDistanceIndex)):
+            if (obstacleDistance[index]==maxDistance) and (abs(index-bestDistanceIndex)<abs(outputAngleIndex-bestDistanceIndex)):
                 outputAngleIndex=index
                 continue
 
-        print("maxDistance: ",maxDistance, " bestDistanceIndex: ",outputAngleIndex) 
+        print("maxDistance: ",maxDistance, " outputAngleIndex: ",outputAngleIndex) 
 
-        return -math.pi+(outputAngleIndex-1)*math.pi*2/180
+        angle = (outputAngleIndex-180)*ct.DEG_TO_RAD
+        if ct.DEVELOPMENT:
+            bestAngle=(bestDistanceIndex-180)*ct.DEG_TO_RAD
+            plt.plot((0,12*math.cos(bestAngle)),(0,12*math.sin(bestAngle)),linestyle=':',color='b')
+            plt.plot((0,12*math.cos(angle)),(0,12*math.sin(angle)),linestyle='-',color='b')
+            #plt.plot((0,12),(0,0),linestyle=':')
+            plt.show()
+            plt.pause(0.1)
+        return angle
     # end
     
     

@@ -5,6 +5,9 @@
 """
 
 #from vehicleState    import *       # Everything we know about the vehicle
+import math as math
+
+DEVELOPMENT = False
 
 ###############################################################################
 # SIM_TEENSY - Used when integrating with no Teensy connected.
@@ -161,6 +164,13 @@ LIDAR_READING_NEWSCAN   = 1
 LIDAR_READING_QUALITY   = 2
 LIDAR_READING_ANGLE     = 3
 LIDAR_READING_DISTANCE  = 4
+
+###############################################################################
+# random physical constants
+###############################################################################
+METERS_PER_FOOT  = 0.3048
+DEG_TO_RAD       = math.pi/180
+
 ###############################################################################
 # :  
 ###############################################################################

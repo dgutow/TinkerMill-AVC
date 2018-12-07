@@ -84,7 +84,8 @@ def get_lidar_data(lidar, vehState, occGrid):
                     
                 # TODO CHECK IF THE DATA ARE RELIABLE USING THE GRAVITY SENSOR
                 # calculate the absolute angle and bound it to [0,2*pi)
-                absoluteAngle = (reading[LIDAR_READING_ANGLE]/180*math.pi+currentAngle) % (math.pi*2)
+                # also convert from left hand coordinate system to right
+                absoluteAngle = (-reading[LIDAR_READING_ANGLE]/180*math.pi+currentAngle) % (math.pi*2)
 
                 #scan_list.append((1, 0, reading[LIDAR_READING_ANGLE], dist))
                 # use the absolute angle to index into the buffer
@@ -104,35 +105,37 @@ def get_lidar_data(lidar, vehState, occGrid):
             # end for
         # end if .. else
     # end while
-    #print("start")
-    #print(vehState.lidarBuffer[:,LIDAR_BUFFER_TIME]-vehState.lidarBuffer[1,LIDAR_BUFFER_TIME])
-    #print("stop")
-    points = np.zeros((vehState.lidarBuffer.shape[0],2))
-    points = np.linspace(0,2*math.pi,360)
-    #print(points.shape)
-    points=np.append(points,np.cos(points))
-    points=np.reshape(points,(360,2),'F')
-    points[0:360,0]=np.sin(points[0:360,0])
-    #print(points)
-    
-    points[:,0]=np.multiply(points[:,0],vehState.lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE])
-    points[:,1]=np.multiply(points[:,1],vehState.lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE])
-    #for i in range(360):
-    #    points[i,:]= points[i,:]*vehState.lidarBuffer[i,ct.LIDAR_BUFFER_DISTANCE]
-    #print("break")
-    #print(points)
+    if ct.DEVELOPMENT:
+        #print("start")
+        #print(vehState.lidarBuffer[:,LIDAR_BUFFER_TIME]-vehState.lidarBuffer[1,LIDAR_BUFFER_TIME])
+        #print("stop")
+        points = np.zeros((vehState.lidarBuffer.shape[0],2))
+        points = np.linspace(0,2*math.pi,360)
+        #print(points.shape)
+        points=np.append(points,np.sin(points))
+        points=np.reshape(points,(360,2),'F')
+        #print(points)
+        points[0:360,0]=np.cos(points[0:360,0])
+        #print(points)
+        
+        points[:,0]=np.multiply(points[:,0],vehState.lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE])
+        points[:,1]=np.multiply(points[:,1],vehState.lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE])
+        #for i in range(360):
+        #    points[i,:]= points[i,:]*vehState.lidarBuffer[i,ct.LIDAR_BUFFER_DISTANCE]
+        #print("break")
+        #print(points)
 
-    #plt.close()
-    plt.cla()
-    plt.plot(points[:,0],points[:,1],linestyle=' ',marker='.',markersize=5)
-    plt.xlim((-12,12))
-    plt.ylim((-12,12))
-    plt.grid(True)
+        #plt.close()
+        plt.cla()
+        plt.plot(points[:,0],points[:,1],linestyle=' ',marker='.',markersize=5)
+        plt.xlim((-12,12))
+        plt.ylim((-12,12))
+        plt.grid(True)
 
-    #plt.show(block=False)
-    plt.show()
-    #plt.draw()
-    plt.pause(0.001)
+        #plt.show(block=False)
+        #plt.show()
+        #plt.draw()
+        plt.pause(0.001)
     return
 # end def
 
