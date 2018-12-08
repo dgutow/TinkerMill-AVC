@@ -42,8 +42,8 @@ class vehicleState (object):
     # Telemetry coming from the IOP processor
     iopTime            = 0     # IOP current time
     iopMode            = IOP_MODE_NONE  # Mode of the IOP processor
-    iopAcceptCnt       = 0     # Number of accepted commands                               
-    iopBistStatus      = 0xFF  # This is the IOP BIST/ESTOP word                                
+    iopAcceptCnt       = 0     # Number of accepted commands 
+    iopBistStatus      = 0xFF  # This is the IOP BIST/ESTOP word
 
     iopSpeed           = 0.0   # Current speed (cm/sec)  
     iopSteerAngle      = 0.0   # Current angle of steering
@@ -54,7 +54,7 @@ class vehicleState (object):
     #rightRangeSensors  = rangeSensorPair(50, 10, 0, 100, 500, True)
     
     iopSwitchStatus     = 0x00  # Bitfield of status of each bump switch
-    iopStartSwitch      = False # Start switch been pushed   
+    iopStartSwitch      = False # Start switch been pushed 
    
     # The last seconds worth of scan ranges are stored in this buffer.   
     #iopRanges           = Range(40)
@@ -74,7 +74,7 @@ class vehicleState (object):
     iopSpare3           = 0.0   # spare 
     
     # Occupancy grid and Histogram values
-    histAngle           = 0.0   # Steer angle calculated from histogram
+    histAngle           = 0     # Steer angle calculated from histogram (deg)
     leftWallDist        = 0.0   # Distance to left wall
     RightWallDist       = 0.0   # Ditto
     

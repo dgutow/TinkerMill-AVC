@@ -128,7 +128,12 @@ def mainLoop(lidar, occGrid, vehState):
         vehState.currHeartBeat += 1        
         #serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)   dag turn on  
         
-        loopCntr += 1              
+        loopCntr += 1  
+        #if loopCntr % 5 == 0:
+        #    return
+        #else:
+        #    print(loopCntr)
+                    
     # end while
     
     printOut ("MAIN_LOOP: Terminating mainLoop, killing serialPort")
@@ -145,22 +150,23 @@ def mainLoop(lidar, occGrid, vehState):
 ################################################################################
 # get_lidarTlm(loopCntr)
 ################################################################################
+#@profile
 def get_lidarTlm(loopCntr, vehState, lidar, occGrid):
     # Get the lastest range points from the RPLidar
 
     start_time = time.clock()
-    scan_list = get_lidar_data(lidar, vehState, occGrid)
+    get_lidar_data(lidar, vehState, occGrid)
 
     vehState.lidar_get_data_time = time.clock() - start_time        ##### time
     start_time = time.clock()
 
     # Now shift the occGrid down by the vehicles motion since the last time
-    occGrid.recenterGrid(vehState.iopCumDistance, vehState.iopSteerAngle);
+    #occGrid.recenterGrid(vehState.iopCumDistance, vehState.iopSteerAngle);
     vehState.grid_enter_data_time = time.clock() - start_time       ##### time
         
     # Calculate the steering angle.  This angle won't be used until we're in
     # the proper state
-    start_time = time.clock()    
+    start_time = time.clock()
     vehState.histAngle = cont.calcTargetAngle(vehState) 
     #vehState.histAngle = occGrid.getNearestAngle(0) 
     #print(occGrid.printHistArr())
@@ -180,9 +186,10 @@ def get_lidarTlm(loopCntr, vehState, lidar, occGrid):
         pass   
         
     if loopCntr % 1 == 0:
-        # every 0.8 seconds clear the graph
+        # every nn seconds clear the graph
         occGrid.clear (occGrid.distance, occGrid.angle)
         pass    
+
 # End
         
 ################################################################################

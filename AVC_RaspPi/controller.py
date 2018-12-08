@@ -42,6 +42,7 @@ class controller (object):
     ###########################################################################
     # calcTargetAngle -
     ###########################################################################
+    #@profile
     def calcTargetAngle(self, vehState):
         if self.cosines[0,0]==0:
             for i in range(181):
@@ -60,15 +61,17 @@ class controller (object):
         #vehState.currentAngleLock.release()
 
         # now copy out the lidar readings, recentering on our current direction
-        localLidar = np.zeros((360))
+        #localLidar = np.zeros((360))
         #lidarBufferLock.acquire()
-        for index in range(360):
-            bufferIndex = int(round( \
-                ((currentAngle - 180 + index) % 360) ))
+        #for index in range(360):
+            #bufferIndex = int(round( \
+            #    ((currentAngle - 180 + index) % 360) ))
             #print("bufferIndex: ",bufferIndex," LocalIndex: ",index, "distance: ", \
             #    vehState.lidarBuffer[bufferIndex,ct.LIDAR_BUFFER_DISTANCE])
             #print(index,", ",bufferIndex,", ",ct.LIDAR_BUFFER_DISTANCE)
-            localLidar[index]=vehState.lidarBuffer[bufferIndex,ct.LIDAR_BUFFER_DISTANCE]
+            #localLidar[index]=vehState.lidarBuffer[bufferIndex,ct.LIDAR_BUFFER_DISTANCE]
+        #print(indices)
+        localLidar=np.roll(vehState.lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE],180)
         #lidarBufferLock.release()        
         
         # FIND THE FIRST ANGLE
@@ -90,9 +93,20 @@ class controller (object):
         # FIND THE SECOND ANGLE
         # convert the localLidar to max distance 
         obstacleDistance = localLidar.copy()
+        vehicleWidth=9/12*ct.METERS_PER_FOOT
         # iterate over the potential directions (+-45 deg)
         for index in range(bestDistanceIndex-45,bestDistanceIndex+45):
             # iterate over the potential obstacles (+-90 deg)
+            closeness = np.abs(np.multiply(np.squeeze(self.sines),localLidar[index-90:index+91]))
+            dist2close = np.multiply(np.squeeze(self.cosines),localLidar[index-90:index+91])
+            collisions=np.where(closeness<vehicleWidth)
+            #print("shapes")
+            #print(self.sines.shape)
+            #print(localLidar[index-90:index+90].shape)
+            #print(closeness.shape)
+            #print(dist2close.shape)
+            obstacleDistance[index]=np.amin(dist2close[collisions])
+            """
             for subIndex in range(index-90,index+90):
                 if index==subIndex:
                     continue
@@ -111,7 +125,7 @@ class controller (object):
                 #else:
                 #    if (171==index):
                 #        print("Nindex: ",index,"subIndex: ",subIndex,"sideDist: ",localLidar[subIndex],"sin ",self.sines[90-(index-subIndex)], " cos ",self.cosines[90-abs(index-subIndex)]," curDist: ",obstacleDistance[index]," angle: ",(index-subIndex))
-
+            """
                             
 
         #print("localLidar")
@@ -135,15 +149,15 @@ class controller (object):
 
         print("maxDistance: ",maxDistance, " outputAngleIndex: ",outputAngleIndex) 
 
-        angle = (outputAngleIndex-180)*ct.DEG_TO_RAD
+        angle = (outputAngleIndex-180)
         if ct.DEVELOPMENT:
             bestAngle=(bestDistanceIndex-180)*ct.DEG_TO_RAD
             plt.plot((0,12*math.cos(bestAngle)),(0,12*math.sin(bestAngle)),linestyle=':',color='b')
-            plt.plot((0,12*math.cos(angle)),(0,12*math.sin(angle)),linestyle='-',color='b')
+            plt.plot((0,maxDistance*math.cos(angle*ct.DEG_TO_RAD)),(0,maxDistance*math.sin(angle*ct.DEG_TO_RAD)),linestyle='-',color='b')
             #plt.plot((0,12),(0,0),linestyle=':')
             plt.show()
             plt.pause(0.1)
-        return angle
+        return -angle
     # end
     
     

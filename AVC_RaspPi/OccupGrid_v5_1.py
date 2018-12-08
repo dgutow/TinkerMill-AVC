@@ -366,8 +366,7 @@ class Grid(object):
         # Send the packet!
         if (self.sock != None):
             self.sock.sendto(packetData, (self.host, self.port))
-            
-        # print ('sendUDP - number of non-0 entries', total)         
+            print ('sendUDP - number of non-0 entries', total)         
 
     # end
 

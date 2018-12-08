@@ -86,7 +86,7 @@ class raceModes(object):
     speedDict = {NONE           : speedZero,
                  WAIT_FOR_BIST  : speedZero,
                  WAIT_FOR_START : speedZero,
-                 RACE_BEGIN     : speedZero,
+                 RACE_BEGIN     : speedApproach,
                  RACE_STRAIGHT  : speedMax,
                  RACE_CURVE     : speedMax,
                  NEGOT_CROSSING : speedMax,
