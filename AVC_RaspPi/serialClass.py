@@ -71,13 +71,13 @@ class serialClass (object):
     # sendCommand (command, param1, param2, param3)   
     ###########################################################################
     def sendCommand (self, commandChar, param1, param2, param3):
+        print ("------------> serialPort:sendCommand - Sending %s, %d, %d, %d\n" % 
+							(commandChar, param1, param2, param3) )       
         # pack the command into a struct
         packedArray  = struct.pack('<hhhhh', 0x5454, ord(commandChar), param1, param2, param3)
         arr_val = array.array('B', packedArray).tostring()
         # send it along
  
-        # print ("------------> serialPort:sendCommand - Sending %s, %d, %d, %d\n" % 
-		#						(commandChar, param1, param2, param3) )       
         nbytes = self.serialPort.write(packedArray)
         if nbytes != 10:
         	printOut ("serialPort:sendCommand - ERROR nbytes = %d\n" % (nbytes) ) 

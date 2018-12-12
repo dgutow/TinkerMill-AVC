@@ -67,6 +67,11 @@ def get_lidar_data(lidar, vehState, occGrid):
 
         # don't pay attention to excess data
         readings =  process_data(data, lidar)
+        # don't bother processing this packet if it will just get 
+        # overwritten later
+        if (lidar._serial.inWaiting() >= 12*dSize):
+            continue
+            
         if len(readings) == 0:
             print("starting new scan")
             # we started a new scan, so wait
@@ -78,6 +83,7 @@ def get_lidar_data(lidar, vehState, occGrid):
             lidar.clean_input()
             lidar.scanning[0] = True
             print("error getting data")
+            return
         else:
             for reading  in readings:
                 dist=reading[LIDAR_READING_DISTANCE]
@@ -98,10 +104,10 @@ def get_lidar_data(lidar, vehState, occGrid):
                 #vehState.lidarBufferLock.acquire()
                 vehState.lidarBuffer[bufferIndex,:]=[current_time, 0, absoluteAngle, dist/1000.,1]
                 #vehState.lidarBufferLock.release()
+                #occGrid.enterRange(vehState.iopCumDistance, vehState.iopSteerAngle, 
+                #           dist/1, reading[LIDAR_READING_ANGLE])    # data is in mm DAG - For testing
                 occGrid.enterRange(vehState.iopCumDistance, vehState.iopSteerAngle, 
-                           dist/1, reading[LIDAR_READING_ANGLE])    # data is in mm DAG - For testing
-#                occGrid.enterRange(vehState.iopCumDistance, vehState.iopSteerAngle, 
-#                           dist/10, reading[LIDAR_READING_ANGLE]) # data is in mm DAG - For real      
+                           dist/10, reading[LIDAR_READING_ANGLE]) # data is in mm DAG - For real      
             # end for
         # end if .. else
     # end while
