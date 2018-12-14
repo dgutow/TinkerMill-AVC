@@ -171,12 +171,12 @@ def stop_lidar_scan():
 def initializations():
     
     # Vehicle State holds everything known about the current vehicle state
-    vehState        = vehicleState()
+    vehState = vehicleState()
     
     # start and initialize the RPLidar
     lidar = init_lidar_scan()
  
-    occGrid       = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
+    occGrid = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
     
     time.sleep(0.5) 
 

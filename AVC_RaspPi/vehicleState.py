@@ -47,20 +47,15 @@ class vehicleState (object):
 
     iopSpeed           = 0.0   # Current speed (cm/sec)  
     iopSteerAngle      = 0.0   # Current angle of steering
-    iopCumDistance     = 0.0   # Distance covered since start (cm)
-     
-    # Moved outside of the vehicle state
-    #leftRangeSensors   = rangeSensorPair(50, 10, 0, 100, 500, False)
-    #rightRangeSensors  = rangeSensorPair(50, 10, 0, 100, 500, True)
-    
-    iopSwitchStatus     = 0x00  # Bitfield of status of each bump switch
-    iopStartSwitch      = False # Start switch been pushed 
+    iopCumDistance     = 0.0   # Distance covered since start (cm)    
+    iopSwitchStatus    = 0x00  # Bitfield of status of each bump switch
+    iopStartSwitch     = False # Start switch been pushed 
    
     # The last seconds worth of scan ranges are stored in this buffer.   
     #iopRanges           = Range(40)
     # a circular buffer of the LIDAR readings
-    lidarBuffer = np.zeros((360,5))
-    lidarBufferLock = threading.Lock() # a lock to prevent race conditions
+    lidarBuffer         = np.zeros((360,5))
+    lidarBufferLock     = threading.Lock() # a lock to prevent race conditions
 
     iopBattVolt1        = 0.0   # Voltage of battery 1
     iopBattVolt2        = 0.0   # Voltage of battery 2

@@ -128,12 +128,7 @@ def mainLoop(lidar, occGrid, vehState):
         vehState.currHeartBeat += 1        
         #serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)   dag turn on  
         
-        loopCntr += 1  
-        #if loopCntr % 5 == 0:
-        #    return
-        #else:
-        #    print(loopCntr)
-                    
+        loopCntr += 1                      
     # end while
     
     printOut ("MAIN_LOOP: Terminating mainLoop, killing serialPort")
@@ -156,11 +151,10 @@ def get_lidarTlm(loopCntr, vehState, lidar, occGrid):
 
     start_time = time.clock()
     get_lidar_data(lidar, vehState, occGrid)
-
     vehState.lidar_get_data_time = time.clock() - start_time        ##### time
-    start_time = time.clock()
-
+    
     # Now shift the occGrid down by the vehicles motion since the last time
+    start_time = time.clock()    
     #occGrid.recenterGrid(vehState.iopCumDistance, vehState.iopSteerAngle);
     vehState.grid_enter_data_time = time.clock() - start_time       ##### time
         
@@ -187,7 +181,7 @@ def get_lidarTlm(loopCntr, vehState, lidar, occGrid):
         
     if loopCntr % 1 == 0:
         # every nn seconds clear the graph
-        occGrid.clear (occGrid.distance, occGrid.angle)
+        #occGrid.clear (occGrid.distance, occGrid.angle)
         pass    
 
 # End
