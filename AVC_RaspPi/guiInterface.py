@@ -18,7 +18,7 @@ import struct
 from   printOut         import *
 from   constants        import *       # Vehicle and course constants
 from   tcpSocketClass   import *
-from   Queue            import Queue
+from   queue            import Queue
 from   vehicleState     import *
 
 ############################################################################## 

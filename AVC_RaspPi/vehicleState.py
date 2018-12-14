@@ -10,6 +10,8 @@
 #from rangeSensorPair import rangeSensorPair
 from raceModes          import raceModes
 from constants          import *        # Vehicle and course constants
+import threading as threading
+import numpy as np
 #from rangeClass      import Range
 
 
@@ -33,11 +35,15 @@ class vehicleState (object):
     distAtStart        = 0.0   # Distance measured when start signal arrived
     compassAtStart     = 0.0   # Compass angle when start signal arrived
     
+    # map state information
+    currentAngleLock   = threading.Lock() # a lock to prevent race conditions
+    currentAngle       = 0.0
+    
     # Telemetry coming from the IOP processor
     iopTime            = 0     # IOP current time
     iopMode            = IOP_MODE_NONE  # Mode of the IOP processor
-    iopAcceptCnt       = 0     # Number of accepted commands                               
-    iopBistStatus      = 0xFF  # This is the IOP BIST/ESTOP word                                
+    iopAcceptCnt       = 0     # Number of accepted commands 
+    iopBistStatus      = 0xFF  # This is the IOP BIST/ESTOP word
 
     iopSpeed           = 0.0   # Current speed (cm/sec)  
     iopSteerAngle      = 0.0   # Current angle of steering
@@ -48,11 +54,14 @@ class vehicleState (object):
     #rightRangeSensors  = rangeSensorPair(50, 10, 0, 100, 500, True)
     
     iopSwitchStatus     = 0x00  # Bitfield of status of each bump switch
-    iopStartSwitch      = False # Start switch been pushed   
+    iopStartSwitch      = False # Start switch been pushed 
    
     # The last seconds worth of scan ranges are stored in this buffer.   
     #iopRanges           = Range(40)
-    
+    # a circular buffer of the LIDAR readings
+    lidarBuffer = np.zeros((360,5))
+    lidarBufferLock = threading.Lock() # a lock to prevent race conditions
+
     iopBattVolt1        = 0.0   # Voltage of battery 1
     iopBattVolt2        = 0.0   # Voltage of battery 2
     
@@ -65,7 +74,7 @@ class vehicleState (object):
     iopSpare3           = 0.0   # spare 
     
     # Occupancy grid and Histogram values
-    histAngle           = 0.0   # Steer angle calculated from histogram
+    histAngle           = 0     # Steer angle calculated from histogram (deg)
     leftWallDist        = 0.0   # Distance to left wall
     RightWallDist       = 0.0   # Ditto
     
@@ -88,7 +97,7 @@ class vehicleState (object):
     dsrdRightWallDist  = 0.0
     
     # Last vision system reported obstacle
-    obstacleType       = obstacle.NONE
+    obstacleType       = OBSTACLE_NONE
     obstacleHcent      = 0.0
     obstacleVcent      = 0.0    
     obstacleIndex      = 0     # The index into obstacleSequence

@@ -8,11 +8,11 @@ Version: 8/2018
 import sys
 import socket
 import struct
-import numpy as np
+#import numpy as np
 from   math     import *
 
 
-from LIDAR      import *
+#from LIDAR      import *
 from graphics   import *        # dag - remove before flight
 ###############################################################################
 # Class Grid
@@ -59,7 +59,7 @@ class Grid(object):
     # __init__   Note - the position of the car when this map was created or
     # updated is always in the center and at Y = 0.0
     ###########################################################################
-    def __init__(self, resolution=10, nRows=50, nCols=50, distance=0, angle=0):
+    def __init__(self, resolution=10, nRows=40, nCols=60, distance=0, angle=0):
         self.resolution = resolution
         self.nCols      = nCols
         self.nRows      = nRows
@@ -106,7 +106,13 @@ class Grid(object):
 
         self.clear (distance, angle)
     # end
-
+    
+    ###########################################################################
+    # details   
+    ###########################################################################
+    def details (self):
+        print ("Resolution %d, nRows %d, nCols %d\n" % (self.resolution, self.nRows, self.nCols), end='') 
+    
     ###########################################################################
     # clear   Clears and re-initializes the grid
     ###########################################################################
@@ -115,10 +121,10 @@ class Grid(object):
         self.angle      = angle
 
         # Create the occupancy grid
-        self.grid = [[ [0.0, 0.0] for x in range(self.nCols)] for y in range(self.nRows)]
-
+        #self.grid = [[ [0.0, 0.0] for x in range(self.nCols)] for y in range(self.nRows)]
+        
         # Create the binary grid to send as telemetry
-        self.binaryGrid =  [[ 0 for x in range(self.nCols)] for y in range(self.nRows)]
+        self.binGrid =  [[ False for x in range(self.nCols)] for y in range(self.nRows)]
     # end
 
     ###########################################################################
@@ -149,22 +155,34 @@ class Grid(object):
 
         Xpos          = rangeXpos + carXpos
         Ypos          = rangeYpos + carYpos
-        self.enterPoint (Xpos, Ypos)
+        
+        col = int (Xpos / self.resolution)
+        row = int (Ypos / self.resolution)
+        
+        self.enterPoint (row+1, col+1)
+        self.enterPoint (row,   col+1)
+        self.enterPoint (row-1, col+1)
+        self.enterPoint (row+1, col)
+        self.enterPoint (row,   col)
+        self.enterPoint (row-1, col)
+        self.enterPoint (row+1, col-1)
+        self.enterPoint (row,   col-1)
+        self.enterPoint (row-1, col-1)        
     # end
 
     ###########################################################################
     # enterPoint - enters an objects position into the grid
     ###########################################################################
-    def enterPoint(self, x, y):
-        col = int (x / self.resolution)
-        row = int (y / self.resolution)
+    def enterPoint(self, row, col):
+        #col = int (x / self.resolution)
+        #row = int (y / self.resolution)
 
         if (col < 0 or col >= self.nCols):
             return
         if (row < 0 or row >= self.nRows):
             return
 
-        self.grid[row][col] = [x, y]
+        self.binGrid[row][col] = True
     # end
 
     ###########################################################################
@@ -197,45 +215,28 @@ class Grid(object):
     # end
 
     ###########################################################################
-    # getValue
-    ###########################################################################
-    def getValue (self, xIndex, yIndex):
-        return self.grid[xIndex][yIndex]
-    # end
-
-    ###########################################################################
-    # isZero - checks if a map cell contains no data, taking into account
-    # floating point roundoff
-    ###########################################################################
-    def isZero (self, xIndex, yIndex):
-        point = self.grid[xIndex][yIndex]
-        x = point[0]
-        y = point[1]
-        if (x > -0.001 and x < 0.001 and y > -0.001 and y < 0.001):
-            return True
-        return False
-    # end
-
-    ###########################################################################
     # printGrid -
     ###########################################################################
-    def printGrid (self, str):
-        print (str)
+    def printGrid (self, str=""):
+        print (str, end='\n')
+        print ("       ", end='')
+        for col in range (self.nCols):
+            print ("%d" % (col % 10), end='')
+        print("\n", end='')
+        
         for row in range (self.nRows-1, -1, -1):
-            print ("Row %2d:" % row),
+            print ("Row %2d:" % (row), end=''),
             for col in range (self.nCols):
-                if (self.isZero(row, col)):
-                    print ("%-11s" % "    ---   "),
+                if (self.binGrid[row][col]):
+                    print ("%s" % ("O"), end='')
                 else:
-                    [x, y] = self.getValue (row, col)
-                    print ("(%4.1f,%4.1f)" % (x, y)),
+                    print ("%s" % (" "), end='')
                 # end if
             # end for col
-            print ("\n")
+            print ("\n", end='')
         # end for row
-        print("")
+        print("\n", end='')
     # end
-
 
     ###########################################################################
     # initGraphGrid -
@@ -391,8 +392,9 @@ class Grid(object):
     ###########################################################################
     # getAngleIndex calculates the angle from the specified row/col to the origin
     ###########################################################################
+
     def getAngleIndex(self, row, col):
-        angle = degrees( np.arctan2( (col - self.nCols/2), row ) )
+        angle = degrees( atan( (col - self.nCols/2)/  row ) )
         angIndex = int( (angle - self.minAngle) / self.angDelta )
         if angIndex < 0 or angIndex >= self.histSize:
             return -1
@@ -545,8 +547,14 @@ class Grid(object):
 # Test code
 ###############################################################################
 if __name__ == '__main__':
-
-    g = Grid(10, nRows=100, nCols=160, distance=0, angle=0)
+    g = Grid(10, nRows=30, nCols=50, distance=0, angle=0)
+    g.details()
+    g.enterRange (0, 0, 100, 0)
+    g.enterRange (0, 0, 100, 45) 
+    g.enterRange (0, 0, 100, -45)     
+    g.printGrid("Binary Grid")
+ 
+""" 
     g.histSize = 9
     #g.histArr =  [ 0.0, 4.0, 4.0, 5.0, 6.0, 0.0, 0.0, 5.0, 0.0]
     g.histArr  =  [ 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
@@ -555,7 +563,7 @@ if __name__ == '__main__':
     g.lowPassFilterDag(5)
     g.printHistArr()    
     #g.histArr
-    
+"""    
 
 """
     import time

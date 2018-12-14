@@ -53,7 +53,7 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)
 
         # Are we in BIST mode yet?
-        if (vehState.iopMode <> IOP_MODE_BIST):
+        if (vehState.iopMode != IOP_MODE_BIST):
             # Not yet - wait for up to BistMaxCnt for IOP BIST mode
             if (vehState.mode.modeCount > BistMaxCnt):
               vehState.errorString = ("IOP NOT COMMUNICATING")
@@ -61,7 +61,7 @@ def stateMachine (vehState, serialPort, occGrid):
             # end if
         else:
             # Yep, we're in BIST mode, was there a BIST error
-            if (vehState.iopBistStatus <> 0):
+            if (vehState.iopBistStatus != 0):
                 vehState.errorString = ( "IOP BIST FAILURE")
                     #"IOP BIST FAILURE, value %d" % (vehState.iopBistStatus))
                 vehState.mode.setMode (raceModes.ERROR)
@@ -78,7 +78,7 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)
         # end
 
-        if (vehState.iopMode <> IOP_MODE_NORMAL):
+        if (vehState.iopMode != IOP_MODE_NORMAL):
             # Wait up to NormMaxCnt for IOP to be normal mode
             if (vehState.mode.modeCount > NormMaxCnt):
                 vehState.errorString = "IOP NOT GOING TO NORMAL MODE"
@@ -95,7 +95,7 @@ def stateMachine (vehState, serialPort, occGrid):
             if (vehState.iopStartSwitch):     # We're Off!
                 vehState.mode.setMode(raceModes.RACE_BEGIN)
                 # Send the move command ASAP
-                serialPort.sendCommand (CMD_MOVE, vehState.mode.getSpeed(), 0, 0)
+                serialPort.sendCommand (CMD_MOVE, vehState.mode.getSpeed(), 100, 0)
             # end
         # end
 
@@ -120,7 +120,7 @@ def stateMachine (vehState, serialPort, occGrid):
         # end
 
         serialPort.sendCommand (CMD_MOVE, vehState.mode.getSpeed(), 100, 0)
-        serialPort.sendCommand (CMD_TURN, vehState.histAngle, 0, 0)        
+        serialPort.sendCommand (CMD_TURN, vehState.histAngle, 0, 0)
 
         # If we got an obstacle sighting from the vision system transition
         newState = obstacleTransition (vehState)
@@ -149,7 +149,7 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)
 
         # Make sure we still spot the obstacle otherwise just go back to RACE
-        if (vehState.obstacleType <> obstacle.STOPSIGN):
+        if (vehState.obstacleType != OBSTACLE_STOPSIGN):
             vehState.mode.setMode(raceModes.RACE_STRAIGHT)
 
         # If we've been in the approach state long enough go to negotiate
@@ -180,7 +180,7 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)
 
         # Make sure we still spot the obstacle otherwise just go back to RACE
-        if (vehState.obstacleType <> obstacle.HOOP):
+        if (vehState.obstacleType != OBSTACLE_HOOP):
             vehState.mode.setMode(raceModes.RACE_STRAIGHT)
 
         # If we've been in the approach state long enough go to negotiate
@@ -211,7 +211,7 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)
 
         # Make sure we still spot the obstacle otherwise just go back to RACE
-        if (vehState.obstacleType <> obstacle.BARRELS):
+        if (vehState.obstacleType != OBSTACLE_BARRELS):
             vehState.mode.setMode(raceModes.RACE_STRAIGHT)
 
         # If we've been in the approach state long enough go to negotiate
@@ -242,7 +242,7 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)
 
         # Make sure we still spot the obstacle otherwise just go back to RACE
-        if (vehState.obstacleType <> obstacle.RAMP):
+        if (vehState.obstacleType != OBSTACLE_RAMP):
             vehState.mode.setMode(raceModes.RACE_STRAIGHT)
 
         # If we've been in the approach state long enough go to negotiate
@@ -273,7 +273,7 @@ def stateMachine (vehState, serialPort, occGrid):
             playSound (vehState)
 
         # Make sure we still spot the obstacle otherwise just go back to RACE
-        if (vehState.obstacleType <> obstacle.PEDESTRIAN):
+        if (vehState.obstacleType != OBSTACLE_PEDESTRIAN):
             vehState.mode.setMode(raceModes.RACE_STRAIGHT)
 
         # If we've been in the approach state long enough go to negotiate
@@ -347,25 +347,25 @@ def stateMachine (vehState, serialPort, occGrid):
 ###############################################################################
 
 def obstacleTransition (vehState):
-    if vehState.obstacleType == obstacle.NONE:
+    if vehState.obstacleType == OBSTACLE_NONE:
         return raceModes.NONE
 
-    elif vehState.obstacleType == obstacle.PEDESTRIAN:
+    elif vehState.obstacleType == OBSTACLE_PEDESTRIAN:
         vehState.mode.setMode(raceModes.APPR_PED)
 
-    elif vehState.obstacleType == obstacle.STOPSIGN:
+    elif vehState.obstacleType == OBSTACLE_STOPSIGN:
         vehState.mode.setMode(raceModes.APPR_STOPSIGN)
 
-    elif vehState.obstacleType == obstacle.RAMP:
+    elif vehState.obstacleType == OBSTACLE_RAMP:
         vehState.mode.setMode(raceModes.APPR_RAMP)
 
-    elif vehState.obstacleType == obstacle.HOOP:
+    elif vehState.obstacleType == OBSTACLE_HOOP:
         vehState.mode.setMode(raceModes.APPR_HOOP)
 
-    elif vehState.obstacleType == obstacle.BARRELS:
+    elif vehState.obstacleType == OBSTACLE_BARRELS:
         vehState.mode.setMode(raceModes.APPR_BARRELS)
 
-    elif vehState.obstacleType == obstacle.COURSE_END:
+    elif vehState.obstacleType == OBSTACLE_COURSE_END:
         vehState.mode.setMode(raceModes.WAIT_FOR_END)
 
     else:
@@ -378,7 +378,7 @@ def obstacleTransition (vehState):
 # playSound
 ###############################################################################
 def playSound (vehState):
-    vehState.mode.printMode("STATEMACHINE: Transitioned to")
+    vehState.mode.printMode("STATEMACHINE: Transitioned to ")
 # end
 
 ###############################################################################
@@ -411,9 +411,9 @@ if __name__ == '__main__':
         # end while
 
         if (tlm_cnt > 0):
-            print "MAINLOOP:GET_IOPTLM - nPkts %d, Time %3d, Mode %1d, AccCnt %2d, Switch %2d/%2d" % (
-                tlm_cnt, vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt,
-                vehState.iopSwitchStatus, vehState.iopStartSwitch)
+            print("MAINLOOP:GET_IOPTLM - nPkts tlm_cnt, \
+                Time vehState.iopTime, Mode vehState.iopMode, \
+                AccCnt vehState.iopAcceptCnt, Switch vehState.iopSwitchStatus/vehState.iopStartSwitch")
         else:
             #print ("MAINLOOP:GET_IOPTLM - no new telemetry ")
             pass
@@ -466,9 +466,9 @@ if __name__ == '__main__':
         vehState.iopSpare3      = telemArray[23]
 
         if  False:
-            print "MAINLOOP:PROC_IOPTLM - Time %3d, Mode %1d, AccCnt %2d, Switch %2d/%2d" % (
-            vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt,
-            vehState.iopSwitchStatus, vehState.iopStartSwitch)
+            print("MAINLOOP:PROC_IOPTLM - Time vehState.iopTime, Mode \
+                vehState.iopMode, AccCnt vehState.iopAcceptCnt, Switch \
+                vehState.iopSwitchStatus/vehState.iopStartSwitch")
             #print "PROCESS_TELEM - Bist %d, Speed %d, SteerAng %d, Distance  %d" % (
             # vehState.iopBistStatus, vehState.iopSpeed, vehState.iopSteerAngle,
             # vehState.iopCumDistance)
@@ -527,34 +527,34 @@ if __name__ == '__main__':
         stateMachine (vehState, serialPort)
 
         if (i == 30):            # try STOPSIGN state
-            vehState.obstacleType = obstacle.STOPSIGN
+            vehState.obstacleType = OBSTACLE_STOPSIGN
         if (i == 35):            # reset obstacle
-            vehState.obstacleType = obstacle.NONE
+            vehState.obstacleType = OBSTACLE_NONE
 
         if (i == 40):            # try HOOP state
-            vehState.obstacleType = obstacle.HOOP
+            vehState.obstacleType = OBSTACLE_HOOP
         if (i == 45):            # reset obstacle
-            vehState.obstacleType = obstacle.NONE
+            vehState.obstacleType = OBSTACLE_NONE
 
         if (i == 50):            # try BARRELS state
-            vehState.obstacleType = obstacle.BARRELS
+            vehState.obstacleType = OBSTACLE_BARRELS
         if (i == 55):            # reset obstacle
-            vehState.obstacleType = obstacle.NONE
+            vehState.obstacleType = OBSTACLE_NONE
 
         if (i == 60):            # try RAMP state
-            vehState.obstacleType = obstacle.RAMP
+            vehState.obstacleType = OBSTACLE_RAMP
         if (i == 65):            # reset obstacle
-            vehState.obstacleType = obstacle.NONE
+            vehState.obstacleType = OBSTACLE_NONE
 
         if (i == 70):            # try APPR_PED state
-            vehState.obstacleType = obstacle.PEDESTRIAN
+            vehState.obstacleType = OBSTACLE_PEDESTRIAN
         if (i == 75):            # reset obstacle
-            vehState.obstacleType = obstacle.NONE
+            vehState.obstacleType = OBSTACLE_NONE
 
         if (i == 80):            # try APPR_PED state
-            vehState.obstacleType = obstacle.COURSE_END
+            vehState.obstacleType = OBSTACLE_COURSE_END
         if (i == 85):            # reset obstacle
-            vehState.obstacleType = obstacle.NONE
+            vehState.obstacleType = OBSTACLE_NONE
 
         get_iopTestTlm(IopTlmQueue, vehState)
         time.sleep (0.6)

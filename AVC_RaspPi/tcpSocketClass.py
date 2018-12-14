@@ -9,7 +9,7 @@ import time
 import threading
 import socket
 import array
-from   Queue           import Queue
+from   queue           import Queue
 import sys
 from   printOut        import printOut, printErr
 
@@ -64,7 +64,7 @@ class tcpSocketClass (object):
         
         if (self.server):               # Setup this instance as a server
             #printOut ("TCPSOCKETCLASS: Setting up as server - binding to %s" % ((self.address)) )
-            print "TCPSOCKETCLASS: Setting up as server - binding to ", self.address
+            print("TCPSOCKETCLASS: Setting up as server - binding to ", self.address)
             self.sock.bind ( self.address )  
             printOut ("TCPSOCKETCLASS: Setting up as server - listening")             
             self.sock.listen (1)

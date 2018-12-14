@@ -86,7 +86,7 @@ class raceModes(object):
     speedDict = {NONE           : speedZero,
                  WAIT_FOR_BIST  : speedZero,
                  WAIT_FOR_START : speedZero,
-                 RACE_BEGIN     : speedZero,
+                 RACE_BEGIN     : speedApproach,
                  RACE_STRAIGHT  : speedMax,
                  RACE_CURVE     : speedMax,
                  NEGOT_CROSSING : speedMax,
@@ -186,7 +186,7 @@ if __name__ == "__main__":
     
     mode.setMode (raceModes.NONE           )     
     mode.printMode ("NONE          ")
-    print "speed", mode.getSpeed()
+    print("speed", mode.getSpeed())
     mode.setMode (raceModes.WAIT_FOR_BIST  )     
     mode.printMode ("WAIT_FOR_BIST ")
     mode.setMode (raceModes.WAIT_FOR_START )     
