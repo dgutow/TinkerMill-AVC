@@ -95,11 +95,11 @@ class OccGridPacketReader:
                     unpack_index = unpack_index + 1
 
             # Print the grid
-            for k in range(0, gridRows):
-                gridRowString = ""
-                for l in range(0, gridColumns):
-                    gridRowString += (str(dataGrid[k][l])) + " "
-                print(gridRowString)
+            #for k in range(0, gridRows):
+            #    gridRowString = ""
+            #    for l in range(0, gridColumns):
+            #        gridRowString += (str(dataGrid[k][l])) + " "
+            #    print(gridRowString)
 
             return dataGrid
 
