@@ -68,8 +68,8 @@ def initializations():
     vehState.mode.setMode (raceModes.NONE)   
     
     # start and initialize the RPLidar
-    lidar = init_lidar_scan()
-    occGrid       = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
+    lidar       = init_lidar_scan()
+    occGrid     = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
     occGrid.sendUDP_init(OCC_IPADD, UDP_OCCPORT)
     
     time.sleep(0.5) 
@@ -84,11 +84,11 @@ def initializations():
 ##############################################################################
 
 def mainLoop(lidar, occGrid, vehState):
-    abort = False
+    abort       = False
     loopCntr    = 0
-    printOut ("MAIN_LOOP: Dwelling for 2 seconds...")
-    time.sleep (2.0)
-    last_time = time.clock()
+    printOut ("MAIN_LOOP: Dwelling for a second...")
+    time.sleep (1.0)
+    last_time   = time.clock()
     
     while (not abort): 
         #(vehState.mode.currMode != raceModes.TERMINATE and not abort): 
@@ -129,10 +129,6 @@ def mainLoop(lidar, occGrid, vehState):
         #serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)   dag turn on  
         
         loopCntr += 1  
-        #if loopCntr % 5 == 0:
-        #    return
-        #else:
-        #    print(loopCntr)
                     
     # end while
     
@@ -253,7 +249,7 @@ def proc_iopTlm (data):
     vehState.iopSteerAngle  = telemArray[6]  
            
     vehState.iopCumDistance = telemArray[7]     #dag- for real
-    #vehState.iopCumDistance += 10 #dag - for testing
+    #vehState.iopCumDistance += 10              #dag - for testing
     # print ("MAINLOOP: cum distance  ", vehState.iopCumDistance )  
     
     irLF_Range              = telemArray[8]
@@ -519,6 +515,6 @@ def bad_cmd (cmd, p1, p2, p3):
 ###############################################################################
 if __name__ == "__main__":
     ##### TEST # 1 
-    lidar, occGrid, vehState =initializations()
+    lidar, occGrid, vehState = initializations()
     mainLoop(lidar, occGrid, vehState)
 # end    
