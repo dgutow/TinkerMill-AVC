@@ -3,6 +3,7 @@ import serial
 import time
 import math
 import matplotlib.pyplot as plt
+import numba
 
 import constants as ct        # Vehicle and course constants
 from rplidar import *
@@ -46,6 +47,7 @@ def get_lidar_data(lidar, vehState, occGrid):
     distance : float- Measured object distance related to the sensor's 
                           rotation center (mm). 
     """
+    nPoints = 0
     # get a local copy of the current angle
     #vehState.currentAngleLock.acquire()
     currentAngle = vehState.currentAngle
@@ -61,12 +63,13 @@ def get_lidar_data(lidar, vehState, occGrid):
     #while (dSize==84) and (lidar._serial.inWaiting() >4*dSize):
     #    lidar._serial.read(dSize)
     #    continue
-
-    while (lidar._serial.inWaiting() >= dSize):
+    while (lidar._serial.in_waiting >= dSize):
         data = lidar._serial.read(dSize)
 
         # don't pay attention to excess data
+        #curTime = time.clock()
         readings =  process_data(data, lidar)
+        #print("process time: ",(time.clock()-curTime))
         # don't bother processing this packet if it will just get 
         # overwritten later
         if (lidar._serial.inWaiting() >= 12*dSize):
@@ -85,6 +88,7 @@ def get_lidar_data(lidar, vehState, occGrid):
             print("error getting data")
             return
         else:
+            nPoints += len(readings)
             for reading  in readings:
                 dist=reading[LIDAR_READING_DISTANCE]
                     
@@ -99,7 +103,7 @@ def get_lidar_data(lidar, vehState, occGrid):
                 bufferIndex = int(round(absoluteAngle/(2*math.pi)* \
                     (len(vehState.lidarBuffer)-1)))
                 if reading[LIDAR_READING_DISTANCE] == 0:
-                    dist = 12000#vehState.lidarBuffer[bufferIndex,LIDAR_BUFFER_DISTANCE]+1000.
+                    dist = 12000  #vehState.lidarBuffer[bufferIndex,LIDAR_BUFFER_DISTANCE]+1000.
                 #print("bufferI: ",bufferIndex," absAngle: ",absoluteAngle," angle ", reading[LIDAR_READING_ANGLE], "distance: ",dist/1000.);
                 #vehState.lidarBufferLock.acquire()
                 vehState.lidarBuffer[bufferIndex,:]=[current_time, 0, absoluteAngle, dist/1000.,1]
@@ -111,6 +115,7 @@ def get_lidar_data(lidar, vehState, occGrid):
             # end for
         # end if .. else
     # end while
+    
     if ct.DEVELOPMENT:
         #print("start")
         #print(vehState.lidarBuffer[:,LIDAR_BUFFER_TIME]-vehState.lidarBuffer[1,LIDAR_BUFFER_TIME])
@@ -142,7 +147,8 @@ def get_lidar_data(lidar, vehState, occGrid):
         #plt.show()
         #plt.draw()
         plt.pause(0.001)
-    return
+        
+    return nPoints
 # end def
 
 ###############################################################################
@@ -178,7 +184,7 @@ def initializations():
  
     occGrid = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
     
-    time.sleep(0.5) 
+    time.sleep(1.0) 
 
     return lidar, occGrid, vehState
 # end initializations   
@@ -188,27 +194,24 @@ def initializations():
 ###############################################################################
 if __name__ == "__main__":
     lidar, occGrid, vehState =initializations()
-    """
+    curr_time = time.time()    
+    print ( "------------- PRE-TIME %f" % (curr_time) ) 
+    
     if (1):
         try:
-                time.sleep (0.10)  
+            while (True):
+                #time.sleep (0.10)  
                 curr_time = time.time()
-                print ( "------------- PRE-TIME %f" % (curr_time) )    
-                scan_list = get_lidar_data(lidar, occGrid, vehState)
-                print ( "measure time %f\n" % ( time.time() - curr_time ) )
-            
-                nScans = len(scan_list)
-                for dataPt in scan_list:
-                    newPt = dataPt[0]
-                    qual  = dataPt[1]
-                    angle = dataPt[2]
-                    dist  = dataPt[3]
-                    print ("New %d, qual %d, angle %d, dist %d\n" % (newPt, qual, angle, dist))
-                # end for 
-            # end while        
+                nPoints = get_lidar_data(lidar, vehState, occGrid)
+                print ( "\nget_lidar_data time %f, nPoints %d" % ( (time.time() - curr_time ), nPoints) )
+                
+                for dataPt in vehState.lidarBuffer:
+                    print ("%6.3f \t%6.3f \t%6.3f" % (dataPt[0], dataPt[2], dataPt[3]) )
+                    pass
+            #end while
         except:
-            print ("ERROR - exception occured\n")
-            pass
+            print ("EXCEPTION: stopping scanner")
+            stop_lidar_scan()
 
     else:
         
@@ -217,7 +220,7 @@ if __name__ == "__main__":
             
             curr_time = time.time()
             print ( "------------- PRE-TIME %f" % (curr_time) )    
-            scan_list = get_lidar_data(lidar, occGrid, vehState)
+            scan_list = get_lidar_data(lidar, vehState, occGrid)
             print ( "measure time %f\n" % ( time.time() - curr_time ) )
             
             nScans = len(scan_list)
@@ -234,6 +237,6 @@ if __name__ == "__main__":
             # end for
             
         # end while               
-    """    
+          
     stop_lidar_scan()       
 # end    

@@ -172,11 +172,12 @@ def get_lidarTlm(loopCntr, vehState, lidar, occGrid):
         #occGrid.initGraphGrid("Occupancy Grid", 4, False, False)  
         pass
         
-    if loopCntr % 4 == 0:
+    if loopCntr % 2 == 0:
         # every 1/2 second send the occupancy grid to be displayed
         start_time = time.clock()     
-        #occGrid.sendUDP(vehState.iopTime, vehState.histAngle)
+        occGrid.sendUDP(vehState.iopTime, vehState.histAngle)
         vehState.grid_send_data_time = time.clock() - start_time    ##### time
+        occGrid.clear (occGrid.distance, occGrid.angle)        
         #print ("GET_LIDARTLM: Sending grid. Histogram Angle = %d\n" % (vehState.histAngle))        
         pass   
         

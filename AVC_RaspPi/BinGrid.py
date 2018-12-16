@@ -76,7 +76,13 @@ class Grid(object):
         self.maxAngle   = self.scanAngle
         self.origin     = [0.5 * self.nCols * self.resolution, 0]
         self.maxDist    = (sqrt( (self.nRows/2)**2 + (self.nCols)**2 ) )
-
+        
+        # Create the binary grid to send to store the points
+        self.binGrid =  [[ False for x in range(self.nCols)] for y in range(self.nRows)]
+        
+        # Create the binary array to send binGrid over UDP
+        self.binArr =  [ 0 for x in range(self.nCols * self.nRows)] 
+        
         # Create the histogram array
         self.histSize = int((self.scanAngle * 2) / self.angDelta) + 1
         self.histArr =  [ 0 for x in range(self.histSize)]
@@ -84,9 +90,6 @@ class Grid(object):
         # Create the cost and angle arrays and calculate their values
         self.costArr =  [[ 0 for x in range(self.nCols)] for y in range(self.nRows)]
         self.angArr  =  [[ 0 for x in range(self.nCols)] for y in range(self.nRows)]
-        
-        # Create the binary array so send UDP
-        self.binArr =  [ 0 for x in range(self.nCols * self.nRows)] 
 
         # NOTE - don't do row 0 or there will be a divide by 0 at the origin
         for row in range(1, self.nRows):
@@ -119,9 +122,6 @@ class Grid(object):
     def clear (self, distance=0, angle= 0):
         self.distance   = distance
         self.angle      = angle
-
-        # Create the occupancy grid
-        #self.grid = [[ [0.0, 0.0] for x in range(self.nCols)] for y in range(self.nRows)]
         
         # Create the binary grid to send as telemetry
         self.binGrid =  [[ False for x in range(self.nCols)] for y in range(self.nRows)]
@@ -183,35 +183,6 @@ class Grid(object):
             return
 
         self.binGrid[row][col] = True
-    # end
-
-    ###########################################################################
-    # recenterGrid - translates and rotates the map to the new distance
-    # and angle.  NOTE - rather than creating a second grid and transferring
-    # all the rotated/translated points to it, we do it within the same grid.
-    # CAUTION though, this method only works if we are going forward, e.g.
-    # moving the data in the grid generally downward.
-    ###########################################################################
-    def recenterGrid(self, dist, angle):
-        deltaAngle = angle   #  - self.angle  dag?
-        deltaDist  = dist  - self.distance
-        deltaY     = deltaDist * cos(radians(deltaAngle))
-        deltaX     = deltaDist * sin(radians(deltaAngle))
-
-        for row in range(self.nRows):
-            for col in range(self.nCols):
-                if (not self.isZero(row, col)):
-                    [x,y] = self.grid[row][col]
-                    x = x - deltaX
-                    y = y - deltaY
-
-                    self.grid[row][col] = [0.0, 0.0]
-                    self.enterPoint(x,y)
-
-        # Save these last values
-        self.angle    = angle
-        self.distance = dist
-        pass
     # end
 
     ###########################################################################
@@ -368,17 +339,8 @@ class Grid(object):
         if (self.sock != None):
             self.sock.sendto(packetData, (self.host, self.port))
             print ('sendUDP - number of non-0 entries', total)         
-
     # end
 
-    ###########################################################################
-    # getGrid -
-    ###########################################################################
-    def getGrid(self):
-        return (np.flip([[self.getValue(x, y) for y in range(self.nCols)] for x in range(self.nRows)], axis=0).tolist())
-    # end
-    
-    ## old Histogram functions start
     
     ###########################################################################
     # getCost calculates the cost from the specified row/col to the origin
@@ -392,7 +354,6 @@ class Grid(object):
     ###########################################################################
     # getAngleIndex calculates the angle from the specified row/col to the origin
     ###########################################################################
-
     def getAngleIndex(self, row, col):
         angle = degrees( atan( (col - self.nCols/2)/  row ) )
         angIndex = int( (angle - self.minAngle) / self.angDelta )
@@ -401,47 +362,11 @@ class Grid(object):
         else:
             return angIndex
     # end
-
-    ###########################################################################
-    # getCostArray - not used
-    ###########################################################################
-    def getCostArray(self, grid, maxDist, scanAngle, angDelta):
-        angleBin = {}
-
-        for col in range(grid.nCols):
-            for row in range(grid.nRows):
-                # if coordinate found, get cost and angle
-                if not (grid.isZero(row, col)):
-                    cost = maxDist * (1 - (self.getDist(self.origin, grid.grid[row][col]) / maxDist))
-                    angle = degrees(np.arctan((grid.grid[row][col][0]-self.origin[0]) / (grid.grid[row][col][1]-self.origin[1])))
-
-                    # bin angle into degree buckets
-                    for slice in range(-scanAngle, scanAngle, angDelta):
-                        if angle >= slice and angle < slice + angDelta:
-                            # initialize bucket
-                            if not angleBin.has_key(slice):
-                                angleBin[slice] = cost
-                            # add cost to existing bucket
-                            else:
-                                newValue = angleBin[slice] + cost
-                                angleBin[slice] = newValue
-                else:
-                    cost = 0
-
-        # for buckets that did not any cost, add empty buckets
-        for slice in range(-scanAngle, scanAngle, angDelta):
-            if not angleBin.has_key(slice):
-                angleBin[slice] = 0
-
-        costArray = np.array(angleBin.items())
-
-        return costArray
-
     
     ###########################################################################
     # getNearestAngle -
     ###########################################################################
-    def getNearestAngle(self, nearest):
+    def getNearestAngle(self):
         # Zero out any old results in the histogram
         self.histArr =  [ 0 for x in range(self.histSize)]
 
@@ -453,23 +378,20 @@ class Grid(object):
                     angleIndex = self.angArr[row][col]
                     self.histArr[angleIndex] += cost
 
-        #debug
-        #print("Before Low Pass Filter...")
         self.printHistArr()
-        
-        self.lowPassFilter(3)
-
+        self.lowPassFilter(3)               # Not really necessary
         minCost = min(self.histArr)
 
         #print("After Low Pass Filter...")
         #print("MinCost is", minCost)        
         #self.printHistArr()
-
+        runs = self.getRuns(minCost)        # New
+        
         return self.findBestAngle(minCost)
     # end
 
         
-###########################################################################
+    ###########################################################################
     # lowPassFilterDag - to eliminate naughty zeros
     ###########################################################################
     def lowPassFilter(self, size):
@@ -493,10 +415,56 @@ class Grid(object):
     ###########################################################################
     # findBestAngle - find the widest path and go towards the center of it
     ###########################################################################
+    def getRuns(self, minCost):
+        inRun = False           # are we in a run of minimums?
+        run   = []              # a single run.  elem 0 start of run, elem 1 end
+        runs  = []              # the collection of runs
+        
+        for index in range(self.histSize):
+             if not inRun and self.histArr[index] != minCost: 
+                 # we not in a run and not at minimum cost?
+                pass # don't do anything, we don't care!    
+                                       
+            elif inRun and self.histArr[index] == minCost: 
+                # we in a run and stell at minimum cost so still in the run
+                anglePaths.append(index) 
+                
+            elif inRun and self.histArr[index] != minCost: 
+                # we're in a run but not at minimum anymore TODO dag
+                runs.append(anglePaths) # then stash the runs to the collection
+                anglePaths = [] # clear out the last collected run
+                inRun = False # now we're not in a run, set to False
+                
+            elif not inRun and self.histArr[index] == minCost: # are we not in a run but at minimum cost?
+                anglePaths.append(index) # then we're actually in a run so collect the index
+                inRun = True # now we're in a run, set to True
+
+        
+        if inRun: # if the very last item in the histArr is still in a run...
+            runs.append(anglePaths) # collect the very last run!
+            
+        widestPath = 0
+        pathIndex = 0
+        for index, path in enumerate(runs):
+            if len(path) > widestPath:
+                widestPath = len(path)
+                pathIndex = index
+        
+        # debug
+        #print(runs)
+        bestIndex = int(sum(runs[pathIndex]) / widestPath)
+
+        anglePos = self.minAngle + (self.angDelta * bestIndex)        
+        
+        return anglePos
+
+    ###########################################################################
+    # findBestAngle - find the widest path and go towards the center of it
+    ###########################################################################
     def findBestAngle(self, minCost):
-        inRun = False # are we in a run of minimums?
-        anglePaths = [] # the run of minimums
-        collectPaths = [] # the collections of minimum runs
+        inRun = False           # are we in a run of minimums?
+        anglePaths = []         # the run of minimums
+        collectPaths = []       # the collections of minimum runs
         for index in range(self.histSize):
             if inRun and self.histArr[index] == minCost: # are we in a run and at minimum cost?
                 anglePaths.append(index) # then we are still in a run, collect the index
@@ -559,9 +527,7 @@ if __name__ == '__main__':
     #g.histArr =  [ 0.0, 4.0, 4.0, 5.0, 6.0, 0.0, 0.0, 5.0, 0.0]
     g.histArr  =  [ 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
     
-    g.printHistArr()
-    g.lowPassFilterDag(5)
-    g.printHistArr()    
+    g.lowPassFilterDag(5)  
     #g.histArr
 """    
 

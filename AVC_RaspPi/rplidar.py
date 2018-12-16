@@ -29,6 +29,7 @@ import time
 import codecs
 import serial
 import struct
+import numba 
 
 from collections import namedtuple
 
@@ -73,6 +74,7 @@ class RPLidarException(Exception):
 ###############################################################################
 # process_data - Processes input raw data and returns measurement data
 ###############################################################################
+#@jit
 def process_data (raw, lidar):         # was _process_scan(raw) in rplidar.py
     if len(raw)==5: # standard packet
         return process_scan(raw)
@@ -81,6 +83,7 @@ def process_data (raw, lidar):         # was _process_scan(raw) in rplidar.py
     else:
         return (True, 0, 0, 0, 0)
 
+#@jit
 def process_scan(raw):
         new_scan = bool((_b2i(raw[0]) & 0x03)==1)
         inversed_new_scan = bool((_b2i(raw[0]) & 0x03)==2)
@@ -99,6 +102,7 @@ def process_scan(raw):
         return (False, new_scan, quality, angle, distance)
 
 
+#@jit
 def process_express_scan(raw, lidar):
     #chkSum= (_b2i(raw[0]) & 0x0F) + (_b2i(raw[1]) << 4)
     readings=[]
