@@ -83,6 +83,7 @@ def initializations():
 # becomes Modes.Terminate)
 ##############################################################################
 
+#@profile
 def mainLoop(lidar, occGrid, vehState):
     abort       = False
     loopCntr    = 0
@@ -93,9 +94,9 @@ def mainLoop(lidar, occGrid, vehState):
     while (not abort): 
         #(vehState.mode.currMode != raceModes.TERMINATE and not abort): 
         # Wait until 0.1 seconds have gone by from the last loop
-        while ( time.clock() < (last_time + 0.1) ):
-            pass
-        last_time = time.clock()
+        #while ( time.clock() < (last_time + 0.1) ):
+            #pass
+        #last_time = time.clock()
                        
         if loopCntr % 20 == 0:
             printOut ("\nMAIN_LOOP: Loop #%2d, time %f" % (loopCntr, time.clock()) )      
@@ -126,7 +127,7 @@ def mainLoop(lidar, occGrid, vehState):
         
         # Let the iop know we're alive
         vehState.currHeartBeat += 1        
-        #serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0)   dag turn on  
+        serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0) #  dag turn on  
         
         loopCntr += 1                      
 
@@ -175,9 +176,9 @@ def get_lidarTlm(loopCntr, vehState, lidar, occGrid):
     if loopCntr % 2 == 0:
         # every 1/2 second send the occupancy grid to be displayed
         start_time = time.clock()     
-        occGrid.sendUDP(vehState.iopTime, vehState.histAngle)
+        #occGrid.sendUDP(vehState.iopTime, vehState.histAngle)
         vehState.grid_send_data_time = time.clock() - start_time    ##### time
-        occGrid.clear (occGrid.distance, occGrid.angle)        
+        #occGrid.clear (occGrid.distance, occGrid.angle)        
         #print ("GET_LIDARTLM: Sending grid. Histogram Angle = %d\n" % (vehState.histAngle))        
         pass   
         
@@ -221,7 +222,7 @@ def get_iopTlm(loopCntr):
         #    tlm_cnt, vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
         #    vehState.iopSwitchStatus, vehState.iopStartSwitch) 
     else:
-        #print ("MAINLOOP:GET_IOPTLM - no new telemetry ")         
+        print ("MAINLOOP:GET_IOPTLM - no new telemetry ")         
         pass
 
               
@@ -256,7 +257,8 @@ def proc_iopTlm (data):
     irLR_Range              = telemArray[9]        
     irRF_Range              = telemArray[10]
     irRR_Range              = telemArray[11]
-    
+
+    print("IOP_START_BUTTON: ",telemArray[12])
     vehState.iopSwitchStatus= telemArray[12]  
     vehState.iopStartSwitch = telemArray[12] & 0x01 
     

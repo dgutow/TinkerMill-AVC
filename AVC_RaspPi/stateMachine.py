@@ -33,7 +33,8 @@ ErrorMaxCnt     = 200   # Number of iterations before repeating error msg
 ###############################################################################
 
 def stateMachine (vehState, serialPort, occGrid):
-    # vehState.mode.printMode("STATEMACHINE:")
+    print("IOPMODE: ",vehState.iopMode, " STATEMACHINE: ", vehState.mode.currMode)
+    #vehState.mode.printMode("STATEMACHINE:")
 
     ##*************************************************************************
     # Startup states

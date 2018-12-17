@@ -89,7 +89,7 @@ class controller (object):
                 bestDistanceIndex=index
                 continue
 
-        print("maxDistance: ",maxDistance, " bestDistanceIndex: ",bestDistanceIndex) 
+        #print("maxDistance: ",maxDistance, " bestDistanceIndex: ",bestDistanceIndex) 
         # FIND THE SECOND ANGLE
         # convert the localLidar to max distance 
         obstacleDistance = localLidar.copy()
@@ -149,15 +149,15 @@ class controller (object):
 
         print("maxDistance: ",maxDistance, " outputAngleIndex: ",outputAngleIndex) 
 
-        angle = (outputAngleIndex-180)
+        angle = (outputAngleIndex-180)//3
         if ct.DEVELOPMENT:
             bestAngle=(bestDistanceIndex-180)*ct.DEG_TO_RAD
             plt.plot((0,12*math.cos(bestAngle)),(0,12*math.sin(bestAngle)),linestyle=':',color='b')
             plt.plot((0,maxDistance*math.cos(angle*ct.DEG_TO_RAD)),(0,maxDistance*math.sin(angle*ct.DEG_TO_RAD)),linestyle='-',color='b')
             #plt.plot((0,12),(0,0),linestyle=':')
             plt.show()
-            plt.pause(0.1)
-        return -angle
+            plt.pause(0.001)
+        return angle
     # end
     
     

@@ -30,6 +30,7 @@ import codecs
 import serial
 import struct
 import numba 
+import numpy as np
 
 from collections import namedtuple
 
@@ -74,7 +75,6 @@ class RPLidarException(Exception):
 ###############################################################################
 # process_data - Processes input raw data and returns measurement data
 ###############################################################################
-#@jit
 def process_data (raw, lidar):         # was _process_scan(raw) in rplidar.py
     if len(raw)==5: # standard packet
         return process_scan(raw)
@@ -83,41 +83,40 @@ def process_data (raw, lidar):         # was _process_scan(raw) in rplidar.py
     else:
         return (True, 0, 0, 0, 0)
 
-#@jit
 def process_scan(raw):
-        new_scan = bool((_b2i(raw[0]) & 0x03)==1)
-        inversed_new_scan = bool((_b2i(raw[0]) & 0x03)==2)
-        if new_scan == inversed_new_scan:
-            print ('New scan flags mismatch')
-            return (True, 0, 0, 0, 0)
-            
-        check_bit = _b2i(raw[1]) & 0x01
-        if check_bit != 1:
-            return (True, 0, 0, 0, 0)
-            
-        quality  =   _b2i(raw[0]) >> 2        
-        angle    = ((_b2i(raw[1]) >> 1) + (_b2i(raw[2]) << 7)) / 64.
-        distance =  (_b2i(raw[3])       + (_b2i(raw[4]) << 8)) / 4.
-        #print("raw: ",_b2i(raw[0]),_b2i(raw[1]),_b2i(raw[2]),_b2i(raw[3]),", angle: ",angle,", distance: ",distance)
-        return (False, new_scan, quality, angle, distance)
+    print(" outer level functions may be expecting a numpy array")
+    new_scan = bool((raw[0] & 0x03)==1)
+    inversed_new_scan = bool((raw[0] & 0x03)==2)
+    if new_scan == inversed_new_scan:
+        print ('New scan flags mismatch')
+        return (True, 0, 0, 0, 0)
+        
+    check_bit = raw[1] & 0x01
+    if check_bit != 1:
+        return (True, 0, 0, 0, 0)
+        
+    quality  =   raw[0] >> 2        
+    angle    = ((raw[1] >> 1) + (raw[2] << 7)) / 64.
+    distance =  (raw[3]       + (raw[4] << 8)) / 4.
+    #print("raw: ",raw[0],raw[1],raw[2],raw[3],", angle: ",angle,", distance: ",distance)
+    return (False, new_scan, quality, angle, distance)
 
 
-#@jit
 def process_express_scan(raw, lidar):
-    #chkSum= (_b2i(raw[0]) & 0x0F) + (_b2i(raw[1]) << 4)
+    #chkSum= (raw[0] & 0x0F) + (raw[1] << 4)
     readings=[]
     # check the sync bytes
-    if (_b2i(raw[0]) >> 4) != 0x0A:
+    if (raw[0] >> 4) != 0x0A:
         return (True, 0, 0, 0, 0)
-    if (_b2i(raw[1]) >> 4) != 0x05:
+    if (raw[1] >> 4) != 0x05:
         return (True, 0, 0, 0, 0)
 
-    new_scan=bool(_b2i(raw[3]) >>7)
+    newScan=raw[3] >>7
     
-    startAngle= (_b2i(raw[2])+((_b2i(raw[3]) & 0x7F) << 8))/2**6
+    startAngle= (raw[2]+((raw[3] & 0x7F) << 8))/2**6
     
     #lidar.lastExpressStartAngle
-    if (lidar.lastExpressStartAngle>0) and ( not new_scan):
+    if (lidar.lastExpressStartAngle>0) and ( newScan == 0):
         # if we have a valid previous angle then process
         
         # get the delta angle per measurement            
@@ -126,47 +125,45 @@ def process_express_scan(raw, lidar):
             delta=(startAngle+360-lidar.lastExpressStartAngle)/32.0
         #print("delta: ",delta," lastAngle: ",lidar.lastExpressStartAngle," cur angle: ",startAngle)
         # loop variables
-        angle=startAngle+delta
-        cabinStartByteIndex=4
-        for i in range(16):
-            # decode the cabin
-            d1 = (_b2i(raw[cabinStartByteIndex+0]) >> 2)+ \
-                    (_b2i(raw[cabinStartByteIndex+1]) << 6)
-            d2 = (_b2i(raw[cabinStartByteIndex+2]) >> 2)+ \
-                    (_b2i(raw[cabinStartByteIndex+3]) << 6)
-            dTheta1= ((_b2i(raw[cabinStartByteIndex+0]) & 0x01)+ \
-                        (_b2i(raw[cabinStartByteIndex+4]) & 0x0F) << 1)/8.
-            dTheta2= ((_b2i(raw[cabinStartByteIndex+2]) & 0x01)+ \
-                        (_b2i(raw[cabinStartByteIndex+4]) & 0xF0) >> 3)/8.
-            if bool(_b2i(raw[cabinStartByteIndex+0]) & 0x02):
-                dTheta1 = -dTheta1
-            if bool(_b2i(raw[cabinStartByteIndex+2]) & 0x02):
-                dTheta2 = -dTheta2
-            readings.append((False, new_scan, 0, (angle+0*dTheta1) % 360, d1))
-            angle=(angle+delta)%360
-            readings.append((False, new_scan, 0, (angle+0*dTheta2) % 360, d2))
-            angle=(angle+delta)%360
-            cabinStartByteIndex=cabinStartByteIndex+5
-            #print("d1: ",d1," a1: ",(angle+dTheta1-2*delta),"d2: ",d1," a2: ",(angle+dTheta2-delta));
-
+        readings=process_cabin(raw, startAngle, delta, newScan)
             
     # update the starting angle
     lidar.lastExpressStartAngle = startAngle
         
     return readings
 
-###############################################################################
-# _b2i - Converts byte to integer (for Python 2 compatability)
-############################################################################### 
-def _b2i(byte):
-    if int(sys.version[0]) == 3:
-        return byte 
-    else: 
-        return ord(byte)
+#@numba.jit(nopython=True)
+def process_cabin(raw, startAngle, delta, newScan):
+    readings=np.zeros((32,4))
+    angle=startAngle+delta
+    cabinStartByteIndex=4
+    for i in range(16):
+        # decode the cabin
+        d1 = (raw[cabinStartByteIndex+0] >> 2)+ \
+                (raw[cabinStartByteIndex+1] << 6)
+        d2 = (raw[cabinStartByteIndex+2] >> 2)+ \
+                (raw[cabinStartByteIndex+3] << 6)
+        dTheta1= ((raw[cabinStartByteIndex+0] & 0x01)+ \
+                    (raw[cabinStartByteIndex+4] & 0x0F) << 1)/8.
+        dTheta2= ((raw[cabinStartByteIndex+2] & 0x01)+ \
+                    (raw[cabinStartByteIndex+4] & 0xF0) >> 3)/8.
+        if bool(raw[cabinStartByteIndex+0] & 0x02):
+            dTheta1 = -dTheta1
+        if bool(raw[cabinStartByteIndex+2] & 0x02):
+            dTheta2 = -dTheta2
+        readings[2*(i-1),:]=((newScan*1.0, 0.0, (angle+0.0*dTheta1) % 360, d1*1.0))
+        angle=(angle+delta)%360
+        readings[2*(i-1)+1,:]=((newScan*1.0, 0.0, (angle+0.0*dTheta2) % 360, d2*1.0))
+        angle=(angle+delta)%360
+        cabinStartByteIndex=cabinStartByteIndex+5
+        #print("d1: ",d1," a1: ",(angle+dTheta1-2*delta),"d2: ",d1," a2: ",(angle+dTheta2-delta));
+    #print("readings: ",readings)
+
+    return readings
 
 def _showhex(signal):
     '''Converts string bytes to hex representation (useful for debugging)'''
-    return [format(_b2i(b), '#02x') for b in signal]
+    return [format(b, '#02x') for b in signal]
 
 class RPLidar(object):
     '''Class for communicating with RPLidar rangefinder scanners'''
@@ -280,8 +277,8 @@ class RPLidar(object):
             raise RPLidarException('Descriptor length mismatch')
         elif not descriptor.startswith(SYNC_BYTE + SYNC_BYTE2):
             raise RPLidarException('Incorrect descriptor starting bytes')
-        is_single = _b2i(descriptor[-2]) == 0
-        return _b2i(descriptor[2]), is_single, _b2i(descriptor[-1])
+        is_single = descriptor[-2] == 0
+        return descriptor[2], is_single, descriptor[-1]
 
     def _read_response(self, dsize):
         '''Reads response packet with length of `dsize` bytes'''
@@ -315,9 +312,9 @@ class RPLidar(object):
         serialnumber = codecs.encode(raw[4:], 'hex').upper()
         serialnumber = codecs.decode(serialnumber, 'ascii')
         data = {
-            'model': _b2i(raw[0]),
-            'firmware': (_b2i(raw[2]), _b2i(raw[1])),
-            'hardware': _b2i(raw[3]),
+            'model': raw[0],
+            'firmware': (raw[2], raw[1]),
+            'hardware': raw[3],
             'serialnumber': serialnumber,
         }
         return data
@@ -350,8 +347,8 @@ class RPLidar(object):
         if dtype != HEALTH_TYPE:
             raise RPLidarException('Wrong response data type')
         raw = self._read_response(dsize)
-        status = _HEALTH_STATUSES[_b2i(raw[0])]
-        error_code = (_b2i(raw[1]) << 8) + _b2i(raw[2])
+        status = _HEALTH_STATUSES[raw[0]]
+        error_code = (raw[1] << 8) + raw[2]
         return status, error_code
 
     def clean_input(self):
