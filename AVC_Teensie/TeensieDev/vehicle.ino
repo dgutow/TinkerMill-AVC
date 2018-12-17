@@ -85,6 +85,7 @@ int32   veh_cmd_speed       = 0;    // commanded speed from move cmd (cm/sec)
 int32   veh_cmd_dist        = 0;    // command dist from last move (cm)
 int32   veh_moveDistance    = 0;    // Cutoff dist from last move (cm) 
                                     // (relative to cumulative distance) 
+uint32  veh_turnEndTime     = 0;    // Time to restore steering to 0 degrees.                                    
 int32   veh_turnRadius      = 0;    // cm
 
 Servo   spdServo;                   // Servo controlling vehicle speed
@@ -152,7 +153,7 @@ uint32_t veh_move (int16_t speed, uint16_t distance)
 ///////////////////////////////////////////////////////////////////////////////
 // veh_turn - start or continue a turn command
 ///////////////////////////////////////////////////////////////////////////////
-uint32_t veh_turn (int16_t angle)
+uint32_t veh_turn  (int16_t angle, uint16_t timeMsec)
 {
     if (telem.currMode != NORMAL)
     { 
@@ -161,6 +162,7 @@ uint32_t veh_turn (int16_t angle)
     }
 
     telem.currSteerAng = angle;
+    veh_turnEndTime    = millis() + timeMsec;
     
     // Convert from degrees to Servo microseconds 
     int32_t uSeconds = TRN_MID_PULSEWIDTH + (angle * TRN_CONVERSION); 
@@ -209,9 +211,7 @@ void veh_getTelem (uint32 currTimeMsec)
 
     // Lets put the interrupt step counters in the spares for diagnostics
     telem.spare1 = lt_nSteps;
-    telem.spare2 = rt_nSteps;     
-    //telem.volt1 = lt_nSteps;
-    //telem.volt2 = rt_nSteps;    
+    telem.spare2 = rt_nSteps;         
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -274,6 +274,12 @@ void veh_check (uint32 currTimeMsec)
         // Yep, we're past the move limit, stop the vehicle
         veh_move (0, 0);
     }      
+    
+    // Check if it's time to turn straight again
+    if (currTimeMsec > veh_turnEndTime)
+    {
+        veh_turn (0, 10000);    // In 10 seconds we'll do it again...
+    }
 }
 #endif
 

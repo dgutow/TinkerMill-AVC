@@ -62,12 +62,12 @@ void commandDecode(cmdData* command)
     switch (cmd)
     {
         case 'M':                   // Move command
-            incAccpt = veh_move ((int32_t) param1, param2);
+            incAccpt = veh_move ((int32_t) param1, (int32_t) param2);
             DBGPORT.println ("commandDecode: Move Command");     
             break;
 
         case 'T':                   // Turn
-            incAccpt = veh_turn ((int32_t) param1);
+            incAccpt = veh_turn ((int32_t) param1, (int32_t) param2);
             DBGPORT.println ("commandDecode: Turn Command");
             break;
 
