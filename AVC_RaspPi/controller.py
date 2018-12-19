@@ -44,11 +44,6 @@ class controller (object):
     ###########################################################################
     #@profile
     def calcTargetAngle(self, vehState):
-        if self.cosines[0,0]==0:
-            for i in range(181):
-                self.cosines[i,0] = math.cos((i-90)*ct.DEG_TO_RAD)
-                self.sines[i,0] = math.sin((i-90)*ct.DEG_TO_RAD)
-            
         # this algorithm has two stages, the first finds the angles within +- 
         # 45 deg of our current heading that have the largest distance reading, 
         # and prefers angles that are closest to our current angle. The second 
@@ -157,17 +152,29 @@ class controller (object):
             #plt.plot((0,12),(0,0),linestyle=':')
             plt.show()
             plt.pause(0.001)
-        return translateCommand(angle, vehState.maxSpeed)
+        return translateCommand(angle, ct.speedMax)
     # end
+    
     def translateCommand(angle, speed):
-     # turn rate = speed / (wheel-base length) * sin(wheel rotation)
-     
-     # target a turn period of .5 sec
-     # desired turn rate
-     dTR = angle/.5
-     # desired wheel rotation
-     dWR = math.asin(dTR*ct.DEG_TO_RAD * ct.WHEEL_BASE_LENGTH / speed)
-     return dWR
+        # turn rate = speed / (wheel-base length) * sin(wheel rotation)
+
+        # target a turn period of .5 sec
+        # desired turn rate
+        dTR = angle/.5
+        # desired wheel rotation
+        dWR = math.asin(dTR*ct.DEG_TO_RAD * ct.wheelBase / speed)
+        return dWR
+
+    def __init__(self):
+        for i in range(181):
+            self.cosines[i,0] = math.cos((i-90)*ct.DEG_TO_RAD)
+            self.sines[i,0] = math.sin((i-90)*ct.DEG_TO_RAD)
+        self.cosineMatrix = 1E2 * np.ones((181,360))
+        self.sineMatrix = 1E2 * np.ones((181,360))
+        for i in range(181):
+            self.sineMatrix[i,math.max(0,i-90):math.min(180,i+90)] = self.sines[math.max(0,90-i):math.min(180,270-i),0]
+            self.cosineMatrix[i,math.max(0,i-90):math.min(180,i+90)] = self.cosines[math.max(0,90-i):math.min(180,270-i),0]
+    #end   
     
 # end class    
 ###############################################################################
