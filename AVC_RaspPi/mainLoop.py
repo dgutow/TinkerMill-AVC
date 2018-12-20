@@ -165,7 +165,7 @@ def get_lidarTlm(loopCntr, vehState, lidar, occGrid, cont):
     # Calculate the steering angle.  This angle won't be used until we're in
     # the proper state
     start_time = time.clock()
-    vehState.histAngle = cont.calcTargetAngleRest(vehState,45,-45) 
+    vehState.histAngle = cont.calcTargetAngle(vehState,45,-45) 
     #vehState.histAngle = occGrid.getNearestAngle(0) 
     #print(occGrid.printHistArr())
     vehState.hist_get_angle_time = time.clock() - start_time        ##### time
