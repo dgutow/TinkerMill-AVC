@@ -6,8 +6,9 @@
 """
 
 import numpy as np
-import math
+import math as math
 import matplotlib.pyplot as plt
+import time as time
 #from rangeClass      import Range
 
 import constants as ct        # Vehicle and course constants
@@ -39,132 +40,97 @@ class controller (object):
     # Error handling
     errorString        = ""
     
+    def translateCommand(self, angle, speed):
+        # turn rate = speed / (wheel-base length) * sin(wheel rotation)
+
+        # target a turn period of .5 sec
+        # desired turn rate
+        dTR = angle/.5
+        # desired wheel rotation
+        dWR = math.asin(dTR*ct.DEG_TO_RAD * ct.wheelBase / speed)
+        return dWR
+
+
     ###########################################################################
     # calcTargetAngle -
     ###########################################################################
-    #@profile
-    def calcTargetAngle(self, vehState):
-        if self.cosines[0,0]==0:
-            for i in range(181):
-                self.cosines[i,0] = math.cos((i-90)*ct.DEG_TO_RAD)
-                self.sines[i,0] = math.sin((i-90)*ct.DEG_TO_RAD)
-            
-        # this algorithm has two stages, the first finds the angles within +- 
-        # 45 deg of our current heading that have the largest distance reading, 
-        # and prefers angles that are closest to our current angle. The second 
-        # searches within +- 45 deg of the first angle for the direction that 
-        # we can go the farthest and not collide with stuff
+    def calcTargetAngle(self, vehState, leftAngle, rightAngle):
+        # this algorithm has one stage, find the farthest distance that we can
+        # go within the bounds represented by left angle and right angle without
+        #  colliding with stuff.
 
         # get a local copy of the current angle
-        #vehState.currentAngleLock.acquire()
         currentAngle = self.currentAngle
-        #vehState.currentAngleLock.release()
 
         # now copy out the lidar readings, recentering on our current direction
-        #localLidar = np.zeros((360))
-        #lidarBufferLock.acquire()
-        #for index in range(360):
-            #bufferIndex = int(round( \
-            #    ((currentAngle - 180 + index) % 360) ))
-            #print("bufferIndex: ",bufferIndex," LocalIndex: ",index, "distance: ", \
-            #    vehState.lidarBuffer[bufferIndex,ct.LIDAR_BUFFER_DISTANCE])
-            #print(index,", ",bufferIndex,", ",ct.LIDAR_BUFFER_DISTANCE)
-            #localLidar[index]=vehState.lidarBuffer[bufferIndex,ct.LIDAR_BUFFER_DISTANCE]
-        #print(indices)
         localLidar=np.roll(vehState.lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE],180)
-        #lidarBufferLock.release()        
-        
-        # FIND THE FIRST ANGLE
 
-        # find the direction that would get us the farthest with the least turning, assuming that we are a particle
-        maxDistance = 0.
-        bestDistanceIndex = 0
-        # 180 is the 0 angle, 180+- 45 is the range we want to consider
-        for index in range(180-45,180+45): 
-            if localLidar[index]>maxDistance:
-                maxDistance=localLidar[index].astype(float)
-                bestDistanceIndex=index
-                continue
-            if (localLidar[index]==maxDistance) and (abs(index-180)<abs(bestDistanceIndex-180)):
-                bestDistanceIndex=index
-                continue
+        angles = np.arange(rightAngle,leftAngle+1,1).astype(int)
 
-        #print("maxDistance: ",maxDistance, " bestDistanceIndex: ",bestDistanceIndex) 
-        # FIND THE SECOND ANGLE
+        # FIND THE distances
         # convert the localLidar to max distance 
-        obstacleDistance = localLidar.copy()
-        vehicleWidth=9/12*ct.METERS_PER_FOOT
-        # iterate over the potential directions (+-45 deg)
-        for index in range(bestDistanceIndex-45,bestDistanceIndex+45):
-            # iterate over the potential obstacles (+-90 deg)
-            closeness = np.abs(np.multiply(np.squeeze(self.sines),localLidar[index-90:index+91]))
-            dist2close = np.multiply(np.squeeze(self.cosines),localLidar[index-90:index+91])
-            collisions=np.where(closeness<vehicleWidth)
-            #print("shapes")
-            #print(self.sines.shape)
-            #print(localLidar[index-90:index+90].shape)
-            #print(closeness.shape)
-            #print(dist2close.shape)
-            obstacleDistance[index]=np.amin(dist2close[collisions])
-            """
-            for subIndex in range(index-90,index+90):
-                if index==subIndex:
-                    continue
-                #print("sideDist: ",((localLidar[subIndex].astype(float))* \
-                #    math.sin(abs(index-subIndex)*ct.DEG_TO_RAD))," dist ", \
-                #    (localLidar[subIndex].astype(float))," angle ",(abs(index-subIndex)))
-                # if we would run into the obstacle sooner than our 
-                # distance, then lower our distance
-                #print("index: ",index,"subIndex: ",subIndex,"sideDist: ",localLidar[subIndex],"sin ",self.sines[90-(index-subIndex)], " cos ",self.cosines[90-abs(index-subIndex)]," curDist: ",obstacleDistance[index]," angle: ",(index-subIndex))
-                if (localLidar[subIndex]*abs(self.sines[90-(index-subIndex)]) < \
-                    (9/12*ct.METERS_PER_FOOT)) and \
-                    (obstacleDistance[index] > localLidar[subIndex]*self.cosines[90-(index-subIndex)]): 
-                    #print("Yindex: ",index,"subIndex: ",subIndex,"sideDist: ",localLidar[subIndex],"sin ",self.sines[90-(index-subIndex)], " cos ",self.cosines[90-abs(index-subIndex)]," curDist: ",obstacleDistance[index]," angle: ",(index-subIndex))
-                    obstacleDistance[index]= \
-                        localLidar[subIndex]*self.cosines[90-(index-subIndex)]
-                #else:
-                #    if (171==index):
-                #        print("Nindex: ",index,"subIndex: ",subIndex,"sideDist: ",localLidar[subIndex],"sin ",self.sines[90-(index-subIndex)], " cos ",self.cosines[90-abs(index-subIndex)]," curDist: ",obstacleDistance[index]," angle: ",(index-subIndex))
-            """
-                            
-
-        #print("localLidar")
-        #print(localLidar[bestDistanceIndex-45:bestDistanceIndex+45])
-        #print("obstacleDistance")
-        #print(obstacleDistance[bestDistanceIndex-45:bestDistanceIndex+45])
-
+        #print("angles: ",angles)
+        #print("localLidar: ", localLidar)
+        #print("self.sineMatrix.shape: ",self.sineMatrix.shape)
+        obstaclePerpDistance = self.sineMatrix[90+angles,:]*localLidar
+        obstacleTangDistance = self.cosineMatrix[90+angles,:]*localLidar
+        # set all values where we wouldn't run into a specific obstacle to 12 m
+        #print(obstacleTangDistance.shape)
+        obstacleTangDistance = np.where(np.abs(obstaclePerpDistance)>=ct.vehicleWidth, 12, obstacleTangDistance)
+        
+        #print(obstacleTangDistance.shape)
+        obstacleTangDistance = np.nanmin(obstacleTangDistance, axis=1)
+        
         # find the direction that would get us the farthest with the least turning, assuming that we are a particle
         maxDistance = 0.
-        outputAngleIndex = 0
-        # bestDistanceIndex is the 0 angle, bestDistanceIndex+- 45
-        for index in range(bestDistanceIndex-45,bestDistanceIndex+45): 
-            #print("distToGo[",index,"] = ",obstacleDistance[index].astype(float));
-            if obstacleDistance[index]>maxDistance:
-                maxDistance=obstacleDistance[index]
-                outputAngleIndex=index
-                continue
-            if (obstacleDistance[index]==maxDistance) and (abs(index-bestDistanceIndex)<abs(outputAngleIndex-bestDistanceIndex)):
-                outputAngleIndex=index
-                continue
+        outputAngle = 0
+        #print(obstacleTangDistance)
+        # get the indices that have the maximum length
+        indices = np.nonzero(obstacleTangDistance==np.nanmax(obstacleTangDistance))[0]
+        #print(type(indices), "indices: ",indices)
+        #print("angles[indices]: ",(np.abs(angles[indices])==np.nanmin(np.abs(angles[indices]))))
+        #print("angles[indices]: ",np.nonzero(np.abs(angles[indices])==np.nanmin(np.abs(angles[indices])))[0].astype(int).item(0))
+        bestIndex = np.nonzero(np.abs(angles[indices])==np.nanmin(np.abs(angles[indices])))[0].astype(int).item(0)
+        # get the maximum length index that is closest to forward
+        bestIndex = indices[bestIndex]
+        
+        # record for plotting and output
+        maxDistance=obstacleTangDistance[bestIndex]
+        outputAngle=angles[bestIndex]
+        
 
-        print("maxDistance: ",maxDistance, " outputAngleIndex: ",outputAngleIndex) 
-
-        angle = (outputAngleIndex-180)//3
-        if ct.DEVELOPMENT:
-            bestAngle=(bestDistanceIndex-180)*ct.DEG_TO_RAD
-            plt.plot((0,12*math.cos(bestAngle)),(0,12*math.sin(bestAngle)),linestyle=':',color='b')
-            plt.plot((0,maxDistance*math.cos(angle*ct.DEG_TO_RAD)),(0,maxDistance*math.sin(angle*ct.DEG_TO_RAD)),linestyle='-',color='b')
+        print("maxDistance: ",maxDistance, " outputAngle: ",outputAngle) 
+        if False and ct.DEVELOPMENT:
+            bestAngle=(outputAngle*ct.DEG_TO_RAD) % (2*math.pi)
+            #print("maxDistance: ",maxDistance, " bestAngle: ",bestAngle) 
+            plt.plot((0,maxDistance*math.cos(bestAngle)),(0,maxDistance*math.sin(bestAngle)),linestyle='-',color='b')
             #plt.plot((0,12),(0,0),linestyle=':')
+            plt.title(("maxDistance: ",maxDistance, " outputAngle: ",outputAngle))
             plt.show()
             plt.pause(0.001)
-        return angle
+
+        return self.translateCommand(outputAngle, ct.speedMax)
     # end
     
+    def __init__(self):
+        for i in range(181):
+            self.cosines[i,0] = math.cos((i-90)*ct.DEG_TO_RAD)
+            self.sines[i,0] = math.sin((i-90)*ct.DEG_TO_RAD)
+        self.cosineMatrix = np.zeros((181,360))
+        self.sineMatrix = 1E2 * np.ones((181,360))
+        for i in range(180):
+            #print(i)
+            #print("range: ",self.sineMatrix[i, 360])
+            self.sineMatrix[i, i:(181+i)] = np.squeeze(self.sines)
+            self.cosineMatrix[i, i:(181+i)] = np.squeeze(self.cosines)
+        # the last line overlaps with the first entry, so do it by hand
+        self.sineMatrix[180, 180:360] = np.squeeze(self.sines[0:180,0])
+        self.cosineMatrix[180, 180:360] = np.squeeze(self.cosines[0:180,0])
+        self.sineMatrix[180, 0] = np.squeeze(self.sines[180,0])
+        self.cosineMatrix[180, 0] = np.squeeze(self.cosines[180,0])
+        #print("sine row 1: ",self.sineMatrix[180,:])
+        #print("cosine row 1: ",self.cosineMatrix[180,:])
+    #end   
     
 # end class    
 ###############################################################################
-
-###############################################################################
-# Global variables 
-###############################################################################
-cont       = controller()

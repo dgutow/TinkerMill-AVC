@@ -7,13 +7,19 @@
 #from vehicleState    import *       # Everything we know about the vehicle
 import math as math
 
-DEVELOPMENT = True
+DEVELOPMENT = False
 
 ###############################################################################
 # SIM_TEENSY - Used when integrating with no Teensy connected.
 ###############################################################################
 #SIM_TEENSY	= True              # When no Teensy
 SIM_TEENSY	= False            # When there is a communicating Teensy
+
+###############################################################################
+# random physical constants
+###############################################################################
+METERS_PER_FOOT  = 0.3048
+DEG_TO_RAD       = math.pi/180
 
 ###############################################################################
 # TCP/UDP communication parameters to the GUI host
@@ -47,7 +53,8 @@ UDP_OCCPORT  = 12346
 ###############################################################################
 trackWidth      = (16 * 12 * 2.54)      # Width between walls - 16 feet (cm)
 trackLength     = 13116                 # Approx length of track (cm)
-
+wheelBase       = 11 / 12 * METERS_PER_FOOT
+vehicleWidth    = 9/12*METERS_PER_FOOT
 ###############################################################################
 # class obstacle - an enumeration of the track obstacles we know about
 # Course obstacle sequence - this array holds the sequence of obstacles which
@@ -159,17 +166,11 @@ LIDAR_BUFFER_USED       = 4 # I am thinking that the test for this would be valu
 ###############################################################################
 # The lidar readings columns:  
 ###############################################################################
-LIDAR_READING_ERROR     = 0
-LIDAR_READING_NEWSCAN   = 1
-LIDAR_READING_QUALITY   = 2
-LIDAR_READING_ANGLE     = 3
-LIDAR_READING_DISTANCE  = 4
-
-###############################################################################
-# random physical constants
-###############################################################################
-METERS_PER_FOOT  = 0.3048
-DEG_TO_RAD       = math.pi/180
+#LIDAR_READING_ERROR     = 0
+LIDAR_READING_NEWSCAN   = 0
+LIDAR_READING_QUALITY   = 1
+LIDAR_READING_ANGLE     = 2
+LIDAR_READING_DISTANCE  = 3
 
 ###############################################################################
 # :  
