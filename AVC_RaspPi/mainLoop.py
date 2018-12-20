@@ -72,10 +72,12 @@ def initializations():
     occGrid     = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
     occGrid.sendUDP_init(OCC_IPADD, UDP_OCCPORT)
     
+    cont        = controller()
+
     time.sleep(0.5) 
     printOut("INITIALIZATIONS: initializations complete")       
 
-    return lidar, occGrid, vehState
+    return lidar, occGrid, vehState, cont
 # end initializations   
 
 ############################################################################## 
@@ -84,7 +86,7 @@ def initializations():
 ##############################################################################
 
 #@profile
-def mainLoop(lidar, occGrid, vehState):
+def mainLoop(lidar, occGrid, vehState, cont):
     abort       = False
     loopCntr    = 0
     printOut ("MAIN_LOOP: Dwelling for a second...")
@@ -104,7 +106,7 @@ def mainLoop(lidar, occGrid, vehState):
         # Check if we received a command from the GUI host and
         # send the GUI a telemetry packet
         guiCmd = guiIf.get_cmd () 
-        abort  = exec_guiCmd (guiCmd)           
+        abort  = exec_guiCmd (guiCmd, vehState)           
         guiIf.send_rpiTlm (guiAcceptCnt, vehState)  
         
         # Get the iop telemetry msgs and parse into state structure
@@ -117,7 +119,7 @@ def mainLoop(lidar, occGrid, vehState):
         #    guiIf.send_visTlm (visMsg)  
         
         # Get all the RPlidar data and enter it into the occGrid
-        get_lidarTlm(loopCntr, vehState, lidar, occGrid)
+        get_lidarTlm(loopCntr, vehState, lidar, occGrid, cont)
             
         # Now do all the state specific actions
         #try:
@@ -148,7 +150,7 @@ def mainLoop(lidar, occGrid, vehState):
 # get_lidarTlm(loopCntr)
 ################################################################################
 #@profile
-def get_lidarTlm(loopCntr, vehState, lidar, occGrid):
+def get_lidarTlm(loopCntr, vehState, lidar, occGrid, cont):
     # Get the lastest range points from the RPLidar
 
     start_time = time.clock()
@@ -163,7 +165,7 @@ def get_lidarTlm(loopCntr, vehState, lidar, occGrid):
     # Calculate the steering angle.  This angle won't be used until we're in
     # the proper state
     start_time = time.clock()
-    vehState.histAngle = cont.calcTargetAngle(vehState) 
+    vehState.histAngle = cont.calcTargetAngleRest(vehState,45,-45) 
     #vehState.histAngle = occGrid.getNearestAngle(0) 
     #print(occGrid.printHistArr())
     vehState.hist_get_angle_time = time.clock() - start_time        ##### time
@@ -214,6 +216,7 @@ def get_iopTlm(loopCntr):
     
         tlm_cnt += 1
     # end while
+    print("IOP_START_BUTTON: ",vehState.iopSwitchStatus)
 
     
     if (tlm_cnt > 0 and (loopCntr % 20 == 0) ):
@@ -258,7 +261,6 @@ def proc_iopTlm (data):
     irRF_Range              = telemArray[10]
     irRR_Range              = telemArray[11]
 
-    print("IOP_START_BUTTON: ",telemArray[12])
     vehState.iopSwitchStatus= telemArray[12]  
     vehState.iopStartSwitch = telemArray[12] & 0x01 
     
@@ -354,9 +356,8 @@ def visionSend(obstacle):
 ###########################################################################
 # exec_guiCmd  -  
 ###########################################################################    
-def exec_guiCmd (cmdMsg):
+def exec_guiCmd (cmdMsg, vehState):
     global guiAcceptCnt
-    global vehState
     abort = False
     
     if (len(cmdMsg) == 0):      # Is there a real gui command here?
@@ -476,8 +477,8 @@ def exec_guiCmd (cmdMsg):
     elif (command == '1'):      # Abort the Python Program!  
         abort = True
         
-    elif (command == '2'):      # n/d
-        bad_cmd (command, param1, param2, param3) 
+    elif (command == '2'):      # save the lidar buffer
+        np.save(str(time.clock())+".npy",vehState.lidarBuffer)
         
     elif (command == '3'):      # n/d 
         bad_cmd (command, param1, param2, param3)
@@ -517,6 +518,6 @@ def bad_cmd (cmd, p1, p2, p3):
 ###############################################################################
 if __name__ == "__main__":
     ##### TEST # 1 
-    lidar, occGrid, vehState = initializations()
-    mainLoop(lidar, occGrid, vehState)
+    lidar, occGrid, vehState, cont = initializations()
+    mainLoop(lidar, occGrid, vehState, cont)
 # end    

@@ -54,7 +54,7 @@ UDP_OCCPORT  = 12346
 trackWidth      = (16 * 12 * 2.54)      # Width between walls - 16 feet (cm)
 trackLength     = 13116                 # Approx length of track (cm)
 wheelBase       = 11 / 12 * METERS_PER_FOOT
-
+vehicleWidth    = 9/12*METERS_PER_FOOT
 ###############################################################################
 # class obstacle - an enumeration of the track obstacles we know about
 # Course obstacle sequence - this array holds the sequence of obstacles which
