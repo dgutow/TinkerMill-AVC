@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 """ Simple occupancy-grid-based mapping.
-
 Author: David Gutow, Rich Paasch
 Version: 8/2018
 """
@@ -10,10 +9,11 @@ import socket
 import struct
 import numpy as np
 from   math     import *
-
+import constants as ct
 
 from LIDAR      import *
-from graphics   import *        # dag - remove before flight
+if ct.DEVELOPMENT:
+    from graphics   import *        # dag - remove before flight
 ###############################################################################
 # Class Grid
 ###############################################################################
@@ -27,21 +27,17 @@ class Grid(object):
     same vicinity) it is assumed to be the same obstacle.  The newer
     position replaces the older one, on the assumption that the vehicle
     is closer to the obstacle and thus the measurement is more accurate.
-
     (Possible future enhancement - look at the 8 surrounding cells to
     see if there is an entry within a set distance say 'resolution' and
     if so, assume that is the original for the current point)
-
     The origin (0,0) of the grid is considered to be the lower left
     corner with 'x' increasing to the right (increasing column index)
     and 'y' increasing going up (increasing row index).
-
     The grid is dynamic in that it is referenced to the vehicle.  As the
     vehicle moves the grid moves with it.  The distance and angle variables
     are the vehicle cumulative distance and angle which correspond to the
     current grid. Angle is assumed to be an absolute angle in world
     reference frame, something like we might obtain from a compass.
-
     Public instance variables:
         nCols      --  Number of columns in the occupancy grid.
         nRows      --  Number of rows in the occupancy grid.
@@ -52,7 +48,6 @@ class Grid(object):
         grid       --  integer array with nRows rows and nCols columns.
         Xpos       --  The position of the car which the map is relative to
         Ypos       --  The position of the car which the map is relative to
-
     """
 
     ###########################################################################
@@ -559,9 +554,7 @@ if __name__ == '__main__':
 
 """
     import time
-
     np.set_printoptions(precision=3, linewidth=2000, threshold=np.nan, suppress=True)
-
     if (False):
         # RPLIDAR A2 scanner radius is 12 meters max
         maxWidth = 16 # meters
@@ -569,48 +562,37 @@ if __name__ == '__main__':
         res = (maxWidth * 100) / desired_columns # cm/Grid
  
         g = Grid(res, nRows=desired_columns, nCols=desired_columns, distance=0, angle=0)
-
         # # TEST SCRIPT - Draw a left wall
         # for y in range(3000):
         #     g.enterPoint(y*tan(radians(40)), y)
-
         s = LIDAR(portname='/dev/ttyUSB0')
-
         for j in range(10):
             obstacles = s.scan() # returns an array of one rotation of obstacles
-
             for i in obstacles:
                 g.enterRange(0, 0, i[1] / 10, i[0])
-
         # scanAngle or "Cone": +/- (deg)
         # angDelta or "Slice": (deg)
         # minCost - smallest cost to display representing no object detected (recommended set to 0)
         # maxCost - largest cost to display representing imminent collision (recommended set to 9 max)
         h = Histogram(origin=[0.5 * g.nCols * g.resolution, 0], scanAngle=45, angDelta=3)
-
         # print(h.printSimpleGrid(g))
         costArray = h.getCostArray(g, maxDist, h.scanAngle, h.angDelta)
         # print(costArray)
         # OUTPUT
         output = h.getAngle(costArray, 0)
-
         print(output)
         pass
     else:           # DAG
         rows = 100
         cols = 160
         res  = 10   # resolution 10 cm
-
         grid = Grid(res, rows, cols, 0, 0)
-
         #initGraphGrid (self, str, nPix, borders = False, circle = False):
         #graphGrid (self, color="red"):
         #enterRange (self,  carCumDist, carCurrAngle, scanDist, scanAngle):
         #enterPoint(self, x, y):
-
         multiplier = 1
         middle = (cols / 2) * res
-
         for y in range(0, rows * res, res):
             if y <= rows * res * 0.5:
                 grid.enterPoint((0 * y) + (middle-300), y)
@@ -618,20 +600,15 @@ if __name__ == '__main__':
             else:
                 grid.enterPoint((multiplier * y) + (middle-200), y)
                 grid.enterPoint((-multiplier * y) + (middle+200), y)
-
         for y in range(0, rows * res, res):
             grid.enterPoint((-multiplier * y) + (middle+100), y + 800)
             grid.enterPoint((multiplier * y) + (middle+100), y + 800)
-
         grid.initGraphGrid ("Testing", 4, borders = False, circle = False)
         grid.graphGrid (color="red")
-
         time.sleep(3)
         #exit()
-
         # OUTPUT
         output = grid.getNearestAngle(0)
-
         print(output)
     # end if
 """
