@@ -98,7 +98,7 @@ def get_lidar_data(lidar, vehState, occGrid):
             return
         else:
             nPoints += readings.shape[0]
-            transferToBuffer(readings, current_time, vehState)
+            transferToBuffer(readings, current_time, vehState.lidarBuffer)
             # set the no reading points to 12 meters
             #readings[np.where(readings[:,LIDAR_READING_DISTANCE]== 0),LIDAR_READING_DISTANCE] = 12000
             # get the corresponding indices in the lidarBuffer
@@ -181,17 +181,17 @@ def get_lidar_data(lidar, vehState, occGrid):
 # end def
 
 @numba.jit()
-def transferToBuffer(readings, current_time, vehState):
+def transferToBuffer(readings, current_time, lidarBuffer):
     readings[np.where(readings[:,LIDAR_READING_DISTANCE]== 0),LIDAR_READING_DISTANCE] = 12000
     # get the corresponding indices in the lidarBuffer
     # note this only works because the end array has the same number of entries
     bufferIndices = np.round_(readings[:,LIDAR_READING_ANGLE]).astype(int) % 360 
-    #vehState.lidarBuffer[bufferIndices,:]=[current_time, 0, \
+    #lidarBuffer[bufferIndices,:]=[current_time, 0, \
     #    readings[:,LIDAR_READING_ANGLE], readings[:,LIDAR_READING_DISTANCE]/1000.,1]
     length = bufferIndices.shape[0]
     i=0
     while i< length:
-        vehState.lidarBuffer[bufferIndices[i],:]=[current_time, 0, \
+        lidarBuffer[bufferIndices[i],:]=[current_time, 0, \
             readings[i,LIDAR_READING_ANGLE], readings[i,LIDAR_READING_DISTANCE]/1000.,1]
         i=i+1
 
