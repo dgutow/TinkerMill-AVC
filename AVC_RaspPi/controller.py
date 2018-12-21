@@ -8,7 +8,10 @@
 import numpy as np
 import math as math
 import matplotlib.pyplot as plt
+from matplotlib.collections import PatchCollection
+from matplotlib.patches import Rectangle
 import time as time
+import os as os
 #from rangeClass      import Range
 
 import constants as ct        # Vehicle and course constants
@@ -104,11 +107,11 @@ class controller (object):
         if ct.DEVELOPMENT:
             bestAngle=(outputAngle*ct.DEG_TO_RAD) % (2*math.pi)
             #print("maxDistance: ",maxDistance, " bestAngle: ",bestAngle) 
-            plt.plot((0,maxDistance*math.cos(bestAngle)),(0,maxDistance*math.sin(bestAngle)),linestyle='-',color='b')
+            plt.plot((0,maxDistance*math.cos(bestAngle)),(0,-maxDistance*math.sin(bestAngle)),linestyle='-',color='b')
             #plt.plot((0,12),(0,0),linestyle=':')
             plt.title(("maxDistance: ",maxDistance, " outputAngle: ",outputAngle))
             plt.show()
-            plt.pause(0.001)
+            plt.pause(0.5)
 
         return outputAngle // 3 #self.translateCommand(outputAngle, ct.speedMax)
     # end
@@ -133,5 +136,73 @@ class controller (object):
         #print("cosine row 1: ",self.cosineMatrix[180,:])
     #end   
     
+def plotBuffer(lidarBuffer):
+        #print("start")
+    #print(lidarBuffer[:,LIDAR_BUFFER_TIME]-lidarBuffer[1,LIDAR_BUFFER_TIME])
+    #print("stop")
+    points = np.zeros((lidarBuffer.shape[0],2))
+    points = np.linspace(0,2*math.pi,360)
+    #print(points.shape)
+    points=np.append(points,np.sin(points))
+    points=np.reshape(points,(360,2),'F')
+    #print(points)
+    points[0:360,0]=np.cos(points[0:360,0])
+    #print(points)
+    
+    points[:,0]=np.multiply(points[:,0],lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE])
+    points[:,1]=np.multiply(points[:,1],lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE])
+    #for i in range(360):
+    #    points[i,:]= points[i,:]*lidarBuffer[i,ct.LIDAR_BUFFER_DISTANCE]
+    #print("break")
+    #print(points)
+
+    #plt.close()
+    plt.cla()
+
+    plt.plot(points[:,0],-points[:,1],linestyle=' ',marker='.',markersize=5)
+    boxes = []
+    boxes.append(pat.Rectangle((-ct.wheelBase/2,-ct.vehicleWidth/2),ct.wheelBase,ct.vehicleWidth))
+    pc = PatchCollection(boxes, facecolor='k', alpha=0.5, edgecolor='k')
+    
+    plt.gca().add_collection(pc)
+    plt.xlim((-12,12))
+    plt.ylim((-12,12))
+    plt.grid(True)
+    plt.gca().set_aspect('equal', adjustable='box')
+    plt.xlabel("Distance (m)")
+    plt.ylabel("Distance (m)")
+
+    #plt.show(block=False)
+    #plt.show()
+    #plt.draw()
+    #plt.pause(0.001)    
 # end class    
 ###############################################################################
+###############################################################################
+# MAIN-LOOP EXECUTION
+###############################################################################
+if __name__ == "__main__":
+    # create the controller
+    cont = controller()
+    vehState = vs.vehicleState()
+    ct.DEVELOPMENT=True
+    
+    # get a sorted listing of the .npy files
+    dir = os.listdir('.')
+    for i in range(len(dir)-1,-1,-1):
+        if len(dir[i])<4:
+            del dir[i]
+        elif ".npy" not in dir[i]:
+            del dir[i]
+    # sort by digits
+    dir.sort()
+    # sort by length
+    dir = sorted(dir, key=len)
+
+    # now load, display and run them
+    for file in dir:
+        print(file)
+        vehState.lidarBuffer = np.load(file)
+        plotBuffer(vehState.lidarBuffer)
+        cont.calcTargetAngle(vehState, 45, -45)
+# end  

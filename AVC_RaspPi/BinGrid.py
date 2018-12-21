@@ -8,12 +8,15 @@ Version: 8/2018
 import sys
 import socket
 import struct
-#import numpy as np
+import time
+import numpy as np
+from scipy import ndimage
+from scipy import misc                      # scipy
+#from skimage import *  # scikit-image
+
+import matplotlib.pyplot as plt             # matplotlib
 from   math     import *
 
-
-#from LIDAR      import *
-from graphics   import *        # dag - remove before flight
 ###############################################################################
 # Class Grid
 ###############################################################################
@@ -54,7 +57,7 @@ class Grid(object):
         Ypos       --  The position of the car which the map is relative to
 
     """
-
+ 
     ###########################################################################
     # __init__   Note - the position of the car when this map was created or
     # updated is always in the center and at Y = 0.0
@@ -77,8 +80,9 @@ class Grid(object):
         self.origin     = [0.5 * self.nCols * self.resolution, 0]
         self.maxDist    = (sqrt( (self.nRows/2)**2 + (self.nCols)**2 ) )
         
-        # Create the binary grid to send to store the points
-        self.binGrid =  [[ False for x in range(self.nCols)] for y in range(self.nRows)]
+        # Create the binary grid to store the points
+        self.binGrid = np.zeros( (self.nRows, self.nCols), dtype=np.uint16 )
+        #self.binGrid =  [[ False for x in range(self.nCols)] for y in range(self.nRows)]
         
         # Create the binary array to send binGrid over UDP
         self.binArr =  [ 0 for x in range(self.nCols * self.nRows)] 
@@ -124,7 +128,8 @@ class Grid(object):
         self.angle      = angle
         
         # Create the binary grid to send as telemetry
-        self.binGrid =  [[ False for x in range(self.nCols)] for y in range(self.nRows)]
+        self.binGrid = np.zeros( (self.nRows, self.nCols), dtype=np.uint16 )
+        #self.binGrid =  [[ False for x in range(self.nCols)] for y in range(self.nRows)]
     # end
 
     ###########################################################################
@@ -132,7 +137,7 @@ class Grid(object):
     # it's cumulative, and it's currAngle.  The scanner knows it's scan angle
     # and range distance.
     # Parameters:
-    #   carCumDist  - cumulative distance the car has travelled
+    #   carCumDist  - cumulative distance the car has traveled
     #   carCurrAngle- current angle of the car relative to left/right wall (deg).
     #                 positive values are angled to the right
     #                 negative values are angled to the left
@@ -159,15 +164,15 @@ class Grid(object):
         col = int (Xpos / self.resolution)
         row = int (Ypos / self.resolution)
         
-        self.enterPoint (row+1, col+1)
-        self.enterPoint (row,   col+1)
-        self.enterPoint (row-1, col+1)
-        self.enterPoint (row+1, col)
+        #self.enterPoint (row+1, col+1)
+        #self.enterPoint (row,   col+1)
+        #self.enterPoint (row-1, col+1)
+        #self.enterPoint (row+1, col)
         self.enterPoint (row,   col)
-        self.enterPoint (row-1, col)
-        self.enterPoint (row+1, col-1)
-        self.enterPoint (row,   col-1)
-        self.enterPoint (row-1, col-1)        
+        #self.enterPoint (row-1, col)
+        #self.enterPoint (row+1, col-1)
+        #self.enterPoint (row,   col-1)
+        #self.enterPoint (row-1, col-1)        
     # end
 
     ###########################################################################
@@ -182,7 +187,7 @@ class Grid(object):
         if (row < 0 or row >= self.nRows):
             return
 
-        self.binGrid[row][col] = True
+        self.binGrid[row, col] = 1
     # end
 
     ###########################################################################
@@ -198,7 +203,7 @@ class Grid(object):
         for row in range (self.nRows-1, -1, -1):
             print ("Row %2d:" % (row), end=''),
             for col in range (self.nCols):
-                if (self.binGrid[row][col]):
+                if (self.binGrid[row, col]):
                     print ("%s" % ("O"), end='')
                 else:
                     print ("%s" % (" "), end='')
@@ -208,86 +213,7 @@ class Grid(object):
         # end for row
         print("\n", end='')
     # end
-
-    ###########################################################################
-    # initGraphGrid -
-    ###########################################################################
-    def initGraphGrid (self, str, nPix, borders = False, circle = False):
-        self.nPix      = nPix
-        self.borders   = borders
-        self.circle    = circle
-        self.frame     = nPix / 2         # Width of frame around map
-        xSize = self.nCols * nPix
-        ySize = self.nRows * nPix
-
-        self.win = GraphWin( str, xSize + (2*self.frame), ySize + (2*self.frame) )
-
-        if borders:
-            # Draw the vertical edges
-            for col in range (self.nCols+1):
-                Ptp = Point (self.frame + (col * nPix), self.frame)
-                Pbt = Point (self.frame + (col * nPix), self.frame + (self.nRows * nPix))
-                lin = Line (Ptp, Pbt)
-                lin.setWidth(1)
-                lin.setFill("gray")
-                lin.draw(self.win)
-
-            # Draw the horiz edges
-            for row in range (self.nRows+1):
-                Plt = Point (self.frame, self.frame + (row * nPix))
-                Prt = Point (self.frame + (self.nCols * nPix), self.frame + (row * nPix))
-                lin = Line (Plt, Prt)
-                lin.setWidth(1)
-                lin.setFill("gray")
-                lin.draw(self.win)
-        # end if borders
-
-    ###########################################################################
-    # clearGraphGrid -
-    ###########################################################################
-    def clearGraphGrid (self):
-        self.win.dag_clear()
-
-
-    ###########################################################################
-    # graphGrid -
-    #   nPix is the num of pixels to draw a single cell (nPixels per cell)
-    #   borders (T/F) is whether to draw a grid surrounding all the cells
-    #   circle (T/F) is whether to draw a circle or a line segment in each
-    #       occupied cell. Drawing a line is faster than drawing a circle.
-    ###########################################################################
-    def graphGrid (self, color="red"):
-        if (self.circle):
-            # Draw a circle in each occupied cell (slow):
-            for row in range (self.nRows):
-                for col in range (self.nCols):
-                    if (not self.isZero(row, col)):
-                        pt = Point((col+1) * self.nPix, (self.nRows - row) * self.nPix)
-                        cir = Circle(pt, self.frame/2)
-                        cir.setFill(color)
-                        cir.draw(self.win)
-                # end for col
-            # end for row
-        else:
-            # Draw a vertical line in each occupied cell (faster):
-            for row in range (self.nRows):
-                for col in range (self.nCols):
-                    if (not self.isZero(row, col)):
-                        Ptp = Point((col+1) * self.nPix, (self.nRows - row) * self.nPix - self.frame)
-                        Pbt = Point((col+1) * self.nPix, (self.nRows - row) * self.nPix + self.frame)
-                        lin = Line(Ptp, Pbt)
-                        lin.setFill(color)
-                        lin.setWidth(self.frame)
-                        lin.draw(self.win)
-                # end for col
-            # end for row
-        # end if circle
-
-        #win.getMouse()
-        #win.close
-    # end graphGrid
-
-
+    
     ################################################################################
     # sendUDP()
     ################################################################################
@@ -380,12 +306,9 @@ class Grid(object):
 
         self.printHistArr()
         self.lowPassFilter(3)               # Not really necessary
-        minCost = min(self.histArr)
-
-        #print("After Low Pass Filter...")
-        #print("MinCost is", minCost)        
-        #self.printHistArr()
-        runs = self.getRuns(minCost)        # New
+        
+        minCost = min(self.histArr)         # Find the minimum(s)      
+        runs = self.getRuns(minCost)        # Find all the runs at this minimum
         
         return self.findBestAngle(minCost)
     # end
@@ -413,7 +336,7 @@ class Grid(object):
         self.histArr = histArrayFiltered        
 
     ###########################################################################
-    # findBestAngle - find the widest path and go towards the center of it
+    # getRuns - finds all the runs of minimums in the hist array
     ###########################################################################
     def getRuns(self, minCost):
         inRun = False           # are we in a run of minimums?
@@ -421,79 +344,50 @@ class Grid(object):
         runs  = []              # the collection of runs
         
         for index in range(self.histSize):
-             if not inRun and self.histArr[index] != minCost: 
+            if not inRun and self.histArr[index] != minCost: 
                  # we not in a run and not at minimum cost?
                 pass # don't do anything, we don't care!    
                                        
             elif inRun and self.histArr[index] == minCost: 
-                # we in a run and stell at minimum cost so still in the run
-                anglePaths.append(index) 
+                # we in a run and still at minimum cost so still in the run
+                pass 
                 
             elif inRun and self.histArr[index] != minCost: 
-                # we're in a run but not at minimum anymore TODO dag
-                runs.append(anglePaths) # then stash the runs to the collection
-                anglePaths = [] # clear out the last collected run
-                inRun = False # now we're not in a run, set to False
+                # we were in a run but now we're not anymore
+                run.append(index-1) # Record the last index of the run
+                runs.append(run)    # then stash this run to the collection
+                run = []            # clear out the last collected run
+                inRun = False       # we're not in a run anymore
                 
-            elif not inRun and self.histArr[index] == minCost: # are we not in a run but at minimum cost?
-                anglePaths.append(index) # then we're actually in a run so collect the index
-                inRun = True # now we're in a run, set to True
-
+            elif not inRun and self.histArr[index] == minCost: 
+                # We weren't in a run but this is the start of one
+                run.append(index)   # record the start index of this run
+                inRun = True        # we're in a run now
+        # end for
         
-        if inRun: # if the very last item in the histArr is still in a run...
-            runs.append(anglePaths) # collect the very last run!
+        if inRun: 
+            # If we're done iterating but we're still in a run
+            run.append(self.histSize-1)
+            runs.append(run)        # stash this last run to the collection
             
-        widestPath = 0
-        pathIndex = 0
-        for index, path in enumerate(runs):
-            if len(path) > widestPath:
-                widestPath = len(path)
-                pathIndex = index
-        
-        # debug
-        #print(runs)
-        bestIndex = int(sum(runs[pathIndex]) / widestPath)
-
-        anglePos = self.minAngle + (self.angDelta * bestIndex)        
-        
-        return anglePos
-
+        return runs
+    #end getRuns
+    
     ###########################################################################
-    # findBestAngle - find the widest path and go towards the center of it
-    ###########################################################################
-    def findBestAngle(self, minCost):
-        inRun = False           # are we in a run of minimums?
-        anglePaths = []         # the run of minimums
-        collectPaths = []       # the collections of minimum runs
-        for index in range(self.histSize):
-            if inRun and self.histArr[index] == minCost: # are we in a run and at minimum cost?
-                anglePaths.append(index) # then we are still in a run, collect the index
-            elif inRun and self.histArr[index] != minCost: # are we in a run and not a minimum cost?
-                collectPaths.append(anglePaths) # then stash the runs to the collection
-                anglePaths = [] # clear out the last collected run
-                inRun = False # now we're not in a run, set to False
-            elif not inRun and self.histArr[index] == minCost: # are we not in a run but at minimum cost?
-                anglePaths.append(index) # then we're actually in a run so collect the index
-                inRun = True # now we're in a run, set to True
-            elif not inRun and self.histArr[index] != minCost: # are we not in a run and not at minimum cost?
-                pass # don't do anything, we don't care!
+    # getRuns - finds the 'best' run of minimums and then the actual angle
+    ###########################################################################    
+    def getBestRun(self, runs):
+        longestRun      = 0
+        longestRunIndex = 0
+        for index, run in enumerate(runs):
+            runLength = run[1] - run[0] + 1
+            if runLength > longestRun:
+                longestRun = runLength
+                longestRunIndex = index
         
-        if inRun: # if the very last item in the histArr is still in a run...
-            collectPaths.append(anglePaths) # collect the very last run!
-            
-        widestPath = 0
-        pathIndex = 0
-        for index, path in enumerate(collectPaths):
-            if len(path) > widestPath:
-                widestPath = len(path)
-                pathIndex = index
-        
-        # debug
-        #print(collectPaths)
-        bestIndex = int(sum(collectPaths[pathIndex]) / widestPath)
-
-        anglePos = self.minAngle + (self.angDelta * bestIndex)        
-        
+        bestRun     = runs[longestRunIndex]
+        bestIndex   = int( (bestRun[0] + bestRun[1]) / 2)
+        anglePos    = self.minAngle + (self.angDelta * bestIndex)        
         return anglePos
 
     ###########################################################################
@@ -515,21 +409,117 @@ class Grid(object):
 # Test code
 ###############################################################################
 if __name__ == '__main__':
-    g = Grid(10, nRows=30, nCols=50, distance=0, angle=0)
-    g.details()
-    g.enterRange (0, 0, 100, 0)
-    g.enterRange (0, 0, 100, 45) 
-    g.enterRange (0, 0, 100, -45)     
-    g.printGrid("Binary Grid")
- 
-""" 
-    g.histSize = 9
-    #g.histArr =  [ 0.0, 4.0, 4.0, 5.0, 6.0, 0.0, 0.0, 5.0, 0.0]
-    g.histArr  =  [ 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
+    import sys
+    #print(sys.path)
+    #sys.exit()
+
+    # Structuring array for the dilation
+    structElem5 = np.ones( (5, 5), dtype=np.uint16 )
+    structElem5[0,0] = 0
+    structElem5[4,0] = 0
+    structElem5[0,4] = 0
+    structElem5[4,4] = 0
     
-    g.lowPassFilterDag(5)  
-    #g.histArr
-"""    
+    structElem3 = np.ones( (3, 3), dtype=np.uint16 )
+    
+    # Prewitt conv operator    
+    Prewitt = np.array ( [[2, 1, 0, -1, -2],
+                          [2, 1, 0, -1, -2],
+                          [2, 1, 0, -1, -2],
+                          [2, 1, 0, -1, -2],
+                          [2, 1, 0, -1, -2]])
+    print (Prewitt)
+    
+     
+    if (0):
+        plt.ioff()
+        plt.plot([1.6, .27])
+        plt.show()
+        
+    if (0):        
+        f = misc.face()
+        plt.imshow(f)
+        plt.show()    
+        sys.exit()
+    # endif
+
+    g = Grid(10, nRows=100, nCols=160, distance=0, angle=0)
+    g.details()
+    
+    lWall = 40
+    rWall = 120
+    
+    for row in range(99): 
+        if (row % 10 == 0):
+            lWall += 1
+            rWall += 1
+        if (row % 25 == 0):
+            lWall += 2
+            rWall += 2   
+        if (row % 3 == 0):
+            if (row < 60):
+                g.enterPoint(row, lWall)
+                g.enterPoint(row, rWall) 
+            else:
+                g.enterPoint(row, rWall)            
+            
+    for col in range(55, 80, 2):
+        g.enterPoint(60, col)
+
+    g.enterPoint(70, 95)
+    g.enterPoint(68, 96) 
+    g.enterPoint(69, 97)
+    g.enterPoint(69, 98) 
+    g.enterPoint(70, 99)     
+    
+    g.enterPoint(68, 110)
+    g.enterPoint(67, 111) 
+    g.enterPoint(67, 112)
+    g.enterPoint(68, 113)   
+    g.enterPoint(69, 114)       
+    
+    plt.imshow(g.binGrid, origin='lower')
+    plt.show()    
+
+    # Dilation
+    start_time = time.perf_counter()
+    g.binGrid = ndimage.binary_dilation(g.binGrid, structure=structElem3, border_value=0) 
+    plt.imshow(g.binGrid, origin='lower')
+    plt.show()    
+    
+    # invert
+    notGrid = ~g.binGrid
+    #plt.imshow(notGrid, origin='lower')
+    #plt.show()    
+    
+    # skeletonize    
+    skeleton = ndimage.distance_transform_cdt(notGrid, metric='taxicab', return_distances=True)
+    end_time = time.perf_counter()
+    print ("processing time  ", end_time - start_time)
+    
+    plt.imshow(skeleton, origin='lower')
+    plt.show()
+    
+    deriv = ndimage.convolve(skeleton, weights=Prewitt)
+    deriv = np.absolute(deriv)
+    deriv = np.where(deriv < 1, 1, 0)
+    plt.imshow(deriv, origin='lower')
+    plt.show()    
+
+ 
+    g.histSize = 12
+    g.histArr =  [ 0.0, 4.0, 4.0, 5.0, 6.0, 4.0, 0.0, 0.0, 0.0, 5.0, 5.0, 0.0]
+    #g.histArr  =  [ 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
+    #g.lowPassFilterDag(5)   
+    
+    g.printHistArr
+    minCost = min(g.histArr)         # Find the minimum(s)      
+    runs = g.getRuns(minCost)        # Find all the runs at this minimum
+    print (runs)
+    angle = g.getBestRun(runs)
+    print ("angle = ", angle)
+    
+    
 
 """
     import time
