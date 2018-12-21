@@ -218,7 +218,6 @@ void veh_getTelem (uint32 currTimeMsec)
 // veh_check - perform all the continuing maintenance on a move and/or turn 
 // command.  Called by the main loop routine
 ///////////////////////////////////////////////////////////////////////////////
-#if 0
 void veh_check (uint32 currTimeMsec)
 {
     uint32 l_nSteps;
@@ -281,7 +280,6 @@ void veh_check (uint32 currTimeMsec)
         veh_turn (0, 10000);    // In 10 seconds we'll do it again...
     }
 }
-#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 // veh_getSwitches - gets the status of all the switches.  Signals an estop
