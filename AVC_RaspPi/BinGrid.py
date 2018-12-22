@@ -422,15 +422,41 @@ if __name__ == '__main__':
     
     structElem3 = np.ones( (3, 3), dtype=np.uint16 )
     
-    # Prewitt conv operator    
-    Prewitt = np.array ( [[2, 1, 0, -1, -2],
-                          [2, 1, 0, -1, -2],
-                          [2, 1, 0, -1, -2],
-                          [2, 1, 0, -1, -2],
-                          [2, 1, 0, -1, -2]])
-    print (Prewitt)
+    # Second deriv operators    
+    secderiv7 = np.array ( [[-2,  0,  0,  0,  0,  0, -2],
+                            [-2,  0,  0,  0,  0,  0, -2],    
+                            [-2,  0,  0,  0,  0,  0, -2],
+                            [-2,  0,  0, 28,  0,  0, -2],
+                            [-2,  0,  0,  0,  0,  0, -2],
+                            [-2,  0,  0,  0,  0,  0, -2],                            
+                            [-2,  0,  0,  0,  0,  0, -2]])
+                            
+
+    secderiv5 = np.array ( [[ 0,  0,  0,  0,  0],
+                            [-2,  0,  4,  0, -2],
+                            [-2,  0,  4,  0, -2],
+                            [-2,  0,  4,  0, -2],
+                            [ 0,  0,  0,  0,  0]])
+                            
+    secderiv3 = np.array ( [[-1,  2, -1],
+                            [-2,  4, -2],
+                            [-1,  2, -1] ])                           
+
+    secderiv3 = np.array ( [[0,  0, 0],
+                            [-1,  2, -1],
+                            [0,  0, 0] ])                           
+                            
+                          
+    # Diagonal Deriv operators
+    diag0 = np.array ([ [-1, -2,  0],
+                        [-2,  0, +2],
+                        [ 0, +2, +1] ])
+                        
+    diag1 = np.array ([ [ 0, +2, +1],
+                        [-2,  0, +2],
+                        [-1, -2,  0] ])   
+    print ("secderiv:")
     
-     
     if (0):
         plt.ioff()
         plt.plot([1.6, .27])
@@ -483,7 +509,7 @@ if __name__ == '__main__':
 
     # Dilation
     start_time = time.perf_counter()
-    g.binGrid = ndimage.binary_dilation(g.binGrid, structure=structElem3, border_value=0) 
+    g.binGrid = ndimage.binary_dilation(g.binGrid, structure=structElem5, border_value=0) 
     plt.imshow(g.binGrid, origin='lower')
     plt.show()    
     
@@ -493,16 +519,15 @@ if __name__ == '__main__':
     #plt.show()    
     
     # skeletonize    
-    skeleton = ndimage.distance_transform_cdt(notGrid, metric='taxicab', return_distances=True)
+    distance = ndimage.distance_transform_cdt(notGrid, metric='taxicab', return_distances=True)
     end_time = time.perf_counter()
     print ("processing time  ", end_time - start_time)
     
-    plt.imshow(skeleton, origin='lower')
+    plt.imshow(distance, origin='lower')
     plt.show()
     
-    deriv = ndimage.convolve(skeleton, weights=Prewitt)
-    deriv = np.absolute(deriv)
-    deriv = np.where(deriv < 1, 1, 0)
+    deriv = ndimage.convolve(distance, weights=secderiv3)
+    #deriv = np.where(distance > 4, 1, 0)
     plt.imshow(deriv, origin='lower')
     plt.show()    
 
