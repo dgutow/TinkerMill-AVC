@@ -101,6 +101,8 @@ class controller (object):
         maxDistance=obstacleTangDistance[bestIndex]
         outputAngle=angles[bestIndex]
         
+        np.save(str(time.clock())+".npy",vehState.lidarBuffer)        
+
         print("maxDistance: ",maxDistance, " outputAngle: ",outputAngle) 
         if ct.DEVELOPMENT:
             bestAngle=(outputAngle*ct.DEG_TO_RAD) % (2*math.pi)
@@ -111,7 +113,7 @@ class controller (object):
             plt.show()
             plt.pause(0.5)
 
-        return self.translateCommand(outputAngle, ct.speedMax)
+        return outputAngle // 3 #self.translateCommand(outputAngle, ct.speedMax)
     # end
     
     def __init__(self):
