@@ -76,12 +76,13 @@ class RPLidarException(Exception):
 # process_data - Processes input raw data and returns measurement data
 ###############################################################################
 def process_data (raw, lidar):         # was _process_scan(raw) in rplidar.py
-    if len(raw)==5: # standard packet
-        return process_scan(raw)
-    elif len(raw)==84: # an express mode packet
-        return process_express_scan(raw, lidar)
-    else:
-        return (True, 0, 0, 0, 0)
+    #if len(raw)==5: # standard packet
+    #    return process_scan(raw)
+    #elif len(raw)==84: # an express mode packet
+    readings, lidar.lastExpressStartAngle = process_express_scan(raw, lidar.lastExpressStartAngle)
+    return readings
+    #else:
+    #    return (True, 0, 0, 0, 0)
 
 def process_scan(raw):
     print(" outer level functions may be expecting a numpy array")
@@ -101,8 +102,8 @@ def process_scan(raw):
     #print("raw: ",raw[0],raw[1],raw[2],raw[3],", angle: ",angle,", distance: ",distance)
     return (False, new_scan, quality, angle, distance)
 
-
-def process_express_scan(raw, lidar):
+#@numba.jit()
+def process_express_scan(raw, lastExpressStartAngle):
     #chkSum= (raw[0] & 0x0F) + (raw[1] << 4)
     readings=[]
     # check the sync bytes
@@ -115,24 +116,24 @@ def process_express_scan(raw, lidar):
     
     startAngle= (raw[2]+((raw[3] & 0x7F) << 8))/2**6
     
-    #lidar.lastExpressStartAngle
-    if (lidar.lastExpressStartAngle>0) and ( newScan == 0):
+    #lastExpressStartAngle
+    if (lastExpressStartAngle>0) and ( newScan == 0):
         # if we have a valid previous angle then process
         
         # get the delta angle per measurement            
-        delta=(startAngle-lidar.lastExpressStartAngle)/32.0
-        if startAngle<=lidar.lastExpressStartAngle:
-            delta=(startAngle+360-lidar.lastExpressStartAngle)/32.0
+        delta=(startAngle-lastExpressStartAngle)/32.0
+        if startAngle<=lastExpressStartAngle:
+            delta=(startAngle+360-lastExpressStartAngle)/32.0
         #print("delta: ",delta," lastAngle: ",lidar.lastExpressStartAngle," cur angle: ",startAngle)
         # loop variables
         readings=process_cabin(raw, startAngle, delta, newScan)
             
     # update the starting angle
-    lidar.lastExpressStartAngle = startAngle
+    lastExpressStartAngle = startAngle
         
-    return readings
+    return readings, startAngle
 
-#@numba.jit(nopython=True)
+@numba.jit()
 def process_cabin(raw, startAngle, delta, newScan):
     readings=np.zeros((32,4))
     angle=startAngle+delta

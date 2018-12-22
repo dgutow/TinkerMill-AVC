@@ -75,12 +75,14 @@ def get_lidar_data(lidar, vehState, occGrid):
     numReadings=12*dSize
 
     # process the packets
-    while (numReadings >= dSize):
-        numReadings=numReadings-dSize
-        data = lidar._serial.read(dSize)
+    count = 0
+    data = lidar._serial.read(((lidar._serial.in_waiting) //dSize )* dSize)
+    while (84*(count+1) <= len(data)):
 
         #curTime = time.clock()
-        readings =  process_data(data, lidar)
+        #readings =  process_data(data, lidar)
+        readings =  process_data(data[(84*count):(84*(count+1))], lidar)
+        count =count+1
         #print("process time: ",(time.clock()-curTime))
         
         if len(readings) == 0:
@@ -99,7 +101,9 @@ def get_lidar_data(lidar, vehState, occGrid):
 
             nPoints += readings.shape[0] # for diagnostics
             # transfer the data to the local buffer
+            #curTime = time.clock()
             transferToBuffer(readings, current_time, vehState.lidarBuffer)
+            #print("transfer: ",(time.clock()-curTime))
 
         # end if .. else
     # end while

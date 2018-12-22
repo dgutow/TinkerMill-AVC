@@ -478,7 +478,7 @@ def exec_guiCmd (cmdMsg, vehState):
         abort = True
         
     elif (command == '2'):      # save the lidar buffer
-        np.save(str(time.clock())+".npy",vehState.lidarBuffer)
+        np.save("{3.5f}".format(time.clock())+".npy",vehState.lidarBuffer)
         
     elif (command == '3'):      # n/d 
         bad_cmd (command, param1, param2, param3)

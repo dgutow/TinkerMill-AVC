@@ -101,13 +101,11 @@ class controller (object):
         maxDistance=obstacleTangDistance[bestIndex]
         outputAngle=angles[bestIndex]
         
-        np.save(str(time.clock())+".npy",vehState.lidarBuffer)        
-
         print("maxDistance: ",maxDistance, " outputAngle: ",outputAngle) 
         if ct.DEVELOPMENT:
             bestAngle=(outputAngle*ct.DEG_TO_RAD) % (2*math.pi)
             #print("maxDistance: ",maxDistance, " bestAngle: ",bestAngle) 
-            plt.plot((0,maxDistance*math.cos(bestAngle)),(0,-maxDistance*math.sin(bestAngle)),linestyle='-',color='b')
+            plt.plot((0,maxDistance*math.cos(bestAngle)),(0,maxDistance*math.sin(bestAngle)),linestyle='-',color='b')
             #plt.plot((0,12),(0,0),linestyle=':')
             plt.title(("maxDistance: ",maxDistance, " outputAngle: ",outputAngle))
             plt.show()
