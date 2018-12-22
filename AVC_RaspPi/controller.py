@@ -159,7 +159,7 @@ def plotBuffer(lidarBuffer):
 
     plt.plot(points[:,0],-points[:,1],linestyle=' ',marker='.',markersize=5)
     boxes = []
-    boxes.append(pat.Rectangle((-ct.wheelBase/2,-ct.vehicleWidth/2),ct.wheelBase,ct.vehicleWidth))
+    boxes.append(Rectangle((-ct.wheelBase/2,-ct.vehicleWidth/2),ct.wheelBase,ct.vehicleWidth))
     pc = PatchCollection(boxes, facecolor='k', alpha=0.5, edgecolor='k')
     
     plt.gca().add_collection(pc)

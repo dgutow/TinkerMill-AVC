@@ -408,10 +408,44 @@ class Grid(object):
 ###############################################################################
 # Test code
 ###############################################################################
+TEST = 1
+NPY_DIR = "."
+
 if __name__ == '__main__':
     import sys
-    #print(sys.path)
-    #sys.exit()
+    #print(sys.paRth)
+
+    ##########################################################################
+    vehState = vs.vehicleState()
+    
+    # get a sorted listing of the .npy files
+    dir = os.listdir(NPY_DIR)
+    for i in range(len(dir)-1,-1,-1):
+        if len(dir[i])<4:
+            del dir[i]
+        elif ".npy" not in dir[i]:
+            del dir[i]
+    # sort by digits
+    dir.sort()
+    # sort by length
+    dir = sorted(dir, key=len)
+
+    # now load, display and run them
+    print ("Number of npy files - ", len(dir))
+    for file in dir:
+        print(file)
+        vehState.lidarBuffer = np.load(file)
+        plotBuffer(vehState.lidarBuffer)
+
+# end  
+    
+    
+    
+    
+    
+    
+    
+    ###########################################################################
 
     # Structuring array for the dilation
     structElem5 = np.ones( (5, 5), dtype=np.uint16 )
@@ -511,7 +545,8 @@ if __name__ == '__main__':
     start_time = time.perf_counter()
     g.binGrid = ndimage.binary_dilation(g.binGrid, structure=structElem5, border_value=0) 
     plt.imshow(g.binGrid, origin='lower')
-    plt.show()    
+    plt.show()
+    fig, ax = plt.subplots()
     
     # invert
     notGrid = ~g.binGrid
@@ -525,12 +560,12 @@ if __name__ == '__main__':
     
     plt.imshow(distance, origin='lower')
     plt.show()
-    
+    fig, ax = plt.subplots()
     deriv = ndimage.convolve(distance, weights=secderiv3)
     #deriv = np.where(distance > 4, 1, 0)
     plt.imshow(deriv, origin='lower')
     plt.show()    
-
+    fig, ax = plt.subplots()
  
     g.histSize = 12
     g.histArr =  [ 0.0, 4.0, 4.0, 5.0, 6.0, 4.0, 0.0, 0.0, 0.0, 5.0, 5.0, 0.0]
