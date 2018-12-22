@@ -7,7 +7,7 @@
 #from vehicleState    import *       # Everything we know about the vehicle
 import math as math
 
-DEVELOPMENT = False
+DEVELOPMENT = True
 
 ###############################################################################
 # SIM_TEENSY - Used when integrating with no Teensy connected.

@@ -72,8 +72,6 @@ def get_lidar_data(lidar, vehState, occGrid):
     while lidar._serial.in_waiting>=40*dSize:
         lidar._serial.read(((lidar._serial.in_waiting-12*dSize) //dSize )* dSize)
 
-    numReadings=12*dSize
-
     # process the packets
     count = 0
     data = lidar._serial.read(((lidar._serial.in_waiting) //dSize )* dSize)
