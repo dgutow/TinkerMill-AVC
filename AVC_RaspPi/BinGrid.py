@@ -16,6 +16,7 @@ from scipy import misc                      # scipy
 
 import matplotlib.pyplot as plt             # matplotlib
 from   math     import *
+import vehicleState     as vs
 
 ###############################################################################
 # Class Grid
@@ -412,8 +413,9 @@ TEST = 1
 NPY_DIR = "."
 
 if __name__ == '__main__':
+    import os as os
     import sys
-    #print(sys.paRth)
+    #print(sys.path)
 
     ##########################################################################
     vehState = vs.vehicleState()
@@ -421,10 +423,12 @@ if __name__ == '__main__':
     # get a sorted listing of the .npy files
     dir = os.listdir(NPY_DIR)
     for i in range(len(dir)-1,-1,-1):
+        # print (dir[i])
         if len(dir[i])<4:
             del dir[i]
         elif ".npy" not in dir[i]:
             del dir[i]
+            
     # sort by digits
     dir.sort()
     # sort by length
@@ -436,24 +440,20 @@ if __name__ == '__main__':
         print(file)
         vehState.lidarBuffer = np.load(file)
         plotBuffer(vehState.lidarBuffer)
-
-# end  
+    # end   
     
-    
-    
-    
-    
-    
-    
+    """
+    plt.cla - clear current axes
+    plt.close - close a figure
+    plt.pause(0.5)
+    """
     ###########################################################################
-
     # Structuring array for the dilation
-    structElem5 = np.ones( (5, 5), dtype=np.uint16 )
-    structElem5[0,0] = 0
-    structElem5[4,0] = 0
-    structElem5[0,4] = 0
-    structElem5[4,4] = 0
-    
+    structElem5 = np.array ( [[ 0,  1,  1,  1,  0],
+                              [ 1,  1,  1,  1,  1],
+                              [ 1,  1,  1,  1,  1],
+                              [ 1,  1,  1,  1,  1],
+                              [ 0,  1,  1,  1,  0]], dtype=np.uint16)        
     structElem3 = np.ones( (3, 3), dtype=np.uint16 )
     
     # Second deriv operators    
@@ -464,37 +464,32 @@ if __name__ == '__main__':
                             [-2,  0,  0,  0,  0,  0, -2],
                             [-2,  0,  0,  0,  0,  0, -2],                            
                             [-2,  0,  0,  0,  0,  0, -2]])
-                            
-
     secderiv5 = np.array ( [[ 0,  0,  0,  0,  0],
                             [-2,  0,  4,  0, -2],
                             [-2,  0,  4,  0, -2],
                             [-2,  0,  4,  0, -2],
                             [ 0,  0,  0,  0,  0]])
-                            
     secderiv3 = np.array ( [[-1,  2, -1],
                             [-2,  4, -2],
                             [-1,  2, -1] ])                           
-
     secderiv3 = np.array ( [[0,  0, 0],
                             [-1,  2, -1],
                             [0,  0, 0] ])                           
-                            
-                          
     # Diagonal Deriv operators
     diag0 = np.array ([ [-1, -2,  0],
                         [-2,  0, +2],
                         [ 0, +2, +1] ])
-                        
     diag1 = np.array ([ [ 0, +2, +1],
                         [-2,  0, +2],
                         [-1, -2,  0] ])   
-    print ("secderiv:")
+    ###########################################################################
     
     if (0):
-        plt.ioff()
+        plt.ion()
         plt.plot([1.6, .27])
         plt.show()
+        plt.pause(1.5)
+        sys.exit()       
         
     if (0):        
         f = misc.face()
@@ -538,15 +533,19 @@ if __name__ == '__main__':
     g.enterPoint(68, 113)   
     g.enterPoint(69, 114)       
     
+    ###########################################################################
+    plt.ion()            # don't stall on plt.show() - interactive mode on
+    fig, ax = plt.subplots()    
     plt.imshow(g.binGrid, origin='lower')
-    plt.show()    
+    plt.show()  
+    plt.pause(1.5)    
 
     # Dilation
     start_time = time.perf_counter()
     g.binGrid = ndimage.binary_dilation(g.binGrid, structure=structElem5, border_value=0) 
     plt.imshow(g.binGrid, origin='lower')
     plt.show()
-    fig, ax = plt.subplots()
+
     
     # invert
     notGrid = ~g.binGrid
