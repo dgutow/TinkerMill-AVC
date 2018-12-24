@@ -10,6 +10,10 @@ import socket
 import struct
 import time
 import numpy as np
+import vehicleState as vs
+import os as os
+import constants as ct
+
 from scipy import ndimage
 from scipy import misc                      # scipy
 #from skimage import *  # scikit-image
@@ -406,6 +410,8 @@ class Grid(object):
 
 # end class
 
+
+
 ###############################################################################
 # Test code
 ###############################################################################
@@ -447,6 +453,8 @@ if __name__ == '__main__':
     plt.close - close a figure
     plt.pause(0.5)
     """
+
+def processBuffer(vehState):
     ###########################################################################
     # Structuring array for the dilation
     structElem5 = np.array ( [[ 0,  1,  1,  1,  0],
@@ -501,37 +509,54 @@ if __name__ == '__main__':
     g = Grid(10, nRows=100, nCols=160, distance=0, angle=0)
     g.details()
     
-    lWall = 40
-    rWall = 120
+    if np.sum(vehState.lidarBuffer)<1: # manually enter a set of lidar readings
+        lWall = 40
+        rWall = 120
+        
+        for row in range(99): 
+            if (row % 10 == 0):
+                lWall += 1
+                rWall += 1
+            if (row % 25 == 0):
+                lWall += 2
+                rWall += 2   
+            if (row % 3 == 0):
+                if (row < 60):
+                    g.enterPoint(row, lWall)
+                    g.enterPoint(row, rWall) 
+                else:
+                    g.enterPoint(row, rWall)            
+                
+        for col in range(55, 80, 2):
+            g.enterPoint(60, col)
     
-    for row in range(99): 
-        if (row % 10 == 0):
-            lWall += 1
-            rWall += 1
-        if (row % 25 == 0):
-            lWall += 2
-            rWall += 2   
-        if (row % 3 == 0):
-            if (row < 60):
-                g.enterPoint(row, lWall)
-                g.enterPoint(row, rWall) 
-            else:
-                g.enterPoint(row, rWall)            
-            
-    for col in range(55, 80, 2):
-        g.enterPoint(60, col)
+        g.enterPoint(70, 95)
+        g.enterPoint(68, 96) 
+        g.enterPoint(69, 97)
+        g.enterPoint(69, 98) 
+        g.enterPoint(70, 99)     
+        
+        g.enterPoint(68, 110)
+        g.enterPoint(67, 111) 
+        g.enterPoint(67, 112)
+        g.enterPoint(68, 113)   
+        g.enterPoint(69, 114)       
+    else:
+        points = np.expand_dims(vehState.lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE],1) / ct.METERS_PER_FOOT * 3 * \
+                np.transpose([np.cos(vehState.lidarBuffer[:,ct.LIDAR_BUFFER_ANGLE]*ct.DEG_TO_RAD),np.sin(vehState.lidarBuffer[:,ct.LIDAR_BUFFER_ANGLE]*ct.DEG_TO_RAD)])
+        for point in points:
+            g.enterPoint(point[0].astype(int),point[1].astype(int)+80)
+        plt.figure(5)
+        plt.cla()
+        plt.plot(points[:,0] / 3 * ct.METERS_PER_FOOT, points[:,1] / 3 * ct.METERS_PER_FOOT,linestyle=' ',marker='.',markersize=5,color='k')
 
-    g.enterPoint(70, 95)
-    g.enterPoint(68, 96) 
-    g.enterPoint(69, 97)
-    g.enterPoint(69, 98) 
-    g.enterPoint(70, 99)     
-    
-    g.enterPoint(68, 110)
-    g.enterPoint(67, 111) 
-    g.enterPoint(67, 112)
-    g.enterPoint(68, 113)   
-    g.enterPoint(69, 114)       
+        plt.xlim((0,12))
+        plt.ylim((-12,12))
+        plt.grid(True)
+
+        plt.show()
+        plt.pause(.1)
+        
     
     ###########################################################################
     plt.ion()            # don't stall on plt.show() - interactive mode on
@@ -543,8 +568,10 @@ if __name__ == '__main__':
     # Dilation
     start_time = time.perf_counter()
     g.binGrid = ndimage.binary_dilation(g.binGrid, structure=structElem5, border_value=0) 
+    plt.figure(1)
     plt.imshow(g.binGrid, origin='lower')
     plt.show()
+    plt.pause(0.001)
 
     
     # invert
@@ -557,14 +584,18 @@ if __name__ == '__main__':
     end_time = time.perf_counter()
     print ("processing time  ", end_time - start_time)
     
+    plt.figure(2)
     plt.imshow(distance, origin='lower')
     plt.show()
-    fig, ax = plt.subplots()
+    plt.pause(0.001)
+    
     deriv = ndimage.convolve(distance, weights=secderiv3)
     #deriv = np.where(distance > 4, 1, 0)
+    plt.figure(3)
     plt.imshow(deriv, origin='lower')
     plt.show()    
-    fig, ax = plt.subplots()
+    plt.pause(0.001)
+
  
     g.histSize = 12
     g.histArr =  [ 0.0, 4.0, 4.0, 5.0, 6.0, 4.0, 0.0, 0.0, 0.0, 5.0, 5.0, 0.0]
@@ -577,6 +608,52 @@ if __name__ == '__main__':
     print (runs)
     angle = g.getBestRun(runs)
     print ("angle = ", angle)
+
+###############################################################################
+# Test code
+###############################################################################
+TEST = 1
+NPY_DIR = "."
+
+if __name__ == '__main__':
+    import sys
+    #print(sys.paRth)
+
+    ##########################################################################
+    vehState = vs.vehicleState()
+    
+    # get a sorted listing of the .npy files
+    dir = os.listdir(NPY_DIR)
+    for i in range(len(dir)-1,-1,-1):
+        if len(dir[i])<4:
+            del dir[i]
+        elif ".npy" not in dir[i]:
+            del dir[i]
+    # sort by digits
+    dir.sort()
+    # sort by length
+    dir = sorted(dir, key=len)
+
+    if 0: # run our manual points
+        processBuffer(vehState)
+    else:
+        # now load, display and run them
+        print ("Number of npy files - ", len(dir))
+        for file in dir:
+            print(file)
+            vehState.lidarBuffer = np.load(file)
+            processBuffer(vehState)
+            #plotBuffer(vehState.lidarBuffer)
+            plt.pause(1)
+    #vehState.lidarBuffer = np.load(dir[0])
+
+# end  
+    
+    
+    
+    
+    
+    
     
     
 
