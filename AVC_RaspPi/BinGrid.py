@@ -13,6 +13,7 @@ import numpy as np
 import vehicleState as vs
 import os as os
 import constants as ct
+from  Timeit import Timeit
 
 from scipy import ndimage
 from scipy import misc                      # scipy
@@ -20,6 +21,7 @@ from scipy import misc                      # scipy
 
 import matplotlib.pyplot as plt             # matplotlib
 from   math     import *
+import vehicleState     as vs
 
 ###############################################################################
 # Class Grid
@@ -122,7 +124,8 @@ class Grid(object):
     # details   
     ###########################################################################
     def details (self):
-        print ("Resolution %d, nRows %d, nCols %d\n" % (self.resolution, self.nRows, self.nCols), end='') 
+        print ("BinGrid: Resolution %d cm, nRows %d, nCols %d\n" % 
+                            (self.resolution, self.nRows, self.nCols), end='') 
     
     ###########################################################################
     # clear   Clears and re-initializes the grid
@@ -406,18 +409,21 @@ class Grid(object):
         print ("\n")
     # end printHistArr
     ## old Histogram functions end
-
 # end class
-def processBuffer(vehState):
-    ###########################################################################
+###############################################################################
 
+
+###############################################################################
+# ProcessBuffer with Morphology
+###############################################################################
+def processGrid(vehState, grid):
+    ###########################################################################
     # Structuring array for the dilation
-    structElem5 = np.ones( (5, 5), dtype=np.uint16 )
-    structElem5[0,0] = 0
-    structElem5[4,0] = 0
-    structElem5[0,4] = 0
-    structElem5[4,4] = 0
-    
+    structElem5 = np.array ( [[ 0,  1,  1,  1,  0],
+                              [ 1,  1,  1,  1,  1],
+                              [ 1,  1,  1,  1,  1],
+                              [ 1,  1,  1,  1,  1],
+                              [ 0,  1,  1,  1,  0]], dtype=np.uint16)        
     structElem3 = np.ones( (3, 3), dtype=np.uint16 )
     
     # Second deriv operators    
@@ -428,85 +434,154 @@ def processBuffer(vehState):
                             [-2,  0,  0,  0,  0,  0, -2],
                             [-2,  0,  0,  0,  0,  0, -2],                            
                             [-2,  0,  0,  0,  0,  0, -2]])
-                            
-
     secderiv5 = np.array ( [[ 0,  0,  0,  0,  0],
                             [-2,  0,  4,  0, -2],
                             [-2,  0,  4,  0, -2],
                             [-2,  0,  4,  0, -2],
                             [ 0,  0,  0,  0,  0]])
-                            
     secderiv3 = np.array ( [[-1,  2, -1],
                             [-2,  4, -2],
                             [-1,  2, -1] ])                           
-
     secderiv3 = np.array ( [[0,  0, 0],
                             [-1,  2, -1],
                             [0,  0, 0] ])                           
-                            
-                          
     # Diagonal Deriv operators
     diag0 = np.array ([ [-1, -2,  0],
                         [-2,  0, +2],
                         [ 0, +2, +1] ])
-                        
     diag1 = np.array ([ [ 0, +2, +1],
                         [-2,  0, +2],
                         [-1, -2,  0] ])   
-    print ("secderiv:")
+    ###########################################################################
+    tmr = Timeit(0)
     
-    if (0):
-        plt.ioff()
-        plt.plot([1.6, .27])
-        plt.show()
-        
-    if (0):        
-        f = misc.face()
-        plt.imshow(f)
-        plt.show()    
-        sys.exit()
-    # endif
+    # Dilation
+    tmr.start(0)
+    tmr.start(10)
+    dilatedgrid = ndimage.binary_dilation(grid.binGrid, structure=structElem5, border_value=0) 
+    tmr.stop(0)
+    
+    # invert
+    tmr.start(1)
+    notGrid = ~dilatedgrid
+    tmr.stop(1)
+     
+    # skeletonize   
+    tmr.start(2)
+    distance = ndimage.distance_transform_cdt(notGrid, metric='taxicab', return_distances=True)
+    tmr.stop(2)
 
-    g = Grid(10, nRows=100, nCols=160, distance=0, angle=0)
-    g.details()
+    tmr.start(3)
+    deriv = ndimage.convolve(distance, weights=secderiv3)
+    tmr.stop(3)
+    tmr.stop(10)
+    #deriv = np.where(distance > 4, 1, 0)
+       
+    tmr.printAll("Morph ")
     
-    if np.sum(vehState.lidarBuffer)<1: # manually enter a set of lidar readings
-        lWall = 40
-        rWall = 120
-        
-        for row in range(99): 
-            if (row % 10 == 0):
-                lWall += 1
-                rWall += 1
-            if (row % 25 == 0):
-                lWall += 2
-                rWall += 2   
-            if (row % 3 == 0):
-                if (row < 60):
-                    g.enterPoint(row, lWall)
-                    g.enterPoint(row, rWall) 
-                else:
-                    g.enterPoint(row, rWall)            
-                
-        for col in range(55, 80, 2):
-            g.enterPoint(60, col)
+    ###########################################################################
+    # Consolidate all the plotting here...
+    # don't stall on putting up each figure - interactive mode on  
+    plt.ioff()    
+    #figure, axes = plt.subplots(2,2)    
     
-        g.enterPoint(70, 95)
-        g.enterPoint(68, 96) 
-        g.enterPoint(69, 97)
-        g.enterPoint(69, 98) 
-        g.enterPoint(70, 99)     
+    ## the original Grid
+    #plt.figure(0)
+    #plt.title("Original grid points")
+    #plt.imshow(grid.binGrid, origin='lower') 
+    #
+    ## the dilated grid
+    #plt.figure(1)
+    #plt.title("Dilated grid points")
+    #plt.imshow(dilatedgrid, origin='lower')
+
+    # The distance transform
+    plt.figure(2)
+    plt.title("Distance transform")
+    plt.imshow(distance, origin='lower')
+ 
+    ## the peak processing
+    #plt.figure(3)
+    #plt.title("Peaks")
+    #plt.imshow(deriv, origin='lower')
+    
+    # the rows
+    nRows = 10
+    plt.figure(4)
+    figure, plots = plt.subplots(nRows)
+    for i in range(nRows):
+        row = 15 + 5*i
+        plots[nRows-i-1].plot(distance[row])
+        plots[nRows-i-1].set(ylabel='row ' + str(row))
+        #plt.title("Distance Transform")
+    
+    
+    plt.show()  
+    plt.ion()            # Now wait till the user kills the plots    
+# end processBuffer    
+
+###############################################################################
+# Test code
+###############################################################################
+
+###############################################################################   
+# enterManualPnts - create a grid of points the hard way - earn it!
+###############################################################################    
+def enterManualPnts(grid):
+    print ("enterManualPnts: Entering points manually") 
+    lWall = 40
+    rWall = 120
+    
+    for row in range(99): 
+        # create a bit of uneveness.  Every 10 columns move over and 
+        # every 25 columns move over some more
+        if (row % 10 == 0):
+            lWall += 1
+            rWall += 1
+        if (row % 25 == 0):
+            lWall += 2
+            rWall += 2   
         
-        g.enterPoint(68, 110)
-        g.enterPoint(67, 111) 
-        g.enterPoint(67, 112)
-        g.enterPoint(68, 113)   
-        g.enterPoint(69, 114)       
-    else:
-        points = np.expand_dims(vehState.lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE],1) / ct.METERS_PER_FOOT * 3 * \
-                np.transpose([np.cos(vehState.lidarBuffer[:,ct.LIDAR_BUFFER_ANGLE]*ct.DEG_TO_RAD),np.sin(vehState.lidarBuffer[:,ct.LIDAR_BUFFER_ANGLE]*ct.DEG_TO_RAD)])
-        for point in points:
-            g.enterPoint(point[0].astype(int),point[1].astype(int)+80)
+        # Only enter every third point
+        if (row % 3 == 0):
+            if (row < 60):
+                grid.enterPoint(row, lWall)
+                grid.enterPoint(row, rWall) 
+            else:
+                grid.enterPoint(row, rWall)            
+            
+    # The horiz wall
+    for col in range(55, 80, 2):
+        grid.enterPoint(60, col)
+    
+    # the barrels
+    grid.enterPoint(70, 95)
+    grid.enterPoint(68, 96) 
+    grid.enterPoint(69, 97)
+    grid.enterPoint(69, 98) 
+    grid.enterPoint(70, 99)     
+
+    grid.enterPoint(68, 110)
+    grid.enterPoint(67, 111) 
+    grid.enterPoint(67, 112)
+    grid.enterPoint(68, 113)   
+    grid.enterPoint(69, 114)       
+# end enterManualPnts 
+
+###############################################################################   
+# enterBufferPnts - enter the grid points from the vehState buffer
+############################################################################### 
+def enterBufferPnts(vehState, grid):
+    points = np.expand_dims(vehState.lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE],1) / ct.METERS_PER_FOOT * 3 * \
+            np.transpose([np.cos(vehState.lidarBuffer[:,ct.LIDAR_BUFFER_ANGLE]*ct.DEG_TO_RAD),np.sin(vehState.lidarBuffer[:,ct.LIDAR_BUFFER_ANGLE]*ct.DEG_TO_RAD)])
+    for point in points:
+        grid.enterPoint(point[0].astype(int),point[1].astype(int)+80)
+# end enterBufferPnts
+
+
+TEST = 1
+NPY_DIR = "."
+"""
         plt.figure(5)
         plt.cla()
         plt.plot(points[:,0] / 3 * ct.METERS_PER_FOOT, points[:,1] / 3 * ct.METERS_PER_FOOT,linestyle=' ',marker='.',markersize=5,color='k')
@@ -516,103 +591,63 @@ def processBuffer(vehState):
         plt.grid(True)
 
         plt.show()
-        plt.pause(.1)
-        
-    
-    plt.imshow(g.binGrid, origin='lower')
-    plt.show()    
-
-    # Dilation
-    start_time = time.perf_counter()
-    g.binGrid = ndimage.binary_dilation(g.binGrid, structure=structElem5, border_value=0) 
-    plt.figure(1)
-    plt.imshow(g.binGrid, origin='lower')
-    plt.show()
-    plt.pause(0.001)
-    
-    # invert
-    notGrid = ~g.binGrid
-    #plt.imshow(notGrid, origin='lower')
-    #plt.show()    
-    
-    # skeletonize    
-    distance = ndimage.distance_transform_cdt(notGrid, metric='taxicab', return_distances=True)
-    end_time = time.perf_counter()
-    print ("processing time  ", end_time - start_time)
-    
-    plt.figure(2)
-    plt.imshow(distance, origin='lower')
-    plt.show()
-    plt.pause(0.001)
-    
-    deriv = ndimage.convolve(distance, weights=secderiv3)
-    #deriv = np.where(distance > 4, 1, 0)
-    plt.figure(3)
-    plt.imshow(deriv, origin='lower')
-    plt.show()    
-    plt.pause(0.001)
-
- 
-    g.histSize = 12
-    g.histArr =  [ 0.0, 4.0, 4.0, 5.0, 6.0, 4.0, 0.0, 0.0, 0.0, 5.0, 5.0, 0.0]
-    #g.histArr  =  [ 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
-    #g.lowPassFilterDag(5)   
-    
-    g.printHistArr
-    minCost = min(g.histArr)         # Find the minimum(s)      
-    runs = g.getRuns(minCost)        # Find all the runs at this minimum
-    print (runs)
-    angle = g.getBestRun(runs)
-    print ("angle = ", angle)
-
-###############################################################################
-# Test code
-###############################################################################
-TEST = 1
-NPY_DIR = "."
+        plt.pause(5.1)
+"""
 
 if __name__ == '__main__':
-    import sys
-    #print(sys.paRth)
-
-    ##########################################################################
-    vehState = vs.vehicleState()
+    if (TEST == 1):
+        import os as os
+        import sys
+        #print(sys.path)
     
-    # get a sorted listing of the .npy files
-    dir = os.listdir(NPY_DIR)
-    for i in range(len(dir)-1,-1,-1):
-        if len(dir[i])<4:
-            del dir[i]
-        elif ".npy" not in dir[i]:
-            del dir[i]
-    # sort by digits
-    dir.sort()
-    # sort by length
-    dir = sorted(dir, key=len)
-
-    if 0: # run our manual points
-        processBuffer(vehState)
-    else:
-        # now load, display and run them
-        print ("Number of npy files - ", len(dir))
-        for file in dir:
-            print(file)
-            vehState.lidarBuffer = np.load(file)
-            processBuffer(vehState)
-            #plotBuffer(vehState.lidarBuffer)
-            plt.pause(1)
-    #vehState.lidarBuffer = np.load(dir[0])
-
-# end  
+        ##########################################################################
+        vehState = vs.vehicleState()
+        grid = Grid(10, nRows=100, nCols=160, distance=0, angle=0)
+        grid.details()
+        
+        # get a sorted listing of the .npy files
+        dir = os.listdir(NPY_DIR)
+        for i in range(len(dir)-1,-1,-1):
+            # print (dir[i])
+            if len(dir[i])<4:
+                del dir[i]
+            elif ".npy" not in dir[i]:
+                del dir[i]
+                
+        # sort by digits
+        dir.sort()
+        # sort by length
+        dir = sorted(dir, key=len)
     
+        if np.sum(vehState.lidarBuffer)<1: # manually enter a set of lidar readings       
+            enterManualPnts (grid)
+            processGrid(vehState, grid)
+        else:
+            # now load, display and run them
+            print ("Number of npy files - ", len(dir))
+            for file in dir:
+                print(file)
+                vehState.lidarBuffer = np.load(file)
+                enterBufferPnts(vehState, grid)
+                processGrid(vehState, grid)
+                #plotBuffer(vehState.lidarBuffer)
+                plt.pause(1)
+        #vehState.lidarBuffer = np.load(dir[0]) 
+    # end TEST 1
     
+""" 
+    grid.histSize = 12
+    grid.histArr =  [ 0.0, 4.0, 4.0, 5.0, 6.0, 4.0, 0.0, 0.0, 0.0, 5.0, 5.0, 0.0]
+    #grid.histArr  =  [ 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
+    #grid.lowPassFilterDag(5)   
     
-    
-    
-    
-    
-    
-
+    grid.printHistArr
+    minCost = min(grid.histArr)         # Find the minimum(s)      
+    runs = grid.getRuns(minCost)        # Find all the runs at this minimum
+    print (runs)
+    angle = grid.getBestRun(runs)
+    print ("angle = ", angle)      
+"""    
 """
     import time
 
@@ -628,7 +663,7 @@ if __name__ == '__main__':
 
         # # TEST SCRIPT - Draw a left wall
         # for y in range(3000):
-        #     g.enterPoint(y*tan(radians(40)), y)
+        #     gridenterPoint(y*tan(radians(40)), y)
 
         s = LIDAR(portname='/dev/ttyUSB0')
 
@@ -636,13 +671,13 @@ if __name__ == '__main__':
             obstacles = s.scan() # returns an array of one rotation of obstacles
 
             for i in obstacles:
-                g.enterRange(0, 0, i[1] / 10, i[0])
+                gridenterRange(0, 0, i[1] / 10, i[0])
 
         # scanAngle or "Cone": +/- (deg)
         # angDelta or "Slice": (deg)
         # minCost - smallest cost to display representing no object detected (recommended set to 0)
         # maxCost - largest cost to display representing imminent collision (recommended set to 9 max)
-        h = Histogram(origin=[0.5 * g.nCols * g.resolution, 0], scanAngle=45, angDelta=3)
+        h = Histogram(origin=[0.5 * gridnCols * gridresolution, 0], scanAngle=45, angDelta=3)
 
         # print(h.printSimpleGrid(g))
         costArray = h.getCostArray(g, maxDist, h.scanAngle, h.angDelta)
