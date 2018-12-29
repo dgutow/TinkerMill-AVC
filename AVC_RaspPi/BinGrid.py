@@ -419,11 +419,16 @@ class Grid(object):
 def processGrid(vehState, grid):
     ###########################################################################
     # Structuring array for the dilation
-    structElem5 = np.array ( [[ 0,  1,  1,  1,  0],
-                              [ 1,  1,  1,  1,  1],
-                              [ 1,  1,  1,  1,  1],
-                              [ 1,  1,  1,  1,  1],
-                              [ 0,  1,  1,  1,  0]], dtype=np.uint16)        
+    structElem50 = np.array ( [[ 0,  1,  1,  1,  0],
+                               [ 1,  1,  1,  1,  1],
+                               [ 1,  1,  1,  1,  1],
+                               [ 1,  1,  1,  1,  1],
+                               [ 0,  1,  1,  1,  0]] ) #, dtype=np.uint16) 
+    structElem51 = np.array ( [[ 1,  1,  1,  1,  1],
+                               [ 1,  1,  1,  1,  1],
+                               [ 1,  1,  1,  1,  1],
+                               [ 1,  1,  1,  1,  1],
+                               [ 1,  1,  1,  1,  1]] ) #, dtype=np.uint16)                               
     structElem3 = np.ones( (3, 3), dtype=np.uint16 )
     
     # Second deriv operators    
@@ -434,17 +439,22 @@ def processGrid(vehState, grid):
                             [-2,  0,  0,  0,  0,  0, -2],
                             [-2,  0,  0,  0,  0,  0, -2],                            
                             [-2,  0,  0,  0,  0,  0, -2]])
-    secderiv5 = np.array ( [[ 0,  0,  0,  0,  0],
-                            [-2,  0,  4,  0, -2],
-                            [-2,  0,  4,  0, -2],
-                            [-2,  0,  4,  0, -2],
-                            [ 0,  0,  0,  0,  0]])
+    secderiv5_1 = np.array ( [[-1, -2,  6, -2, -1],
+                              [-1, -2,  6, -2, -1],
+                              [-1, -2,  6, -2, -1],
+                              [-1, -2,  6, -2, -1],
+                              [-1, -2,  6, -2, -1]])                            
+    secderiv5_2 = np.array ( [[-1,  0,  0,  0, -1],
+                              [-1, -2,  6, -2, -1],
+                              [-1, -2, 10, -2, -1],
+                              [-1, -2,  6, -2, -1],
+                              [-1,  0,  0,  0, -1]])                       
     secderiv3 = np.array ( [[-1,  2, -1],
-                            [-2,  4, -2],
-                            [-1,  2, -1] ])                           
-    secderiv3 = np.array ( [[0,  0, 0],
                             [-1,  2, -1],
-                            [0,  0, 0] ])                           
+                            [-1,  2, -1] ])                           
+    secderiv3h= np.array ( [[ 0,  0,  0],
+                            [-1,  2, -1],
+                            [ 0,  0,  0] ])                           
     # Diagonal Deriv operators
     diag0 = np.array ([ [-1, -2,  0],
                         [-2,  0, +2],
@@ -458,7 +468,7 @@ def processGrid(vehState, grid):
     # Dilation
     tmr.start(0)
     tmr.start(10)
-    dilatedgrid = ndimage.binary_dilation(grid.binGrid, structure=structElem5, border_value=0) 
+    dilatedgrid = ndimage.binary_dilation(grid.binGrid, structure=structElem50, border_value=0) 
     tmr.stop(0)
     
     # invert
@@ -472,10 +482,11 @@ def processGrid(vehState, grid):
     tmr.stop(2)
 
     tmr.start(3)
-    deriv = ndimage.convolve(distance, weights=secderiv3)
+    deriv = ndimage.convolve(distance, weights=secderiv5_1)
+    derivThresh = np.where(deriv >= 2, 1, 0)    
     tmr.stop(3)
     tmr.stop(10)
-    #deriv = np.where(distance > 4, 1, 0)
+
        
     tmr.printAll("Morph ")
     
@@ -483,17 +494,16 @@ def processGrid(vehState, grid):
     # Consolidate all the plotting here...
     # don't stall on putting up each figure - interactive mode on  
     plt.ioff()    
-    #figure, axes = plt.subplots(2,2)    
     
-    ## the original Grid
-    #plt.figure(0)
-    #plt.title("Original grid points")
-    #plt.imshow(grid.binGrid, origin='lower') 
-    #
-    ## the dilated grid
-    #plt.figure(1)
-    #plt.title("Dilated grid points")
-    #plt.imshow(dilatedgrid, origin='lower')
+    # the original Grid
+    plt.figure(0)
+    plt.title("Original grid points")
+    plt.imshow(grid.binGrid, origin='lower') 
+    
+    # the dilated grid
+    plt.figure(1)
+    plt.title("Dilated grid points")
+    plt.imshow(dilatedgrid, origin='lower')
 
     # The distance transform
     plt.figure(2)
@@ -501,13 +511,18 @@ def processGrid(vehState, grid):
     plt.imshow(distance, origin='lower')
  
     ## the peak processing
-    #plt.figure(3)
-    #plt.title("Peaks")
-    #plt.imshow(deriv, origin='lower')
+    plt.figure(3)
+    plt.title("Peaks")
+    plt.imshow(deriv, origin='lower')
+    
+    ## the peak processing
+    plt.figure(4)
+    plt.title("Threshold")
+    plt.imshow(derivThresh, origin='lower')
     
     # the rows
     nRows = 10
-    plt.figure(4)
+    #plt.figure(4)
     figure, plots = plt.subplots(nRows)
     for i in range(nRows):
         row = 15 + 5*i
@@ -527,11 +542,94 @@ def processGrid(vehState, grid):
 ###############################################################################   
 # enterManualPnts - create a grid of points the hard way - earn it!
 ###############################################################################    
-def enterManualPnts(grid):
+def enterManualPnts0(grid):
     print ("enterManualPnts: Entering points manually") 
     lWall = 40
     rWall = 120
     
+    if (1):
+        for row in range(99): 
+            # create a bit of uneveness.  Every 10 columns move over and 
+            # every 25 columns move over some more
+            if (row % 10 == 0):
+                lWall += 1
+                rWall += 1
+            if (row % 25 == 0):
+                lWall += 2
+                rWall += 2   
+            
+            # Only enter every third point
+            if (row % 3 == 0):
+                if (row < 60):
+                    grid.enterPoint(row, lWall)
+                    grid.enterPoint(row, rWall) 
+                else:
+                    grid.enterPoint(row, rWall)            
+                
+        # The horiz wall
+        for col in range(55, 80, 2):
+            grid.enterPoint(60, col)
+        
+        # the barrels
+        grid.enterPoint(70, 95)
+        grid.enterPoint(68, 96) 
+        grid.enterPoint(69, 97)
+        grid.enterPoint(69, 98) 
+        grid.enterPoint(70, 99)     
+    
+        grid.enterPoint(68, 110)
+        grid.enterPoint(67, 111) 
+        grid.enterPoint(67, 112)
+        grid.enterPoint(68, 113)   
+        grid.enterPoint(69, 114)  
+    else:
+        lWall = 65
+        rWall = 95    
+        for row in range(99): 
+            # create a bit of uneveness.  Every 10 columns move over and 
+            # every 25 columns move over some more
+            if (row % 10 == 0):
+                lWall += 1
+                rWall += 1
+            if (row % 25 == 0):
+                lWall += 2
+                rWall += 2   
+            
+            # Only enter every third point
+            if (row % 3 == 0):
+                if (row > 40 and row < 60):
+                    continue
+                if (row < 80):
+                    grid.enterPoint(row, lWall)
+                    grid.enterPoint(row, rWall) 
+                else:
+                    grid.enterPoint(row, rWall)            
+                
+        # The horiz wall
+        for col in range(55, 80, 1):
+            if (col % 4 == 0):
+                grid.enterPoint(80, col)
+            elif (col % 2 == 0):
+                grid.enterPoint(81, col)            
+        
+        # the barrels
+        grid.enterPoint(85, 95)
+        grid.enterPoint(83, 96) 
+        grid.enterPoint(84, 97)
+        grid.enterPoint(84, 98) 
+        grid.enterPoint(85, 99)     
+    
+        grid.enterPoint(88, 110)
+        grid.enterPoint(87, 111) 
+        grid.enterPoint(87, 112)
+        grid.enterPoint(88, 113)   
+        grid.enterPoint(89, 114)      
+# end enterManualPnts 
+
+def enterManualPnts1(grid):
+    print ("enterManualPnts: Entering points manually") 
+    lWall = 65
+    rWall = 95    
     for row in range(99): 
         # create a bit of uneveness.  Every 10 columns move over and 
         # every 25 columns move over some more
@@ -544,29 +642,34 @@ def enterManualPnts(grid):
         
         # Only enter every third point
         if (row % 3 == 0):
-            if (row < 60):
+            if (row > 40 and row < 60):
+                continue
+            if (row < 80):
                 grid.enterPoint(row, lWall)
                 grid.enterPoint(row, rWall) 
             else:
                 grid.enterPoint(row, rWall)            
             
     # The horiz wall
-    for col in range(55, 80, 2):
-        grid.enterPoint(60, col)
+    for col in range(80, 85, 1):
+        if (col % 4 == 0):
+            grid.enterPoint(80, col)
+        elif (col % 2 == 0):
+            grid.enterPoint(81, col)            
     
     # the barrels
-    grid.enterPoint(70, 95)
-    grid.enterPoint(68, 96) 
-    grid.enterPoint(69, 97)
-    grid.enterPoint(69, 98) 
-    grid.enterPoint(70, 99)     
-
-    grid.enterPoint(68, 110)
-    grid.enterPoint(67, 111) 
-    grid.enterPoint(67, 112)
-    grid.enterPoint(68, 113)   
-    grid.enterPoint(69, 114)       
-# end enterManualPnts 
+    grid.enterPoint(85, 95)
+    grid.enterPoint(83, 96) 
+    grid.enterPoint(84, 97)
+    grid.enterPoint(84, 98) 
+    grid.enterPoint(85, 99)     
+    
+    grid.enterPoint(88, 105)
+    grid.enterPoint(87, 106) 
+    grid.enterPoint(87, 107)
+    grid.enterPoint(88, 108)   
+    grid.enterPoint(89, 109)      
+# end enterManualPnts1 
 
 ###############################################################################   
 # enterBufferPnts - enter the grid points from the vehState buffer
@@ -577,7 +680,6 @@ def enterBufferPnts(vehState, grid):
     for point in points:
         grid.enterPoint(point[0].astype(int),point[1].astype(int)+80)
 # end enterBufferPnts
-
 
 TEST = 1
 NPY_DIR = "."
@@ -620,7 +722,7 @@ if __name__ == '__main__':
         dir = sorted(dir, key=len)
     
         if np.sum(vehState.lidarBuffer)<1: # manually enter a set of lidar readings       
-            enterManualPnts (grid)
+            enterManualPnts1 (grid)
             processGrid(vehState, grid)
         else:
             # now load, display and run them
