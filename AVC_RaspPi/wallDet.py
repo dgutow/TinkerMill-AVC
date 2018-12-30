@@ -22,7 +22,7 @@ from scipy import misc                      # scipy
 import matplotlib.pyplot as plt             # matplotlib
 import   math as math
 
-def plotBuffer(lidarBuffer):
+def plotBuffer(lidarBuffer, file):
         #print("start")
     angles= np.expand_dims(np.linspace(0,2*math.pi,360),1)
     distances = np.expand_dims(lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE],1)
@@ -40,6 +40,7 @@ def plotBuffer(lidarBuffer):
     plt.xlim((-12,12))
     plt.ylim((-12,12))
     plt.grid(True)
+    plt.title(file)
 
     #plt.show(block=False)
     plt.show()
@@ -110,8 +111,10 @@ if __name__ == '__main__':
         # sort by digits
         dir.sort()
 
+
         # now load, display and run them
         print ("Number of mat files - ", len(dir))
+        plt.ion()
         for file in dir:
             print(MAT_DIR+file)
             f = h5py.File(MAT_DIR+file,'r') 
@@ -120,9 +123,9 @@ if __name__ == '__main__':
             vehState.lidarBuffer[:,ct.LIDAR_BUFFER_ANGLE] = data[:,0]
             vehState.lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE] = data[:,1]
             
-            processBuffer(vehState)
-            #plotBuffer(vehState.lidarBuffer)
-            plt.pause(1)
+            #processBuffer(vehState)
+            plotBuffer(vehState.lidarBuffer, file)
+            plt.pause(0.1)
     #vehState.lidarBuffer = np.load(dir[0])
 
 # end
