@@ -324,7 +324,7 @@ class Grid(object):
     
         self.tmr.start(3)
         self.deriv = ndimage.convolve(self.distance, weights=self.secderiv5_1)
-        #derivThresh = np.where(self.deriv >= 2, 1, 0)    
+        self.derivThresh = np.where(self.deriv >= 2, 1, 0)    
         self.tmr.stop(3)
         self.tmr.stop(10)
     # end processBuffer    
@@ -338,45 +338,42 @@ class Grid(object):
     ###############################################################################   
     # plotGrid - Consolidate all the plotting here...
     ############################################################################### 
-    def plotGrid(self, title, binary=False, dilated=False, distance=False, deriv=False):    
+    def plotGrid(self, title, binary=False, dilated=False, distance=False, 
+                              deriv=False,  threshold=False):    
         # don't stall on putting up each figure - interactive mode on  
         plt.ioff()    
         
-        # the original Grid
-        if (binary):
+        if (binary):            # the original Grid
             plt.figure(0)
             plt.cla()
             plt.title(title + " - Grid")
             plt.imshow(self.binGrid, origin='lower') 
         
-        # the dilated grid
-        if (dilated):
+        if (dilated):           # the dilated grid
             plt.figure(1)
             plt.cla()
             plt.title(title + " - Dilated grid")
             plt.imshow(self.dilatedgrid, origin='lower')
-           
-        # The distance transform
-        if (distance):
+                   
+        if (distance):          # The distance transform
             plt.figure(2)
             plt.cla()        
             plt.title(title + " - Distance transform")
             plt.imshow(self.distance, origin='lower')
         
-    
-        ## the derivative
-        if (deriv):
+        if (deriv):             # the derivative
             plt.figure(3)
             plt.cla()
-            plt.title(title + " - Peaks")
+            plt.title(title + " - Derivative")
             plt.imshow(self.deriv, origin='lower')
         
+        if (threshold):         # thesholded
+            plt.figure(4)
+            plt.cla()            
+            plt.title(title + " - Threshold")
+            plt.imshow(self.derivThresh, origin='lower')
+            
         """         
-        ## the peak processing
-        plt.figure(4)
-        plt.title("Threshold")
-        plt.imshow(derivThresh, origin='lower')
-        
         # the rows
         nRows = 10
         #plt.figure(4)
@@ -386,8 +383,6 @@ class Grid(object):
             plots[nRows-i-1].plot(distance[row])
             plots[nRows-i-1].set(ylabel='row ' + str(row))
             #plt.title("Distance Transform")
-        
-        
         plt.show()  
         plt.ion()            # Now wait till the user kills the plots 
         """
@@ -603,8 +598,18 @@ if __name__ == '__main__':
             
             grid.enterBufferPnts(vehState)
             grid.processGrid(vehState)
-            grid.plotGrid(file, binary=True, dilated=False, distance=False, deriv=True)
-            plt.pause(.1)            
+            grid.plotGrid(file, binary=True, dilated=False, distance=False, 
+                                deriv=True, threshold=True)
+                                
+            # slow down at the hard parts of the track
+            fileNo = int(file[0:3]) 
+            if ( (fileNo > 60  and fileNo <  70) or
+                 (fileNo > 105 and fileNo < 120) or
+                 (fileNo > 170 and fileNo < 185) or
+                 (fileNo > 195 and fileNo < 200) ):
+                plt.pause(1.5)
+            else: 
+                plt.pause(.1)            
             grid.clear()     
         
         grid.printTimers("Grid Processing:")
