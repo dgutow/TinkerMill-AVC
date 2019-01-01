@@ -68,17 +68,34 @@ def processBuffer(vehState):
 TEST = 2
 NPY_DIR = "."
 MAT_DIR = "./matlabCourse/"
+
+###############################################################################
+# getFileList
+###############################################################################
+def getFileList(directory, extension):
+    # get a sorted listing of the .<extension> files
+    dir = os.listdir(directory)
+    for i in range(len(dir)-1,-1,-1):
+        if len(dir[i])<4:
+            del dir[i]
+        elif extension not in dir[i]:
+            del dir[i]
+    # sort by digits
+    dir.sort()
+    return dir
+# end getFileList        
+
+
 if __name__ == '__main__':
     import sys
     #print(sys.paRth)
 
     ##########################################################################
     vehState = vs.vehicleState()
-    
-
 
     if TEST==0: # run our manual points
         processBuffer(vehState)
+        
     elif TEST == 1:
         # get a sorted listing of the .npy files
         dir = os.listdir(NPY_DIR)
@@ -100,21 +117,15 @@ if __name__ == '__main__':
             processBuffer(vehState)
             #plotBuffer(vehState.lidarBuffer)
             plt.pause(1)
+            
     elif TEST == 2:
-        # get a sorted listing of the .npy files
-        dir = os.listdir(MAT_DIR)
-        for i in range(len(dir)-1,-1,-1):
-            if len(dir[i])<4:
-                del dir[i]
-            elif ".mat" not in dir[i]:
-                del dir[i]
-        # sort by digits
-        dir.sort()
-
+        dir = getFileList(MAT_DIR, ".mat")
 
         # now load, display and run them
         print ("Number of mat files - ", len(dir))
+        
         plt.ion()
+        
         for file in dir:
             print(MAT_DIR+file)
             f = h5py.File(MAT_DIR+file,'r') 
