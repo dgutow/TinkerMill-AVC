@@ -73,7 +73,7 @@ class Grid(object):
         self.nCols      = nCols
         self.nRows      = nRows
         self.Xpos       = nCols * resolution / 2
-        self.Ypos       = 0.0
+        self.Ypos       = 100.0
 
         self.host       = None          # Used for UDP telemetry
         self.port       = None
@@ -346,33 +346,37 @@ class Grid(object):
         if (binary):            # the original Grid
             plt.figure(0)
             plt.cla()
-            plt.title(title + " - Grid")
+            plt.title(title + " - Grid")      
             plt.imshow(self.binGrid, origin='lower') 
-        
+            plt.text (90, 10, 'I', fontsize=18, color='red') 
+
         if (dilated):           # the dilated grid
             plt.figure(1)
             plt.cla()
             plt.title(title + " - Dilated grid")
             plt.imshow(self.dilatedgrid, origin='lower')
+            plt.text (90, 10, 'I', fontsize=18, color='red')             
                    
         if (distance):          # The distance transform
             plt.figure(2)
             plt.cla()        
             plt.title(title + " - Distance transform")
             plt.imshow(self.distance, origin='lower')
-        
+            plt.text (90, 10, 'I', fontsize=18, color='red') 
+            
         if (deriv):             # the derivative
             plt.figure(3)
             plt.cla()
             plt.title(title + " - Derivative")
             plt.imshow(self.deriv, origin='lower')
-        
+            plt.text (90, 10, 'I', fontsize=18, color='red') 
+            
         if (threshold):         # thesholded
             plt.figure(4)
             plt.cla()            
             plt.title(title + " - Threshold")
             plt.imshow(self.derivThresh, origin='lower')
-            
+            plt.text (90, 10, 'I', fontsize=18, color='red')             
         """         
         # the rows
         nRows = 10
@@ -580,7 +584,7 @@ if __name__ == '__main__':
     
         ##########################################################################
         vehState = vs.vehicleState()
-        grid = Grid(10, nRows=100, nCols=180, distance=0, angle=0)
+        grid = Grid(10, nRows=110, nCols=180, distance=0, angle=0)
         grid.details()
         
         # get a sorted listing of the .npy files
@@ -598,8 +602,8 @@ if __name__ == '__main__':
             
             grid.enterBufferPnts(vehState)
             grid.processGrid(vehState)
-            grid.plotGrid(file, binary=True, dilated=False, distance=False, 
-                                deriv=True, threshold=True)
+            grid.plotGrid(file, binary=True, dilated=True, distance=False, 
+                                deriv=False, threshold=True)
                                 
             # slow down at the hard parts of the track
             fileNo = int(file[0:3]) 
