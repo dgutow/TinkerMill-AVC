@@ -336,6 +336,15 @@ class Grid(object):
         self.tmr.printAll(title)      
     
     ###############################################################################   
+    # plotVehicle - plot the location of the vehicle
+    ###############################################################################   
+    def plotVehicle(self, x, y):
+        xCorners = [ x - 1, x + 1, x + 1, x - 1, x - 1]
+        yCorners = [ y + 1, y + 1, y - 3, y - 3, y + 1]
+
+        plt.fill (xCorners, yCorners, 'red')
+        
+    ###############################################################################   
     # plotGrid - Consolidate all the plotting here...
     ############################################################################### 
     def plotGrid(self, title, binary=False, dilated=False, distance=False, 
@@ -348,35 +357,36 @@ class Grid(object):
             plt.cla()
             plt.title(title + " - Grid")      
             plt.imshow(self.binGrid, origin='lower') 
-            plt.text (90, 10, 'I', fontsize=18, color='red') 
+            #plt.text (90, 10, 'I', fontsize=18, color='red') 
+            self.plotVehicle(90, 10)
 
         if (dilated):           # the dilated grid
             plt.figure(1)
             plt.cla()
             plt.title(title + " - Dilated grid")
             plt.imshow(self.dilatedgrid, origin='lower')
-            plt.text (90, 10, 'I', fontsize=18, color='red')             
+            self.plotVehicle(90, 10)             
                    
         if (distance):          # The distance transform
             plt.figure(2)
             plt.cla()        
             plt.title(title + " - Distance transform")
             plt.imshow(self.distance, origin='lower')
-            plt.text (90, 10, 'I', fontsize=18, color='red') 
+            self.plotVehicle(90, 10) 
             
         if (deriv):             # the derivative
             plt.figure(3)
             plt.cla()
             plt.title(title + " - Derivative")
             plt.imshow(self.deriv, origin='lower')
-            plt.text (90, 10, 'I', fontsize=18, color='red') 
+            self.plotVehicle(90, 10) 
             
         if (threshold):         # thesholded
             plt.figure(4)
             plt.cla()            
             plt.title(title + " - Threshold")
             plt.imshow(self.derivThresh, origin='lower')
-            plt.text (90, 10, 'I', fontsize=18, color='red')             
+            self.plotVehicle(90, 10)             
         """         
         # the rows
         nRows = 10
