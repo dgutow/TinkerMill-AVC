@@ -10,6 +10,7 @@ import math as math
 import matplotlib.pyplot as plt
 from matplotlib.collections import PatchCollection
 from matplotlib.patches import Rectangle
+import matplotlib.animation as manimation
 import time as time
 import os as os
 #from rangeClass      import Range
@@ -159,7 +160,7 @@ def plotBuffer(lidarBuffer):
 
     plt.plot(points[:,0],-points[:,1],linestyle=' ',marker='.',markersize=5)
     boxes = []
-    boxes.append(pat.Rectangle((-ct.wheelBase/2,-ct.vehicleWidth/2),ct.wheelBase,ct.vehicleWidth))
+    boxes.append(Rectangle((-ct.wheelBase/2,-ct.vehicleWidth/2),ct.wheelBase,ct.vehicleWidth))
     pc = PatchCollection(boxes, facecolor='k', alpha=0.5, edgecolor='k')
     
     plt.gca().add_collection(pc)
@@ -184,6 +185,12 @@ if __name__ == "__main__":
     cont = controller()
     vehState = vs.vehicleState()
     ct.DEVELOPMENT=True
+
+    
+    FFMpegWriter = manimation.writers['ffmpeg']
+    metadata = dict(title='Movie Test', artist='Matplotlib',
+                    comment='Movie support!')
+    writer = FFMpegWriter(fps=15, metadata=metadata)
     
     # get a sorted listing of the .npy files
     dir = os.listdir('.')
@@ -197,10 +204,12 @@ if __name__ == "__main__":
     # sort by length
     dir = sorted(dir, key=len)
 
-    # now load, display and run them
-    for file in dir:
-        print(file)
-        vehState.lidarBuffer = np.load(file)
-        plotBuffer(vehState.lidarBuffer)
-        cont.calcTargetAngle(vehState, 45, -45)
+    with writer.saving(plt.figure(1), 'myfile.mp4', dpi=100):
+        # now load, display and run them
+        for file in dir:
+            print(file)
+            vehState.lidarBuffer = np.load(file)
+            plotBuffer(vehState.lidarBuffer)
+            cont.calcTargetAngle(vehState, 45, -45)
+            writer.grab_frame()
 # end  
