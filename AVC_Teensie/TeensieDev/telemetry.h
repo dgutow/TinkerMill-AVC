@@ -5,6 +5,7 @@
 #ifndef  TELEMETRY_H
 #define TELEMETRY_H
 
+#include "constants.h"
 ///////////////////////////////////////////////////////////////////////////////
 // Enumerations 
 ///////////////////////////////////////////////////////////////////////////////
@@ -39,31 +40,31 @@ enum EstopReason
 class Telemetry
 {
 public:    
-    uint32_t pktId;             // Identifier for this packet
-    uint32_t time;
-    uint16_t currMode;          // Enumeration of Mode
-    uint16_t acceptCntr;
-    uint16_t bist;
-    int16_t  currSpeed;
-    int16_t  currSteerAng;
-    uint16_t cumDistance;
-    int16_t  scnDist1;
-    int16_t  scnDist2;
-    int16_t  scnDist3;
-    int16_t  scnDist4;
-    uint16_t switches;
-    uint16_t scanAng;
-    uint16_t rejectCntr;
-    uint16_t rejectReason;
-    uint16_t volt1;
-    uint16_t volt2;
-    int16_t  accel;
-    int16_t  gyro;
-    int16_t  compass;
-    int16_t  cameraAngle;
-    uint16_t brakeStatus;
-    uint16_t spare1;    
-    uint16_t spare2;
+    uint32 pktId;             // Identifier for this packet
+    uint32 time;
+    uint16 currMode;          // Enumeration of Mode
+    uint16 acceptCntr;
+    uint16 bist;
+    int16  currSpeed;
+    int16  currSteerAng;
+    uint16 cumDistance;
+    int16  scnDist1;
+    int16  scnDist2;
+    int16  scnDist3;
+    int16  scnDist4;
+    uint16 switches;
+    uint16 scanAng;
+    uint16 rejectCntr;
+    uint16 rejectReason;
+    uint16 volt1;
+    uint16 volt2;
+    int16  accel;
+    int16  gyro;
+    int16  compass;
+    int16  cameraAngle;
+    uint16 brakeStatus;
+    uint16 leftEncoder;    
+    uint16 rightEncoder;
 };
  
 ///////////////////////////////////////////////////////////////////////////////
@@ -71,7 +72,7 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 
 void tlm_init();
-void tlm_sendToHost (uint32_t currTimeMsec);
-void tlm_sendToEsp  (uint32_t currTimeMsec);
+void tlm_sendToHost (uint32 currTimeMsec);
+void tlm_sendToEsp  (uint32 currTimeMsec);
  
 #endif    //  TELEMETRY_H

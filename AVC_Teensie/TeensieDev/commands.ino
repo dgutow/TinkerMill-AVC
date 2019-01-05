@@ -53,9 +53,7 @@ void commandDecode(cmdData* command)
     {
         // Incorrect header on command message
         telem.rejectCntr++;
-        telem.rejectReason = 1;
-        // telem.spare1 = header;
-        // telem.spare2 = cmd;        
+        telem.rejectReason = 1;     
         return;
     }      
   

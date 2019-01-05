@@ -16,7 +16,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 extern Telemetry telem;                // The telemetry class
 
-void blinkLed (uint32_t currTimeMsec);
+void blinkLed (uint32 currTimeMsec);
 ///////////////////////////////////////////////////////////////////////////////
 // Constants
 ///////////////////////////////////////////////////////////////////////////////
@@ -107,7 +107,7 @@ void veh_init()
     trnServo.attach (TRN_PIN_NUMBER, TRN_MIN_PULSEWIDTH, TRN_MAX_PULSEWIDTH);
     brkServo.attach (BRK_PIN_NUMBER, BRK_MIN_PULSEWIDTH, BRK_MAX_PULSEWIDTH);
     veh_move (0,0);
-    veh_turn(0);
+    veh_turn (0, 10000);
     veh_brake(0);
     
     // attach two interrupts
@@ -130,7 +130,7 @@ void veh_init()
 ///////////////////////////////////////////////////////////////////////////////
 // veh_move - start or continue a move command
 ///////////////////////////////////////////////////////////////////////////////
-uint32_t veh_move (int16_t speed, uint16_t distance)
+uint32 veh_move (int16 speed, uint16 distance)
 {
     if (telem.currMode != NORMAL)
     { 
@@ -144,7 +144,7 @@ uint32_t veh_move (int16_t speed, uint16_t distance)
     veh_moveDistance    = telem.cumDistance + veh_cmd_dist;  
     
     // Convert from cm/sec to Servo microseconds 
-    int32_t uSeconds = SPD_MID_PULSEWIDTH + (speed * SPD_CONVERSION); 
+    int32 uSeconds = SPD_MID_PULSEWIDTH + (speed * SPD_CONVERSION); 
     spdServo.writeMicroseconds(uSeconds);  
     
     return (true);
@@ -153,7 +153,7 @@ uint32_t veh_move (int16_t speed, uint16_t distance)
 ///////////////////////////////////////////////////////////////////////////////
 // veh_turn - start or continue a turn command
 ///////////////////////////////////////////////////////////////////////////////
-uint32_t veh_turn  (int16_t angle, uint16_t timeMsec)
+uint32 veh_turn  (int16 angle, uint16 timeMsec)
 {
     if (telem.currMode != NORMAL)
     { 
@@ -165,7 +165,7 @@ uint32_t veh_turn  (int16_t angle, uint16_t timeMsec)
     veh_turnEndTime    = millis() + timeMsec;
     
     // Convert from degrees to Servo microseconds 
-    int32_t uSeconds = TRN_MID_PULSEWIDTH + (angle * TRN_CONVERSION); 
+    int32 uSeconds = TRN_MID_PULSEWIDTH + (angle * TRN_CONVERSION); 
     trnServo.writeMicroseconds(uSeconds);      
      
     return (true);      
@@ -174,12 +174,12 @@ uint32_t veh_turn  (int16_t angle, uint16_t timeMsec)
 ///////////////////////////////////////////////////////////////////////////////
 // veh_brake - apply or release the brake.  Force should go between 0 and 100.
 ///////////////////////////////////////////////////////////////////////////////
-uint32_t veh_brake (uint16_t force)
+uint32 veh_brake (uint16 force)
 {   
     telem.brakeStatus = force;
     
     // Convert from degrees to Servo microseconds 
-    int32_t uSeconds = BRK_MID_PULSEWIDTH + (force * BRK_CONVERSION); 
+    int32 uSeconds = BRK_MID_PULSEWIDTH + (force * BRK_CONVERSION); 
     brkServo.writeMicroseconds(uSeconds);      
      
     return (true);      
@@ -188,7 +188,7 @@ uint32_t veh_brake (uint16_t force)
 ///////////////////////////////////////////////////////////////////////////////
 // veh_estop - estop the vehicle
 ///////////////////////////////////////////////////////////////////////////////
-uint32_t veh_estop ()
+uint32 veh_estop ()
 {
     // Shutdown the drive motor
     veh_move (0, 0);
@@ -210,8 +210,8 @@ void veh_getTelem (uint32 currTimeMsec)
     telem.currSpeed = (uint16) ((lt_linearSpeed + rt_linearSpeed) / 2); 
 
     // Lets put the interrupt step counters in the spares for diagnostics
-    telem.spare1 = lt_nSteps;
-    telem.spare2 = rt_nSteps;         
+    telem.leftEncoder  = lt_nSteps;
+    telem.rightEncoder = rt_nSteps;         
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -335,7 +335,6 @@ void veh_rightWheelInt (void)
 ///////////////////////////////////////////////////////////////////////////////
 // 
 ///////////////////////////////////////////////////////////////////////////////
-// #define uint32 unsigned integer
 
 void VerifySteps(volatile uint32 step[3],uint32 localStep[3],volatile uint32 &wheelSteps,uint32 &localSteps)
 {
@@ -368,7 +367,7 @@ float getLeftLinearSpeed() {
 float getRightLinearSpeed() {
     return (getRWheelRotateSpeed() * VEH_WHEEL_CIRCUM) / 360;
 }
-void veh_check(uint32 currTimeMsec)
+void veh_check_OBE(uint32 currTimeMsec)
 {
     // Calculate the current rotational speeds (deg/sec)    
     lt_rotateSpeed = getLWheelrotateSpeed();
