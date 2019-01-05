@@ -90,33 +90,34 @@ class guiIfClass (object):
     # send_rpiTlm - sends a telemetry packet from the main processor. 
     ###########################################################################     
     def send_rpiTlm (self, guiAcceptCnt, vehState):   
-        try: 
+            #try: 
             # convert delta times to milliseconds
             lidar_get_data_time = int(vehState.lidar_get_data_time * 1000)
             grid_enter_data_time= int(vehState.grid_enter_data_time * 1000)
             hist_get_angle_time = int(vehState.hist_get_angle_time * 1000)
             grid_send_data_time = int(vehState.grid_send_data_time * 1000)
+            histAngle           = int(vehState.histAngle * 10)
             
             # '<' - little-endian (win), 'L' - ulong, 'h' - short, 'B' - uchar
             #data = struct.pack('<LLhhBBBB', 1,2,3,4,5,6,7,8)
             data = struct.pack('<LLhhhhhhhhhh',  
                                 0x22222222,
-                                vehState.iopTime,
-                                guiAcceptCnt,
-                                vehState.mode.currMode,
-                                vehState.histAngle, 
-                                vehState.leftWallDist,
-                                vehState.RightWallDist,
-                                vehState.iopCumDistance, 
+                                int(vehState.iopTime),
+                                int(guiAcceptCnt),
+                                int(vehState.mode.currMode),
+                                histAngle, 
+                                int(vehState.leftWallDist),
+                                int(vehState.RightWallDist),
+                                int(vehState.iopCumDistance), 
                                 lidar_get_data_time,
                                 grid_enter_data_time,
                                 hist_get_angle_time,
                                 grid_send_data_time)
 
             self.guiTcpSock.sendString(data)        
-        except:
-            printOut ("GUIINTERFACE:send_rpiTlm - ERROR Unable to send telemetry")  
-            pass       
+            #except:
+            #printOut ("GUIINTERFACE:send_rpiTlm - ERROR Unable to send telemetry")  
+            #pass       
     # end send_mainTlm
     
     ###########################################################################

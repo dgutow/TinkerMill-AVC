@@ -62,8 +62,8 @@ public:
     int16_t  compass;
     int16_t  cameraAngle;
     uint16_t brakeStatus;
-    uint16_t spare1;    
-    uint16_t spare2;
+    uint16_t leftEncoder;    
+    uint16_t rightEncoder;
 };
  
 ///////////////////////////////////////////////////////////////////////////////

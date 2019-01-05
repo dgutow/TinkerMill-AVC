@@ -30,11 +30,6 @@ else:
 ###############################################################################
 # Global variables 
 ###############################################################################
-#vehState
-
-# The vehicle occupancy grid and histogram
-#occGrid       = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
-# occGrid.sendUDP_init (OCC_IPADD, UDP_OCCPORT)
 
 # IopTlmQueue is used to pass telemetry packets from the IOP serial port thread
 IopTlmQueue  = Queue(50)
@@ -69,6 +64,8 @@ def initializations():
     
     # start and initialize the RPLidar
     lidar       = init_lidar_scan()
+    
+    # The vehicle occupancy grid and histogram    
     occGrid     = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
     occGrid.sendUDP_init(OCC_IPADD, UDP_OCCPORT)
     
@@ -96,9 +93,9 @@ def mainLoop(lidar, occGrid, vehState, cont):
     while (not abort): 
         #(vehState.mode.currMode != raceModes.TERMINATE and not abort): 
         # Wait until 0.1 seconds have gone by from the last loop
-        #while ( time.clock() < (last_time + 0.1) ):
-            #pass
-        #last_time = time.clock()
+        while ( time.clock() < (last_time + 0.1) ):
+            pass
+        last_time = time.clock()
                        
         if loopCntr % 20 == 0:
             printOut ("\nMAIN_LOOP: Loop #%2d, time %f" % (loopCntr, time.clock()) )      
@@ -154,7 +151,7 @@ def get_lidarTlm(loopCntr, vehState, lidar, occGrid, cont):
     # Get the lastest range points from the RPLidar
 
     start_time = time.clock()
-    get_lidar_data(lidar, vehState, occGrid)
+    nPoints = get_lidar_data(lidar, vehState, occGrid)
     vehState.lidar_get_data_time = time.clock() - start_time        ##### time
     
     # Now shift the occGrid down by the vehicles motion since the last time
@@ -169,12 +166,14 @@ def get_lidarTlm(loopCntr, vehState, lidar, occGrid, cont):
     #vehState.histAngle = occGrid.getNearestAngle(0) 
     #print(occGrid.printHistArr())
     vehState.hist_get_angle_time = time.clock() - start_time        ##### time
-       
+    
+ 
+             
     if (loopCntr == 0):
         # Initialize the graphic window
         #occGrid.initGraphGrid("Occupancy Grid", 4, False, False)  
         pass
-        
+              
     if loopCntr % 2 == 0:
         # every 1/2 second send the occupancy grid to be displayed
         start_time = time.clock()     
@@ -275,8 +274,8 @@ def proc_iopTlm (data):
     vehState.iopCompAngle   = telemArray[20]
     vehState.iopCameraAngle = telemArray[21]   
     vehState.iopBrakeStatus = telemArray[22]    
-    vehState.iopSpare2      = telemArray[23]
-    vehState.iopSpare3      = telemArray[24]   
+    vehState.iopLeftEncoder = telemArray[23]
+    vehState.iopRightEncoder= telemArray[24]   
     
     if  False:
         pass
@@ -480,25 +479,25 @@ def exec_guiCmd (cmdMsg, vehState):
     elif (command == '2'):      # save the lidar buffer
         np.save("{3.5f}".format(time.clock())+".npy",vehState.lidarBuffer)
         
-    elif (command == '3'):      # n/d 
+    elif (command == '3'):      # n/d
         bad_cmd (command, param1, param2, param3)
         
-    elif (command == '4'):      # n/d        
+    elif (command == '4'):      # n/d
         bad_cmd (command, param1, param2, param3)
         
-    elif (command == '5'):      # n/d        
+    elif (command == '5'):      # n/d
         bad_cmd (command, param1, param2, param3)
         
-    elif (command == '6'):      # n/d        
+    elif (command == '6'):      # n/d
         bad_cmd (command, param1, param2, param3)
         
-    elif (command == '7'):      # n/d        
-        bad_cmd (command, param1, param2, param3)  
+    elif (command == '7'):      # n/d
+        bad_cmd (command, param1, param2, param3)
         
-    elif (command == '8'):      # n/d        
+    elif (command == '8'):      # n/d 
         bad_cmd (command, param1, param2, param3) 
         
-    elif (command == '9'):      # n/d        
+    elif (command == '9'):      # n/d
         bad_cmd (command, param1, param2, param3)
         
     print ("EXEC_GUICMD - guiAcceptCnt %d\n" % ( guiAcceptCnt))  

@@ -102,7 +102,6 @@ def get_lidar_data(lidar, vehState, occGrid):
             #curTime = time.clock()
             transferToBuffer(readings, current_time, vehState.lidarBuffer)
             #print("transfer: ",(time.clock()-curTime))
-
         # end if .. else
     # end while
     
@@ -114,6 +113,9 @@ def get_lidar_data(lidar, vehState, occGrid):
     return nPoints
 # end def
 
+###############################################################################
+# transferToBuffer 
+###############################################################################
 @numba.jit()
 def transferToBuffer(readings, current_time, lidarBuffer):
 
@@ -130,6 +132,10 @@ def transferToBuffer(readings, current_time, lidarBuffer):
             readings[i,LIDAR_READING_ANGLE], readings[i,LIDAR_READING_DISTANCE]/1000.,1]
         i=i+1
 
+
+###############################################################################
+# plotBuffer 
+###############################################################################
 #@numba.jit()
 def plotBuffer(lidarBuffer):
         #print("start")
@@ -183,28 +189,34 @@ def stop_lidar_scan():
         lidar.disconnect()   
 # end stop_scan    
 
-############################################################################### 
-# Initialize only what is necessary
-###############################################################################
-def initializations():
-    
-    # Vehicle State holds everything known about the current vehicle state
-    vehState = vehicleState()
-    
-    # start and initialize the RPLidar
-    lidar = init_lidar_scan()
  
-    occGrid = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
-    
-    time.sleep(1.0) 
 
-    return lidar, occGrid, vehState
-# end initializations   
-
-###############################################################################
+################################################################################
 # MAIN-LOOP TESTING
-###############################################################################
+################################################################################
 if __name__ == "__main__":
+    
+    ############################################################################ 
+    # Initialize only what is necessary
+    ############################################################################
+    def initializations():
+    
+        # Vehicle State holds everything known about the current vehicle state
+        vehState = vehicleState()
+    
+        # start and initialize the RPLidar
+        lidar = init_lidar_scan()
+ 
+        occGrid = Grid (ogResolution, ogNrows, ogNcols, ogStartDist, ogStartAngle)
+    
+        time.sleep(1.0) 
+
+        return lidar, occGrid, vehState
+    # end initializations      
+
+    ############################################################################ 
+    # test code
+    ############################################################################
     lidar, occGrid, vehState =initializations()
     curr_time = time.time()    
     print ( "------------- PRE-TIME %f" % (curr_time) ) 

@@ -119,12 +119,12 @@ def parse_telemetry (data):
         iopSwitchStatus  = telemArray[11]  
         
         measScanAngle  = telemArray[12]
-        measRejCnt = telemArray[13]
-        measRejReason   = telemArray[14]
+        measRejCnt     = telemArray[13]
+        measRejReason  = telemArray[14]
         
-        measScanAngle           = telemArray[13]
-        measRejCnt              = telemArray[14]
-        measRejReason           = telemArray[15]        
+        measScanAngle  = telemArray[13]
+        measRejCnt     = telemArray[14]
+        measRejReason  = telemArray[15]        
 
         iopBattVolt1   = telemArray[15]
         iopBattVolt2   = telemArray[16]
@@ -132,8 +132,8 @@ def parse_telemetry (data):
         iopGyroHoriz   = telemArray[18]
         iopCompAngle   = telemArray[19]
         iopCameraAngle = telemArray[20]        
-        iopSpare2      = telemArray[21]
-        iopSpare3      = telemArray[22]   
+        iopLeftEncoder = telemArray[21]
+        iopRightEncoder= telemArray[22]  
         
         if  True:
             print ("PARSE_TELEM - Time %6d, Mode %1d, AcceptCnt %3d, Bist %3d Speed %3d, SteerAngle %3d" % (
@@ -144,8 +144,8 @@ def parse_telemetry (data):
              iopSwitchStatus, measScanAngle, measRejCnt, measRejReason ))  
             print ("PARSE_TELEM - Batt volt1 %3d, Batt volt2  %3d, accel %3d Gyro %3d" % (
              iopBattVolt1, iopBattVolt2, iopAccelVert, iopGyroHoriz ))  
-            print ("PARSE_TELEM - Compass %3d, CameraAngle  %3d, spare 2 %3d spare 3 %3d\n" % (
-             iopCompAngle, iopCameraAngle, iopSpare2, iopSpare3 ))   
+            print ("PARSE_TELEM - Compass %3d, CameraAngle  %3d, LeftEncoder %3d RightEncoder %3d\n" % (
+             iopCompAngle, iopCameraAngle, iopLeftEncoder, iopRightEncoder ))   
         #end  
     
 ###############################################################################
