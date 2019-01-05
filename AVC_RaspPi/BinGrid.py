@@ -303,6 +303,7 @@ class Grid(object):
     ###############################################################################
     # ProcessBuffer with Morphology
     ###############################################################################
+    #@profile
     def processGrid(self, vehState):
 
         ###########################################################################
@@ -339,7 +340,7 @@ class Grid(object):
     # plotVehicle - plot the location of the vehicle
     ###############################################################################   
     def plotVehicle(self, x, y):
-        xCorners = [ x - 1, x + 1, x + 1, x - 1, x - 1]
+        xCorners = [ x - 1.25, x + 1.25, x + 1.25, x - 1.25, x - 1.25]
         yCorners = [ y + 1, y + 1, y - 3, y - 3, y + 1]
 
         plt.fill (xCorners, yCorners, 'red')
@@ -612,8 +613,8 @@ if __name__ == '__main__':
             
             grid.enterBufferPnts(vehState)
             grid.processGrid(vehState)
-            grid.plotGrid(file, binary=True, dilated=True, distance=False, 
-                                deriv=False, threshold=True)
+            grid.plotGrid(file, binary=True, dilated=False, distance=True, 
+                                deriv=False, threshold=False)
                                 
             # slow down at the hard parts of the track
             fileNo = int(file[0:3]) 
@@ -621,9 +622,9 @@ if __name__ == '__main__':
                  (fileNo > 105 and fileNo < 120) or
                  (fileNo > 170 and fileNo < 185) or
                  (fileNo > 195 and fileNo < 200) ):
-                plt.pause(1.5)
+                plt.pause(1.0)
             else: 
-                plt.pause(.1)            
+                plt.pause(.01)            
             grid.clear()     
         
         grid.printTimers("Grid Processing:")

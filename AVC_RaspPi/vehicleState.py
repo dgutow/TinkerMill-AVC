@@ -65,8 +65,8 @@ class vehicleState (object):
     iopCompassAngle     = 0.0   # Compass angle
     iopCameraAngle      = 0.0   # Vertical angle of the camera
     iopBrakeStatus      = 0.0   # Status of the motor brake
-    iopSpare2           = 0.0   # spare    
-    iopSpare3           = 0.0   # spare 
+    iopLeftEncoder      = 0.0   # Left wheel encoder value   
+    iopRightEncoder     = 0.0   # Right wheel encoder value
     
     # Occupancy grid and Histogram values
     histAngle           = 0     # Steer angle calculated from histogram (deg)

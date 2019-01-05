@@ -56,8 +56,8 @@ class serialClass (object):
     iopGyroHoriz   = 0
     iopCompAngle   = 0      # curr compass angle (0.1 degrees)
     iopCameraAngle = 0        
-    iopSpare2      = 0
-    iopSpare3      = 0     
+    iopLeftEncoder = 0
+    iopRightEncoder= 0     
 
     moveDistance   = 0.0    # (float) distance left to move from last move 
                             # command (cm)
@@ -194,8 +194,8 @@ class serialClass (object):
                                     self.iopGyroHoriz,
                                     self.iopCompAngle,
                                     self.iopCameraAngle,        
-                                    self.iopSpare2,
-                                    self.iopSpare3)                                     
+                                    self.iopLeftEncoder,
+                                    self.iopRightEncoder)                                     
         self.telemQueue.put_nowait(data)
         #printOut ("SERIALPORTSIM:send_telemetry - sent")
     # end pack_telemetry                                                                                                              
