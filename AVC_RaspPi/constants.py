@@ -20,6 +20,7 @@ SIM_TEENSY	= False            # When there is a communicating Teensy
 ###############################################################################
 METERS_PER_FOOT  = 0.3048
 DEG_TO_RAD       = math.pi/180
+RAD_TO_DEG       = 180 / math.pi
 
 ###############################################################################
 # TCP/UDP communication parameters to the GUI host

@@ -38,8 +38,8 @@
 //const int IN1       = 9;     //connected to Arduino's port 10
 //const int IN2       = 8;     // reset the stepper driver
 //
-const int longFront       = A0;    // Analog input - scanner long range sensor
-const int shortFront      = A1;    // Analog input - scanner short range sensor
+const int longFront   = A0;    // Analog input - scanner long range sensor
+const int shortFront  = A1;    // Analog input - scanner short range sensor
 
 #ifdef TEENSIE_35
     const int TEENSIE_LED   = 13;   // LED on the board. teensie 3.2 - led 13

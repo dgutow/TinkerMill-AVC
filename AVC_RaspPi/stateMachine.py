@@ -75,8 +75,11 @@ def stateMachine (vehState, serialPort, occGrid):
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.WAIT_FOR_START:
         if vehState.mode.newMode():
+            playSound (vehState)            
             serialPort.sendCommand ('D', 1, 0, 0)   # Go to NORMAL mode
-            playSound (vehState)
+            # IOP is now in NORMAL mode so set steering.  
+            serialPort.sendCommand (CMD_MOVE, 0, 0, 0)
+            serialPort.sendCommand (CMD_TURN, 0, 100, 0)           
         # end
 
         if (vehState.iopMode != IOP_MODE_NORMAL):
@@ -86,12 +89,6 @@ def stateMachine (vehState, serialPort, occGrid):
                 vehState.mode.setMode (raceModes.ERROR)
             # end if
         else:
-            # IOP is in NORMAL mode so set steering.  We'll send this
-            # command every cycle but who cares?
-            serialPort.sendCommand (CMD_MOVE, 0, 0, 0)
-            serialPort.sendCommand (CMD_TURN, 0, 0, 0)  
-            pass
-
             # Did we get the start switch closure?
             if (vehState.iopStartSwitch):     # We're Off!
                 vehState.mode.setMode(raceModes.RACE_BEGIN)
@@ -463,8 +460,8 @@ if __name__ == '__main__':
         vehState.iopGyroHoriz   = telemArray[19]
         vehState.iopCompAngle   = telemArray[20]
         vehState.iopCameraAngle = telemArray[21]
-        vehState.iopSpare2      = telemArray[22]
-        vehState.iopSpare3      = telemArray[23]
+        vehState.iopLeftEncoder = telemArray[22]
+        vehState.iopRightEncoder= telemArray[23]
 
         if  False:
             print("MAINLOOP:PROC_IOPTLM - Time vehState.iopTime, Mode \

@@ -22,7 +22,7 @@ from scipy import misc                      # scipy
 import matplotlib.pyplot as plt             # matplotlib
 import   math as math
 
-def plotBuffer(lidarBuffer):
+def plotBuffer(lidarBuffer, file):
         #print("start")
     angles= np.expand_dims(np.linspace(0,2*math.pi,360),1)
     distances = np.expand_dims(lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE],1)
@@ -40,6 +40,7 @@ def plotBuffer(lidarBuffer):
     plt.xlim((-12,12))
     plt.ylim((-12,12))
     plt.grid(True)
+    plt.title(file)
 
     #plt.show(block=False)
     #plt.show()
@@ -107,6 +108,24 @@ def processBuffer(vehState):
 TEST = 1
 NPY_DIR = "."
 MAT_DIR = "./matlabCourse/"
+
+###############################################################################
+# getFileList
+###############################################################################
+def getFileList(directory, extension):
+    # get a sorted listing of the .<extension> files
+    dir = os.listdir(directory)
+    for i in range(len(dir)-1,-1,-1):
+        if len(dir[i])<4:
+            del dir[i]
+        elif extension not in dir[i]:
+            del dir[i]
+    # sort by digits
+    dir.sort()
+    return dir
+# end getFileList        
+
+
 if __name__ == '__main__':
     import sys
     plt.ion()
@@ -114,11 +133,10 @@ if __name__ == '__main__':
 
     ##########################################################################
     vehState = vs.vehicleState()
-    
-
 
     if TEST==0: # run our manual points
         processBuffer(vehState)
+        
     elif TEST == 1:
         # get a sorted listing of the .npy files
         dir = os.listdir(NPY_DIR)
@@ -140,19 +158,15 @@ if __name__ == '__main__':
             processBuffer(vehState)
             #plotBuffer(vehState.lidarBuffer)
             plt.pause(1)
+            
     elif TEST == 2:
-        # get a sorted listing of the .npy files
-        dir = os.listdir(MAT_DIR)
-        for i in range(len(dir)-1,-1,-1):
-            if len(dir[i])<4:
-                del dir[i]
-            elif ".mat" not in dir[i]:
-                del dir[i]
-        # sort by digits
-        dir.sort()
+        dir = getFileList(MAT_DIR, ".mat")
 
         # now load, display and run them
         print ("Number of mat files - ", len(dir))
+        
+        plt.ion()
+        
         for file in dir:
             print(MAT_DIR+file)
             f = h5py.File(MAT_DIR+file,'r') 
@@ -161,9 +175,15 @@ if __name__ == '__main__':
             vehState.lidarBuffer[:,ct.LIDAR_BUFFER_ANGLE] = data[:,0]
             vehState.lidarBuffer[:,ct.LIDAR_BUFFER_DISTANCE] = data[:,1]
             
+<<<<<<< HEAD
             processBuffer(vehState)
             #plotBuffer(vehState.lidarBuffer)
             plt.pause(.1)
+=======
+            #processBuffer(vehState)
+            plotBuffer(vehState.lidarBuffer, file)
+            plt.pause(0.1)
+>>>>>>> 9f10e08b97db3a69f3dda6c381c561a72c54df23
     #vehState.lidarBuffer = np.load(dir[0])
 
 # end

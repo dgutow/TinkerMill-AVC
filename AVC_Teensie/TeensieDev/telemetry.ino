@@ -52,8 +52,8 @@ void tlm_init ()
    telem.compass        = 0;
    telem.cameraAngle    = 0;
    telem.brakeStatus    = 0;
-   telem.spare1         = 0xAA; 
-   telem.spare2         = 0x55;    
+   telem.leftEncoder    = 0; 
+   telem.rightEncoder   = 0;    
 }
 
 ///////////////////////////////////////////////////////////////////////////////
