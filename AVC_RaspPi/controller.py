@@ -10,6 +10,7 @@ import math as math
 import matplotlib.pyplot as plt
 from matplotlib.collections import PatchCollection
 from matplotlib.patches import Rectangle
+import matplotlib.animation as manimation
 import time as time
 import os as os
 #from rangeClass      import Range
@@ -191,6 +192,12 @@ if __name__ == "__main__":
     cont = controller()
     vehState = vs.vehicleState()
     ct.DEVELOPMENT=True
+
+    
+    FFMpegWriter = manimation.writers['ffmpeg']
+    metadata = dict(title='Movie Test', artist='Matplotlib',
+                    comment='Movie support!')
+    writer = FFMpegWriter(fps=15, metadata=metadata)
     
     # get a sorted listing of the .npy files
     dir = os.listdir('./longRun2')
@@ -204,6 +211,7 @@ if __name__ == "__main__":
     # sort by length
     dir = sorted(dir, key=len)
 
+<<<<<<< HEAD
     FFMpegWriter = manimation.writers['ffmpeg']
     metadata = dict(title ='longRun2',artist='Faye')
     writer = FFMpegWriter(fps=2,metadata=metadata)
@@ -214,6 +222,13 @@ if __name__ == "__main__":
         for file in dir:
             print(file)
             vehState.lidarBuffer = np.load('./longRun2/'+file)
+=======
+    with writer.saving(plt.figure(1), 'myfile.mp4', dpi=100):
+        # now load, display and run them
+        for file in dir:
+            print(file)
+            vehState.lidarBuffer = np.load(file)
+>>>>>>> 75e0d9f341b39a5d00beeffec68583d5d9c69bb6
             plotBuffer(vehState.lidarBuffer)
             cont.calcTargetAngle(vehState, 45, -45)
             writer.grab_frame()
