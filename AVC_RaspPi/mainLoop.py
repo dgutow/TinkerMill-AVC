@@ -277,7 +277,7 @@ def proc_iopTlm (data):
     vehState.iopLeftEncoder = telemArray[23]
     vehState.iopRightEncoder= telemArray[24]   
 
-    if DEVELOPMENT and TESTING:
+    if (not DEVELOPMENT) and TESTING:
         with open("lidarSaves1519\{:10.5f}.pickle".format(time.time()),'wb') as outfile:
             pickle.dump(telemArray,outfile)
     

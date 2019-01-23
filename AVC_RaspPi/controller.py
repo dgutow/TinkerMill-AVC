@@ -93,7 +93,7 @@ class controller (object):
         maxDistance=obstacleTangDistance[bestIndex]
         outputAngle=angles[bestIndex]
 
-        if ct.DEVELOPMENT and ct.TESTING:
+        if (not ct.DEVELOPMENT) and ct.TESTING:
             np.save("lidarSaves1519\"+"{:10.5f}".format(time.time())+".npy",vehState.lidarBuffer)
 
         
