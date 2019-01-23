@@ -46,17 +46,6 @@ class controller (object):
     # Error handling
     errorString        = ""
     
-    def translateCommand(self, angle, speed):
-        # turn rate = speed / (wheel-base length) * sin(wheel rotation)
-
-        # target a turn period of .5 sec
-        # desired turn rate
-        dTR = angle/.5
-        # desired wheel rotation
-        dWR = math.asin(dTR*ct.DEG_TO_RAD * ct.wheelBase / speed)
-        return dWR
-
-
     ###########################################################################
     # calcTargetAngle -
     ###########################################################################
@@ -103,8 +92,9 @@ class controller (object):
         # record for plotting and output
         maxDistance=obstacleTangDistance[bestIndex]
         outputAngle=angles[bestIndex]
-        
-        #np.save("lidarSaves1519\"+"{:10.5f}".format(time.time())+".npy",vehState.lidarBuffer)
+
+        if ct.DEVELOPMENT and ct.TESTING:
+            np.save("lidarSaves1519\"+"{:10.5f}".format(time.time())+".npy",vehState.lidarBuffer)
 
         
         print("maxDistance: ",maxDistance, " outputAngle: ",outputAngle) 
@@ -211,7 +201,6 @@ if __name__ == "__main__":
     # sort by length
     dir = sorted(dir, key=len)
 
-<<<<<<< HEAD
     FFMpegWriter = manimation.writers['ffmpeg']
     metadata = dict(title ='longRun2',artist='Faye')
     writer = FFMpegWriter(fps=2,metadata=metadata)
@@ -222,14 +211,6 @@ if __name__ == "__main__":
         for file in dir:
             print(file)
             vehState.lidarBuffer = np.load('./longRun2/'+file)
-=======
-    with writer.saving(plt.figure(1), 'myfile.mp4', dpi=100):
-        # now load, display and run them
-        for file in dir:
-            print(file)
-            vehState.lidarBuffer = np.load(file)
->>>>>>> 75e0d9f341b39a5d00beeffec68583d5d9c69bb6
             plotBuffer(vehState.lidarBuffer)
-            cont.calcTargetAngle(vehState, 45, -45)
             writer.grab_frame()
 # end  

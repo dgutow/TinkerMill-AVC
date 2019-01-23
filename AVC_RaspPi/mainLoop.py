@@ -163,11 +163,10 @@ def get_lidarTlm(loopCntr, vehState, lidar, occGrid, cont):
     # Calculate the steering angle.  This angle won't be used until we're in
     # the proper state
     start_time = time.clock()
-    vehState.histAngle = cont.calcTargetAngle(vehState,45,-45) 
+    vehState.histAngle = cont.calcTargetAngle(vehState,60,-60) 
     #vehState.histAngle = occGrid.getNearestAngle(0) 
     #print(occGrid.printHistArr())
     vehState.hist_get_angle_time = time.clock() - start_time        ##### time
-    
  
              
     if (loopCntr == 0):
@@ -278,8 +277,9 @@ def proc_iopTlm (data):
     vehState.iopLeftEncoder = telemArray[23]
     vehState.iopRightEncoder= telemArray[24]   
 
-    with open("lidarSaves1519\{:10.5f}.pickle".format(time.time()),'wb') as outfile:
-        pickle.dump(telemArray,outfile)
+    if DEVELOPMENT and TESTING:
+        with open("lidarSaves1519\{:10.5f}.pickle".format(time.time()),'wb') as outfile:
+            pickle.dump(telemArray,outfile)
     
     if  False:
         pass
