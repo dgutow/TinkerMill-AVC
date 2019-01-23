@@ -90,7 +90,7 @@ class guiIfClass (object):
     # send_rpiTlm - sends a telemetry packet from the main processor. 
     ###########################################################################     
     def send_rpiTlm (self, guiAcceptCnt, vehState):   
-            #try: 
+        try: 
             # convert delta times to milliseconds
             lidar_get_data_time = int(vehState.lidar_get_data_time * 1000)
             grid_enter_data_time= int(vehState.grid_enter_data_time * 1000)
@@ -115,9 +115,9 @@ class guiIfClass (object):
                                 grid_send_data_time)
 
             self.guiTcpSock.sendString(data)        
-            #except:
+        except:
             #printOut ("GUIINTERFACE:send_rpiTlm - ERROR Unable to send telemetry")  
-            #pass       
+            pass       
     # end send_mainTlm
     
     ###########################################################################

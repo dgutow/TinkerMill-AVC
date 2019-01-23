@@ -163,7 +163,10 @@ def get_lidarTlm(loopCntr, vehState, lidar, occGrid, cont):
     # Calculate the steering angle.  This angle won't be used until we're in
     # the proper state
     start_time = time.clock()
-    vehState.histAngle = cont.calcTargetAngle(vehState,60,-60) 
+    if TESTING:
+        vehState.histAngle = 10
+    else:
+        vehState.histAngle = cont.calcTargetAngle(vehState,60,-60) 
     #vehState.histAngle = occGrid.getNearestAngle(0) 
     #print(occGrid.printHistArr())
     vehState.hist_get_angle_time = time.clock() - start_time        ##### time
@@ -215,7 +218,6 @@ def get_iopTlm(loopCntr):
     
         tlm_cnt += 1
     # end while
-    print("IOP_START_BUTTON: ",vehState.iopSwitchStatus)
 
     
     if (tlm_cnt > 0 and (loopCntr % 20 == 0) ):

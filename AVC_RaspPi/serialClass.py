@@ -71,7 +71,8 @@ class serialClass (object):
     # sendCommand (command, param1, param2, param3)   
     ###########################################################################
     def sendCommand (self, commandChar, param1, param2, param3):
-        print ("------------> serialPort:sendCommand - Sending %s, %d, %d, %d" % 
+        if not (commandChar == "H"):
+            print ("------------> serialPort:sendCommand - Sending %s, %d, %d, %d" % 
 							(commandChar, param1, param2, param3) )       
         # pack the command into a struct
         packedArray  = struct.pack('<hhhhh', 0x5454, ord(commandChar), param1, param2, param3)

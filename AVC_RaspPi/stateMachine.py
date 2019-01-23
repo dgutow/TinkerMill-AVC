@@ -33,7 +33,14 @@ ErrorMaxCnt     = 200   # Number of iterations before repeating error msg
 ###############################################################################
 
 def stateMachine (vehState, serialPort, occGrid):
-    print("IOPMODE: ",vehState.iopMode, " STATEMACHINE: ", vehState.mode.currMode)
+    if (vehState.iopMode == 1) and (vehState.mode.currMode == 2):
+        print("ready to start")
+    elif vehState.mode.currMode == 1):
+        print("raspberry pi is booting. Please wait.")
+    else (vehState.iopMode == 2):
+        print("Teensy in error mode. Reset.")
+    else:
+        print("IOPMODE: ",vehState.iopMode, " STATEMACHINE: ", vehState.mode.currMode)
     #vehState.mode.printMode("STATEMACHINE:")
 
     ##*************************************************************************
@@ -79,7 +86,7 @@ def stateMachine (vehState, serialPort, occGrid):
             serialPort.sendCommand ('D', 1, 0, 0)   # Go to NORMAL mode
             # IOP is now in NORMAL mode so set steering.  
             serialPort.sendCommand (CMD_MOVE, 0, 0, 0)
-            serialPort.sendCommand (CMD_TURN, 0, 100, 0)           
+            serialPort.sendCommand (CMD_TURN, 1, 30000, 0)           
         # end
 
         if (vehState.iopMode != IOP_MODE_NORMAL):
@@ -118,7 +125,7 @@ def stateMachine (vehState, serialPort, occGrid):
         # end
 
         serialPort.sendCommand (CMD_MOVE, vehState.mode.getSpeed(), 100, 0)
-        serialPort.sendCommand (CMD_TURN, vehState.histAngle, 0, 0)
+        serialPort.sendCommand (CMD_TURN, vehState.histAngle, 1000, 0)
 
         # If we got an obstacle sighting from the vision system transition
         newState = obstacleTransition (vehState)
