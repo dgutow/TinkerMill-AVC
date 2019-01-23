@@ -16,7 +16,9 @@ import os as os
 
 import constants as ct        # Vehicle and course constants
 import vehicleState as vs          # Everything we know about the vehicle
+import matplotlib.animation as manimation
 
+plt.ion()
 ###############################################################################
 # class controller - 
 ###############################################################################
@@ -101,15 +103,20 @@ class controller (object):
         maxDistance=obstacleTangDistance[bestIndex]
         outputAngle=angles[bestIndex]
         
+        #np.save("lidarSaves1519\"+"{:10.5f}".format(time.time())+".npy",vehState.lidarBuffer)
+
+        
         print("maxDistance: ",maxDistance, " outputAngle: ",outputAngle) 
         if ct.DEVELOPMENT:
             bestAngle=(outputAngle*ct.DEG_TO_RAD) % (2*math.pi)
             #print("maxDistance: ",maxDistance, " bestAngle: ",bestAngle) 
-            plt.plot((0,maxDistance*math.cos(bestAngle)),(0,maxDistance*math.sin(bestAngle)),linestyle='-',color='b')
+            plt.plot((0,maxDistance*math.cos(bestAngle)),(0,-maxDistance*math.sin(bestAngle)),linestyle='-',color='b')
+            plt.plot((0,5),(0,5),linestyle='-',color='g')
+            plt.plot((0,5),(0,-5),linestyle='-',color='g')
             #plt.plot((0,12),(0,0),linestyle=':')
             plt.title(("maxDistance: ",maxDistance, " outputAngle: ",outputAngle))
             plt.show()
-            plt.pause(0.5)
+            plt.pause(0.2)
 
         return outputAngle // 3 #self.translateCommand(outputAngle, ct.speedMax)
     # end
@@ -159,7 +166,7 @@ def plotBuffer(lidarBuffer):
 
     plt.plot(points[:,0],-points[:,1],linestyle=' ',marker='.',markersize=5)
     boxes = []
-    boxes.append(pat.Rectangle((-ct.wheelBase/2,-ct.vehicleWidth/2),ct.wheelBase,ct.vehicleWidth))
+    boxes.append(Rectangle((-ct.wheelBase/2,-ct.vehicleWidth/2),ct.wheelBase,ct.vehicleWidth))
     pc = PatchCollection(boxes, facecolor='k', alpha=0.5, edgecolor='k')
     
     plt.gca().add_collection(pc)
@@ -186,7 +193,7 @@ if __name__ == "__main__":
     ct.DEVELOPMENT=True
     
     # get a sorted listing of the .npy files
-    dir = os.listdir('.')
+    dir = os.listdir('./longRun2')
     for i in range(len(dir)-1,-1,-1):
         if len(dir[i])<4:
             del dir[i]
@@ -197,10 +204,17 @@ if __name__ == "__main__":
     # sort by length
     dir = sorted(dir, key=len)
 
-    # now load, display and run them
-    for file in dir:
-        print(file)
-        vehState.lidarBuffer = np.load(file)
-        plotBuffer(vehState.lidarBuffer)
-        cont.calcTargetAngle(vehState, 45, -45)
+    FFMpegWriter = manimation.writers['ffmpeg']
+    metadata = dict(title ='longRun2',artist='Faye')
+    writer = FFMpegWriter(fps=2,metadata=metadata)
+    
+    fig=plt.figure()
+    with writer.saving(fig,"longRun2.mp4",100):
+        # now load, display and run them
+        for file in dir:
+            print(file)
+            vehState.lidarBuffer = np.load('./longRun2/'+file)
+            plotBuffer(vehState.lidarBuffer)
+            cont.calcTargetAngle(vehState, 45, -45)
+            writer.grab_frame()
 # end  

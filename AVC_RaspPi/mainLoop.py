@@ -9,6 +9,7 @@
 import time
 import threading
 import struct
+import pickle
 from queue           import Queue
 from simulator       import *       # Only for the simulator
 from vehicleState    import *       # Everything we know about the vehicle
@@ -276,6 +277,9 @@ def proc_iopTlm (data):
     vehState.iopBrakeStatus = telemArray[22]    
     vehState.iopLeftEncoder = telemArray[23]
     vehState.iopRightEncoder= telemArray[24]   
+
+    with open("lidarSaves1519\{:10.5f}.pickle".format(time.time()),'wb') as outfile:
+        pickle.dump(telemArray,outfile)
     
     if  False:
         pass
@@ -477,7 +481,7 @@ def exec_guiCmd (cmdMsg, vehState):
         abort = True
         
     elif (command == '2'):      # save the lidar buffer
-        np.save("{3.5f}".format(time.clock())+".npy",vehState.lidarBuffer)
+        np.save("{10.5f}".format(time.time())+".npy",vehState.lidarBuffer)
         
     elif (command == '3'):      # n/d
         bad_cmd (command, param1, param2, param3)
