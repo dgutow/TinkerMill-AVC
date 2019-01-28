@@ -1,0 +1,2 @@
+2018/11/09 12:50:28.510  cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE 56, SPARE2 0, SPARE3 0")
+2018/11/09 12:50:28.565  Error sending RPI_CAT VEH_MODE due to Command parameter 'RPI_CAT VEH_MODE MODE' = 56 not in valid range of 0 to 3

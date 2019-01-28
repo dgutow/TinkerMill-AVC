@@ -1,0 +1,13 @@
+current directory: C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/json-1.8.6/ext/json
+C:/COSMOS/Vendor/Ruby/bin/ruby.exe -r ./siteconf20180216-12504-1ofdzzd.rb extconf.rb
+creating Makefile
+
+current directory: C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/json-1.8.6/ext/json
+make "DESTDIR=" clean
+
+current directory: C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/json-1.8.6/ext/json
+make "DESTDIR="
+make: Nothing to be done for 'all'.
+
+current directory: C:/COSMOS/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/json-1.8.6/ext/json
+make "DESTDIR=" install

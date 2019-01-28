@@ -1,0 +1,283 @@
+2018/07/29 13:09:44.832  INFO: COSMOS Version: 4.1.1
+2018/07/29 13:09:44.899  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/07/29 13:09:45.016  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/target.txt'
+2018/07/29 13:09:45.043  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/07/29 13:09:45.063  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/07/29 13:09:45.065  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/07/29 13:09:45.082  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/cmd_tlm_server.txt
+2018/07/29 13:09:45.111  INFO: Marshal load success: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/tmp/marshal_e7d4d930dcfd3083056e78bef5de653d.bin
+2018/07/29 13:09:45.830  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/07/29 13:09:45.830  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/07/29 13:09:45.830  INFO: Creating thread for interface RPI_CAT_INT
+2018/07/29 13:09:45.831  INFO: Creating thread for interface IOP_UDP_INT
+2018/07/29 13:09:45.831  INFO: Creating thread for interface SYSTEM_INT
+2018/07/29 13:09:45.831  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/07/29 13:09:45.831  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/07/29 13:09:45.832  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/07/29 13:09:45.832  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/07/29 13:09:45.832  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/07/29 13:09:45.835  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/07/29 13:09:45.836  INFO: Starting packet reading for RPI_CAT_INT
+2018/07/29 13:09:45.836  INFO: Connecting to RPI_CAT_INT...
+2018/07/29 13:09:45.837  INFO: Starting packet reading for IOP_UDP_INT
+2018/07/29 13:09:45.837  INFO: Connecting to IOP_UDP_INT...
+2018/07/29 13:09:45.837  INFO: Starting packet reading for SYSTEM_INT
+2018/07/29 13:09:45.837  INFO: Connecting to SYSTEM_INT...
+2018/07/29 13:09:45.837  INFO: SYSTEM_INT Connection Success
+2018/07/29 13:09:45.838  INFO: IOP_UDP_INT Connection Success
+2018/07/29 13:09:46.582  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:09:46.585  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_07_29_13_09_46_tlm.bin
+2018/07/29 13:09:47.393  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:09:48.194  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:09:48.869  INFO: RPI_CAT_INT Connection Success
+2018/07/29 13:09:49.012  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:09:49.811  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:09:50.599  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:09:51.409  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:09:52.200  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:09:53.001  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:09:53.807  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:09:54.616  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:09:55.414  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:09:57.017  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:09:57.819  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:09:58.620  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:09:59.479  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:00.226  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:01.039  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:01.835  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:02.662  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:03.440  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:04.249  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:05.084  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:05.845  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:06.755  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:07.447  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:08.245  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:09.052  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:09.852  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:10.648  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:11.487  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:12.253  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:13.059  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:13.857  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:14.698  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:15.464  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:16.264  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:17.072  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:17.881  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:18.680  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:19.477  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:20.272  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:21.078  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:21.921  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:22.683  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:23.500  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:24.286  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:25.148  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:25.901  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:26.722  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:27.507  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:28.324  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:29.096  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:29.912  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:30.710  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:31.507  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:32.317  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:33.124  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:33.770  ERROR: Command parameter 'RPI_CAT BRAKE_ONOFF ON_OFF' = 60 not in valid range of 0 to 1
+2018/07/29 13:10:33.944  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:34.720  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:35.515  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:36.355  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:37.117  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:37.935  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:38.762  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:39.526  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:40.399  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:41.128  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:41.937  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:42.746  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:43.543  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:44.361  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:45.139  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:45.947  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:46.749  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:47.548  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:48.354  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:48.853  INFO: User disconnecting interface RPI_CAT_INT
+2018/07/29 13:10:48.853  INFO: Killing thread for interface RPI_CAT_INT
+2018/07/29 13:10:48.858  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/07/29 13:10:48.858  INFO: Connection Lost for RPI_CAT_INT
+2018/07/29 13:10:48.858  INFO: Stopped packet reading for RPI_CAT_INT
+2018/07/29 13:10:48.863  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/29 13:10:49.183  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:49.948  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:10:50.351  INFO: User disconnecting interface IOP_UDP_INT
+2018/07/29 13:10:50.351  INFO: Killing thread for interface IOP_UDP_INT
+2018/07/29 13:10:50.362  ERROR: Error reading from interface : IOP_UDP_INT
+2018/07/29 13:10:50.362  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/07/29 13:10:50.362  INFO: Stopped packet reading for IOP_UDP_INT
+2018/07/29 13:10:50.362  INFO: Disconnected from interface IOP_UDP_INT
+2018/07/29 13:14:40.763  INFO: User connecting interface IOP_UDP_INT
+2018/07/29 13:14:40.763  INFO: Creating thread for interface IOP_UDP_INT
+2018/07/29 13:14:40.764  INFO: Starting packet reading for IOP_UDP_INT
+2018/07/29 13:14:40.764  INFO: Connecting to IOP_UDP_INT...
+2018/07/29 13:14:40.764  INFO: IOP_UDP_INT Connection Success
+2018/07/29 13:14:40.970  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:41.767  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:43.271  INFO: User connecting interface RPI_CAT_INT
+2018/07/29 13:14:43.271  INFO: Creating thread for interface RPI_CAT_INT
+2018/07/29 13:14:43.272  INFO: Starting packet reading for RPI_CAT_INT
+2018/07/29 13:14:43.272  INFO: Connecting to RPI_CAT_INT...
+2018/07/29 13:14:43.322  INFO: RPI_CAT_INT Connection Success
+2018/07/29 13:14:43.372  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:44.181  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:45.030  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:45.783  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:46.585  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:47.383  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:48.190  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:48.988  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:49.790  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:50.666  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:51.479  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:52.196  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:53.001  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:53.837  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:54.623  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:55.407  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:56.213  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:57.016  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:57.812  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:58.617  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:14:59.415  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:00.259  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:01.023  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:01.825  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:02.749  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:03.436  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:04.294  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:05.038  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:05.839  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:06.645  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:07.440  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:08.278  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:09.045  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:09.845  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:10.652  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:11.556  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:12.262  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:13.108  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:13.829  ERROR: Command packet 'RPI_CAT BRAKE' does not exist
+2018/07/29 13:15:14.659  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:15.480  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:16.288  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:17.065  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:17.866  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:18.672  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:19.476  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:20.270  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:21.078  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:21.881  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:22.680  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:23.486  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:24.371  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:25.092  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:25.891  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:26.731  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:27.495  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:28.294  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:29.103  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:29.897  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:30.705  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:31.507  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:32.312  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:33.114  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:33.912  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:34.770  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:35.522  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:36.323  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:37.120  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:37.929  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:38.725  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:39.541  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:40.327  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:41.137  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:41.930  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:42.738  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:43.535  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:44.339  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:45.164  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:45.973  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:46.774  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:47.545  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:48.352  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:49.155  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:49.953  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:50.751  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:51.559  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:52.353  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:53.230  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:53.961  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:54.762  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:55.595  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:56.372  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:57.191  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:58.052  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:58.779  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:15:59.585  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:00.383  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:01.226  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:01.981  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:02.788  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:03.586  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:04.394  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:05.224  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:05.996  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:06.808  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:07.603  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:08.398  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:09.208  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:10.073  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:10.819  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:11.670  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:12.424  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:13.214  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:14.021  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:14.851  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:15.615  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:16.422  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:17.296  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:18.026  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:18.834  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:19.435  INFO: User disconnecting interface RPI_CAT_INT
+2018/07/29 13:16:19.435  INFO: Killing thread for interface RPI_CAT_INT
+2018/07/29 13:16:19.439  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/07/29 13:16:19.439  INFO: Connection Lost for RPI_CAT_INT
+2018/07/29 13:16:19.439  INFO: Stopped packet reading for RPI_CAT_INT
+2018/07/29 13:16:19.445  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/29 13:16:19.766  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:20.431  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/29 13:16:20.685  INFO: User disconnecting interface IOP_UDP_INT
+2018/07/29 13:16:20.685  INFO: Killing thread for interface IOP_UDP_INT
+2018/07/29 13:16:20.694  ERROR: Error reading from interface : IOP_UDP_INT
+2018/07/29 13:16:20.694  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/07/29 13:16:20.694  INFO: Stopped packet reading for IOP_UDP_INT
+2018/07/29 13:16:20.695  INFO: Disconnected from interface IOP_UDP_INT
+2018/07/29 13:16:37.194  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_07_29_13_09_46_tlm.bin
+2018/07/29 13:16:37.195  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/07/29 13:16:37.195  INFO: Connection Lost for SYSTEM_INT
+2018/07/29 13:16:37.296  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/07/29 13:16:37.296  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/07/29 13:16:37.296  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/07/29 13:16:37.361  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/07/29 13:16:37.361  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/07/29 13:16:37.361  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/07/29 13:16:37.370  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/07/29 13:16:37.459  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/07/29 13:16:37.469  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/29 13:16:37.469  INFO: Disconnected from interface IOP_UDP_INT
+2018/07/29 13:16:37.469  INFO: Killing thread for interface SYSTEM_INT
+2018/07/29 13:16:37.479  INFO: Stopped packet reading for SYSTEM_INT
+2018/07/29 13:16:37.480  INFO: Disconnected from interface SYSTEM_INT

@@ -1,0 +1,48 @@
+qtbindings Changelog:
+-----------------
+v4.6.3.0
+2010/07/27 - Apply Ryan Melton's patches to build on Windows
+2010/07/27 - Apply Ryan Melton's patch to fix ExtraSelection
+2010/07/28 - Sync with kde-bindings trunk rev 1156258
+2010/07/28 - Apply Paolo Capriotti's patch to handle long long type
+2010/07/28 - Apply Paolo Capriotti's patch for deferred objects
+2010/07/28 - Apply Paolo Capriotti's patch for marking QGraphicsEffect
+2010/07/28 - Sync with kde-bindings trunk rev 1156329
+
+v4.6.3.1
+2010/09/21 - Update examples to work with Ruby 1.9.2
+2010/09/21 - Fix 4 examples
+2010/09/21 - Sync with kde-bindings trunk rev 1178034
+
+v4.6.3.2
+2010/10/14 - Handle ambiguous results with method lookup
+2010/10/15 - Fix bug with UTF-8 support
+2010/10/17 - Sync with kde-bindings trunk rev 1186952
+2010/10/19 - Fix Http example
+2010/11/04 - Fix chart example and all methods returning QFlags&
+2010/12/03 - Add framework support on Mac OSX which also fixes the OpenGl example
+2010/12/05 - Make smokegen not parse stdio.h as a workaround for FreeBSD based systems
+2010/12/05 - Minor changes to support Qt 4.7 on various platforms including Ubuntu 10.10
+
+v4.6.3.3
+2011/08/05 - Handle issues building against Ruby 1.9.2 and running on Windows with 1.9.2
+2011/08/05 - Handle incompatibility with Rails regarding constants method
+
+v4.6.3.4
+2011/08/06 - Accidently checked in ruby_check_stack instead of ruby_stack_check
+
+v4.8.3.0
+2012/03/28 - Fixed a bug when calling constants/methods and dealing with anonymous classes - Thanks Mon-Ouie!
+2012/06/20 - Updated to support Qt 4.8.x including plugins
+2012/06/21 - Update examples, known issues, and sync with latest smoke
+2012/07/13 - Fix additional examples
+2012/09/10 - Avoid warning on unused variable - Thanks stomar!
+2012/10/01 - Update to Qt 4.8.3
+
+v4.8.5.0
+2013/04/27 - Update FindRuby.cmake to support Gentoo - Thanks michalzielanski!
+2012/09/09 - Update to work with Ruby 2.0 - Thanks hur1can3!
+2013/09/27 - Fix OpenGL texture issue
+2013/12/03 - Changed garbage collection philosophy to not automatically destruct any Qt object.  Must call dispose manually.
+2013/12/03 - Officially add support for Ruby 2.0 and remove support for Ruby 1.8.x
+2013/12/03 - Enable Ruby Threading

@@ -1,0 +1,179 @@
+2018/08/03 14:52:38.836  INFO: COSMOS Version: 4.1.1
+2018/08/03 14:52:38.873  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/08/03 14:52:38.923  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/target.txt'
+2018/08/03 14:52:38.933  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/08/03 14:52:38.993  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/08/03 14:52:38.997  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/08/03 14:52:39.003  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/cmd_tlm_server.txt
+2018/08/03 14:52:39.012  INFO: Marshal load success: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/tmp/marshal_cc6f83809cbeaba4ede3b975b851f018.bin
+2018/08/03 14:52:39.117  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/08/03 14:52:39.118  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/08/03 14:52:39.118  INFO: Creating thread for interface RPI_CAT_INT
+2018/08/03 14:52:39.118  INFO: Creating thread for interface IOP_UDP_INT
+2018/08/03 14:52:39.118  INFO: Creating thread for interface SYSTEM_INT
+2018/08/03 14:52:39.119  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/08/03 14:52:39.119  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/08/03 14:52:39.119  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/08/03 14:52:39.119  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/08/03 14:52:39.119  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/08/03 14:52:39.122  INFO: Starting packet reading for RPI_CAT_INT
+2018/08/03 14:52:39.122  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:52:39.124  INFO: Starting packet reading for IOP_UDP_INT
+2018/08/03 14:52:39.124  INFO: Connecting to IOP_UDP_INT...
+2018/08/03 14:52:39.125  INFO: Starting packet reading for SYSTEM_INT
+2018/08/03 14:52:39.125  INFO: Connecting to SYSTEM_INT...
+2018/08/03 14:52:39.125  INFO: SYSTEM_INT Connection Success
+2018/08/03 14:52:39.130  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/08/03 14:52:39.130  INFO: IOP_UDP_INT Connection Success
+2018/08/03 14:52:39.174  INFO: RPI_CAT_INT Connection Success
+2018/08/03 14:52:39.770  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_03_14_52_39_tlm.bin
+2018/08/03 14:52:56.905  INFO: User disconnecting interface RPI_CAT_INT
+2018/08/03 14:52:56.906  INFO: Killing thread for interface RPI_CAT_INT
+2018/08/03 14:52:56.913  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/08/03 14:52:56.913  INFO: Connection Lost for RPI_CAT_INT
+2018/08/03 14:52:56.913  INFO: Stopped packet reading for RPI_CAT_INT
+2018/08/03 14:52:56.917  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/03 14:52:57.608  INFO: User disconnecting interface IOP_UDP_INT
+2018/08/03 14:52:57.608  INFO: Killing thread for interface IOP_UDP_INT
+2018/08/03 14:52:57.611  ERROR: Error reading from interface : IOP_UDP_INT
+2018/08/03 14:52:57.611  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/08/03 14:52:57.611  INFO: Stopped packet reading for IOP_UDP_INT
+2018/08/03 14:52:57.618  INFO: Disconnected from interface IOP_UDP_INT
+2018/08/03 14:55:14.372  INFO: User connecting interface RPI_CAT_INT
+2018/08/03 14:55:14.372  INFO: Creating thread for interface RPI_CAT_INT
+2018/08/03 14:55:14.372  INFO: Starting packet reading for RPI_CAT_INT
+2018/08/03 14:55:14.373  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:55:14.405  INFO: RPI_CAT_INT Connection Success
+2018/08/03 14:55:15.894  INFO: User connecting interface IOP_UDP_INT
+2018/08/03 14:55:15.894  INFO: Creating thread for interface IOP_UDP_INT
+2018/08/03 14:55:15.894  INFO: Starting packet reading for IOP_UDP_INT
+2018/08/03 14:55:15.894  INFO: Connecting to IOP_UDP_INT...
+2018/08/03 14:55:15.895  INFO: IOP_UDP_INT Connection Success
+2018/08/03 14:56:00.692  INFO: User disconnecting interface RPI_CAT_INT
+2018/08/03 14:56:00.692  INFO: Killing thread for interface RPI_CAT_INT
+2018/08/03 14:56:00.703  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/08/03 14:56:00.703  INFO: Connection Lost for RPI_CAT_INT
+2018/08/03 14:56:00.703  INFO: Stopped packet reading for RPI_CAT_INT
+2018/08/03 14:56:00.704  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/03 14:56:01.348  INFO: User disconnecting interface IOP_UDP_INT
+2018/08/03 14:56:01.348  INFO: Killing thread for interface IOP_UDP_INT
+2018/08/03 14:56:01.358  ERROR: Error reading from interface : IOP_UDP_INT
+2018/08/03 14:56:01.358  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/08/03 14:56:01.358  INFO: Stopped packet reading for IOP_UDP_INT
+2018/08/03 14:56:01.359  INFO: Disconnected from interface IOP_UDP_INT
+2018/08/03 15:28:55.217  INFO: User connecting interface RPI_CAT_INT
+2018/08/03 15:28:55.217  INFO: Creating thread for interface RPI_CAT_INT
+2018/08/03 15:28:55.218  INFO: Starting packet reading for RPI_CAT_INT
+2018/08/03 15:28:55.218  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 15:28:55.250  INFO: RPI_CAT_INT Connection Success
+2018/08/03 15:28:56.101  INFO: User connecting interface IOP_UDP_INT
+2018/08/03 15:28:56.101  INFO: Creating thread for interface IOP_UDP_INT
+2018/08/03 15:28:56.102  INFO: Starting packet reading for IOP_UDP_INT
+2018/08/03 15:28:56.102  INFO: Connecting to IOP_UDP_INT...
+2018/08/03 15:28:56.102  INFO: IOP_UDP_INT Connection Success
+2018/08/03 15:29:47.951  INFO: cmd("RPI_CAT SCANNER_ENABLE with CMD_ID 67, SENSOR OFF, SPARE2 0, SPARE3 0")
+2018/08/03 15:29:47.952  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_03_15_29_47_cmd.bin
+2018/08/03 15:32:15.551  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 8, DISTANCE 10, SPARE3 0")
+2018/08/03 15:32:35.317  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 8, DISTANCE 10, SPARE3 0")
+2018/08/03 15:37:38.597  INFO: Tcpip server accepted connection from (127.0.0.1):53844
+2018/08/03 15:39:37.037  INFO: Tcpip server lost read connection to (127.0.0.1):53844
+2018/08/03 15:39:37.052  INFO: Tcpip server lost write connection to (127.0.0.1):53844
+2018/08/03 15:42:56.407  INFO: Tcpip server accepted connection from (127.0.0.1):53847
+2018/08/03 15:44:01.912  INFO: Tcpip server lost read connection to (127.0.0.1):53847
+2018/08/03 15:44:01.994  INFO: Tcpip server lost write connection to (127.0.0.1):53847
+2018/08/03 15:44:24.862  INFO: Tcpip server accepted connection from (127.0.0.1):53848
+2018/08/03 15:44:29.127  INFO: Tcpip server lost read connection to (127.0.0.1):53848
+2018/08/03 15:44:29.210  INFO: Tcpip server lost write connection to (127.0.0.1):53848
+2018/08/03 15:44:33.571  INFO: Tcpip server accepted connection from (127.0.0.1):53849
+2018/08/03 15:45:04.326  INFO: Tcpip server lost read connection to (127.0.0.1):53849
+2018/08/03 15:45:04.386  ERROR: Error sending to client: RuntimeError Interface not connected for write: StreamInterface
+2018/08/03 15:45:04.386  INFO: Tcpip server lost write connection to (127.0.0.1):53849
+2018/08/03 15:45:18.333  INFO: Tcpip server accepted connection from (127.0.0.1):53850
+2018/08/03 15:45:33.059  INFO: Tcpip server lost read connection to (127.0.0.1):53850
+2018/08/03 15:45:33.085  INFO: Tcpip server lost write connection to (127.0.0.1):53850
+2018/08/03 15:47:15.973  INFO: Tcpip server accepted connection from (127.0.0.1):53851
+2018/08/03 15:47:33.011  INFO: Tcpip server lost read connection to (127.0.0.1):53851
+2018/08/03 15:47:33.022  ERROR: Error sending to client: RuntimeError Interface not connected for write: StreamInterface
+2018/08/03 15:47:33.022  INFO: Tcpip server lost write connection to (127.0.0.1):53851
+2018/08/03 15:49:04.305  INFO: User disconnecting interface RPI_CAT_INT
+2018/08/03 15:49:04.305  INFO: Killing thread for interface RPI_CAT_INT
+2018/08/03 15:49:04.308  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/08/03 15:49:04.308  INFO: Connection Lost for RPI_CAT_INT
+2018/08/03 15:49:04.308  INFO: Stopped packet reading for RPI_CAT_INT
+2018/08/03 15:49:04.315  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/03 15:49:05.696  INFO: User disconnecting interface IOP_UDP_INT
+2018/08/03 15:49:05.696  INFO: Killing thread for interface IOP_UDP_INT
+2018/08/03 15:49:05.699  ERROR: Error reading from interface : IOP_UDP_INT
+2018/08/03 15:49:05.699  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/08/03 15:49:05.699  INFO: Stopped packet reading for IOP_UDP_INT
+2018/08/03 15:49:05.707  INFO: Disconnected from interface IOP_UDP_INT
+2018/08/03 16:06:12.960  INFO: User connecting interface RPI_CAT_INT
+2018/08/03 16:06:12.960  INFO: Creating thread for interface RPI_CAT_INT
+2018/08/03 16:06:12.961  INFO: Starting packet reading for RPI_CAT_INT
+2018/08/03 16:06:12.961  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 16:06:12.993  INFO: RPI_CAT_INT Connection Success
+2018/08/03 16:06:14.927  INFO: User connecting interface IOP_UDP_INT
+2018/08/03 16:06:14.927  INFO: Creating thread for interface IOP_UDP_INT
+2018/08/03 16:06:14.928  INFO: Starting packet reading for IOP_UDP_INT
+2018/08/03 16:06:14.928  INFO: Connecting to IOP_UDP_INT...
+2018/08/03 16:06:14.928  INFO: IOP_UDP_INT Connection Success
+2018/08/03 16:06:51.284  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 23, SPARE1 0, SPARE2 0")
+2018/08/03 16:06:56.740  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 100, SPARE1 0, SPARE2 0")
+2018/08/03 16:07:06.683  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 80, SPARE1 0, SPARE2 0")
+2018/08/03 16:07:13.071  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 90, SPARE1 0, SPARE2 0")
+2018/08/03 16:07:17.819  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 100, SPARE1 0, SPARE2 0")
+2018/08/03 16:07:25.779  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -45, SPARE1 0, SPARE2 0")
+2018/08/03 16:07:48.816  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 10, DISTANCE 10, SPARE3 0")
+2018/08/03 16:10:53.030  INFO: Tcpip server accepted connection from (127.0.0.1):53951
+2018/08/03 16:11:03.934  INFO: Tcpip server lost read connection to (127.0.0.1):53951
+2018/08/03 16:11:03.958  INFO: Tcpip server lost write connection to (127.0.0.1):53951
+2018/08/03 16:11:19.412  INFO: cmd("RPI_CAT SCANNER_ENABLE with CMD_ID 67, SENSOR ON, SPARE2 0, SPARE3 0")
+2018/08/03 16:11:28.973  INFO: Tcpip server accepted connection from (127.0.0.1):53953
+2018/08/03 16:12:01.479  INFO: Tcpip server lost read connection to (127.0.0.1):53953
+2018/08/03 16:12:01.550  INFO: Tcpip server lost write connection to (127.0.0.1):53953
+2018/08/03 16:24:15.680  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/08/03 16:24:15.680  INFO: Connection Lost for RPI_CAT_INT
+2018/08/03 16:24:20.693  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 16:24:25.708  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 16:24:30.720  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 16:24:35.733  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 16:24:40.746  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 16:24:45.758  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 16:24:50.782  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 16:24:55.807  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 16:24:57.180  INFO: User disconnecting interface RPI_CAT_INT
+2018/08/03 16:24:57.180  INFO: Killing thread for interface RPI_CAT_INT
+2018/08/03 16:24:57.181  INFO: Stopped packet reading for RPI_CAT_INT
+2018/08/03 16:24:57.181  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/03 16:24:59.505  INFO: User disconnecting interface IOP_UDP_INT
+2018/08/03 16:24:59.505  INFO: Killing thread for interface IOP_UDP_INT
+2018/08/03 16:24:59.516  ERROR: Error reading from interface : IOP_UDP_INT
+2018/08/03 16:24:59.516  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/08/03 16:24:59.516  INFO: Stopped packet reading for IOP_UDP_INT
+2018/08/03 16:24:59.526  INFO: Disconnected from interface IOP_UDP_INT
+2018/08/03 16:25:23.082  INFO: User connecting interface RPI_CAT_INT
+2018/08/03 16:25:23.082  INFO: Creating thread for interface RPI_CAT_INT
+2018/08/03 16:25:23.082  INFO: Starting packet reading for RPI_CAT_INT
+2018/08/03 16:25:23.083  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 16:25:28.091  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 16:25:33.103  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 16:25:33.323  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_03_15_29_47_cmd.bin
+2018/08/03 16:25:33.332  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_03_14_52_39_tlm.bin
+2018/08/03 16:25:33.333  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/08/03 16:25:33.333  INFO: Connection Lost for SYSTEM_INT
+2018/08/03 16:25:33.434  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/08/03 16:25:33.434  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/08/03 16:25:33.434  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/08/03 16:25:33.522  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/08/03 16:25:33.533  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/08/03 16:25:33.533  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/08/03 16:25:33.540  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/08/03 16:25:33.629  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/08/03 16:25:33.639  INFO: Killing thread for interface RPI_CAT_INT
+2018/08/03 16:25:38.112  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 16:25:38.113  INFO: Stopped packet reading for RPI_CAT_INT
+2018/08/03 16:25:38.113  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/03 16:25:38.113  INFO: Disconnected from interface IOP_UDP_INT
+2018/08/03 16:25:38.113  INFO: Killing thread for interface SYSTEM_INT
+2018/08/03 16:25:38.122  INFO: Stopped packet reading for SYSTEM_INT
+2018/08/03 16:25:38.123  INFO: Disconnected from interface SYSTEM_INT

@@ -1,0 +1,2 @@
+2018/07/29 13:10:33.763  cmd("RPI_CAT BRAKE_ONOFF with CMD_ID 66, ON_OFF 60, SPARE2 0, SPARE3 0")
+2018/07/29 13:10:33.771  Error sending RPI_CAT BRAKE_ONOFF due to Command parameter 'RPI_CAT BRAKE_ONOFF ON_OFF' = 60 not in valid range of 0 to 1

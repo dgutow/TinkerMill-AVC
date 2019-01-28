@@ -1,0 +1,2 @@
+2018/07/29 13:15:13.823  cmd("RPI_CAT BRAKE with CMD_ID 66, FORCE 99, SPARE2 0, SPARE3 0")
+2018/07/29 13:15:13.830  Error sending RPI_CAT BRAKE due to Command packet 'RPI_CAT BRAKE' does not exist
