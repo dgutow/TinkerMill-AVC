@@ -3,19 +3,38 @@ TELEMETRY CAT	    STATUS	    LITTLE_ENDIAN	"RPI Main telemetry packet"
 	APPEND_ITEM     CURR_TIME		32  UINT	"Current Time (millisec)"
 	APPEND_ITEM     ACCEPT_COUNT	16  UINT	"Number of accepted commands"	
 	APPEND_ITEM     CURR_MODE		16  UINT	"RPI Main Mode"
-		STATE BIST		0
-		STATE NORMAL	1
-		STATE ESTOP		2    
-	APPEND_ITEM     LF_IR_STATUS	8  UINT	    "Left Front Sensor Valid"	
-        STATE  INVALID  0
-        STATE  VALID    1
-	APPEND_ITEM     LR_IR_STATUS	8  UINT	    "Left Rear Sensor Valid"	
-        STATE  INVALID  0
-        STATE  VALID    1  
-	APPEND_ITEM     RF_IR_STATUS	8  UINT	    "Right Front Sensor Valid"	
-        STATE  INVALID  0
-        STATE  VALID    1
-	APPEND_ITEM     RR_IR_STATUS	8  UINT	    "Right Rear Sensor Valid"	
-        STATE  INVALID  0
-        STATE  VALID    1        
-    
+		STATE NONE		    0
+		STATE WAIT_BIST	    1
+		STATE WAIT_START	2  
+		STATE RACE_BEGIN	4  
+		STATE RACE_STRAIGHT	5  
+		STATE RACE_CURVE	6  
+		STATE NEGOT_XING	7  
+		STATE APPR_STOP 	10   
+		STATE NEGOT_STOP 	11 
+		STATE RECOV_STOP 	12 
+		STATE APPR_HOOP 	20   
+		STATE NEGOT_HOOP 	21 
+		STATE RECOV_HOOP 	22 
+		STATE APPR_BARRELS 	30   
+		STATE NEGOT_BARRELS	31 
+		STATE RECOV_BARRELS	32 
+		STATE APPR_RAMP 	40   
+		STATE NEGOT_RAMP	41 
+		STATE RECOV_RAMP	42         
+		STATE APPR_PED   	50   
+ 		STATE NEGOT_PED	    51 
+		STATE RECOV_PED 	52
+		STATE WAIT_END   	60   
+		STATE NEGOT_END	    61    
+		STATE TERMINATE 	100
+		STATE ERROR        	101   
+		STATE ESTOP         102         
+	APPEND_ITEM     HIST_ANGLE	    16  INT	    "Left Front Sensor Valid"	
+	APPEND_ITEM     LEFT_WALL_DIST	16  INT	    "Left Rear Sensor Valid"	
+	APPEND_ITEM     RIGHT_WALL_DIST	16  INT	    "Right Front Sensor Valid"	
+	APPEND_ITEM     DISTANCE        16  INT	    "Cumulative distance"	
+	APPEND_ITEM     GET_DATA_TIME   16  INT	    "Time to get Lidar data"	    
+ 	APPEND_ITEM     ENTER_DATA_TIME 16  INT	    "Time to enter Lidar data"	     
+	APPEND_ITEM     GET_ANGLE_TIME  16  INT	    "Time to calc histograme angle"	    
+	APPEND_ITEM     SEND_DATA_TIME  16  INT	    "Time to send data to GUI"	

@@ -1,0 +1,2 @@
+2018/10/05 20:51:35.106  cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/05 20:51:35.122  Error sending RPI_CAT ABORT_PROGRAM due to Interface not connected for write: RPI_CAT_INT

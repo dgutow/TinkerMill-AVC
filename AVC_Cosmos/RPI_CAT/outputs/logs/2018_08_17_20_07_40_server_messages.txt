@@ -1,0 +1,480 @@
+2018/08/17 20:07:39.430  INFO: COSMOS Version: 4.1.1
+2018/08/17 20:07:39.460  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/08/17 20:07:39.501  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/target.txt'
+2018/08/17 20:07:39.528  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/08/17 20:07:39.630  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/08/17 20:07:39.641  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/08/17 20:07:39.671  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/cmd_tlm_server.txt
+2018/08/17 20:07:39.691  INFO: Marshal load success: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/tmp/marshal_cc6f83809cbeaba4ede3b975b851f018.bin
+2018/08/17 20:07:39.798  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/08/17 20:07:39.800  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/08/17 20:07:39.800  INFO: Creating thread for interface RPI_CAT_INT
+2018/08/17 20:07:39.801  INFO: Creating thread for interface IOP_UDP_INT
+2018/08/17 20:07:39.802  INFO: Creating thread for interface SYSTEM_INT
+2018/08/17 20:07:39.804  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/08/17 20:07:39.804  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/08/17 20:07:39.805  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/08/17 20:07:39.805  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/08/17 20:07:39.805  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/08/17 20:07:39.821  INFO: Starting packet reading for RPI_CAT_INT
+2018/08/17 20:07:39.821  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:07:39.823  INFO: Starting packet reading for IOP_UDP_INT
+2018/08/17 20:07:39.823  INFO: Connecting to IOP_UDP_INT...
+2018/08/17 20:07:39.824  INFO: Starting packet reading for SYSTEM_INT
+2018/08/17 20:07:39.825  INFO: Connecting to SYSTEM_INT...
+2018/08/17 20:07:39.825  INFO: SYSTEM_INT Connection Success
+2018/08/17 20:07:39.827  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/08/17 20:07:39.842  INFO: IOP_UDP_INT Connection Success
+2018/08/17 20:07:40.212  INFO: RPI_CAT_INT Connection Success
+2018/08/17 20:07:42.761  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_17_20_07_42_tlm.bin
+2018/08/17 20:07:47.921  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:08:20.439  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/08/17 20:08:20.439  INFO: Connection Lost for RPI_CAT_INT
+2018/08/17 20:08:25.450  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:08:30.462  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/17 20:08:35.474  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:08:40.485  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/17 20:08:45.497  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:08:50.508  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/17 20:08:55.519  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:08:58.633  INFO: User disconnecting interface RPI_CAT_INT
+2018/08/17 20:08:58.633  INFO: Killing thread for interface RPI_CAT_INT
+2018/08/17 20:09:00.530  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/17 20:09:00.531  INFO: Stopped packet reading for RPI_CAT_INT
+2018/08/17 20:09:00.531  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/17 20:09:01.613  INFO: User disconnecting interface IOP_UDP_INT
+2018/08/17 20:09:01.613  INFO: Killing thread for interface IOP_UDP_INT
+2018/08/17 20:09:01.623  ERROR: Error reading from interface : IOP_UDP_INT
+2018/08/17 20:09:01.623  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/08/17 20:09:01.623  INFO: Stopped packet reading for IOP_UDP_INT
+2018/08/17 20:09:01.625  INFO: Disconnected from interface IOP_UDP_INT
+2018/08/17 20:13:27.704  INFO: User connecting interface RPI_CAT_INT
+2018/08/17 20:13:27.704  INFO: Creating thread for interface RPI_CAT_INT
+2018/08/17 20:13:27.705  INFO: Starting packet reading for RPI_CAT_INT
+2018/08/17 20:13:27.705  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:13:32.716  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/17 20:13:37.726  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:13:42.737  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/17 20:13:47.747  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:13:47.755  INFO: RPI_CAT_INT Connection Success
+2018/08/17 20:13:52.433  INFO: User connecting interface IOP_UDP_INT
+2018/08/17 20:13:52.433  INFO: Creating thread for interface IOP_UDP_INT
+2018/08/17 20:13:52.433  INFO: Starting packet reading for IOP_UDP_INT
+2018/08/17 20:13:52.433  INFO: Connecting to IOP_UDP_INT...
+2018/08/17 20:13:52.434  INFO: IOP_UDP_INT Connection Success
+2018/08/17 20:14:53.002  INFO: cmd("RPI_CAT NOP_IOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/08/17 20:14:53.004  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_17_20_14_53_cmd.bin
+2018/08/17 20:15:02.783  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 23, SPARE1 0, SPARE2 0")
+2018/08/17 20:15:08.871  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -45, SPARE1 0, SPARE2 0")
+2018/08/17 20:15:13.748  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:15:13.991  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 12, SPARE1 0, SPARE2 0")
+2018/08/17 20:15:29.643  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 8, DISTANCE 22, SPARE3 0")
+2018/08/17 20:15:37.156  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 8, DISTANCE 22, SPARE3 0")
+2018/08/17 20:15:44.075  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/08/17 20:15:44.075  INFO: Connection Lost for RPI_CAT_INT
+2018/08/17 20:15:49.087  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:15:54.099  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/17 20:15:59.107  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:16:04.118  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/17 20:16:09.128  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:16:14.140  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/17 20:16:19.150  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:16:22.827  INFO: User disconnecting interface RPI_CAT_INT
+2018/08/17 20:16:22.827  INFO: Killing thread for interface RPI_CAT_INT
+2018/08/17 20:16:24.163  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/17 20:16:24.164  INFO: Stopped packet reading for RPI_CAT_INT
+2018/08/17 20:16:24.164  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/17 20:22:01.931  INFO: User connecting interface RPI_CAT_INT
+2018/08/17 20:22:01.931  INFO: Creating thread for interface RPI_CAT_INT
+2018/08/17 20:22:01.931  INFO: Starting packet reading for RPI_CAT_INT
+2018/08/17 20:22:01.931  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:22:01.951  INFO: RPI_CAT_INT Connection Success
+2018/08/17 20:22:07.543  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:22:18.624  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:22:32.619  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:22:36.172  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:22:36.351  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:22:38.145  ERROR: RPI_CAT STATUS received with actual packet length of 80 but defined length of 16
+2018/08/17 20:22:40.685  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 8, DISTANCE 88, SPARE3 0")
+2018/08/17 20:23:12.779  INFO: User disconnecting interface RPI_CAT_INT
+2018/08/17 20:23:12.779  INFO: Killing thread for interface RPI_CAT_INT
+2018/08/17 20:23:12.788  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/08/17 20:23:12.788  INFO: Connection Lost for RPI_CAT_INT
+2018/08/17 20:23:12.788  INFO: Stopped packet reading for RPI_CAT_INT
+2018/08/17 20:23:12.790  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/17 20:23:28.759  INFO: User connecting interface RPI_CAT_INT
+2018/08/17 20:23:28.759  INFO: Creating thread for interface RPI_CAT_INT
+2018/08/17 20:23:28.760  INFO: Starting packet reading for RPI_CAT_INT
+2018/08/17 20:23:28.760  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:23:28.771  INFO: RPI_CAT_INT Connection Success
+2018/08/17 20:23:33.543  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:23:36.231  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:23:38.193  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:23:46.392  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:23:57.011  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:24:00.472  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:24:01.090  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:24:01.213  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:24:05.457  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 5, DISTANCE 111, SPARE3 0")
+2018/08/17 20:24:12.058  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:24:12.986  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:24:18.325  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 8, DISTANCE 111, SPARE3 0")
+2018/08/17 20:24:21.773  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:24:25.834  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 8, DISTANCE 111, SPARE3 0")
+2018/08/17 20:24:26.215  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:24:34.488  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 11, DISTANCE 111, SPARE3 0")
+2018/08/17 20:24:39.693  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:24:41.233  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 11, DISTANCE 111, SPARE3 0")
+2018/08/17 20:24:45.472  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:24:47.725  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 11, DISTANCE 222, SPARE3 0")
+2018/08/17 20:25:00.554  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:25:00.798  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 11, DISTANCE 222, SPARE3 0")
+2018/08/17 20:25:22.911  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:25:34.946  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 22, SPARE1 0, SPARE2 0")
+2018/08/17 20:25:36.522  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:25:39.081  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:25:39.759  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -12, SPARE1 0, SPARE2 0")
+2018/08/17 20:25:49.862  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:26:01.118  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:26:22.507  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:26:24.450  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:26:39.022  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 6, DISTANCE 33, SPARE3 0")
+2018/08/17 20:26:41.878  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 6, DISTANCE 33, SPARE3 0")
+2018/08/17 20:26:46.363  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:26:58.834  INFO: cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE NORMAL, SPARE2 0, SPARE3 0")
+2018/08/17 20:27:01.301  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:27:10.345  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 6, DISTANCE 22, SPARE3 0")
+2018/08/17 20:27:12.050  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:27:13.073  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:27:13.546  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:27:13.982  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 6, DISTANCE 22, SPARE3 0")
+2018/08/17 20:27:14.969  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:27:17.052  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:27:18.023  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:27:21.594  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:27:22.916  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:27:30.462  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -11, SPARE1 0, SPARE2 0")
+2018/08/17 20:27:32.614  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -11, SPARE1 0, SPARE2 0")
+2018/08/17 20:27:36.483  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:27:37.397  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:27:44.634  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:27:45.466  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 23, SPARE1 0, SPARE2 0")
+2018/08/17 20:27:48.419  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:27:52.085  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:28:00.913  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:28:04.091  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:28:18.521  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:28:23.438  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:29:00.759  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:29:01.412  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:29:08.637  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:29:13.206  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:29:38.497  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:29:40.898  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:29:43.006  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:30:00.559  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:30:00.760  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:30:01.161  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:30:24.577  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:30:34.408  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:30:37.052  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:30:52.790  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:31:47.069  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:31:49.068  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:31:52.041  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:32:00.472  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:32:00.889  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:32:10.850  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 33, DISTANCE 44, SPARE3 0")
+2018/08/17 20:32:19.266  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:32:19.769  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 66, DISTANCE 44, SPARE3 0")
+2018/08/17 20:32:26.935  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 66, DISTANCE 44, SPARE3 0")
+2018/08/17 20:32:28.794  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 66, DISTANCE 44, SPARE3 0")
+2018/08/17 20:32:46.463  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:32:46.759  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:32:47.088  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:32:47.406  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:32:51.636  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:32:53.687  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 0, DISTANCE 44, SPARE3 0")
+2018/08/17 20:32:59.985  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 45, DISTANCE 44, SPARE3 0")
+2018/08/17 20:33:00.561  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:33:00.750  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:33:18.563  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:33:19.602  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 100, DISTANCE 44, SPARE3 0")
+2018/08/17 20:33:33.148  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 1, DISTANCE 44, SPARE3 0")
+2018/08/17 20:33:43.530  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 6, DISTANCE 44, SPARE3 0")
+2018/08/17 20:33:51.945  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:34:00.547  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:34:09.282  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 0, DISTANCE 44, SPARE3 0")
+2018/08/17 20:34:17.219  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:34:18.178  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:34:18.614  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:34:21.331  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:34:22.118  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 60, DISTANCE 44, SPARE3 0")
+2018/08/17 20:34:26.245  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:34:29.221  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:34:34.683  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 0, DISTANCE 44, SPARE3 0")
+2018/08/17 20:34:38.254  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:34:41.507  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:34:55.941  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:35:00.554  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:35:03.256  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:35:17.966  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:35:33.364  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:35:35.887  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:35:36.812  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:35:45.917  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:35:46.628  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:36:23.421  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:36:52.053  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:37:00.175  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:37:00.571  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:37:01.011  ERROR: RPI_CAT STATUS received with actual packet length of 80 but defined length of 16
+2018/08/17 20:37:32.428  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 0, DISTANCE 44, SPARE3 0")
+2018/08/17 20:38:00.982  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:38:06.547  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:38:18.231  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:38:24.581  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:38:26.270  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:38:28.121  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:38:28.465  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:38:28.985  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:38:33.136  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:38:47.519  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:38:49.055  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:38:50.974  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:39:00.483  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:39:18.397  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:39:39.691  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:39:40.665  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:40:11.326  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:40:14.510  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:40:17.906  INFO: User disconnecting interface RPI_CAT_INT
+2018/08/17 20:40:17.906  INFO: Killing thread for interface RPI_CAT_INT
+2018/08/17 20:40:17.908  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/08/17 20:40:17.908  INFO: Connection Lost for RPI_CAT_INT
+2018/08/17 20:40:17.908  INFO: Stopped packet reading for RPI_CAT_INT
+2018/08/17 20:40:17.916  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/17 20:40:19.309  INFO: User connecting interface RPI_CAT_INT
+2018/08/17 20:40:19.309  INFO: Creating thread for interface RPI_CAT_INT
+2018/08/17 20:40:19.309  INFO: Starting packet reading for RPI_CAT_INT
+2018/08/17 20:40:19.309  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:40:19.322  INFO: RPI_CAT_INT Connection Success
+2018/08/17 20:40:32.741  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:41:00.080  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:41:00.578  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:41:02.448  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:41:08.712  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:41:23.023  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:41:27.012  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:41:27.585  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:41:38.686  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:41:51.715  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:41:58.595  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:42:01.073  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:42:09.607  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:42:12.064  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:42:13.408  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:42:14.114  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:42:15.038  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:42:25.172  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:42:26.548  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:42:32.754  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:42:34.702  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:42:36.288  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:42:38.602  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:42:41.251  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:42:52.624  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:42:59.272  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:43:00.447  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:43:01.127  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:43:01.172  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:43:02.451  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:43:06.244  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:43:11.158  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:43:22.123  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:43:23.448  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:43:26.043  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:43:27.591  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:43:34.911  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:43:53.074  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:44:05.224  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:44:24.724  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:44:34.340  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:44:53.350  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:45:14.033  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:45:27.960  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:45:36.361  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:45:37.890  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:45:46.067  INFO: cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE NORMAL, SPARE2 0, SPARE3 0")
+2018/08/17 20:45:51.964  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:45:56.400  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 5, DISTANCE 33, SPARE3 0")
+2018/08/17 20:45:57.878  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:46:00.474  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:46:01.516  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 7, DISTANCE 33, SPARE3 0")
+2018/08/17 20:46:09.112  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:46:11.031  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 10, DISTANCE 33, SPARE3 0")
+2018/08/17 20:46:12.809  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:46:19.803  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:46:19.840  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 23, SPARE1 0, SPARE2 0")
+2018/08/17 20:46:24.446  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -33, SPARE1 0, SPARE2 0")
+2018/08/17 20:46:28.424  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:46:31.755  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:46:34.877  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:46:40.248  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 33, DISTANCE 234, SPARE3 0")
+2018/08/17 20:46:43.441  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:46:53.184  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:47:04.835  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:47:18.598  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 77, DISTANCE 234, SPARE3 0")
+2018/08/17 20:47:30.227  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:47:37.907  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:48:11.214  INFO: User disconnecting interface RPI_CAT_INT
+2018/08/17 20:48:11.214  INFO: Killing thread for interface RPI_CAT_INT
+2018/08/17 20:48:11.216  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/08/17 20:48:11.216  INFO: Connection Lost for RPI_CAT_INT
+2018/08/17 20:48:11.216  INFO: Stopped packet reading for RPI_CAT_INT
+2018/08/17 20:48:11.225  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/17 20:48:12.868  INFO: User disconnecting interface IOP_UDP_INT
+2018/08/17 20:48:12.868  INFO: Killing thread for interface IOP_UDP_INT
+2018/08/17 20:48:12.877  ERROR: Error reading from interface : IOP_UDP_INT
+2018/08/17 20:48:12.877  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/08/17 20:48:12.877  INFO: Stopped packet reading for IOP_UDP_INT
+2018/08/17 20:48:12.878  INFO: Disconnected from interface IOP_UDP_INT
+2018/08/17 20:51:00.497  INFO: User connecting interface RPI_CAT_INT
+2018/08/17 20:51:00.497  INFO: Creating thread for interface RPI_CAT_INT
+2018/08/17 20:51:00.498  INFO: Starting packet reading for RPI_CAT_INT
+2018/08/17 20:51:00.498  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:51:00.518  INFO: RPI_CAT_INT Connection Success
+2018/08/17 20:51:02.342  INFO: User connecting interface IOP_UDP_INT
+2018/08/17 20:51:02.342  INFO: Creating thread for interface IOP_UDP_INT
+2018/08/17 20:51:02.343  INFO: Starting packet reading for IOP_UDP_INT
+2018/08/17 20:51:02.343  INFO: Connecting to IOP_UDP_INT...
+2018/08/17 20:51:02.343  INFO: IOP_UDP_INT Connection Success
+2018/08/17 20:51:05.833  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:51:14.897  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:51:25.951  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE 12, SPARE1 0, SPARE2 0")
+2018/08/17 20:51:30.473  INFO: cmd("RPI_CAT TURN with CMD_ID 84, ANGLE -12, SPARE1 0, SPARE2 0")
+2018/08/17 20:51:32.921  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:51:40.831  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 8, DISTANCE 222, SPARE3 0")
+2018/08/17 20:51:43.124  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:51:44.604  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 8, DISTANCE 222, SPARE3 0")
+2018/08/17 20:52:26.064  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:52:30.875  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:52:32.042  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:52:33.540  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:52:34.103  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:52:35.635  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:52:37.182  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:52:39.905  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:52:40.447  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:52:42.033  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:52:43.280  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:52:43.673  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:52:57.811  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:52:58.420  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:53:00.083  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:53:00.127  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:53:05.389  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:53:06.132  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:53:06.826  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 100, DISTANCE 222, SPARE3 0")
+2018/08/17 20:53:09.828  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 0, DISTANCE 222, SPARE3 0")
+2018/08/17 20:53:20.101  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 100, DISTANCE 222, SPARE3 0")
+2018/08/17 20:53:25.766  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:53:26.387  INFO: cmd("RPI_CAT MOVE with CMD_ID 77, SPEED 0, DISTANCE 222, SPARE3 0")
+2018/08/17 20:53:34.072  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:53:36.313  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:53:42.973  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:53:57.347  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:53:57.863  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:54:02.262  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:54:03.145  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:54:09.802  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:54:16.760  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:54:19.318  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:54:22.011  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:54:26.809  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:54:43.119  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:54:56.296  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:54:58.560  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:54:59.098  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:55:05.114  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:55:08.505  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:55:13.910  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:55:28.592  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:55:36.167  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:55:37.915  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:55:39.005  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:55:40.574  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:55:44.112  ERROR: RPI_CAT STATUS received with actual packet length of 176 but defined length of 16
+2018/08/17 20:55:49.747  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:55:51.894  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:55:52.637  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:55:53.425  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:55:53.778  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:55:57.643  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:55:59.381  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:56:15.983  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:56:16.904  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:56:17.524  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:56:18.252  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:56:22.634  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:56:22.642  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:56:23.987  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:56:25.421  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:56:35.796  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:56:36.564  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:56:43.122  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:56:43.528  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:56:58.186  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:57:04.805  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:57:06.140  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:57:18.320  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:57:27.055  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:57:30.200  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:57:34.493  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:57:35.833  ERROR: RPI_CAT STATUS received with actual packet length of 64 but defined length of 16
+2018/08/17 20:57:36.517  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:57:37.134  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:57:37.753  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:57:38.216  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:57:38.369  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:57:38.964  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:57:39.138  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:57:39.440  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:57:39.745  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:57:40.054  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:57:40.509  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:57:43.431  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:57:48.217  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:57:50.365  ERROR: RPI_CAT STATUS received with actual packet length of 48 but defined length of 16
+2018/08/17 20:57:55.705  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/17 20:58:08.112  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/08/17 20:58:08.112  INFO: Connection Lost for RPI_CAT_INT
+2018/08/17 20:58:13.122  INFO: Connecting to RPI_CAT_INT...
+2018/08/17 20:58:15.547  INFO: User disconnecting interface RPI_CAT_INT
+2018/08/17 20:58:15.547  INFO: Killing thread for interface RPI_CAT_INT
+2018/08/17 20:58:18.131  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/17 20:58:18.131  INFO: Stopped packet reading for RPI_CAT_INT
+2018/08/17 20:58:18.131  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/17 20:58:18.603  INFO: User disconnecting interface IOP_UDP_INT
+2018/08/17 20:58:18.603  INFO: Killing thread for interface IOP_UDP_INT
+2018/08/17 20:58:18.606  ERROR: Error reading from interface : IOP_UDP_INT
+2018/08/17 20:58:18.606  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/08/17 20:58:18.606  INFO: Stopped packet reading for IOP_UDP_INT
+2018/08/17 20:58:18.614  INFO: Disconnected from interface IOP_UDP_INT
+2018/08/17 20:58:22.083  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_17_20_14_53_cmd.bin
+2018/08/17 20:58:22.088  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_17_20_07_42_tlm.bin
+2018/08/17 20:58:22.089  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/08/17 20:58:22.089  INFO: Connection Lost for SYSTEM_INT
+2018/08/17 20:58:22.190  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/08/17 20:58:22.190  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/08/17 20:58:22.190  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/08/17 20:58:22.264  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/08/17 20:58:22.264  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/08/17 20:58:22.264  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/08/17 20:58:22.272  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/08/17 20:58:22.372  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/08/17 20:58:22.383  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/17 20:58:22.383  INFO: Disconnected from interface IOP_UDP_INT
+2018/08/17 20:58:22.383  INFO: Killing thread for interface SYSTEM_INT
+2018/08/17 20:58:22.394  INFO: Stopped packet reading for SYSTEM_INT
+2018/08/17 20:58:22.405  INFO: Disconnected from interface SYSTEM_INT

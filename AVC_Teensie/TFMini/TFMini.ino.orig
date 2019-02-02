@@ -1,0 +1,215 @@
+///////////////////////////////////////////////////////////////////////////////
+// Main file for the TFMini racer
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// With or without the '_t'
+///////////////////////////////////////////////////////////////////////////////
+#define uint32  uint32_t
+#define int32   int32_t
+#define uint16  uint16_t
+#define int16   int16_t
+#define uint8   uint8_t
+#define int8    int8_t
+
+
+#define DBGPORT   Serial        // (USB) Serial port for textual debugging
+#define TFPORT    Serial1       // Serial port connected to the TFMini 
+#define ESPPORT   Serial2       // Serial port connected to the ESP8266
+
+#ifdef TEENSIE_35
+    const int TEENSIE_LED   = 13;   // LED on the board. teensie 3.2 - led 13
+#else
+    const int TEENSIE_LED   = 6;    // LED on the board. teensie 2++ - led 6
+#endif
+
+///////////////////////////////////////////////////////////////////////////////
+// Local header files
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// Original Libraries/System header files
+///////////////////////////////////////////////////////////////////////////////
+struct rangeStruct
+{
+    uint16  header;
+    uint16  distance;
+    uint16  strength;
+    uint8   reserved;
+    uint8   quality;
+    uint8   checksum;
+}; // rangeStruct;
+
+union rangeUnion
+{
+    struct rangeStruct     msg;
+    uint8                   bytes[9];
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// Global variables
+///////////////////////////////////////////////////////////////////////////////
+union rangeUnion rangeMsg;
+
+///////////////////////////////////////////////////////////////////////////////
+// Function templates for the taskList
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// 
+///////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////
+// initialization
+///////////////////////////////////////////////////////////////////////////////
+
+void setup()
+{ 
+   TFPORT.begin(115200);
+   DBGPORT.begin(115200);
+   
+  
+   pinMode(TEENSIE_LED, OUTPUT);
+   digitalWrite(TEENSIE_LED, 1);
+   
+   delay (1000); 
+   DBGPORT.print("Setup complete \n");
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// The main loop
+///////////////////////////////////////////////////////////////////////////////
+int32 nResync = 0;  // number of messages needing resynch
+int32 nDropped= 0;  // number of messages dropped due to bad checksum
+
+void loop()
+{                 
+   delay (2);
+   
+   int nChars = getRange();
+   
+   if (nChars == 9)                     // We got a message
+   {
+       int err = checkRangeMsg();       // Check if it came through OK
+       
+       if (err == -1)                   // The header was wrong.
+       {
+           // need to resync
+           nResync++;
+           DBGPORT.print("Need to resync \n"); 
+       }
+       else if (err == -2)              // Lost a bit or two somewhere
+       {
+           // Just throw this message away           
+           nDropped++;
+           DBGPORT.print("Lost Bit \n");           
+       }
+       else
+       {
+           DBGPORT.print("Range = ");
+           DBGPORT.print(rangeMsg.msg.distance);
+           DBGPORT.print(" nResync = ");
+           DBGPORT.print(nResync); 
+           DBGPORT.print(" nDropped = ");
+           DBGPORT.print(nDropped); 
+           DBGPORT.print(" strength = ");
+           DBGPORT.print(rangeMsg.msg.strength);           
+           DBGPORT.print(" quality = ");
+           DBGPORT.print(rangeMsg.msg.quality);     
+           DBGPORT.print("\n");          
+       }
+   }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// void getRange() - checks if there are 9 bytes at the serial port and if
+// if so reads them into the msg buffer.
+///////////////////////////////////////////////////////////////////////////////
+
+int getRange()
+{
+    if (TFPORT.available() >= 9) // A valid command consists of 8 (bytes)
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            rangeMsg.bytes[i] = TFPORT.read();           
+        }
+        return (9);
+    }
+    return (0);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// void resync() - resynchronize the message. Waits 1 msec to make sure the
+// rest of the current message arrives, then throws everything away, to start
+// fresh with the next message.   
+///////////////////////////////////////////////////////////////////////////////
+
+void resync()
+{
+    delay(1);
+    while (TFPORT.available())
+    {
+        TFPORT.read();       
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// void checkRangeMsg() - checks the range msg for errors.
+///////////////////////////////////////////////////////////////////////////////
+
+int checkRangeMsg()
+{
+    // Check if the first two bytes are correct.  If not we're out of sync.
+    if (rangeMsg.msg.header != 0x5959)
+        return -1;
+    
+    // Calculate the checksum.  The checksum byte is the sum of the first
+    // eight bytes.
+    uint8 sum = 0;
+    for (int i = 0; i < 8; i++) 
+    {
+        sum += rangeMsg.bytes[i];
+    }
+    
+    // Compare the checksums 
+    if (sum != rangeMsg.msg.checksum)
+    {
+        return (-2);
+    }
+    
+    return (0);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// uint_swap - swaps the bytes.
+///////////////////////////////////////////////////////////////////////////////
+unsigned int uint_swap(unsigned int val)
+{
+  unsigned int retval = (val >> 8) | (val << 8);
+  return (retval);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// blinkLed - blink the onboard TEENSIE_LED
+///////////////////////////////////////////////////////////////////////////////
+void blinkLed (uint32_t currTimeMsec)
+{
+  static int blinkVal = 0;
+      
+  if (blinkVal == 0)
+  {
+    digitalWrite(TEENSIE_LED, HIGH);
+    blinkVal = 1;
+  }
+  else
+  {
+    digitalWrite(TEENSIE_LED, LOW);
+    blinkVal = 0;
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// 
+///////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,6 @@
+The utils directory
+-------------------
+
+* For generating code
+		* `enumgen.rb` -- fetches opengl enum .spec files from web and generates
+                      enumerator lists.

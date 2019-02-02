@@ -6,29 +6,27 @@ COMMAND CAT Abort_Program		LITTLE_ENDIAN 		    "Abort Raspberry Pi program"
 
 COMMAND CAT Scan_MinMax		LITTLE_ENDIAN 		        "Set scan min/max angle"
   APPEND_ID_PARAMETER CMD_ID 	16 INT 65  65  65     	"A Command ID"
-  APPEND_PARAMETER    MIN  	16 INT -45 45  00     	    "Min angle (deg)"
-  APPEND_PARAMETER    MAX	16 INT -45 45  00 	        "Max angle (deg)"
+  APPEND_PARAMETER    MIN  	    16 INT -45 45  00     	"Min angle (deg)"
+  APPEND_PARAMETER    MAX	    16 INT -45 45  00 	    "Max angle (deg)"
   APPEND_PARAMETER    SPARE     16 INT 00 00   00     
 
-COMMAND CAT Brake_OnOff		LITTLE_ENDIAN 		        "Set brake on/off"
+COMMAND CAT Brake   		LITTLE_ENDIAN 		        "Set brake force"
   APPEND_ID_PARAMETER CMD_ID 	16 INT 66  66  66     	"B Command ID"
-  APPEND_PARAMETER    ON_OFF	16 INT 00  01  00     	"0-0ff, 1-on"
-	STATE	OFF	0
-	STATE	ON  1
+  APPEND_PARAMETER    Force	    16 INT 00  99  00       "0-0ff, 99-full on"
   APPEND_PARAMETER    SPARE2    16 INT 00  00  00     	
   APPEND_PARAMETER    SPARE3    16 INT 00  00  00     	
 
-COMMAND CAT Scan_Sensor		LITTLE_ENDIAN 		        "Set scan sensor to use"
+COMMAND CAT Scanner_Enable		LITTLE_ENDIAN 		    "Set scanner on/off"
   APPEND_ID_PARAMETER CMD_ID 	16 INT 67  67  67     	"C Command ID"
-  APPEND_PARAMETER    SENSOR	16 INT 01  02  01     	"1-short,2-long"
-	STATE 20_150MM	1
-	STATE 100_550MM	2
+  APPEND_PARAMETER    SENSOR	16 INT 00  01  01     	"0-off,1-on"
+	STATE OFF	0
+	STATE ON	1
   APPEND_PARAMETER    SPARE2    16 INT 00  00  00     
   APPEND_PARAMETER    SPARE3    16 INT 00  00  00     
 
-COMMAND CAT Veh_Mode		LITTLE_ENDIAN 		        "Set mode"
+COMMAND CAT Veh_Mode		    LITTLE_ENDIAN 		    "Set mode"
   APPEND_ID_PARAMETER CMD_ID 	16 INT 68  68  68       "D Command ID"
-  APPEND_PARAMETER    MODE  	16 INT 00  03  00       "0-Bist,2-Norm,3-Estop"
+  APPEND_PARAMETER    MODE  	16 INT 00  03  00       "0-Bist,1-Norm,2-Estop"
 	STATE BIST		0
 	STATE NORMAL 	1
 	STATE ESTOP		2
@@ -116,24 +114,51 @@ COMMAND CAT SteerPids-Iop	LITTLE_ENDIAN 		        "Steering Control PIDs"
 
 COMMAND CAT Rpi_Mode		LITTLE_ENDIAN 		        "Set Rpi mode"
   APPEND_ID_PARAMETER CMD_ID 	16 INT 82  82  82     	"R Command ID"
-  APPEND_PARAMETER    Mode      16 INT 00 999 999     	"new mode"
+  APPEND_PARAMETER    Mode      16 INT 00 200  0     	"new mode"
+        STATE NONE		    0
+        STATE WAIT_BIST	    1
+        STATE WAIT_START	2  
+        STATE RACE_BEGIN	4  
+        STATE RACE_STRAIGHT	5  
+        STATE RACE_CURVE	6  
+        STATE NEGOT_XING	7  
+        STATE APPR_STOP 	10   
+        STATE NEGOT_STOP 	11 
+        STATE RECOV_STOP 	12 
+        STATE APPR_HOOP 	20   
+        STATE NEGOT_HOOP 	21 
+        STATE RECOV_HOOP 	22 
+        STATE APPR_BARRELS 	30   
+        STATE NEGOT_BARRELS	31 
+        STATE RECOV_BARRELS	32 
+        STATE APPR_RAMP 	40   
+        STATE NEGOT_RAMP	41 
+        STATE RECOV_RAMP	42         
+        STATE APPR_PED   	50   
+        STATE NEGOT_PED	    51 
+        STATE RECOV_PED 	52
+        STATE WAIT_END   	60   
+        STATE NEGOT_END	    61    
+        STATE TERMINATE 	100
+        STATE ERROR        	101   
+        STATE ESTOP         102         
   APPEND_PARAMETER    SPARE2    16 INT 00 999 999 	    
   APPEND_PARAMETER    SPARE3    16 INT 00 00   00     	
 
 COMMAND CAT Scan_Speed		LITTLE_ENDIAN 		        "Set scan speed"
-  APPEND_ID_PARAMETER CMD_ID 	16 INT 83  83  83     	"S Command ID"
-  APPEND_PARAMETER    SPEED  	16 INT 00 999 999     	"speed (cm/sec)"
-  APPEND_PARAMETER    SPARE1    16 INT 00  00  00     	
-  APPEND_PARAMETER    SPARE2    16 INT 00 00   00     	
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 83  83   83     	"S Command ID"
+  APPEND_PARAMETER    SPEED  	16 INT 00 4800 1600     "speed (cm/sec)"
+  APPEND_PARAMETER    SPARE1    16 INT 00  00   00     	
+  APPEND_PARAMETER    SPARE2    16 INT 00  00   00     	
 
 COMMAND CAT Turn  		LITTLE_ENDIAN 		            "Turn vehicle"
-  APPEND_ID_PARAMETER CMD_ID 	16 INT 84  84  84     	"T Command ID"
-  APPEND_PARAMETER    ANGLE     16 INT -45 45  00     	"turn angle (deg)"
-  APPEND_PARAMETER    SPARE1    16 INT 00  00  00     	
-  APPEND_PARAMETER    SPARE2    16 INT 00  00  00     	
+  APPEND_ID_PARAMETER CMD_ID 	16 INT  84   84   84    "T Command ID"
+  APPEND_PARAMETER    ANGLE     16 INT -60   60   00    "turn angle (deg)"
+  APPEND_PARAMETER    Time      16 INT  00 32000 1000   "Turn Period"  	
+  APPEND_PARAMETER    SPARE2    16 INT  00   00   00     	
 
 #COMMAND CAT U-nd		LITTLE_ENDIAN 		            "not defined"
-#  APPEND_ID_PARAMETER CMD_ID 	16 INT 85  85 85	    "U Command ID"
+#  APPEND_ID_PARAMETER CMD_ID 	 16 INT 85  85 85	    "U Command ID"
 #  APPEND_PARAMETER    SPARE1    16 INT 00 999 999     	
 #  APPEND_PARAMETER    SPARE2    16 INT 00 999 999 	    
 #  APPEND_PARAMETER    SPARE3    16 INT 00 00   00     	
@@ -150,11 +175,11 @@ COMMAND CAT Write_To_File		LITTLE_ENDIAN 		    "Write params to file"
   APPEND_PARAMETER    SPARE2    16 INT 00  00 00  	    
   APPEND_PARAMETER    SPARE3    16 INT 00  00 00     	
 
-#COMMAND CAT X-nd		LITTLE_ENDIAN 		            "not defined"
-#  APPEND_ID_PARAMETER CMD_ID 	16 INT 88  88 88	    "X Command ID"
-#  APPEND_PARAMETER    SPARE1    16 INT 00 999 999     	
-#  APPEND_PARAMETER    SPARE2    16 INT 00 999 999 	    
-#  APPEND_PARAMETER    SPARE3    16 INT 00 00   00     	
+COMMAND CAT Set_Speed		    LITTLE_ENDIAN 		    "Set vehicle speed"
+  APPEND_ID_PARAMETER CMD_ID 	16 INT 88  88 88	    "X Command ID"
+  APPEND_PARAMETER    SPEED     16 INT 00  99 8     	
+  APPEND_PARAMETER    SPARE2    16 INT 00  00 00 	    
+  APPEND_PARAMETER    SPARE3    16 INT 00  00 00     	
 
 #COMMAND CAT Y-nd		LITTLE_ENDIAN 		            "not defined"
 #  APPEND_ID_PARAMETER CMD_ID 	16 INT 89  89 89	    "Y Command ID"

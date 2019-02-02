@@ -1,0 +1,788 @@
+2018/07/27 15:31:37.774  INFO: COSMOS Version: 4.1.1
+2018/07/27 15:31:37.810  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/07/27 15:31:37.824  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/target.txt'
+2018/07/27 15:31:37.852  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/07/27 15:31:37.938  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/07/27 15:31:37.941  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/07/27 15:31:37.956  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/cmd_tlm_server.txt
+2018/07/27 15:31:38.001  INFO: Marshal load success: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/tmp/marshal_e7d4d930dcfd3083056e78bef5de653d.bin
+2018/07/27 15:31:38.355  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/07/27 15:31:38.355  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/07/27 15:31:38.356  INFO: Creating thread for interface RPI_CAT_INT
+2018/07/27 15:31:38.356  INFO: Creating thread for interface IOP_UDP_INT
+2018/07/27 15:31:38.356  INFO: Creating thread for interface SYSTEM_INT
+2018/07/27 15:31:38.366  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/07/27 15:31:38.366  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/07/27 15:31:38.367  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/07/27 15:31:38.367  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/07/27 15:31:38.367  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/07/27 15:31:38.372  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/07/27 15:31:38.372  INFO: Starting packet reading for RPI_CAT_INT
+2018/07/27 15:31:38.372  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:31:38.373  INFO: Starting packet reading for IOP_UDP_INT
+2018/07/27 15:31:38.373  INFO: Connecting to IOP_UDP_INT...
+2018/07/27 15:31:38.373  INFO: Starting packet reading for SYSTEM_INT
+2018/07/27 15:31:38.373  INFO: Connecting to SYSTEM_INT...
+2018/07/27 15:31:38.373  INFO: SYSTEM_INT Connection Success
+2018/07/27 15:31:38.376  INFO: IOP_UDP_INT Connection Success
+2018/07/27 15:31:43.421  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:31:48.432  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:31:53.443  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:31:58.454  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:32:03.465  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:32:08.475  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:32:13.485  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:32:18.496  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:32:23.506  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:32:28.516  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:32:33.526  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:32:38.537  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:32:43.547  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:32:48.558  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:32:53.569  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:32:58.579  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:33:03.589  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:33:08.599  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:33:13.608  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:33:18.619  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:33:23.630  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:33:28.640  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:33:33.650  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:33:38.659  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:33:43.669  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:33:48.682  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:33:53.692  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:33:58.701  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:34:03.713  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:34:08.724  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:34:13.732  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:34:18.743  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:34:23.755  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:34:28.766  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:34:33.776  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:34:38.787  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:34:43.797  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:34:48.807  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:34:53.818  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:34:58.828  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:35:03.837  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:35:08.847  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:35:13.857  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:35:18.868  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:35:23.879  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:35:28.890  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:35:33.900  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:35:38.912  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:35:43.923  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:35:48.933  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:35:53.945  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:35:58.955  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:36:03.967  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:36:08.978  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:36:13.989  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:36:19.000  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:36:24.011  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:36:29.022  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:36:34.034  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:36:39.045  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:36:44.058  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:36:49.068  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:36:54.080  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:36:59.090  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:37:04.101  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:37:09.112  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:37:14.123  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:37:19.135  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:37:24.146  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:37:29.156  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:37:34.167  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:37:39.177  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:37:44.189  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:37:49.200  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:37:54.226  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:37:59.237  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:38:04.248  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:38:09.260  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:38:14.271  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:38:19.282  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:38:24.293  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:38:29.301  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:38:34.313  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:38:39.324  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:38:44.335  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:38:49.345  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:38:54.356  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:38:59.367  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:39:04.379  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:39:09.389  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:39:14.401  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:39:19.411  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:39:24.422  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:39:29.432  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:39:34.444  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:39:39.455  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:39:44.466  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:39:49.476  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:39:54.487  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:39:59.497  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:40:04.509  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:40:09.519  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:40:14.530  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:40:19.541  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:40:24.552  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:40:29.561  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:40:34.572  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:40:39.583  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:40:44.595  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:40:49.607  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:40:54.619  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:40:59.629  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:41:04.640  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:41:09.650  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:41:14.662  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:41:19.673  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:41:24.684  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:41:29.695  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:41:34.707  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:41:39.716  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:41:44.728  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:41:49.738  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:41:54.749  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:41:59.759  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:42:04.770  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:42:09.780  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:42:14.791  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:42:19.803  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:42:24.813  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:42:29.824  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:42:34.836  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:42:39.845  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:42:44.858  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:42:49.868  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:42:54.879  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:42:59.890  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:43:04.902  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:43:09.913  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:43:14.925  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:43:19.936  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:43:24.946  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:43:29.956  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:43:34.968  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:43:39.979  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:43:44.990  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:43:50.002  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:43:55.014  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:44:00.025  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:44:05.034  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:44:10.044  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:44:15.055  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:44:20.064  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:44:25.076  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:44:30.085  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:44:35.099  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:44:40.110  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:44:45.120  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:44:50.132  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:44:55.142  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:45:00.153  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:45:02.449  INFO: User disconnecting interface RPI_CAT_INT
+2018/07/27 15:45:02.449  INFO: Killing thread for interface RPI_CAT_INT
+2018/07/27 15:45:05.164  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:45:05.164  INFO: Stopped packet reading for RPI_CAT_INT
+2018/07/27 15:45:05.164  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/27 15:45:06.231  INFO: User connecting interface RPI_CAT_INT
+2018/07/27 15:45:06.231  INFO: Creating thread for interface RPI_CAT_INT
+2018/07/27 15:45:06.231  INFO: Starting packet reading for RPI_CAT_INT
+2018/07/27 15:45:06.231  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:45:11.241  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:45:16.254  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:45:21.267  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:45:26.276  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:45:31.289  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:45:36.299  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:45:41.311  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:45:42.904  INFO: User disconnecting interface RPI_CAT_INT
+2018/07/27 15:45:42.904  INFO: Killing thread for interface RPI_CAT_INT
+2018/07/27 15:45:42.912  INFO: Stopped packet reading for RPI_CAT_INT
+2018/07/27 15:45:42.916  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/27 15:45:45.115  INFO: User connecting interface RPI_CAT_INT
+2018/07/27 15:45:45.115  INFO: Creating thread for interface RPI_CAT_INT
+2018/07/27 15:45:45.115  INFO: Starting packet reading for RPI_CAT_INT
+2018/07/27 15:45:45.115  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:45:50.126  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:45:55.138  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:46:00.158  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:46:05.169  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:46:10.182  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:46:15.192  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:46:20.204  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:46:25.214  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:46:30.226  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:46:35.237  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:46:40.249  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:46:45.259  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:46:50.270  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:46:55.280  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:47:00.293  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:47:05.303  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:47:10.316  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:47:15.326  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:47:20.338  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:47:25.350  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:47:30.361  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:47:35.372  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:47:40.383  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:47:45.394  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:47:50.407  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:47:55.417  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:48:00.429  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:48:05.439  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:48:10.451  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:48:15.464  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:48:20.474  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:48:25.485  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:48:30.496  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:48:35.507  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:48:40.517  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:48:45.526  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:48:50.538  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:48:55.548  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:49:00.561  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:49:05.573  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:49:10.584  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:49:15.592  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:49:20.603  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:49:25.613  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:49:30.625  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:49:35.635  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:49:40.647  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:49:45.657  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:49:50.667  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:49:55.678  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:50:00.692  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:50:05.704  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:50:10.713  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:50:15.724  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:50:20.735  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:50:25.746  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:50:30.758  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:50:35.768  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:50:40.781  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:50:45.792  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:50:50.803  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:50:55.814  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:51:00.825  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:51:05.836  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:51:10.848  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:51:15.858  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:51:20.870  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:51:25.878  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:51:30.890  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:51:35.901  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:51:40.911  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:51:45.922  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:51:50.932  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:51:55.943  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:52:00.954  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:52:05.965  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:52:10.975  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:52:15.985  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:52:20.996  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:52:26.007  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:52:31.018  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:52:36.027  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:52:41.039  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:52:46.050  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:52:51.060  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:52:56.072  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:53:01.084  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:53:06.094  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:53:11.106  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:53:16.116  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:53:21.131  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:53:26.140  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:53:31.151  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:53:36.162  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:53:41.173  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:53:46.184  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:53:51.196  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:53:56.205  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:54:01.217  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:54:06.227  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:54:11.239  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:54:16.250  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:54:21.260  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:54:26.271  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:54:31.282  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:54:36.293  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:54:41.305  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:54:46.315  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:54:51.327  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:54:56.336  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:55:01.348  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:55:06.359  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:55:11.370  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:55:16.381  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:55:21.392  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:55:26.403  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:55:31.415  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:55:36.425  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:55:41.436  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:55:46.445  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:55:51.455  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:55:56.466  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:56:01.476  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:56:06.487  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:56:11.497  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:56:16.508  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:56:21.520  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:56:26.530  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:56:31.540  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:56:36.550  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:56:41.562  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:56:46.574  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:56:51.585  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:56:56.596  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:57:01.608  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:57:06.619  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:57:11.631  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:57:16.641  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:57:21.654  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:57:26.665  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:57:31.676  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:57:36.687  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:57:41.698  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:57:46.707  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:57:51.718  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:57:56.729  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:58:01.740  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:58:06.751  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:58:11.763  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:58:16.773  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:58:21.786  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:58:26.797  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:58:31.808  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:58:36.818  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:58:41.830  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:58:46.841  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:58:51.853  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:58:56.863  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:59:01.875  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:59:06.884  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:59:11.896  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:59:16.906  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:59:21.918  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:59:26.929  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:59:31.941  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:59:36.951  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:59:41.959  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:59:46.971  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 15:59:51.984  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 15:59:56.995  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:00:02.006  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:00:07.016  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:00:12.028  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:00:17.036  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:00:22.046  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:00:27.056  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:00:32.066  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:00:37.077  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:00:42.089  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:00:47.099  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:00:52.110  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:00:57.121  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:01:02.132  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:01:07.143  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:01:12.156  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:01:17.167  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:01:22.181  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:01:27.191  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:01:32.203  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:01:37.211  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:01:42.224  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:01:47.234  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:01:52.246  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:01:57.257  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:02:02.269  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:02:07.280  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:02:12.292  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:02:17.302  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:02:22.313  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:02:27.323  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:02:32.334  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:02:37.345  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:02:42.357  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:02:47.367  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:02:52.378  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:02:57.389  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:03:02.401  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:03:07.411  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:03:12.422  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:03:17.431  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:03:22.441  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:03:27.452  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:03:32.462  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:03:37.473  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:03:42.483  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:03:47.494  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:03:52.505  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:03:57.516  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:04:02.529  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:04:07.539  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:04:07.571  INFO: RPI_CAT_INT Connection Success
+2018/07/27 16:04:15.231  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_07_27_16_04_15_tlm.bin
+2018/07/27 16:04:15.231  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:16.032  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:16.828  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:17.680  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:18.432  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:19.240  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:20.049  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:20.839  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:21.644  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:22.454  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:23.250  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:24.049  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:24.854  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:25.651  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:26.463  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:27.264  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:28.060  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:28.859  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:29.669  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:30.471  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:31.273  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:32.078  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:32.874  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:33.676  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:34.481  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:35.286  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:36.083  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:36.886  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:37.691  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:38.491  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:39.288  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:40.096  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:40.897  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:41.693  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:42.495  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:43.303  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:44.107  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:44.905  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:45.705  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:46.529  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:47.321  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:48.110  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:48.918  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:49.729  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:50.517  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:51.328  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:52.128  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:52.928  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:53.728  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:54.534  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:55.332  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:56.138  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:56.941  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:57.734  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:58.546  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:04:59.346  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:00.144  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:00.952  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:01.749  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:02.551  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:03.357  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:04.151  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:04.961  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:05.765  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:06.560  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:07.369  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:08.210  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:08.973  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:09.771  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:10.571  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:11.371  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:12.181  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:12.977  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:13.784  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:14.578  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:15.390  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:16.193  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:16.997  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:17.800  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:18.600  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:19.392  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:20.202  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:21.001  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:21.807  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:22.604  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:23.403  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:24.213  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:25.011  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:25.820  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:26.615  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:27.424  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:28.217  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:29.026  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:29.823  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:30.624  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:31.435  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:32.236  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:33.038  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:33.840  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:34.642  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:35.440  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:36.078  INFO: cmd("RPI_CAT NOP_RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/27 16:05:36.080  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_07_27_16_05_36_cmd.bin
+2018/07/27 16:05:36.242  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:37.054  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:37.468  INFO: cmd("RPI_CAT NOP_RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/27 16:05:37.857  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:38.656  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:39.058  INFO: cmd("RPI_CAT NOP_RPI with CMD_ID 79, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/27 16:05:39.455  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:40.255  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:41.062  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:41.866  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:42.665  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:43.469  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:44.274  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:45.073  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:45.869  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:46.678  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:47.175  INFO: cmd("RPI_CAT NOP_IOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/27 16:05:47.475  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:48.275  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:49.083  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:49.896  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:50.686  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:51.493  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:51.719  INFO: cmd("RPI_CAT NOP_IOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/27 16:05:52.293  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:53.091  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:53.892  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:54.704  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:55.505  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:55.662  INFO: cmd("RPI_CAT NOP_IOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/27 16:05:56.300  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:57.107  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:57.906  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:58.706  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:05:59.517  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:00.313  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:01.124  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:01.922  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:02.725  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:03.531  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:04.324  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:05.125  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:05.938  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:06.732  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:07.544  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:08.333  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:09.142  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:09.942  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:10.739  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:11.551  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:12.353  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:13.156  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:13.947  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:14.772  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:15.562  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:16.365  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:17.167  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:17.967  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:18.768  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:19.569  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:20.371  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:21.174  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:21.973  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:22.781  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:23.587  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:24.387  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:25.179  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:25.989  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:26.789  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:27.593  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:28.396  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:29.199  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:29.995  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:30.806  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:31.604  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:32.406  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:33.203  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:34.000  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:34.807  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:35.618  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:36.418  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:37.214  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:38.013  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:38.822  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:39.616  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:40.422  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:41.226  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:42.023  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:42.832  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:43.630  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:44.443  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:45.241  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:46.038  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:46.844  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:47.640  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:48.444  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:49.254  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:50.053  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:50.853  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:51.649  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:52.457  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:53.255  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:54.063  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:54.860  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:55.668  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:56.466  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:57.276  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:58.074  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:58.869  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:06:59.675  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:00.485  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:01.281  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:02.089  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:02.888  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:03.694  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:04.500  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:05.292  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:06.091  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:06.901  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:07.707  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:08.515  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:09.312  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:10.110  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:10.915  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:11.710  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:12.519  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:13.318  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:14.124  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:14.937  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:15.724  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:16.530  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:17.326  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:18.133  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:18.941  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:19.740  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:20.538  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:21.346  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:22.143  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:22.946  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:23.753  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:24.555  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:25.355  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:26.155  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:26.956  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:27.756  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:28.567  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:29.368  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:30.166  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:07:30.461  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/07/27 16:07:30.461  INFO: Connection Lost for RPI_CAT_INT
+2018/07/27 16:07:35.474  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:07:40.486  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:07:45.496  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:07:50.508  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:07:55.520  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:08:00.531  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:08:04.747  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:05.542  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:08:05.548  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:06.348  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:07.152  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:07.960  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:08.757  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:09.567  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:10.368  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:10.554  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:08:11.166  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:11.967  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:12.773  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:13.573  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:14.372  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:15.182  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:15.566  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:08:15.976  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:16.784  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:17.648  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:18.387  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:19.193  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:19.993  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:20.381  INFO: cmd("RPI_CAT NOP_IOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/07/27 16:08:20.580  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:08:20.791  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:21.594  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:22.393  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:23.193  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:23.997  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:24.802  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:25.590  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:08:25.600  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:26.408  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:27.207  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:28.014  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:28.808  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:29.616  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:30.314  INFO: User disconnecting interface RPI_CAT_INT
+2018/07/27 16:08:30.314  INFO: Killing thread for interface RPI_CAT_INT
+2018/07/27 16:08:30.420  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:30.602  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:08:30.602  INFO: Stopped packet reading for RPI_CAT_INT
+2018/07/27 16:08:30.602  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/27 16:08:31.224  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:32.022  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:32.720  INFO: User connecting interface RPI_CAT_INT
+2018/07/27 16:08:32.720  INFO: Creating thread for interface RPI_CAT_INT
+2018/07/27 16:08:32.721  INFO: Starting packet reading for RPI_CAT_INT
+2018/07/27 16:08:32.721  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:08:32.818  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:33.627  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:34.426  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:35.224  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:36.035  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:36.836  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:37.637  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:37.733  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:08:38.436  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:39.243  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:40.046  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:40.841  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:41.644  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:42.449  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:42.744  INFO: Connecting to RPI_CAT_INT...
+2018/07/27 16:08:43.254  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:44.057  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:44.856  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:45.663  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:46.464  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:47.264  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:47.755  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/27 16:08:48.061  ERROR: IOP_UDP STATUS received with actual packet length of 54 but defined length of 52
+2018/07/27 16:08:48.121  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_07_27_16_05_36_cmd.bin
+2018/07/27 16:08:48.129  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_07_27_16_04_15_tlm.bin
+2018/07/27 16:08:48.129  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/07/27 16:08:48.129  INFO: Connection Lost for SYSTEM_INT
+2018/07/27 16:08:48.229  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/07/27 16:08:48.229  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/07/27 16:08:48.229  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/07/27 16:08:48.283  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/07/27 16:08:48.294  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/07/27 16:08:48.294  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/07/27 16:08:48.303  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/07/27 16:08:48.382  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/07/27 16:08:48.393  INFO: Killing thread for interface RPI_CAT_INT
+2018/07/27 16:08:48.399  INFO: Stopped packet reading for RPI_CAT_INT
+2018/07/27 16:08:48.403  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/27 16:08:48.403  INFO: Killing thread for interface IOP_UDP_INT
+2018/07/27 16:08:48.414  ERROR: Error reading from interface : IOP_UDP_INT
+2018/07/27 16:08:48.414  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/07/27 16:08:48.414  INFO: Stopped packet reading for IOP_UDP_INT
+2018/07/27 16:08:48.425  INFO: Disconnected from interface IOP_UDP_INT
+2018/07/27 16:08:48.425  INFO: Killing thread for interface SYSTEM_INT
+2018/07/27 16:08:48.435  INFO: Stopped packet reading for SYSTEM_INT
+2018/07/27 16:08:48.436  INFO: Disconnected from interface SYSTEM_INT

@@ -1,0 +1,109 @@
+2018/07/20 16:06:32.505  INFO: COSMOS Version: 4.1.1
+2018/07/20 16:06:32.533  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/07/20 16:06:32.561  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/target.txt'
+2018/07/20 16:06:32.592  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/07/20 16:06:32.684  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/07/20 16:06:32.689  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/07/20 16:06:32.693  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/cmd_tlm_server.txt
+2018/07/20 16:06:32.708  INFO: Marshal load success: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/tmp/marshal_42f33a9a82e28ec1f486de410b1306ee.bin
+2018/07/20 16:06:32.813  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/07/20 16:06:32.814  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/07/20 16:06:32.814  INFO: Creating thread for interface RPI_CAT_INT
+2018/07/20 16:06:32.814  INFO: Creating thread for interface IOP_UDP_INT
+2018/07/20 16:06:32.814  INFO: Creating thread for interface SYSTEM_INT
+2018/07/20 16:06:32.815  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/07/20 16:06:32.815  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/07/20 16:06:32.815  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/07/20 16:06:32.815  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/07/20 16:06:32.815  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/07/20 16:06:32.819  INFO: Starting packet reading for RPI_CAT_INT
+2018/07/20 16:06:32.819  INFO: Connecting to RPI_CAT_INT...
+2018/07/20 16:06:32.821  INFO: Starting packet reading for IOP_UDP_INT
+2018/07/20 16:06:32.821  INFO: Connecting to IOP_UDP_INT...
+2018/07/20 16:06:32.821  INFO: Starting packet reading for SYSTEM_INT
+2018/07/20 16:06:32.821  INFO: Connecting to SYSTEM_INT...
+2018/07/20 16:06:32.821  INFO: SYSTEM_INT Connection Success
+2018/07/20 16:06:32.829  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/07/20 16:06:32.829  ERROR: IOP_UDP_INT Connection Failed: ENETUNREACH : A socket operation was attempted to an unreachable network. - connect(2) for "10.2.124.96" port 61433
+2018/07/20 16:06:32.829  ERROR: ENETUNREACH : A socket operation was attempted to an unreachable network. - connect(2) for "10.2.124.96" port 61433
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/io/udp_sockets.rb:49:in `connect'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/io/udp_sockets.rb:49:in `initialize'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/io/udp_sockets.rb:167:in `initialize'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/interfaces/udp_interface.rb:93:in `new'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/interfaces/udp_interface.rb:93:in `connect'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:251:in `connect'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:71:in `block (2 levels) in start'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:69:in `synchronize'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:69:in `block in start'
+2018/07/20 16:06:37.870  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/20 16:06:37.979  INFO: Connecting to IOP_UDP_INT...
+2018/07/20 16:06:37.980  ERROR: IOP_UDP_INT Connection Failed: ENETUNREACH : A socket operation was attempted to an unreachable network. - connect(2) for "10.2.124.96" port 61433
+2018/07/20 16:06:37.980  ERROR: ENETUNREACH : A socket operation was attempted to an unreachable network. - connect(2) for "10.2.124.96" port 61433
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/io/udp_sockets.rb:49:in `connect'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/io/udp_sockets.rb:49:in `initialize'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/io/udp_sockets.rb:167:in `initialize'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/interfaces/udp_interface.rb:93:in `new'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/interfaces/udp_interface.rb:93:in `connect'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:251:in `connect'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:71:in `block (2 levels) in start'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:69:in `synchronize'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:69:in `block in start'
+2018/07/20 16:06:42.882  INFO: Connecting to RPI_CAT_INT...
+2018/07/20 16:06:42.992  INFO: Connecting to IOP_UDP_INT...
+2018/07/20 16:06:42.993  ERROR: IOP_UDP_INT Connection Failed: ENETUNREACH : A socket operation was attempted to an unreachable network. - connect(2) for "10.2.124.96" port 61433
+2018/07/20 16:06:42.993  ERROR: ENETUNREACH : A socket operation was attempted to an unreachable network. - connect(2) for "10.2.124.96" port 61433
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/io/udp_sockets.rb:49:in `connect'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/io/udp_sockets.rb:49:in `initialize'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/io/udp_sockets.rb:167:in `initialize'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/interfaces/udp_interface.rb:93:in `new'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/interfaces/udp_interface.rb:93:in `connect'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:251:in `connect'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:71:in `block (2 levels) in start'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:69:in `synchronize'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:69:in `block in start'
+2018/07/20 16:06:47.894  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/20 16:06:48.004  INFO: Connecting to IOP_UDP_INT...
+2018/07/20 16:06:48.005  ERROR: IOP_UDP_INT Connection Failed: ENETUNREACH : A socket operation was attempted to an unreachable network. - connect(2) for "10.2.124.96" port 61433
+2018/07/20 16:06:48.006  ERROR: ENETUNREACH : A socket operation was attempted to an unreachable network. - connect(2) for "10.2.124.96" port 61433
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/io/udp_sockets.rb:49:in `connect'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/io/udp_sockets.rb:49:in `initialize'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/io/udp_sockets.rb:167:in `initialize'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/interfaces/udp_interface.rb:93:in `new'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/interfaces/udp_interface.rb:93:in `connect'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:251:in `connect'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:71:in `block (2 levels) in start'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:69:in `synchronize'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:69:in `block in start'
+2018/07/20 16:06:52.904  INFO: Connecting to RPI_CAT_INT...
+2018/07/20 16:06:53.017  INFO: Connecting to IOP_UDP_INT...
+2018/07/20 16:06:53.017  ERROR: IOP_UDP_INT Connection Failed: ENETUNREACH : A socket operation was attempted to an unreachable network. - connect(2) for "10.2.124.96" port 61433
+2018/07/20 16:06:53.017  ERROR: ENETUNREACH : A socket operation was attempted to an unreachable network. - connect(2) for "10.2.124.96" port 61433
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/io/udp_sockets.rb:49:in `connect'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/io/udp_sockets.rb:49:in `initialize'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/io/udp_sockets.rb:167:in `initialize'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/interfaces/udp_interface.rb:93:in `new'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/interfaces/udp_interface.rb:93:in `connect'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:251:in `connect'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:71:in `block (2 levels) in start'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:69:in `synchronize'
+C:/Users/David/Dropbox/AVC_Cosmos/Vendor/Ruby/lib/ruby/gems/2.4.0/gems/cosmos-4.1.1/lib/cosmos/tools/cmd_tlm_server/interface_thread.rb:69:in `block in start'
+2018/07/20 16:06:54.068  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/07/20 16:06:54.068  INFO: Connection Lost for SYSTEM_INT
+2018/07/20 16:06:54.169  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/07/20 16:06:54.169  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/07/20 16:06:54.169  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/07/20 16:06:54.278  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/07/20 16:06:54.289  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/07/20 16:06:54.289  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/07/20 16:06:54.293  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/07/20 16:06:54.374  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/07/20 16:06:54.385  INFO: Killing thread for interface RPI_CAT_INT
+2018/07/20 16:06:57.915  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/07/20 16:06:57.915  INFO: Stopped packet reading for RPI_CAT_INT
+2018/07/20 16:06:57.916  INFO: Disconnected from interface RPI_CAT_INT
+2018/07/20 16:06:57.916  INFO: Killing thread for interface IOP_UDP_INT
+2018/07/20 16:06:57.918  INFO: Stopped packet reading for IOP_UDP_INT
+2018/07/20 16:06:57.926  INFO: Disconnected from interface IOP_UDP_INT
+2018/07/20 16:06:57.926  INFO: Killing thread for interface SYSTEM_INT
+2018/07/20 16:06:57.929  INFO: Stopped packet reading for SYSTEM_INT
+2018/07/20 16:06:57.937  INFO: Disconnected from interface SYSTEM_INT

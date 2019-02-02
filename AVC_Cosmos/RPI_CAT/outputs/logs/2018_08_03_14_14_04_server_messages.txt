@@ -1,0 +1,259 @@
+2018/08/03 14:14:03.631  INFO: COSMOS Version: 4.1.1
+2018/08/03 14:14:03.651  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/08/03 14:14:03.747  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/target.txt'
+2018/08/03 14:14:03.768  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/08/03 14:14:03.789  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/08/03 14:14:03.799  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/08/03 14:14:03.804  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/cmd_tlm_server.txt
+2018/08/03 14:14:03.817  INFO: Marshal file does not exist: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/tmp/marshal_cc6f83809cbeaba4ede3b975b851f018.bin
+2018/08/03 14:14:04.142  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/08/03 14:14:04.143  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/08/03 14:14:04.143  INFO: Creating thread for interface RPI_CAT_INT
+2018/08/03 14:14:04.143  INFO: Creating thread for interface IOP_UDP_INT
+2018/08/03 14:14:04.143  INFO: Creating thread for interface SYSTEM_INT
+2018/08/03 14:14:04.147  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/08/03 14:14:04.147  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/08/03 14:14:04.147  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/08/03 14:14:04.147  INFO: Starting packet reading for RPI_CAT_INT
+2018/08/03 14:14:04.147  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:14:04.148  INFO: Starting packet reading for IOP_UDP_INT
+2018/08/03 14:14:04.148  INFO: Connecting to IOP_UDP_INT...
+2018/08/03 14:14:04.159  INFO: Starting packet reading for SYSTEM_INT
+2018/08/03 14:14:04.159  INFO: Connecting to SYSTEM_INT...
+2018/08/03 14:14:04.159  INFO: SYSTEM_INT Connection Success
+2018/08/03 14:14:04.159  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/08/03 14:14:04.159  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/08/03 14:14:04.159  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/08/03 14:14:04.160  INFO: IOP_UDP_INT Connection Success
+2018/08/03 14:14:04.170  INFO: RPI_CAT_INT Connection Success
+2018/08/03 14:14:04.681  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_03_14_14_04_tlm.bin
+2018/08/03 14:16:00.609  INFO: cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE NORMAL, SPARE2 0, SPARE3 0")
+2018/08/03 14:16:00.613  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_03_14_16_00_cmd.bin
+2018/08/03 14:16:16.645  INFO: cmd("RPI_CAT SCAN_SPEED with CMD_ID 83, SPEED 1600, SPARE1 0, SPARE2 0")
+2018/08/03 14:16:27.744  INFO: cmd("RPI_CAT SCAN_SPEED with CMD_ID 83, SPEED 3200, SPARE1 0, SPARE2 0")
+2018/08/03 14:16:40.881  INFO: cmd("RPI_CAT SCAN_SPEED with CMD_ID 83, SPEED 4800, SPARE1 0, SPARE2 0")
+2018/08/03 14:17:11.307  INFO: cmd("RPI_CAT SCAN_SPEED with CMD_ID 83, SPEED 3200, SPARE1 0, SPARE2 0")
+2018/08/03 14:17:42.844  INFO: cmd("RPI_CAT SCANNER_ENABLE with CMD_ID 67, SENSOR ON, SPARE2 0, SPARE3 0")
+2018/08/03 14:17:49.703  INFO: cmd("RPI_CAT SCANNER_ENABLE with CMD_ID 67, SENSOR OFF, SPARE2 0, SPARE3 0")
+2018/08/03 14:21:07.588  INFO: Tcpip server accepted connection from (127.0.0.1):53669
+2018/08/03 14:21:48.339  INFO: Tcpip server lost read connection to (127.0.0.1):53669
+2018/08/03 14:21:48.351  INFO: Tcpip server lost write connection to (127.0.0.1):53669
+2018/08/03 14:24:41.661  INFO: Tcpip server accepted connection from (127.0.0.1):53670
+2018/08/03 14:25:32.336  INFO: Tcpip server lost read connection to (127.0.0.1):53670
+2018/08/03 14:25:32.397  INFO: Tcpip server lost write connection to (127.0.0.1):53670
+2018/08/03 14:29:00.359  INFO: Tcpip server accepted connection from (127.0.0.1):53671
+2018/08/03 14:29:38.669  INFO: Tcpip server lost read connection to (127.0.0.1):53671
+2018/08/03 14:29:38.680  INFO: Tcpip server lost write connection to (127.0.0.1):53671
+2018/08/03 14:30:04.199  INFO: Tcpip server accepted connection from (127.0.0.1):53672
+2018/08/03 14:30:25.549  INFO: Tcpip server lost read connection to (127.0.0.1):53672
+2018/08/03 14:30:25.575  INFO: Tcpip server lost write connection to (127.0.0.1):53672
+2018/08/03 14:37:37.969  INFO: Tcpip server accepted connection from (127.0.0.1):53673
+2018/08/03 14:40:25.035  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/08/03 14:40:25.035  INFO: Connection Lost for RPI_CAT_INT
+2018/08/03 14:40:30.077  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:40:33.641  INFO: Tcpip server lost read connection to (127.0.0.1):53673
+2018/08/03 14:40:33.646  INFO: Tcpip server lost write connection to (127.0.0.1):53673
+2018/08/03 14:40:35.085  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:40:38.650  INFO: Tcpip server accepted connection from (127.0.0.1):53701
+2018/08/03 14:40:40.096  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:40:45.107  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:40:48.686  INFO: Tcpip server lost read connection to (127.0.0.1):53701
+2018/08/03 14:40:48.783  INFO: Tcpip server lost write connection to (127.0.0.1):53701
+2018/08/03 14:40:50.118  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:40:53.691  INFO: Tcpip server accepted connection from (127.0.0.1):53713
+2018/08/03 14:40:55.130  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:41:00.138  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:41:03.719  INFO: Tcpip server lost read connection to (127.0.0.1):53713
+2018/08/03 14:41:03.804  INFO: Tcpip server lost write connection to (127.0.0.1):53713
+2018/08/03 14:41:05.148  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:41:08.729  INFO: Tcpip server accepted connection from (127.0.0.1):53715
+2018/08/03 14:41:10.159  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:41:15.170  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:41:18.759  INFO: Tcpip server lost read connection to (127.0.0.1):53715
+2018/08/03 14:41:18.820  INFO: Tcpip server lost write connection to (127.0.0.1):53715
+2018/08/03 14:41:20.180  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:41:23.770  INFO: Tcpip server accepted connection from (127.0.0.1):53721
+2018/08/03 14:41:25.191  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:41:30.200  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:41:33.796  INFO: Tcpip server lost read connection to (127.0.0.1):53721
+2018/08/03 14:41:33.843  INFO: Tcpip server lost write connection to (127.0.0.1):53721
+2018/08/03 14:41:35.209  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:41:38.809  INFO: Tcpip server accepted connection from (127.0.0.1):53727
+2018/08/03 14:41:40.219  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:41:45.230  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:41:48.832  INFO: Tcpip server lost read connection to (127.0.0.1):53727
+2018/08/03 14:41:48.858  INFO: Tcpip server lost write connection to (127.0.0.1):53727
+2018/08/03 14:41:50.241  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:41:53.849  INFO: Tcpip server accepted connection from (127.0.0.1):53731
+2018/08/03 14:41:55.253  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:42:00.264  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:42:03.869  INFO: Tcpip server lost read connection to (127.0.0.1):53731
+2018/08/03 14:42:03.879  INFO: Tcpip server lost write connection to (127.0.0.1):53731
+2018/08/03 14:42:05.274  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:42:08.887  INFO: Tcpip server accepted connection from (127.0.0.1):53733
+2018/08/03 14:42:10.285  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:42:15.298  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:42:18.908  INFO: Tcpip server lost read connection to (127.0.0.1):53733
+2018/08/03 14:42:18.994  INFO: Tcpip server lost write connection to (127.0.0.1):53733
+2018/08/03 14:42:20.307  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:42:23.916  INFO: Tcpip server accepted connection from (127.0.0.1):53736
+2018/08/03 14:42:25.319  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:42:30.330  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:42:33.945  INFO: Tcpip server lost read connection to (127.0.0.1):53736
+2018/08/03 14:42:34.011  INFO: Tcpip server lost write connection to (127.0.0.1):53736
+2018/08/03 14:42:35.341  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:42:38.956  INFO: Tcpip server accepted connection from (127.0.0.1):53738
+2018/08/03 14:42:40.351  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:42:45.363  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:42:48.984  INFO: Tcpip server lost read connection to (127.0.0.1):53738
+2018/08/03 14:42:49.029  INFO: Tcpip server lost write connection to (127.0.0.1):53738
+2018/08/03 14:42:50.371  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:42:53.985  INFO: Tcpip server accepted connection from (127.0.0.1):53741
+2018/08/03 14:42:55.381  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:43:00.393  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:43:04.024  INFO: Tcpip server lost read connection to (127.0.0.1):53741
+2018/08/03 14:43:04.046  INFO: Tcpip server lost write connection to (127.0.0.1):53741
+2018/08/03 14:43:05.403  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:43:09.032  INFO: Tcpip server accepted connection from (127.0.0.1):53743
+2018/08/03 14:43:10.413  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:43:15.424  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:43:19.053  INFO: Tcpip server lost read connection to (127.0.0.1):53743
+2018/08/03 14:43:19.057  INFO: Tcpip server lost write connection to (127.0.0.1):53743
+2018/08/03 14:43:20.436  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:43:24.070  INFO: Tcpip server accepted connection from (127.0.0.1):53746
+2018/08/03 14:43:25.447  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:43:30.457  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:43:34.108  INFO: Tcpip server lost read connection to (127.0.0.1):53746
+2018/08/03 14:43:34.174  INFO: Tcpip server lost write connection to (127.0.0.1):53746
+2018/08/03 14:43:35.468  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:43:39.111  INFO: Tcpip server accepted connection from (127.0.0.1):53748
+2018/08/03 14:43:40.482  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:43:45.493  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:43:49.142  INFO: Tcpip server lost read connection to (127.0.0.1):53748
+2018/08/03 14:43:49.191  INFO: Tcpip server lost write connection to (127.0.0.1):53748
+2018/08/03 14:43:50.505  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:43:54.157  INFO: Tcpip server accepted connection from (127.0.0.1):53751
+2018/08/03 14:43:55.514  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:44:00.525  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:44:04.192  INFO: Tcpip server lost read connection to (127.0.0.1):53751
+2018/08/03 14:44:04.208  INFO: Tcpip server lost write connection to (127.0.0.1):53751
+2018/08/03 14:44:05.537  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:44:09.203  INFO: Tcpip server accepted connection from (127.0.0.1):53753
+2018/08/03 14:44:10.547  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:44:15.559  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:44:19.229  INFO: Tcpip server lost read connection to (127.0.0.1):53753
+2018/08/03 14:44:19.323  INFO: Tcpip server lost write connection to (127.0.0.1):53753
+2018/08/03 14:44:20.568  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:44:24.231  INFO: Tcpip server accepted connection from (127.0.0.1):53756
+2018/08/03 14:44:25.579  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:44:30.589  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:44:34.254  INFO: Tcpip server lost read connection to (127.0.0.1):53756
+2018/08/03 14:44:34.339  INFO: Tcpip server lost write connection to (127.0.0.1):53756
+2018/08/03 14:44:35.600  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:44:39.273  INFO: Tcpip server accepted connection from (127.0.0.1):53758
+2018/08/03 14:44:40.611  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:44:45.621  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:44:47.064  INFO: Tcpip server lost read connection to (127.0.0.1):53758
+2018/08/03 14:44:47.136  INFO: Tcpip server lost write connection to (127.0.0.1):53758
+2018/08/03 14:44:50.632  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:44:55.643  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:45:00.654  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:45:05.663  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:45:10.673  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:45:15.683  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:45:20.694  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:45:25.705  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:45:30.714  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:45:35.727  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:45:40.736  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:45:45.745  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:45:50.756  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:45:55.764  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:46:00.775  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:46:05.786  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:46:10.798  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:46:15.808  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:46:20.818  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:46:25.828  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:46:30.838  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:46:35.851  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:46:40.862  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:46:45.873  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:46:50.884  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:46:55.896  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:47:00.906  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:47:05.918  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:47:10.926  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:47:15.937  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:47:20.948  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:47:25.959  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:47:30.969  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:47:35.980  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:47:40.990  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:47:46.001  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:47:51.010  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:47:56.020  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:48:01.028  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:48:06.039  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:48:11.049  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:48:11.189  INFO: Tcpip server accepted connection from (127.0.0.1):53782
+2018/08/03 14:48:16.062  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:48:21.073  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:48:21.208  INFO: Tcpip server lost read connection to (127.0.0.1):53782
+2018/08/03 14:48:21.278  INFO: Tcpip server lost write connection to (127.0.0.1):53782
+2018/08/03 14:48:26.083  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:48:31.092  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:48:36.102  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:48:41.113  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:48:46.124  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:48:51.134  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:48:56.144  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:49:01.154  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:49:06.166  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:49:11.177  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:49:16.188  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:49:21.199  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:49:26.211  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:49:31.221  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:49:36.232  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/08/03 14:49:41.243  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:49:41.246  INFO: RPI_CAT_INT Connection Success
+2018/08/03 14:50:35.272  INFO: cmd("RPI_CAT NOP_IOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/08/03 14:50:44.091  INFO: cmd("RPI_CAT NOP_IOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/08/03 14:50:57.846  INFO: User disconnecting interface RPI_CAT_INT
+2018/08/03 14:50:57.846  INFO: Killing thread for interface RPI_CAT_INT
+2018/08/03 14:50:57.854  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/08/03 14:50:57.854  INFO: Connection Lost for RPI_CAT_INT
+2018/08/03 14:50:57.854  INFO: Stopped packet reading for RPI_CAT_INT
+2018/08/03 14:50:57.857  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/03 14:51:00.008  INFO: User connecting interface RPI_CAT_INT
+2018/08/03 14:51:00.008  INFO: Creating thread for interface RPI_CAT_INT
+2018/08/03 14:51:00.009  INFO: Starting packet reading for RPI_CAT_INT
+2018/08/03 14:51:00.009  INFO: Connecting to RPI_CAT_INT...
+2018/08/03 14:51:00.029  INFO: RPI_CAT_INT Connection Success
+2018/08/03 14:51:19.551  INFO: cmd("RPI_CAT NOP_IOP with CMD_ID 78, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/08/03 14:52:24.829  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_03_14_16_00_cmd.bin
+2018/08/03 14:52:24.834  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_03_14_14_04_tlm.bin
+2018/08/03 14:52:24.834  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/08/03 14:52:24.834  INFO: Connection Lost for SYSTEM_INT
+2018/08/03 14:52:24.935  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/08/03 14:52:24.935  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/08/03 14:52:24.935  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/08/03 14:52:25.032  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/08/03 14:52:25.032  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/08/03 14:52:25.032  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/08/03 14:52:25.042  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/08/03 14:52:25.054  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/08/03 14:52:25.065  INFO: Killing thread for interface RPI_CAT_INT
+2018/08/03 14:52:25.075  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/08/03 14:52:25.075  INFO: Connection Lost for RPI_CAT_INT
+2018/08/03 14:52:25.075  INFO: Stopped packet reading for RPI_CAT_INT
+2018/08/03 14:52:25.076  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/03 14:52:25.076  INFO: Killing thread for interface IOP_UDP_INT
+2018/08/03 14:52:25.085  ERROR: Error reading from interface : IOP_UDP_INT
+2018/08/03 14:52:25.085  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/08/03 14:52:25.085  INFO: Stopped packet reading for IOP_UDP_INT
+2018/08/03 14:52:25.087  INFO: Disconnected from interface IOP_UDP_INT
+2018/08/03 14:52:25.087  INFO: Killing thread for interface SYSTEM_INT
+2018/08/03 14:52:25.095  INFO: Stopped packet reading for SYSTEM_INT
+2018/08/03 14:52:25.098  INFO: Disconnected from interface SYSTEM_INT

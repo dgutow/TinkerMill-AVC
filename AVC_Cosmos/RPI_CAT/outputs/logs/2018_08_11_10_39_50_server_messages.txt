@@ -1,0 +1,105 @@
+2018/08/11 10:39:48.793  INFO: COSMOS Version: 4.1.1
+2018/08/11 10:39:48.824  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/08/11 10:39:48.852  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/target.txt'
+2018/08/11 10:39:48.884  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/08/11 10:39:48.931  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/08/11 10:39:48.938  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/08/11 10:39:48.958  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/cmd_tlm_server.txt
+2018/08/11 10:39:48.995  INFO: Marshal load success: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/tmp/marshal_cc6f83809cbeaba4ede3b975b851f018.bin
+2018/08/11 10:39:49.825  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/08/11 10:39:49.825  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/08/11 10:39:49.826  INFO: Creating thread for interface RPI_CAT_INT
+2018/08/11 10:39:49.826  INFO: Creating thread for interface IOP_UDP_INT
+2018/08/11 10:39:49.826  INFO: Creating thread for interface SYSTEM_INT
+2018/08/11 10:39:49.925  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/08/11 10:39:49.926  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/08/11 10:39:49.926  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/08/11 10:39:49.926  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/08/11 10:39:49.926  INFO: Starting packet reading for RPI_CAT_INT
+2018/08/11 10:39:49.926  INFO: Connecting to RPI_CAT_INT...
+2018/08/11 10:39:49.927  INFO: Starting packet reading for IOP_UDP_INT
+2018/08/11 10:39:49.927  INFO: Connecting to IOP_UDP_INT...
+2018/08/11 10:39:49.927  INFO: Starting packet reading for SYSTEM_INT
+2018/08/11 10:39:49.927  INFO: Connecting to SYSTEM_INT...
+2018/08/11 10:39:49.928  INFO: SYSTEM_INT Connection Success
+2018/08/11 10:39:49.937  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/08/11 10:39:49.940  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/08/11 10:39:49.941  INFO: IOP_UDP_INT Connection Success
+2018/08/11 10:39:49.973  INFO: RPI_CAT_INT Connection Success
+2018/08/11 10:39:49.993  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_11_10_39_49_tlm.bin
+2018/08/11 10:39:51.419  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:40:16.137  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:40:51.283  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:40:54.673  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:41:00.333  INFO: cmd("RPI_CAT SCANNER_ENABLE with CMD_ID 67, SENSOR OFF, SPARE2 0, SPARE3 0")
+2018/08/11 10:41:00.334  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_11_10_41_00_cmd.bin
+2018/08/11 10:41:05.797  INFO: cmd("RPI_CAT SCANNER_ENABLE with CMD_ID 67, SENSOR ON, SPARE2 0, SPARE3 0")
+2018/08/11 10:41:49.421  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:41:51.098  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:42:33.111  INFO: cmd("RPI_CAT SCANNER_ENABLE with CMD_ID 67, SENSOR OFF, SPARE2 0, SPARE3 0")
+2018/08/11 10:43:51.419  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:44:15.398  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:44:18.576  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:45:03.629  INFO: cmd("RPI_CAT SCANNER_ENABLE with CMD_ID 67, SENSOR ON, SPARE2 0, SPARE3 0")
+2018/08/11 10:45:18.705  INFO: Tcpip server accepted connection from (127.0.0.1):59027
+2018/08/11 10:45:38.099  INFO: Tcpip server lost read connection to (127.0.0.1):59027
+2018/08/11 10:45:38.135  ERROR: Error sending to client: RuntimeError Interface not connected for write: StreamInterface
+2018/08/11 10:45:38.135  INFO: Tcpip server lost write connection to (127.0.0.1):59027
+2018/08/11 10:46:50.975  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:48:39.081  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:48:40.036  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:50:18.742  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:50:19.062  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:50:19.390  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:50:19.563  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:50:20.004  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:50:20.170  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:50:20.619  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:50:20.775  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:50:21.096  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:50:21.393  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:50:21.708  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:50:22.157  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:50:22.322  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:50:22.773  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:50:51.241  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:51:51.311  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:53:31.415  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:54:19.627  INFO: cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE NORMAL, SPARE2 0, SPARE3 0")
+2018/08/11 10:56:51.092  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:58:00.844  INFO: Tcpip server accepted connection from (127.0.0.1):59030
+2018/08/11 10:58:51.234  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 10:59:03.326  INFO: Tcpip server lost read connection to (127.0.0.1):59030
+2018/08/11 10:59:03.350  INFO: Tcpip server lost write connection to (127.0.0.1):59030
+2018/08/11 11:00:50.962  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 11:01:16.897  INFO: cmd("RPI_CAT SCANNER_ENABLE with CMD_ID 67, SENSOR OFF, SPARE2 0, SPARE3 0")
+2018/08/11 11:01:51.236  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 11:01:51.415  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 11:02:08.988  ERROR: RPI_CAT STATUS received with actual packet length of 32 but defined length of 16
+2018/08/11 11:02:31.385  INFO: User disconnecting interface RPI_CAT_INT
+2018/08/11 11:02:31.385  INFO: Killing thread for interface RPI_CAT_INT
+2018/08/11 11:02:31.394  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/08/11 11:02:31.394  INFO: Connection Lost for RPI_CAT_INT
+2018/08/11 11:02:31.394  INFO: Stopped packet reading for RPI_CAT_INT
+2018/08/11 11:02:31.396  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/11 11:02:32.288  INFO: User disconnecting interface IOP_UDP_INT
+2018/08/11 11:02:32.288  INFO: Killing thread for interface IOP_UDP_INT
+2018/08/11 11:02:32.289  INFO: Stopped packet reading for IOP_UDP_INT
+2018/08/11 11:02:32.289  INFO: Disconnected from interface IOP_UDP_INT
+2018/08/11 14:35:43.202  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_11_10_41_00_cmd.bin
+2018/08/11 14:35:43.216  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_08_11_10_39_49_tlm.bin
+2018/08/11 14:35:43.218  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/08/11 14:35:43.218  INFO: Connection Lost for SYSTEM_INT
+2018/08/11 14:35:43.320  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/08/11 14:35:43.321  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/08/11 14:35:43.321  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/08/11 14:35:43.386  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/08/11 14:35:43.397  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/08/11 14:35:43.397  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/08/11 14:35:43.400  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/08/11 14:35:43.493  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/08/11 14:35:43.504  INFO: Disconnected from interface RPI_CAT_INT
+2018/08/11 14:35:43.504  INFO: Disconnected from interface IOP_UDP_INT
+2018/08/11 14:35:43.504  INFO: Killing thread for interface SYSTEM_INT
+2018/08/11 14:35:43.513  INFO: Stopped packet reading for SYSTEM_INT
+2018/08/11 14:35:43.515  INFO: Disconnected from interface SYSTEM_INT

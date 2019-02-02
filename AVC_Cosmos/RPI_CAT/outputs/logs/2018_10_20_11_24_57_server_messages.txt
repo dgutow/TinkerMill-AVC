@@ -1,0 +1,359 @@
+2018/10/20 11:24:55.812  INFO: COSMOS Version: 4.1.1
+2018/10/20 11:24:55.849  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/target.txt'
+2018/10/20 11:24:55.899  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/target.txt'
+2018/10/20 11:24:55.919  INFO: Processing target definition in file 'C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/SYSTEM/target.txt'
+2018/10/20 11:24:55.946  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/tools/cmd_tlm_server/cmd_tlm_server.txt
+2018/10/20 11:24:55.953  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/RPI_CAT/cmd_tlm_server.txt
+2018/10/20 11:24:55.976  INFO: Processing CmdTlmServer configuration in file: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/config/targets/IOP_UDP/cmd_tlm_server.txt
+2018/10/20 11:24:56.006  INFO: Marshal file does not exist: C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/tmp/marshal_be9c1d719f2e4c9411305de256a27182.bin
+2018/10/20 11:24:57.295  INFO: Creating thread for router PREIDENTIFIED_ROUTER
+2018/10/20 11:24:57.296  INFO: Creating thread for router PREIDENTIFIED_CMD_ROUTER
+2018/10/20 11:24:57.298  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 11:24:57.299  INFO: Creating thread for interface IOP_UDP_INT
+2018/10/20 11:24:57.300  INFO: Creating thread for interface SYSTEM_INT
+2018/10/20 11:24:57.310  INFO: Starting packet reading for PREIDENTIFIED_ROUTER
+2018/10/20 11:24:57.310  INFO: Connecting to PREIDENTIFIED_ROUTER...
+2018/10/20 11:24:57.311  INFO: PREIDENTIFIED_ROUTER Connection Success
+2018/10/20 11:24:57.311  INFO: Starting connection maintenance for PREIDENTIFIED_CMD_ROUTER
+2018/10/20 11:24:57.312  INFO: Connecting to PREIDENTIFIED_CMD_ROUTER...
+2018/10/20 11:24:57.313  INFO: PREIDENTIFIED_CMD_ROUTER Connection Success
+2018/10/20 11:24:57.313  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 11:24:57.313  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 11:24:57.316  INFO: Starting packet reading for IOP_UDP_INT
+2018/10/20 11:24:57.322  INFO: Connecting to IOP_UDP_INT...
+2018/10/20 11:24:57.324  INFO: Starting packet reading for SYSTEM_INT
+2018/10/20 11:24:57.324  INFO: Connecting to SYSTEM_INT...
+2018/10/20 11:24:57.324  INFO: SYSTEM_INT Connection Success
+2018/10/20 11:24:57.324  INFO: IOP_UDP_INT Connection Success
+2018/10/20 11:24:57.325  INFO: RPI_CAT_INT Connection Success
+2018/10/20 11:24:57.556  ERROR: RPI_CAT STATUS received with actual packet length of 56 but defined length of 28
+2018/10/20 11:24:57.573  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_10_20_11_24_57_tlm.bin
+2018/10/20 11:26:24.210  INFO: cmd("RPI_CAT SET_SPEED with CMD_ID 88, SPEED 1, SPARE2 0, SPARE3 0")
+2018/10/20 11:26:24.211  INFO: Log File Opened : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_10_20_11_26_24_cmd.bin
+2018/10/20 11:28:53.656  INFO: cmd("RPI_CAT SET_SPEED with CMD_ID 88, SPEED 8, SPARE2 0, SPARE3 0")
+2018/10/20 11:29:19.564  INFO: cmd("RPI_CAT SET_SPEED with CMD_ID 88, SPEED 6, SPARE2 0, SPARE3 0")
+2018/10/20 11:30:09.131  INFO: cmd("RPI_CAT SET_SPEED with CMD_ID 88, SPEED 6, SPARE2 0, SPARE3 0")
+2018/10/20 11:30:16.147  INFO: cmd("RPI_CAT SET_SPEED with CMD_ID 88, SPEED 8, SPARE2 0, SPARE3 0")
+2018/10/20 11:30:26.851  INFO: cmd("RPI_CAT SET_SPEED with CMD_ID 88, SPEED 10, SPARE2 0, SPARE3 0")
+2018/10/20 11:33:15.783  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 11:33:15.783  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 11:33:15.790  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 11:33:15.790  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 11:33:15.790  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 11:33:15.793  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 11:33:17.986  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 11:33:17.986  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 11:33:17.986  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 11:33:17.987  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 11:33:18.031  INFO: RPI_CAT_INT Connection Success
+2018/10/20 11:33:53.999  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 11:34:01.684  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 11:34:01.684  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 11:34:01.693  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 11:34:01.693  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 11:34:01.693  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 11:34:01.695  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 11:34:21.570  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 11:34:21.570  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 11:34:21.571  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 11:34:21.571  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 11:34:21.582  INFO: RPI_CAT_INT Connection Success
+2018/10/20 11:35:09.079  INFO: cmd("RPI_CAT SET_SPEED with CMD_ID 88, SPEED 8, SPARE2 0, SPARE3 0")
+2018/10/20 11:35:13.284  ERROR: RPI_CAT STATUS received with actual packet length of 56 but defined length of 28
+2018/10/20 11:35:14.788  ERROR: RPI_CAT STATUS received with actual packet length of 56 but defined length of 28
+2018/10/20 11:35:15.394  INFO: cmd("RPI_CAT SET_SPEED with CMD_ID 88, SPEED 9, SPARE2 0, SPARE3 0")
+2018/10/20 11:35:20.291  INFO: cmd("RPI_CAT SET_SPEED with CMD_ID 88, SPEED 10, SPARE2 0, SPARE3 0")
+2018/10/20 11:35:28.667  INFO: cmd("RPI_CAT SET_SPEED with CMD_ID 88, SPEED 9, SPARE2 0, SPARE3 0")
+2018/10/20 11:36:14.780  INFO: cmd("RPI_CAT ESTOP with CMD_ID 69, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 11:36:52.149  INFO: cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE BIST, SPARE2 0, SPARE3 0")
+2018/10/20 11:37:27.977  INFO: cmd("RPI_CAT RPI_MODE with CMD_ID 82, MODE WAIT_BIST, SPARE2 999, SPARE3 0")
+2018/10/20 11:37:48.593  INFO: cmd("RPI_CAT RPI_MODE with CMD_ID 82, MODE WAIT_BIST, SPARE2 999, SPARE3 0")
+2018/10/20 11:38:14.857  INFO: cmd("RPI_CAT RPI_MODE with CMD_ID 82, MODE WAIT_START, SPARE2 999, SPARE3 0")
+2018/10/20 11:38:37.284  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 11:38:37.284  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 11:38:37.292  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 11:38:37.292  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 11:38:37.292  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 11:38:37.295  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 11:38:38.597  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 11:38:38.597  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 11:38:38.598  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 11:38:38.598  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 11:38:38.606  INFO: RPI_CAT_INT Connection Success
+2018/10/20 11:40:34.589  INFO: cmd("RPI_CAT ESTOP with CMD_ID 69, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 11:49:58.239  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 11:50:03.096  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 11:50:03.096  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 11:50:03.107  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 11:50:03.107  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 11:50:03.107  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 11:50:03.118  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 13:11:23.294  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 13:11:23.294  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 13:11:23.295  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 13:11:23.295  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:11:23.303  INFO: RPI_CAT_INT Connection Success
+2018/10/20 13:11:38.444  ERROR: RPI_CAT STATUS received with actual packet length of 56 but defined length of 28
+2018/10/20 13:12:01.076  ERROR: RPI_CAT STATUS received with actual packet length of 56 but defined length of 28
+2018/10/20 13:12:15.784  INFO: cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE BIST, SPARE2 0, SPARE3 0")
+2018/10/20 13:12:20.913  ERROR: RPI_CAT STATUS received with actual packet length of 56 but defined length of 28
+2018/10/20 13:13:14.251  INFO: cmd("RPI_CAT RPI_MODE with CMD_ID 82, MODE WAIT_START, SPARE2 999, SPARE3 0")
+2018/10/20 13:13:33.932  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 13:13:40.957  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 13:13:40.957  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 13:13:40.959  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 13:13:40.959  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 13:13:40.959  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 13:13:40.967  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 13:13:47.941  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 13:13:47.941  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 13:13:47.942  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 13:13:47.942  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:13:52.956  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 13:13:57.970  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:13:57.992  INFO: RPI_CAT_INT Connection Success
+2018/10/20 13:14:08.003  ERROR: RPI_CAT STATUS received with actual packet length of 56 but defined length of 28
+2018/10/20 13:16:51.081  INFO: cmd("RPI_CAT SET_SPEED with CMD_ID 88, SPEED 10, SPARE2 0, SPARE3 0")
+2018/10/20 13:16:56.230  INFO: cmd("RPI_CAT SET_SPEED with CMD_ID 88, SPEED 12, SPARE2 0, SPARE3 0")
+2018/10/20 13:17:33.363  INFO: cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE NORMAL, SPARE2 0, SPARE3 0")
+2018/10/20 13:17:43.210  INFO: cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE BIST, SPARE2 0, SPARE3 0")
+2018/10/20 13:18:17.764  INFO: cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE BIST, SPARE2 0, SPARE3 0")
+2018/10/20 13:18:23.537  INFO: cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE ESTOP, SPARE2 0, SPARE3 0")
+2018/10/20 13:19:57.943  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 13:19:57.959  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 13:19:57.959  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 13:20:02.969  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:20:07.982  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 13:20:10.016  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 13:20:10.016  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 13:20:10.023  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 13:20:10.026  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 13:20:10.785  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 13:20:10.785  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 13:20:10.786  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 13:20:10.786  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:20:14.129  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 13:20:14.129  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 13:20:15.798  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 13:20:15.799  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 13:20:15.799  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 13:21:38.630  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 13:21:38.630  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 13:21:38.630  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 13:21:38.631  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:21:43.642  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 13:21:48.652  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:21:48.660  INFO: RPI_CAT_INT Connection Success
+2018/10/20 13:23:15.693  INFO: cmd("RPI_CAT ESTOP with CMD_ID 69, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 13:23:47.123  INFO: cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE BIST, SPARE2 0, SPARE3 0")
+2018/10/20 13:23:51.814  ERROR: RPI_CAT STATUS received with actual packet length of 56 but defined length of 28
+2018/10/20 13:24:02.835  INFO: cmd("RPI_CAT RPI_MODE with CMD_ID 82, MODE WAIT_START, SPARE2 999, SPARE3 0")
+2018/10/20 13:24:35.565  INFO: cmd("RPI_CAT RPI_MODE with CMD_ID 82, MODE WAIT_BIST, SPARE2 999, SPARE3 0")
+2018/10/20 13:24:54.283  ERROR: RPI_CAT STATUS received with actual packet length of 84 but defined length of 28
+2018/10/20 13:25:30.075  INFO: cmd("RPI_CAT ESTOP with CMD_ID 69, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 13:26:50.106  INFO: cmd("RPI_CAT ESTOP with CMD_ID 69, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 13:27:43.430  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 13:27:46.899  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 13:27:46.900  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 13:27:46.908  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 13:27:46.908  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 13:27:46.908  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 13:27:46.910  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 13:30:51.465  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 13:30:51.465  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 13:30:51.466  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 13:30:51.466  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:30:56.481  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 13:31:01.492  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:31:01.500  INFO: RPI_CAT_INT Connection Success
+2018/10/20 13:32:41.036  INFO: cmd("RPI_CAT ESTOP with CMD_ID 69, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 13:33:48.809  ERROR: RPI_CAT STATUS received with actual packet length of 56 but defined length of 28
+2018/10/20 13:36:03.984  ERROR: RPI_CAT STATUS received with actual packet length of 56 but defined length of 28
+2018/10/20 13:37:40.612  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 13:38:12.867  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 13:38:12.867  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 13:38:12.875  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 13:38:12.875  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 13:38:12.875  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 13:38:12.877  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 13:45:09.842  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 13:45:09.842  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 13:45:09.844  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 13:45:09.844  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:45:09.852  INFO: RPI_CAT_INT Connection Success
+2018/10/20 13:50:39.492  ERROR: RPI_CAT STATUS received with actual packet length of 56 but defined length of 28
+2018/10/20 13:52:05.780  INFO: cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE BIST, SPARE2 0, SPARE3 0")
+2018/10/20 13:52:18.733  INFO: cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE NORMAL, SPARE2 0, SPARE3 0")
+2018/10/20 13:52:40.751  INFO: cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE BIST, SPARE2 0, SPARE3 0")
+2018/10/20 13:52:55.321  INFO: cmd("RPI_CAT VEH_MODE with CMD_ID 68, MODE BIST, SPARE2 0, SPARE3 0")
+2018/10/20 13:53:17.780  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 13:53:19.486  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 13:53:21.476  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 13:53:21.476  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 13:53:21.477  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 13:53:21.477  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 13:53:21.477  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 13:53:21.487  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 13:53:27.505  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 13:53:43.472  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 13:54:55.504  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 13:54:55.504  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 13:54:55.505  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 13:54:55.505  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:55:00.517  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 13:55:05.527  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:55:10.539  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 13:55:15.550  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:55:20.564  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 13:55:25.576  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:55:30.588  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 13:55:35.602  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:55:40.615  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 13:55:45.625  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:55:45.709  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 13:55:45.709  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 13:55:50.637  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 13:55:50.638  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 13:55:50.638  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 13:57:11.558  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 13:57:11.558  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 13:57:11.559  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 13:57:11.559  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:57:16.571  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 13:57:21.585  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:57:26.598  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 13:57:31.608  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 13:57:31.616  INFO: RPI_CAT_INT Connection Success
+2018/10/20 13:59:21.572  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 13:59:23.833  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 13:59:23.833  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 13:59:23.842  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 13:59:23.842  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 13:59:23.842  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 13:59:23.845  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 14:01:56.975  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 14:01:56.975  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 14:01:56.976  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 14:01:56.976  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 14:02:01.987  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 14:02:06.999  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 14:02:07.007  INFO: RPI_CAT_INT Connection Success
+2018/10/20 14:03:48.386  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 14:03:50.038  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 14:03:50.038  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 14:03:50.042  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 14:03:50.042  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 14:03:50.042  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 14:03:50.049  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 14:04:22.335  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 14:04:22.335  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 14:04:22.335  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 14:04:22.335  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 14:04:27.346  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 14:04:32.357  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 14:04:37.392  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 14:04:42.402  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 14:04:42.411  INFO: RPI_CAT_INT Connection Success
+2018/10/20 14:05:15.224  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 14:05:16.674  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 14:05:16.674  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 14:05:16.685  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 14:05:16.685  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 14:05:16.685  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 14:05:16.695  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 14:06:03.802  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 14:06:03.802  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 14:06:03.803  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 14:06:03.803  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 14:06:04.318  INFO: RPI_CAT_INT Connection Success
+2018/10/20 14:06:39.621  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 14:06:41.882  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 14:06:41.882  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 14:06:41.886  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 14:06:41.886  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 14:06:41.886  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 14:06:41.892  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 14:12:07.048  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 14:12:07.048  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 14:12:07.048  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 14:12:07.048  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 14:12:12.058  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 14:12:17.070  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 14:12:17.079  INFO: RPI_CAT_INT Connection Success
+2018/10/20 14:12:59.584  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 14:13:00.707  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 14:13:00.707  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 14:13:00.708  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 14:13:00.708  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 14:13:00.708  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 14:13:00.717  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 14:14:10.135  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 14:14:10.135  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 14:14:10.136  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 14:14:10.136  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 14:14:10.143  INFO: RPI_CAT_INT Connection Success
+2018/10/20 14:17:35.251  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 14:17:37.551  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 14:17:37.551  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 14:17:37.555  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 14:17:37.555  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 14:17:37.555  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 14:17:37.563  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 14:18:24.997  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 14:18:24.997  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 14:18:24.997  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 14:18:24.997  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 14:18:30.009  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 14:18:35.021  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 14:18:40.034  ERROR: RPI_CAT_INT Connection Failed: RuntimeError : Connect timeout
+2018/10/20 14:18:41.998  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 14:18:41.998  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 14:18:42.000  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 14:18:42.008  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 14:22:50.556  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 14:22:59.042  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 14:22:59.042  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 14:22:59.043  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 14:22:59.043  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 14:22:59.049  INFO: RPI_CAT_INT Connection Success
+2018/10/20 14:23:03.510  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 14:23:06.211  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 14:23:06.212  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 14:23:06.214  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 14:23:06.214  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 14:23:06.214  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 14:23:06.222  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 14:25:10.318  INFO: User connecting interface RPI_CAT_INT
+2018/10/20 14:25:10.318  INFO: Creating thread for interface RPI_CAT_INT
+2018/10/20 14:25:10.319  INFO: Starting packet reading for RPI_CAT_INT
+2018/10/20 14:25:10.319  INFO: Connecting to RPI_CAT_INT...
+2018/10/20 14:25:10.843  INFO: RPI_CAT_INT Connection Success
+2018/10/20 14:27:39.371  ERROR: RPI_CAT STATUS received with actual packet length of 84 but defined length of 28
+2018/10/20 14:28:24.285  INFO: cmd("RPI_CAT ABORT_PROGRAM with CMD_ID 49, SPARE1 0, SPARE2 0, SPARE3 0")
+2018/10/20 14:28:26.927  INFO: User disconnecting interface RPI_CAT_INT
+2018/10/20 14:28:26.927  INFO: Killing thread for interface RPI_CAT_INT
+2018/10/20 14:28:26.939  INFO: Clean disconnect from RPI_CAT_INT (returned nil)
+2018/10/20 14:28:26.939  INFO: Connection Lost for RPI_CAT_INT
+2018/10/20 14:28:26.939  INFO: Stopped packet reading for RPI_CAT_INT
+2018/10/20 14:28:26.950  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 14:28:49.468  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_10_20_11_26_24_cmd.bin
+2018/10/20 14:28:49.476  INFO: Log File Closed : C:/Users/David/Dropbox/AVC_Cosmos/RPI_CAT/outputs/logs/2018_10_20_11_24_57_tlm.bin
+2018/10/20 14:28:49.476  INFO: Clean disconnect from SYSTEM_INT (returned nil)
+2018/10/20 14:28:49.476  INFO: Connection Lost for SYSTEM_INT
+2018/10/20 14:28:49.778  INFO: Killing thread for router PREIDENTIFIED_ROUTER
+2018/10/20 14:28:49.778  INFO: Clean disconnect from PREIDENTIFIED_ROUTER (returned nil)
+2018/10/20 14:28:49.778  INFO: Connection Lost for PREIDENTIFIED_ROUTER
+2018/10/20 14:28:49.843  INFO: Stopped packet reading for PREIDENTIFIED_ROUTER
+2018/10/20 14:28:49.843  INFO: Disconnected from router PREIDENTIFIED_ROUTER
+2018/10/20 14:28:49.843  INFO: Killing thread for router PREIDENTIFIED_CMD_ROUTER
+2018/10/20 14:28:49.846  INFO: Stopped packet reading for PREIDENTIFIED_CMD_ROUTER
+2018/10/20 14:28:49.951  INFO: Disconnected from router PREIDENTIFIED_CMD_ROUTER
+2018/10/20 14:28:49.961  INFO: Disconnected from interface RPI_CAT_INT
+2018/10/20 14:28:49.961  INFO: Killing thread for interface IOP_UDP_INT
+2018/10/20 14:28:49.970  ERROR: Error reading from interface : IOP_UDP_INT
+2018/10/20 14:28:49.970  INFO: Connection Lost for IOP_UDP_INT: ENOTSOCK : An operation was attempted on something that is not a socket.
+2018/10/20 14:28:49.970  INFO: Stopped packet reading for IOP_UDP_INT
+2018/10/20 14:28:49.972  INFO: Disconnected from interface IOP_UDP_INT
+2018/10/20 14:28:49.972  INFO: Killing thread for interface SYSTEM_INT
+2018/10/20 14:28:49.979  INFO: Stopped packet reading for SYSTEM_INT
+2018/10/20 14:28:49.983  INFO: Disconnected from interface SYSTEM_INT
