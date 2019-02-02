@@ -13,8 +13,9 @@ class raceModes(object):
 
     ###########################################################################
     # The enumerations of each state:
-    NONE            = 0     # Not defined
-    WAIT_FOR_BIST   = 1     # robot being initialized
+    INIT            = 0     # Initialization state
+    WAIT_FOR_BIST   = 1     # waiting for Teensy to be in BIST mode
+    WAIT_FOR_NORM   = 3     # waiting for Teensy to be in NORMAL mode
     WAIT_FOR_START  = 2     # waiting for the start signal
     
     RACE_BEGIN      = 4     # Just starting, getting going
@@ -53,8 +54,9 @@ class raceModes(object):
     UNKNOWN         = 110   # huh?
     
     # Strings for use in text messages
-    stringDict = {NONE           : "NONE"          ,
+    stringDict = {INIT           : "INITIALIZATION",
                   WAIT_FOR_BIST  : "WAIT_FOR_BIST" ,
+                  WAIT_FOR_NORM  : "WAIT_FOR_NORM" ,
                   WAIT_FOR_START : "WAIT_FOR_START",
                   RACE_BEGIN     : "RACE_BEGIN"    ,
                   RACE_STRAIGHT  : "RACE_STRAIGHT" ,
@@ -83,8 +85,9 @@ class raceModes(object):
                   ESTOP          : "ESTOP"         ,
                   UNKNOWN        : "UNKNOWN"       }    
     # Nominal speeds in each state
-    speedDict = {NONE           : speedZero,
+    speedDict = {INIT           : speedZero,
                  WAIT_FOR_BIST  : speedZero,
+                 WAIT_FOR_NORM  : speedZero,                
                  WAIT_FOR_START : speedZero,
                  RACE_BEGIN     : speedApproach,
                  RACE_STRAIGHT  : speedMax,
@@ -116,8 +119,8 @@ class raceModes(object):
     ###########################################################################    
     # The values stored in this class
     
-    currMode        = NONE
-    prevMode        = NONE  # The previous mode we were in
+    currMode        = INIT
+    prevMode        = INIT  # The previous mode we were in
     modeCount       = 0     # Count of how long we've been in this mode
  
     ###########################################################################
@@ -151,11 +154,17 @@ class raceModes(object):
     # end    
     
     ###########################################################################
+    # incCntr - Increment counter so we know how long we've been in this mode
+    #   
+    def incCntr(self):
+        self.modeCount += 1      # First time around it'll be equal to '1'
+    # end      
+
+    ###########################################################################
     # newMode - Returns true if we've just switched to a mode.  Also increments
     # the modeCount value each time it's called.
     #   
     def newMode(self):
-        self.modeCount += 1      # First time around it'll be equal to '1'
         if self.modeCount <= 1:
             return True          # We are in a new mode
         # end
@@ -170,9 +179,10 @@ class raceModes(object):
     # end toString
     
     ###########################################################################
-    def printMode(self, str):
-        print ("%s %2d: %s" % (
-                str, self.currMode , self.toString(self.currMode)))
+    def printMode(self, str, cnt):
+        if (self.modeCount <= 2 or self.modeCount % cnt == 0):
+            print ("%s %s" % (
+                str, self.toString(self.currMode)))
     # end printMode
     
 # end
@@ -184,8 +194,8 @@ if __name__ == "__main__":
     mode = raceModes()
     mode.printMode ("starting up:  ")
     
-    mode.setMode (raceModes.NONE           )     
-    mode.printMode ("NONE          ")
+    mode.setMode (raceModes.INIT           )     
+    mode.printMode ("INIT          ")
     print("speed", mode.getSpeed())
     mode.setMode (raceModes.WAIT_FOR_BIST  )     
     mode.printMode ("WAIT_FOR_BIST ")

@@ -115,7 +115,7 @@ class vehicleState (object):
     errorString        = ""
     
     def __init__(self):
-        self.mode.setMode(raceModes.NONE)
+        self.mode.setMode(raceModes.INIT)
         self.timeSinceStart  = 0.0 
         self.distSinceStart  = 0.0   
         self.currCompassDir  = 0.0  

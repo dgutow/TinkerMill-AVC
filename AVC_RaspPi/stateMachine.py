@@ -23,78 +23,85 @@ else:
 # end if SIM_TEENSY
 
 apprCount       = 2     # Count of loops to stay in any of the appr states
-BistMaxCnt      = 90    # 3 sec - max time for IOP to get to BIST
-NormMaxCnt      = 30    # 2 sec - max time for IOP to enter NORM mode after cmd
+BistMaxCnt      = 50    # 5 sec - max time for IOP to get to BIST
+NormMaxCnt      = 20    # 2 sec - max time for IOP to enter NORM mode after cmd
 simMaxCnt       = 100   #
 ErrorMaxCnt     = 200   # Number of iterations before repeating error msg
+printCnt        = 8     # print out the current mode every n cycles
 
 ###############################################################################
 # stateControl - choose what to do depending on our current state
 ###############################################################################
 
-def stateMachine (vehState, serialPort, occGrid):
-    if (vehState.iopMode == 1) and (vehState.mode.currMode == 2):
-        print("ready to start")
-    elif (vehState.mode.currMode == 1):
-        print("raspberry pi is booting. Please wait.")
-    elif (vehState.iopMode == 2):
-        print("Teensy in error mode. Reset.")
-    else:
-        print("IOPMODE: ",vehState.iopMode, " STATEMACHINE: ", vehState.mode.currMode)
-    #vehState.mode.printMode("STATEMACHINE:")
-
+def stateMachine (vehState, serialPort, occGrid):   
+    ##*************************************************************************
+    # Increment the mode counter so we know how long we've been in this mode
+    ##*************************************************************************    
+    vehState.mode.incCntr ()
+    vehState.mode.printMode ("STATEMACHINE: Current Mode - ", printCnt) 
+       
+    # Check if Teensy went into ESTOP mode, but only if RPI not just coming up
+    if (vehState.iopMode == IOP_MODE_ESTOP and vehState.mode.currMode != raceModes.INIT): 
+        vehState.errorString = ( "IOP in EMERGANCY_STOP")
+        vehState.mode.setMode(raceModes.ERROR)        
+    
     ##*************************************************************************
     # Startup states
     ##*************************************************************************
-    if vehState.mode.currMode == raceModes.NONE:
-        if vehState.mode.newMode():
-            playSound (vehState)
-
-        # Just go directly to WAIT_FOR_BIST mode
-        vehState.mode.setMode (raceModes.WAIT_FOR_BIST)
+    if vehState.mode.currMode == raceModes.INIT:
+        if (vehState.iopMode == IOP_MODE_ESTOP):
+            print("TEENSY was in ESTOP mode. Please wait...")            
+            serialPort.sendCommand (CMD_MODE, 0, 0, 0)   # Go to BIST mode 
+        else:
+            # Teensy not in ESTOP, just go directly to WAIT_FOR_BIST mode
+            vehState.mode.setMode (raceModes.WAIT_FOR_BIST)
     # end if
 
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.WAIT_FOR_BIST:
         if vehState.mode.newMode():
+            print("TEENSY is booting. Please wait...")            
             serialPort.sendCommand (CMD_MODE, 0, 0, 0)   # Go to BIST mode
-            playSound (vehState)
 
         # Are we in BIST mode yet?
-        if (vehState.iopMode != IOP_MODE_BIST):
-            # Not yet - wait for up to BistMaxCnt for IOP BIST mode
+        if (vehState.iopMode == IOP_MODE_BIST):       
+             # Yep, we're in BIST mode, check if there was a BIST error
+            if (vehState.iopBistStatus == 0):
+                # No error, wait for start of Teensy to be in NORMAL mode
+                serialPort.sendCommand ('D', 1, 0, 0)   # Go to NORMAL mode                
+                vehState.mode.setMode(raceModes.WAIT_FOR_NORM)                
+            else:
+                # We had a bist error somewhere...
+                print("Teensy in error mode. Reset.")               
+                vehState.errorString = ( "IOP BIST FAILURE")
+                    #"IOP BIST FAILURE, value %d" % (vehState.iopBistStatus))
+                vehState.mode.setMode (raceModes.ERROR)    
+            # end if 
+        else:
+            # We're not in BIST mode yet, has it been too long?
             if (vehState.mode.modeCount > BistMaxCnt):
               vehState.errorString = ("IOP NOT COMMUNICATING")
               vehState.mode.setMode (raceModes.ERROR)
-            # end if
-        else:
-            # Yep, we're in BIST mode, was there a BIST error
-            if (vehState.iopBistStatus != 0):
-                vehState.errorString = ( "IOP BIST FAILURE")
-                    #"IOP BIST FAILURE, value %d" % (vehState.iopBistStatus))
-                vehState.mode.setMode (raceModes.ERROR)
-            else:
-                vehState.mode.setMode(raceModes.WAIT_FOR_START)
-        # end if
-    
-    # Need a mode - wait for NORMAL mode of vehicle - dag
+            # end if   
     
     #------------------------------------------------------
-    elif vehState.mode.currMode == raceModes.WAIT_FOR_START:
-        if vehState.mode.newMode():
-            playSound (vehState)            
-            serialPort.sendCommand ('D', 1, 0, 0)   # Go to NORMAL mode
-            # IOP is now in NORMAL mode so set steering.  
-            serialPort.sendCommand (CMD_MOVE, 0, 0, 0)
-            serialPort.sendCommand (CMD_TURN, 1, 30000, 0)           
-        # end
-
-        if (vehState.iopMode != IOP_MODE_NORMAL):
+    elif vehState.mode.currMode == raceModes.WAIT_FOR_NORM:    
+        
+        if (vehState.iopMode == IOP_MODE_NORMAL):
+            vehState.mode.setMode(raceModes.WAIT_FOR_START)    
+        else:                    
             # Wait up to NormMaxCnt for IOP to be normal mode
             if (vehState.mode.modeCount > NormMaxCnt):
                 vehState.errorString = "IOP NOT GOING TO NORMAL MODE"
                 vehState.mode.setMode (raceModes.ERROR)
-            # end if
+
+    #------------------------------------------------------
+    elif vehState.mode.currMode == raceModes.WAIT_FOR_START:
+        if vehState.mode.newMode():
+            # IOP is now in NORMAL mode so set steering.  
+            serialPort.sendCommand (CMD_MOVE, 0, 0, 0)
+            serialPort.sendCommand (CMD_TURN, 1, 30000, 0)           
+
         else:
             # Did we get the start switch closure?
             if (vehState.iopStartSwitch):     # We're Off!
@@ -106,10 +113,6 @@ def stateMachine (vehState, serialPort, occGrid):
 
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.RACE_BEGIN:
-        if vehState.mode.newMode():
-            playSound (vehState)
-        # end
-
         # This is just a transitory state to initialize things
         # Clear out the occ grid and then move to RACE
         occGrid.clear(0, 0)
@@ -120,38 +123,29 @@ def stateMachine (vehState, serialPort, occGrid):
     # NORMAL RACE STATES
     ##*************************************************************************
     elif vehState.mode.currMode == raceModes.RACE_STRAIGHT:
-        if vehState.mode.newMode():
-            playSound (vehState)
-        # end
 
         serialPort.sendCommand (CMD_MOVE, vehState.mode.getSpeed(), 100, 0)
         serialPort.sendCommand (CMD_TURN, vehState.histAngle, 1000, 0)
 
         # If we got an obstacle sighting from the vision system transition
-        newState = obstacleTransition (vehState)
+        obstacleTransition (vehState)
         
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.RACE_CURVE:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         # If we got an obstacle sighting from the vision system transition
-        newState = obstacleTransition (vehState)
+        obstacleTransition (vehState)
 
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.NEGOT_CROSSING:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         # If we got an obstacle sighting from the vision system transition
-        newState = obstacleTransition (vehState)
+        obstacleTransition (vehState)
 
     ##*************************************************************************
     # STOPSIGN STATES
     ##*************************************************************************
     elif vehState.mode.currMode == raceModes.APPR_STOPSIGN:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         # Make sure we still spot the obstacle otherwise just go back to RACE
         if (vehState.obstacleType != OBSTACLE_STOPSIGN):
@@ -163,16 +157,12 @@ def stateMachine (vehState, serialPort, occGrid):
 
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.NEGOT_STOPSIGN:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         if (vehState.mode.modeCount >= simMaxCnt):
             vehState.mode.setMode(raceModes.RECOV_STOPSIGN)
 
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.RECOV_STOPSIGN:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         if (vehState.mode.modeCount >= simMaxCnt):
             vehState.mode.setMode(raceModes.RACE_STRAIGHT)
@@ -181,8 +171,6 @@ def stateMachine (vehState, serialPort, occGrid):
     # HOOP STATES
     ##*************************************************************************
     elif vehState.mode.currMode == raceModes.APPR_HOOP:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         # Make sure we still spot the obstacle otherwise just go back to RACE
         if (vehState.obstacleType != OBSTACLE_HOOP):
@@ -194,16 +182,12 @@ def stateMachine (vehState, serialPort, occGrid):
 
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.NEGOT_HOOP:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         if (vehState.mode.modeCount >= simMaxCnt):
             vehState.mode.setMode(raceModes.RECOV_HOOP)
 
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.RECOV_HOOP:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         if (vehState.mode.modeCount >= simMaxCnt):
             vehState.mode.setMode(raceModes.RACE_STRAIGHT)
@@ -212,8 +196,6 @@ def stateMachine (vehState, serialPort, occGrid):
     # BARREL STATES
     ##*************************************************************************
     elif vehState.mode.currMode == raceModes.APPR_BARRELS:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         # Make sure we still spot the obstacle otherwise just go back to RACE
         if (vehState.obstacleType != OBSTACLE_BARRELS):
@@ -225,16 +207,12 @@ def stateMachine (vehState, serialPort, occGrid):
 
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.NEGOT_BARRELS:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         if (vehState.mode.modeCount >= simMaxCnt):
             vehState.mode.setMode(raceModes.RECOV_BARRELS)
 
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.RECOV_BARRELS:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         if (vehState.mode.modeCount >= simMaxCnt):
             vehState.mode.setMode(raceModes.RACE_STRAIGHT)
@@ -243,8 +221,6 @@ def stateMachine (vehState, serialPort, occGrid):
     # RAMP STATES
     ##*************************************************************************
     elif vehState.mode.currMode == raceModes.APPR_RAMP:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         # Make sure we still spot the obstacle otherwise just go back to RACE
         if (vehState.obstacleType != OBSTACLE_RAMP):
@@ -256,16 +232,12 @@ def stateMachine (vehState, serialPort, occGrid):
 
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.NEGOT_RAMP:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         if (vehState.mode.modeCount >= simMaxCnt):
             vehState.mode.setMode(raceModes.RECOV_RAMP)
 
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.RECOV_RAMP:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         if (vehState.mode.modeCount >= simMaxCnt):
             vehState.mode.setMode(raceModes.RACE_STRAIGHT)
@@ -274,8 +246,6 @@ def stateMachine (vehState, serialPort, occGrid):
     # PEDESTRIAN STATES
     ##*************************************************************************
     elif vehState.mode.currMode == raceModes.APPR_PED:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         # Make sure we still spot the obstacle otherwise just go back to RACE
         if (vehState.obstacleType != OBSTACLE_PEDESTRIAN):
@@ -287,16 +257,12 @@ def stateMachine (vehState, serialPort, occGrid):
 
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.NEGOT_STOPSIGN:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         if (vehState.mode.modeCount >= simMaxCnt):
             vehState.mode.setMode(raceModes.RECOV_STOPSIGN)
 
     #------------------------------------------------------
     elif vehState.mode.currMode == raceModes.RECOV_STOPSIGN:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         if (vehState.mode.modeCount >= simMaxCnt):
             vehState.mode.setMode(raceModes.RACE_STRAIGHT)
@@ -305,8 +271,6 @@ def stateMachine (vehState, serialPort, occGrid):
     # TERMINATE RACE STATES
     ##*************************************************************************
     elif vehState.mode.currMode == raceModes.WAIT_FOR_END:
-        if vehState.mode.newMode():
-            playSound (vehState)
 
         if (vehState.mode.modeCount >= simMaxCnt):
             vehState.mode.setMode(raceModes.NEGOT_END)
@@ -327,12 +291,7 @@ def stateMachine (vehState, serialPort, occGrid):
     # ERROR STATES
     ##*************************************************************************
     elif vehState.mode.currMode == raceModes.ERROR:
-        if vehState.mode.newMode():
-            playSound (vehState)
-            printOut  ( "STATECONTROL - in ERROR State: %s" % (vehState.errorString))
-
-        if (vehState.mode.modeCount >= ErrorMaxCnt):
-            vehState.mode.setMode(raceModes.ERROR)
+        vehState.mode.printMode (vehState.errorString, printCnt) 
 
     #------------------------------------------------------
     else:
@@ -352,10 +311,7 @@ def stateMachine (vehState, serialPort, occGrid):
 ###############################################################################
 
 def obstacleTransition (vehState):
-    if vehState.obstacleType == OBSTACLE_NONE:
-        return raceModes.NONE
-
-    elif vehState.obstacleType == OBSTACLE_PEDESTRIAN:
+    if vehState.obstacleType == OBSTACLE_PEDESTRIAN:
         vehState.mode.setMode(raceModes.APPR_PED)
 
     elif vehState.obstacleType == OBSTACLE_STOPSIGN:
@@ -372,10 +328,6 @@ def obstacleTransition (vehState):
 
     elif vehState.obstacleType == OBSTACLE_COURSE_END:
         vehState.mode.setMode(raceModes.WAIT_FOR_END)
-
-    else:
-        vehState.errorString = "OBSTACLE TRANSITION ERROR - unknown obstacle type"
-        return raceModes.ERROR
     #end
 #end
 
@@ -383,7 +335,7 @@ def obstacleTransition (vehState):
 # playSound
 ###############################################################################
 def playSound (vehState):
-    vehState.mode.printMode("STATEMACHINE: Transitioned to ")
+    pass
 # end
 
 ###############################################################################
@@ -526,7 +478,7 @@ if __name__ == '__main__':
     serialPort   = serialClass (IopTlmQueue) # Serial port setup and support
 
     vehState     = vehicleState()
-    vehState.mode.setMode (raceModes.NONE)
+    vehState.mode.setMode (raceModes.INIT)
 
     for i in range(0, 100):
         stateMachine (vehState, serialPort)

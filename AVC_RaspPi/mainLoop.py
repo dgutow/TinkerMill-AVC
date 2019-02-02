@@ -61,7 +61,7 @@ def initializations():
     # Vehicle State holds everything known about the current vehicle state
     vehState        = vehicleState()
     # initialize vehicle state
-    vehState.mode.setMode (raceModes.NONE)   
+    vehState.mode.setMode (raceModes.INIT)   
     
     # start and initialize the RPLidar
     lidar       = init_lidar_scan()
@@ -92,7 +92,6 @@ def mainLoop(lidar, occGrid, vehState, cont):
     last_time   = time.clock()
     
     while (not abort): 
-        #(vehState.mode.currMode != raceModes.TERMINATE and not abort): 
         # Wait until 0.1 seconds have gone by from the last loop
         while ( time.clock() < (last_time + 0.1) ):
             pass
@@ -130,7 +129,6 @@ def mainLoop(lidar, occGrid, vehState, cont):
         serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0) #  dag turn on  
         
         loopCntr += 1                      
-
     # end while
     
     printOut ("MAIN_LOOP: Terminating mainLoop, killing serialPort")
@@ -165,7 +163,7 @@ def get_lidarTlm(loopCntr, vehState, lidar, occGrid, cont):
     start_time = time.clock()
     vehState.histAngle = cont.calcTargetAngle(vehState,60,-60) 
     if TESTING:
-        vehState.histAngle = 12 # TESTING ANGLE
+        vehState.histAngle = 8 # TESTING ANGLE
     #vehState.histAngle = occGrid.getNearestAngle(0) 
     #print(occGrid.printHistArr())
     vehState.hist_get_angle_time = time.clock() - start_time        ##### time
@@ -449,7 +447,7 @@ def exec_guiCmd (cmdMsg, vehState):
         guiAcceptCnt += 1       
         
     elif (command == 'R'):      # Set Rpi mode
-        vehState.mode.currMode = param1
+        vehState.mode.setMode (param1)
         guiAcceptCnt += 1         
         
     elif (command == 'S'):      # Set scanner speed            
