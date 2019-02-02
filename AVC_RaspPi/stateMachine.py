@@ -35,9 +35,9 @@ ErrorMaxCnt     = 200   # Number of iterations before repeating error msg
 def stateMachine (vehState, serialPort, occGrid):
     if (vehState.iopMode == 1) and (vehState.mode.currMode == 2):
         print("ready to start")
-    elif vehState.mode.currMode == 1):
+    elif (vehState.mode.currMode == 1):
         print("raspberry pi is booting. Please wait.")
-    else (vehState.iopMode == 2):
+    elif (vehState.iopMode == 2):
         print("Teensy in error mode. Reset.")
     else:
         print("IOPMODE: ",vehState.iopMode, " STATEMACHINE: ", vehState.mode.currMode)

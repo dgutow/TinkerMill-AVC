@@ -8,7 +8,7 @@
 import math as math
 
 DEVELOPMENT = False
-TESTING = False
+TESTING = True
 
 ###############################################################################
 # SIM_TEENSY - Used when integrating with no Teensy connected.
@@ -35,7 +35,8 @@ RAD_TO_DEG       = 180 / math.pi
 #UDP_IPADDR   = '10.2.122.53'   # laptop
 
 RPI_IPADDR   = '192.168.4.10'   # the Rpi
-UDP_IPADDR   = '192.168.4.30'   # Daves laptop
+#UDP_IPADDR   = '192.168.4.30'   # Daves laptop
+UDP_IPADDR   = '192.168.4.100'  # Tinkermill laptop GREEN
 
 RPI_TCPPORT  = 61432            # The TCP port for cmds/tlm to/from the Rpi
 UDP_IOPPORT  = 61433            # The UDP port for tlm from IOP 
@@ -128,7 +129,8 @@ rsLRspacing     = 15    # The spacing between the left and right sensor pairs
 ###############################################################################
 # The various speed values:  
 ###############################################################################
-speedMax        = 11    # Maximum speed we'll ever go
+# Maximum speed we'll ever go
+speedMax        = 10
 speedApproach   = 5     # The speed we'll approach obstacle with
 speedRecov      = 5
 speedHoop       = 3     # The speed we'll negotiate the hoop obstacle

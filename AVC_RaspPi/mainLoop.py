@@ -163,10 +163,9 @@ def get_lidarTlm(loopCntr, vehState, lidar, occGrid, cont):
     # Calculate the steering angle.  This angle won't be used until we're in
     # the proper state
     start_time = time.clock()
+    vehState.histAngle = cont.calcTargetAngle(vehState,60,-60) 
     if TESTING:
-        vehState.histAngle = 10
-    else:
-        vehState.histAngle = cont.calcTargetAngle(vehState,60,-60) 
+        vehState.histAngle = 12 # TESTING ANGLE
     #vehState.histAngle = occGrid.getNearestAngle(0) 
     #print(occGrid.printHistArr())
     vehState.hist_get_angle_time = time.clock() - start_time        ##### time
@@ -219,16 +218,17 @@ def get_iopTlm(loopCntr):
         tlm_cnt += 1
     # end while
 
-    
-    if (tlm_cnt > 0 and (loopCntr % 20 == 0) ):
-        pass
-        #print "MAINLOOP:GET_IOPTLM - nPkts %d, Tim %3d, Mode %1d, Accept %2d, But %2d/%2d" % (
-        #    tlm_cnt, vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
-        #    vehState.iopSwitchStatus, vehState.iopStartSwitch) 
-    else:
-        print ("MAINLOOP:GET_IOPTLM - no new telemetry ")         
-        pass
-
+    if (loopCntr % 20 == 0):
+        if (tlm_cnt > 0):
+            print ("MAINLOOP:GET_IOPTLM - Packets Received  ", tlm_cnt)            
+            pass
+            #print "MAINLOOP:GET_IOPTLM - nPkts %d, Tim %3d, Mode %1d, Accept %2d, But %2d/%2d" % (
+            #    tlm_cnt, vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
+            #    vehState.iopSwitchStatus, vehState.iopStartSwitch) 
+        else:
+            print ("MAINLOOP:GET_IOPTLM - no new telemetry ")         
+            pass
+    # end if
               
     return (msg)        # We'll return the last message on queue
 # end    
@@ -280,7 +280,7 @@ def proc_iopTlm (data):
     vehState.iopRightEncoder= telemArray[24]   
 
     if (not DEVELOPMENT) and TESTING:
-        with open("lidarSaves1519\{:10.5f}.pickle".format(time.time()),'wb') as outfile:
+        with open("lidarSaves20219/{:10.5f}.pickle".format(time.time()),'wb') as outfile:
             pickle.dump(telemArray,outfile)
     
     if  False:
