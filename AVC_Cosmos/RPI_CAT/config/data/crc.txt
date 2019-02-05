@@ -7,7 +7,7 @@ USER_MODIFIED
 "config/targets/IOP_UDP/cmd_tlm_server.txt" 0xE68E8C6D
 "config/targets/IOP_UDP/screens/status.txt" 0xCDE46516
 "config/targets/IOP_UDP/target.txt" 0xC9096C1E
-"config/targets/RPI_CAT/cmd_tlm/cat_cmds.txt" 0x0B2D9E20
+"config/targets/RPI_CAT/cmd_tlm/cat_cmds.txt" 0xD549C147
 "config/targets/RPI_CAT/cmd_tlm/cat_tlm.txt" 0x39C0364A
 "config/targets/RPI_CAT/cmd_tlm_server.txt" 0xA084C20F
 "config/targets/RPI_CAT/screens/status.txt" 0x9F185F20
