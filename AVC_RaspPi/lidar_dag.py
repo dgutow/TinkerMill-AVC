@@ -11,6 +11,7 @@ from vehicleState    import *       # Everything we know about the vehicle
 from OccupGrid_v5_1  import Grid
 
 PORT_NAME = '/dev/ttyUSB0'
+PORT_NAME = 'COM4'
 
 #scandata = None
 #scan_iter= None

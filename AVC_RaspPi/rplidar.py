@@ -84,6 +84,9 @@ def process_data (raw, lidar):         # was _process_scan(raw) in rplidar.py
     #else:
     #    return (True, 0, 0, 0, 0)
 
+###############################################################################
+# process_scan - Processes input raw data and returns measurement data
+###############################################################################
 def process_scan(raw):
     print(" outer level functions may be expecting a numpy array")
     new_scan = bool((raw[0] & 0x03)==1)
@@ -102,6 +105,10 @@ def process_scan(raw):
     #print("raw: ",raw[0],raw[1],raw[2],raw[3],", angle: ",angle,", distance: ",distance)
     return (False, new_scan, quality, angle, distance)
 
+    
+###############################################################################
+# process_express_scan - Processes input raw data and returns measurement data
+###############################################################################   
 #@numba.jit()
 def process_express_scan(raw, lastExpressStartAngle):
     #chkSum= (raw[0] & 0x0F) + (raw[1] << 4)
@@ -133,6 +140,9 @@ def process_express_scan(raw, lastExpressStartAngle):
         
     return readings, startAngle
 
+###############################################################################
+# process_cabin - Processes input raw data and returns measurement data
+###############################################################################       
 @numba.jit()
 def process_cabin(raw, startAngle, delta, newScan):
     readings=np.zeros((32,4))
@@ -162,10 +172,16 @@ def process_cabin(raw, startAngle, delta, newScan):
 
     return readings
 
+###############################################################################
+# _showhex
+###############################################################################  
 def _showhex(signal):
     '''Converts string bytes to hex representation (useful for debugging)'''
     return [format(b, '#02x') for b in signal]
 
+###############################################################################
+# class RPLidar(object): 
+###############################################################################  
 class RPLidar(object):
     '''Class for communicating with RPLidar rangefinder scanners'''
 
@@ -361,8 +377,10 @@ class RPLidar(object):
         self.express_data = False
 
     def stop(self):
-        '''Stops scanning process, disables laser diode and the measurement
-        system, moves sensor to the idle state.'''
+        '''
+        Stops scanning process, disables laser diode and the measurement
+        system, moves sensor to the idle state.
+        '''
         self.logger.info('Stopping scanning')
         self._send_cmd(STOP_BYTE)
         time.sleep(.1)
@@ -370,16 +388,18 @@ class RPLidar(object):
         self.clean_input()
 
     def start(self, scan_type='normal'):
-        '''Start the scanning process
-
+        '''
+        Start the scanning process
         Parameters
         ----------
         scan : normal, force or express.
         '''
         if self.scanning[0]:
             return 'Scanning already running !'
-        '''Start the scanning process, enable laser diode and the
-        measurement system'''
+        '''
+        Start the scanning process, enable laser diode and the
+        measurement system
+        '''
         status, error_code = self.get_health()
         self.logger.debug('Health status: %s [%d]', status, error_code)
         if status == _HEALTH_STATUSES[2]:
@@ -412,15 +432,18 @@ class RPLidar(object):
         self.scanning = [True, dsize, scan_type]
     
     def reset(self):
-        '''Resets sensor core, reverting it to a similar state as it has
-        just been powered up.'''
+        """
+        Resets sensor core, reverting it to a similar state as it has
+        just been powered up.
+        """
         self.logger.info('Reseting the sensor')
         self._send_cmd(RESET_BYTE)
         time.sleep(2)
         self.clean_input()
-    """
+
     def iter_measures(self, scan_type='normal', max_buf_meas=3000):
-        '''Iterate over measures. Note that consumer must be fast enough,
+        """
+        Iterate over measures. Note that consumer must be fast enough,
         otherwise data will be accumulated inside buffer and consumer will get
         data with increasing lag.
 
@@ -441,7 +464,8 @@ class RPLidar(object):
         distance : float
             Measured object distance related to the sensor's rotation center.
             In millimeter unit. Set to 0 when measure is invalid.
-        '''
+        """
+        
         self.start_motor()
         if not self.scanning[0]:
             self.start(scan_type)
@@ -484,10 +508,11 @@ class RPLidar(object):
                 yield _process_express_scan(self.express_old_data,
                                             self.express_data.start_angle,
                                             self.express_trame)
-    """
-    """
+
+        
     def iter_scans(self, scan_type='normal', max_buf_meas=3000, min_len=5):
-        '''Iterate over scans. Note that consumer must be fast enough,
+        """
+        Iterate over scans. Note that consumer must be fast enough,
         otherwise data will be accumulated inside buffer and consumer will get
         data with increasing lag.
 
@@ -505,7 +530,8 @@ class RPLidar(object):
             List of the measures. Each measurment is tuple with following
             format: (quality, angle, distance). For values description please
             refer to `iter_measures` method's documentation.
-        '''
+        """
+        
         scan_list = []
         iterator = self.iter_measures(scan_type, max_buf_meas)
         for new_scan, quality, angle, distance in iterator:
@@ -515,8 +541,9 @@ class RPLidar(object):
                 scan_list = []
             if distance > 0:
                 scan_list.append((quality, angle, distance))
-    """
-"""
+                
+
+
 class ExpressPacket(namedtuple('express_packet',
                                'distance angle new_scan start_angle')):
     sync1 = 0xa
@@ -674,4 +701,4 @@ def _process_express_scan(data, new_angle, trame):
             )/32*trame - data.angle[trame-1]) % 360
     distance = data.distance[trame-1]
     return new_scan, None, angle, distance
-"""
+
