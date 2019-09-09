@@ -61,7 +61,7 @@ def initializations():
     # Vehicle State holds everything known about the current vehicle state
     vehState        = vehicleState()
     # initialize vehicle state
-    vehState.mode.setMode (raceModes.NONE)   
+    vehState.mode.setMode (raceModes.INIT)   
     
     # start and initialize the RPLidar
     lidar       = init_lidar_scan()
@@ -92,7 +92,6 @@ def mainLoop(lidar, occGrid, vehState, cont):
     last_time   = time.clock()
     
     while (not abort): 
-        #(vehState.mode.currMode != raceModes.TERMINATE and not abort): 
         # Wait until 0.1 seconds have gone by from the last loop
         while ( time.clock() < (last_time + 0.1) ):
             pass
@@ -130,7 +129,6 @@ def mainLoop(lidar, occGrid, vehState, cont):
         serialPort.sendCommand ('H', vehState.currHeartBeat, 0, 0) #  dag turn on  
         
         loopCntr += 1                      
-
     # end while
     
     printOut ("MAIN_LOOP: Terminating mainLoop, killing serialPort")
@@ -163,10 +161,9 @@ def get_lidarTlm(loopCntr, vehState, lidar, occGrid, cont):
     # Calculate the steering angle.  This angle won't be used until we're in
     # the proper state
     start_time = time.clock()
+    vehState.histAngle = cont.calcTargetAngle(vehState,60,-60) 
     if TESTING:
-        vehState.histAngle = 10
-    else:
-        vehState.histAngle = cont.calcTargetAngle(vehState,60,-60) 
+        vehState.histAngle = 8 # TESTING ANGLE
     #vehState.histAngle = occGrid.getNearestAngle(0) 
     #print(occGrid.printHistArr())
     vehState.hist_get_angle_time = time.clock() - start_time        ##### time
@@ -219,16 +216,17 @@ def get_iopTlm(loopCntr):
         tlm_cnt += 1
     # end while
 
-    
-    if (tlm_cnt > 0 and (loopCntr % 20 == 0) ):
-        pass
-        #print "MAINLOOP:GET_IOPTLM - nPkts %d, Tim %3d, Mode %1d, Accept %2d, But %2d/%2d" % (
-        #    tlm_cnt, vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
-        #    vehState.iopSwitchStatus, vehState.iopStartSwitch) 
-    else:
-        print ("MAINLOOP:GET_IOPTLM - no new telemetry ")         
-        pass
-
+    if (loopCntr % 20 == 0):
+        if (tlm_cnt > 0):
+            print ("MAINLOOP:GET_IOPTLM - Packets Received  ", tlm_cnt)            
+            pass
+            #print "MAINLOOP:GET_IOPTLM - nPkts %d, Tim %3d, Mode %1d, Accept %2d, But %2d/%2d" % (
+            #    tlm_cnt, vehState.iopTime, vehState.iopMode, vehState.iopAcceptCnt, 
+            #    vehState.iopSwitchStatus, vehState.iopStartSwitch) 
+        else:
+            print ("MAINLOOP:GET_IOPTLM - no new telemetry ")         
+            pass
+    # end if
               
     return (msg)        # We'll return the last message on queue
 # end    
@@ -280,7 +278,7 @@ def proc_iopTlm (data):
     vehState.iopRightEncoder= telemArray[24]   
 
     if (not DEVELOPMENT) and TESTING:
-        with open("lidarSaves1519\{:10.5f}.pickle".format(time.time()),'wb') as outfile:
+        with open("lidarSaves20219/{:10.5f}.pickle".format(time.time()),'wb') as outfile:
             pickle.dump(telemArray,outfile)
     
     if  False:
@@ -449,7 +447,7 @@ def exec_guiCmd (cmdMsg, vehState):
         guiAcceptCnt += 1       
         
     elif (command == 'R'):      # Set Rpi mode
-        vehState.mode.currMode = param1
+        vehState.mode.setMode (param1)
         guiAcceptCnt += 1         
         
     elif (command == 'S'):      # Set scanner speed            
